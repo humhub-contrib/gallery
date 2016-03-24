@@ -1,0 +1,9 @@
+.htaccess
+nbproject
+.idea/*
+.gitmodules
+/composer.lock
+
+/.buildpath
+/.project
+/.settings/
