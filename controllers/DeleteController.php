@@ -10,6 +10,7 @@ namespace humhub\modules\gallery\controllers;
 use Yii;
 use yii\web\HttpException;
 use humhub\modules\gallery\models\Gallery;
+use yii\base\Model;
 
 /**
  * Description of DeleteController for the gallery module.
@@ -76,13 +77,7 @@ class DeleteController extends BrowseController
     {
         $item = $this->module->getItemById($itemId);
         
-        if ($item instanceof Gallery) {
-            $subitems = $item->media;
-            foreach ($subitems as $media) {
-                $media->delete();
-            }
-            return $item->delete();
-        } elseif ($item instanceof Media) {
+        if ($item instanceof Model) {
             return $item->delete();
         }
         

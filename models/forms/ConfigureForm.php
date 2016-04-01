@@ -5,7 +5,9 @@ use Yii;
 
 /**
  * ConfigureForm defines the configurable fields for the gallery module.
- *
+ * 
+ * @deprecated IS DUMMY IMPLEMENTATION.
+ *            
  * @package humhub\modules\gallery\models\forms
  * @since 1.0
  * @author Sebastian Stumpf

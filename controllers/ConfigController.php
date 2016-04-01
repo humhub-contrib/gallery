@@ -14,6 +14,8 @@ use humhub\modules\gallery\models\forms\ConfigureForm;
 /**
  * ConfigController handles the configuration requests for the gallery module.
  *
+ * @deprecated IS DUMMY IMPLEMENTATION.
+ *            
  * @package humhub.modules.gallery.controllers
  * @since 1.0
  * @author Sebastian Stumpf
@@ -23,6 +25,7 @@ class ConfigController extends \humhub\modules\admin\components\Controller
 
     /**
      * Configuration action for super admins.
+     * Uses post data to fill the configuration model.
      */
     public function actionIndex()
     {

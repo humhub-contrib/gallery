@@ -25,16 +25,16 @@ $bundle = \humhub\modules\gallery\Assets::register($this);
                     </ul>
                 </div>
             </div>
-            <div class="col-sm-12">
+            <div id="galleryList" class="col-sm-12">
                 <div class="row">
                 <?php foreach($galleries as $gallery): ?>
                     <?php
                     $title = $gallery->title;
                     $description = $gallery->description;
                     $previewImageLink = $gallery->previewMedia === null ? '' : $gallery->previewMedia->getUrl();
-                    $previewImage = $previewImageLink === '' ? '<i class="fa fa-picture-o" style="font-size:150px;"></i>' : '<img src="' . $previewImageLink . '; ?>" style="max-width:200px;max-height:200px;"/>';
+                    $previewImage = $previewImageLink === '' ? '<i class="fa fa-picture-o" style="font-size:150px;"></i>' : '<img src="' . $previewImageLink . '" style="max-width:200px;max-height:200px;"/>';
                     ?>
-                    <div class="col-sm-12">
+                    <div class="col-sm-4">
                         <h1><?php echo Html::encode($title); ?></h1>
                         <a href="<?php echo $this->context->contentContainer->createUrl('/gallery/browse', ['open-gallery-id' => $gallery->id]); ?>"><?php echo $previewImage; ?><br /></a>
                         <?php echo Html::encode($description); ?><br />

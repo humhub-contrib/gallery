@@ -20,33 +20,46 @@ use humhub\modules\gallery\models\Gallery;
 class BrowseController extends BaseController
 {
 
+    /**
+     * Action to view a gallery or a the list of all galleries.
+     * @url-param 'open-gallery-id' id of the open gallery. If empty the gallery list will be rendered.
+     *
+     * @return string the rendered view.
+     */
     public function actionIndex()
     {
         return $this->renderGallery();
     }
 
+    /**
+     * Get this content container's galleries.
+     *
+     * @return null | array&lt;models\Gallery&gt;
+     */
     protected function getGalleries()
     {
         $query = Gallery::find()->contentContainer($this->contentContainer)->readable();
         return $query->all();
     }
 
+    /**
+     * Render a specified gallery or the gallery list.
+     * @url-param 'open-gallery-id' id of the open gallery. If empty the gallery list will be rendered.
+     *
+     * @param string $ajax
+     *            render as ajax. default: false
+     * @param string $openGalleryId
+     *            the gallery to render, if null the gallery list will be rendered.
+     */
     protected function renderGallery($ajax = false, $openGalleryId = null)
     {
-        if($openGalleryId == null) {
-            $openGalleryId = Yii::$app->request->get('open-gallery-id');
-        }
-        if ($openGalleryId != null) {
-            $gallery = Gallery::findOne([
-                'id' => $openGalleryId
+        $gallery = $this->getOpenGallery($openGalleryId);
+        if ($gallery != null) {
+            return $ajax ? $this->renderAjax("/browse/gallery", [
+                'gallery' => $gallery
+            ]) : $this->render("/browse/gallery", [
+                'gallery' => $gallery
             ]);
-            if ($gallery != null) {
-                return $ajax ? $this->renderAjax("/browse/gallery", [
-                    'gallery' => $gallery
-                ]) : $this->render("/browse/gallery", [
-                    'gallery' => $gallery
-                ]);
-            }
         }
         return $ajax ? $this->renderAjax("/browse/index", [
             'galleries' => $this->getGalleries()

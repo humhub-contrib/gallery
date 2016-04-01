@@ -37,7 +37,7 @@ use yii\bootstrap\ActiveForm;
                     'success' => new yii\web\JsExpression('function(html){ $("#globalModal").modal("hide"); $("#galleryContainer").html(html);}'),
                     'url' => $this->context->contentContainer->createUrl('/gallery/edit/gallery', [
                         'item-id' => $gallery->getItemId(),
-                        'open-gallery-id' => $gallery->id 
+                        'open-gallery-id' => $openGalleryId
                     ])
                 ],
                 'htmlOptions' => [

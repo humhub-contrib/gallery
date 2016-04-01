@@ -8,13 +8,12 @@ use humhub\modules\content\components\ContentContainerModule;
 use humhub\modules\content\components\ContentContainerActiveRecord;
 use humhub\modules\content\models\Content;
 use yii\helpers\Url;
-use humhub\modules\gallery\models\Gallery;
 
 class Module extends ContentContainerModule
 {
 
     public $debug = false;
-    
+
     /**
      * @inheritdoc
      */
@@ -42,7 +41,7 @@ class Module extends ContentContainerModule
 
     public function getItemById($itemId)
     {
-        if(!is_string($itemId) || $itemId === '') {
+        if (! is_string($itemId) || $itemId === '') {
             return null;
         }
         
@@ -62,34 +61,22 @@ class Module extends ContentContainerModule
 
     public function disable()
     {
-        foreach (Gallery::find()->all() as $key => $folder) {
-            $folder->delete();
+        foreach (models\Gallery::find()->all() as $key => $gallery) {
+            $gallery->delete();
         }
-        foreach (Media::find()->all() as $key => $file) {
-            $file->delete();
+        foreach (models\Media::find()->all() as $key => $media) {
+            $media->delete();
         }
     }
 
     public function disableContentContainer(\humhub\modules\content\components\ContentContainerActiveRecord $container)
     {
-        $galleries = Content::findAll([
-            'object_model' => Gallery::className(),
-            'space_id' => $container->id
-        ]);
-        foreach ($galleries as $galleryContent) {
-            $gallery = Gallery::findOne([
-                'id' => $galleryContent->object_id
-            ]);
+        $galleries = models\Gallery::find()->contentContainer($container)->all();
+        foreach ($galleries as $gallery) {
             $gallery->delete();
         }
-        $mediaList = Content::findAll([
-            'object_model' => Media::className(),
-            'space_id' => $container->id
-        ]);
-        foreach ($mediaList as $mediaContent) {
-            $media = Media::findOne([
-                'id' => $mediaContent->object_id
-            ]);
+        $mediaList = models\Media::find()->contentContainer($container)->all();
+        foreach ($mediaList as $media) {
             $media->delete();
         }
     }
@@ -108,6 +95,8 @@ class Module extends ContentContainerModule
 
     /**
      * @inheritdoc
+     * 
+     * @deprecated IS DUMMY IMPLEMENTATION.
      */
     public function getConfigUrl()
     {
