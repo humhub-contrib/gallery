@@ -43,13 +43,13 @@ $(function() {
 		url : galleryMediaUploadUrl,
 		dataType : 'json',
 		done : function(e, data) {
-			$('#galleryMediaList').html(data.result.mediaList);
-			console.log(data);
+			$('#galleryContent').html(data.result.galleryHtml);
 			if(!jQuery.isEmptyObject(data.result.errors)) {
 				updateLog(data.result.errors);
 			}
 		},
 		fail : function(e, data) {
+			console.log(data.jqXHR.responseJSON);
 			updateLog(data.jqXHR.responseJSON.message);
 		},
 		start : function(e, data) {

@@ -18,7 +18,7 @@ use yii\bootstrap\ActiveForm;
         </div>
 
         <div class="modal-body">
-            <?php echo Yii::t('GalleryModule.base', 'Do you really want to delete this %number% item(s) with all subcontent?', ['%number%' => count($selectedItems)]); ?>
+            <?php echo Yii::t('GalleryModule.base', 'Do you really want to delete this %number% item(s) with all related content?', ['%number%' => count($selectedItems)]); ?>
         </div>
         
         <?php

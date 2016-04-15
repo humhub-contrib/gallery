@@ -12,6 +12,7 @@ use yii\web\UploadedFile;
 use humhub\modules\gallery\models\Media;
 use humhub\modules\file\models\File;
 use humhub\modules\gallery\libs\FileUtils;
+use humhub\modules\gallery\widgets\GalleryContent;
 
 /**
  * Description of UploadController for the gallery module.
@@ -87,6 +88,8 @@ class UploadController extends BrowseController
             ], $uploadedFile->name, false);
         }
         
+        // render and add gallery content to the response
+        $response['galleryHtml'] = GalleryContent::widget(['gallery' => $parentGallery, 'context' => $this]);        
         return $response;
     }
 
@@ -119,7 +122,6 @@ class UploadController extends BrowseController
     {
         $errors = $baseErrors;
         foreach ($models as $model) {
-            
             $modelErrors = array_map(function ($value, $key) use($prefix, $useKey)
             {
                 return $prefix . ($useKey ? $key : '') . ': ' . $value[0];

@@ -5,6 +5,7 @@ use humhub\modules\cfiles\controllers\BrowseController;
 use humhub\models\Setting;
 use yii\bootstrap\ButtonDropdown;
 use humhub\modules\cfiles\widgets\DropdownButton;
+use humhub\modules\gallery\widgets\GalleryContent;
 
 $bundle = \humhub\modules\gallery\Assets::register($this);
 $this->registerJsVar('galleryMediaUploadUrl', $this->context->contentContainer->createUrl('/gallery/upload', [
@@ -46,17 +47,7 @@ $this->registerJsVar('galleryMediaUploadUrl', $this->context->contentContainer->
                     </ul>
                 </div>
             </div>
-            <div id="galleryMediaList" class="col-sm-12">
-                <?php foreach($gallery->media as $media): ?>
-                        <a data-toggle="lightbox" data-gallery="GalleryModule-Gallery-<?php echo $gallery->id; ?>"
-                            href="<?php echo $media->getUrl(); ?>#.jpeg"
-                            data-footer='<button type="button" class="btn btn-primary" data-dismiss="modal"><?php echo Yii::t('FileModule.base', 'Close'); ?></button>'>
-                            <img style="width:25%" src="<?php echo $media->getUrl(); ?>" />
-                        </a>
-                        <a data-target="#globalModal" href="<?php echo $this->context->contentContainer->createUrl('/gallery/delete', ['open-gallery-id' => $gallery->id,'item-id' => $media->getItemId()]);?>"><i class="fa fa-trash"></i></a> 
-                        <a data-target="#globalModal" href="<?php echo $this->context->contentContainer->createUrl('/gallery/edit/media', ['open-gallery-id' => $gallery->id,'item-id' => $media->getItemId()]);?>"><i class="fa fa-edit"></i></a>
-                <?php endforeach; ?>
-            </div>
+            <?php echo GalleryContent::widget([ 'gallery' => $gallery, 'context' => $this->context ]); ?>
         </div>
     </div>
     <?php echo Html::endForm(); ?>
