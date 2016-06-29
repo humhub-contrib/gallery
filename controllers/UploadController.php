@@ -34,9 +34,9 @@ class UploadController extends BrowseController
         'svg',
         'tiff',
         'png',
-        'mp4',
-        'mpeg',
-        'swf'
+        //'mp4',
+        //'mpeg',
+        //'swf'
     ];
 
     /**
@@ -87,7 +87,7 @@ class UploadController extends BrowseController
                 $baseFile
             ], $uploadedFile->name, false);
         }
-        
+
         // render and add gallery content to the response
         $response['galleryHtml'] = GalleryContent::widget(['gallery' => $parentGallery, 'context' => $this]);        
         return $response;

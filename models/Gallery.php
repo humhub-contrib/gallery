@@ -64,14 +64,22 @@ class Gallery extends ContentActiveRecord
         ];
     }
 
-    public function getPreviewMedia()
+    public function getPreviewImageUrl()
     {
-        return $this->hasOne(Media::className(), [
-            'gallery_id' => 'id'
-        ])->orderBy(['sort_order' => SORT_ASC]);
+        $media = Media::find()
+            ->where(['gallery_id' => $this->id])
+            ->orderBy(['sort_order' => SORT_ASC])
+            ->one();
+        if($media != null) {
+            return $media->getQuadraticThumbnailUrl();
+        } else {
+            $path = Yii::$app->getModule('gallery')->getAssetsUrl() . '/resources';
+            $path = $path . '/file-picture-o.svg';
+            return $path;
+        }
     }
 
-    public function getMedia()
+    public function getMediaList()
     {
         return $this->hasMany(Media::className(), [
             'gallery_id' => 'id'
@@ -83,7 +91,7 @@ class Gallery extends ContentActiveRecord
      */
     public function beforeDelete()
     {
-        foreach ($this->media as $media) {
+        foreach ($this->mediaList as $media) {
             $media->delete();
         }
         
