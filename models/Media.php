@@ -122,10 +122,9 @@ class Media extends ContentActiveRecord
     }
     
     // TODO: move me out of here to File
-    public function getQuadraticThumbnailUrl()
+    public function getQuadraticThumbnailUrl($maxDimension = 1000)
     {
-        
-        $suffix = 'thumb_quad';
+        $suffix = $maxDimension.'_thumb_quad';
     
         $basefile = $this->baseFile;
         
@@ -147,21 +146,20 @@ class Media extends ContentActiveRecord
         }
     
         $imageInfo = @getimagesize($originalFilename);
-    
-        // Check if we got any dimensions - invalid image
-        if (!isset($imageInfo[0]) || !isset($imageInfo[1])) {
+        
+        // check valid image dimesions
+        if(!isset($imageInfo[0]) || !isset($imageInfo[1])) {
             return "";
         }
-    
+        
         // Check if image type is supported
         if ($imageInfo[2] != IMAGETYPE_PNG && $imageInfo[2] != IMAGETYPE_JPEG && $imageInfo[2] != IMAGETYPE_GIF) {
             return "";
         }
         
-        $dim = min($imageInfo[0], $imageInfo[1]);
-        
+        $dim = min($imageInfo[0], $imageInfo[1], $maxDimension);
         ImageConverter::Resize($originalFilename, $previewFilename, array('mode' => 'force', 'width' => $dim, 'height' => $dim));
-        return $basefile->getUrl($suffix);
+        return $basefile->getUrl($suffix);    
     }
 
     /**

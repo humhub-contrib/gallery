@@ -8,6 +8,7 @@ use humhub\modules\cfiles\widgets\DropdownButton;
 
 $bundle = \humhub\modules\gallery\Assets::register($this);
 $counter = 0;
+$rowClosed = true;
 ?>
 
 <div id="galleryList" class="col-sm-12">

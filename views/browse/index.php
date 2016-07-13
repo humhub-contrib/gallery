@@ -8,7 +8,9 @@ use humhub\modules\cfiles\widgets\DropdownButton;
 use humhub\modules\gallery\widgets\GalleryList;
 
 $bundle = \humhub\modules\gallery\Assets::register($this);
+$this->registerJsVar('galleryMediaUploadUrl', 'unused');
 ?>
+
 <div id="galleryContainer" class="panel panel-default">
     <?php echo Html::beginForm(null, null, ['data-target' => '#globalModal', 'id' => 'gallery-form']); ?>
     <div class="panel-body">
