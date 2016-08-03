@@ -19,7 +19,7 @@ class Events extends \yii\base\Object
             $event->sender->addItem(array(
                 'label' => Yii::t('GalleryModule.base', 'Gallery'),
                 'group' => 'modules',
-                'url' => $event->sender->space->createUrl('/gallery/browse'),
+                'url' => $event->sender->space->createUrl('/gallery/list'),
                 'icon' => '<i class="fa fa-picture-o"></i>',
                 'isActive' => (Yii::$app->controller->module && Yii::$app->controller->module->id == 'gallery')
             ));
@@ -33,7 +33,7 @@ class Events extends \yii\base\Object
             if ($event->sender->user->canAccessPrivateContent()) {
                 $event->sender->addItem(array(
                     'label' => Yii::t('GalleryModule.base', 'Gallery'),
-                    'url' => $event->sender->user->createUrl('/gallery/browse'),
+                    'url' => $event->sender->user->createUrl('/gallery/list'),
                     'isActive' => (Yii::$app->controller->module && Yii::$app->controller->module->id == 'gallery')
                 ));
             }

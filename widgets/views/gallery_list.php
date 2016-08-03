@@ -12,7 +12,38 @@ $rowClosed = true;
 ?>
 
 <div id="galleryList" class="col-sm-12">
-    <?php foreach($galleries as $gallery): ?>
+    <?php foreach($stream_galleries as $gallery): ?>
+        <?php if(!$gallery->isEmpty()): ?>
+            <?php if($counter % 3 === 0) :
+                echo '<div class="row">';
+                $rowClosed = false;
+            endif; ?>
+                <div class="col-sm-4 gallery">
+                    <div class="panel panel-default">
+                        <div class="panel-header">
+                            <?php echo Html::encode($gallery->title); ?>
+                        </div>
+                        <div class="panel-body">
+                            <a href="<?php echo $this->context->context->contentContainer->createUrl('/gallery/stream-gallery/view', ['open-gallery-id' => $gallery->id]); ?>">
+                                <img src="<?php echo $gallery->getPreviewImageUrl(); ?>" />
+                            </a>
+                        </div>
+                        <div class="panel-footer">
+                            <span class="pull-right gallery-media-file-controls">
+                                <a data-target="#globalModal" href="<?php echo $this->context->context->contentContainer->createUrl('/gallery/stream-gallery/edit', ['item-id' => $gallery->getItemId()])?>"><i class="fa fa-edit"></i></a>
+                            </span>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                </div>
+            <?php if(++$counter % 3 === 0) :
+                echo '</div>';
+                $rowClosed = true;
+            endif; ?>
+        <?php endif; ?>
+    <?php endforeach; ?>
+    
+    <?php foreach($custom_galleries as $gallery): ?>
         <?php if($counter % 3 === 0) :
             echo '<div class="row">';
             $rowClosed = false;
@@ -23,14 +54,14 @@ $rowClosed = true;
                         <?php echo Html::encode($gallery->title); ?>
                     </div>
                     <div class="panel-body">
-                        <a href="<?php echo $this->context->context->contentContainer->createUrl('/gallery/browse', ['open-gallery-id' => $gallery->id]); ?>">
+                        <a href="<?php echo $this->context->context->contentContainer->createUrl('/gallery/custom-gallery/view', ['open-gallery-id' => $gallery->id]); ?>">
                             <img src="<?php echo $gallery->getPreviewImageUrl(); ?>" />
                         </a>
                     </div>
                     <div class="panel-footer">
                         <span class="pull-right gallery-media-file-controls">
-                            <a data-target="#globalModal" href="<?php echo $this->context->context->contentContainer->createUrl('/gallery/delete', ['item-id' => $gallery->getItemId()])?>"><i class="fa fa-trash"></i></a> 
-                            <a data-target="#globalModal" href="<?php echo $this->context->context->contentContainer->createUrl('/gallery/edit/gallery', ['item-id' => $gallery->getItemId()])?>"><i class="fa fa-edit"></i></a>
+                            <a data-target="#globalModal" href="<?php echo $this->context->context->contentContainer->createUrl('/gallery/list/delete-multiple', ['item-id' => $gallery->getItemId()])?>"><i class="fa fa-trash"></i></a> 
+                            <a data-target="#globalModal" href="<?php echo $this->context->context->contentContainer->createUrl('/gallery/custom-gallery/edit', ['item-id' => $gallery->getItemId()])?>"><i class="fa fa-edit"></i></a>
                         </span>
                         <div class="clearfix"></div>
                     </div>

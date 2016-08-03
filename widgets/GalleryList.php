@@ -16,12 +16,13 @@ namespace humhub\modules\gallery\widgets;
 class GalleryList extends \yii\base\Widget
 {
     
-    public $galleries;
+    public $stream_galleries;
+    public $custom_galleries;
     public $context;
 
     public function run()
     {
-        return $this->render('gallery_list', array('galleries' => $this->galleries));
+        return $this->render('gallery_list', array('stream_galleries' => $this->stream_galleries, 'custom_galleries' => $this->custom_galleries));
     }
 }
 

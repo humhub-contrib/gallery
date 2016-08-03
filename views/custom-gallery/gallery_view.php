@@ -1,14 +1,9 @@
 <?php
-use yii\helpers\Url;
 use yii\helpers\Html;
-use humhub\modules\cfiles\controllers\BrowseController;
-use humhub\models\Setting;
-use yii\bootstrap\ButtonDropdown;
-use humhub\modules\cfiles\widgets\DropdownButton;
-use humhub\modules\gallery\widgets\GalleryContent;
+use humhub\modules\gallery\widgets\CustomGalleryContent;
 
 $bundle = \humhub\modules\gallery\Assets::register($this);
-$this->registerJsVar('galleryMediaUploadUrl', $this->context->contentContainer->createUrl('/gallery/upload', [
+$this->registerJsVar('galleryMediaUploadUrl', $this->context->contentContainer->createUrl('upload', [
     'open-gallery-id' => $gallery->id
 ]));
 ?>
@@ -31,12 +26,12 @@ $this->registerJsVar('galleryMediaUploadUrl', $this->context->contentContainer->
             </div>
             <div class="col-sm-4">
                 <a class="btn btn-default" data-target="#globalModal"
-                    href="<?php echo $this->context->contentContainer->createUrl('/gallery/edit/gallery', ['open-gallery-id' => $gallery->id, 'item-id' => $gallery->getItemId()]); ?>">Edit
+                    href="<?php echo $this->context->contentContainer->createUrl('edit', ['open-gallery-id' => $gallery->id, 'item-id' => $gallery->getItemId()]); ?>">Edit
                     Gallery</a>
             </div>
             <div class="col-sm-4">
                 <a class="btn btn-default" data-target="#globalModal"
-                    href="<?php echo $this->context->contentContainer->createUrl('/gallery/delete', ['item-id' => $gallery->getItemId()]); ?>">Delete
+                    href="<?php echo $this->context->contentContainer->createUrl('/gallery/list/delete-multiple', ['item-id' => $gallery->getItemId()]); ?>">Delete
                     Gallery</a>
             </div>
         </div>
@@ -45,7 +40,7 @@ $this->registerJsVar('galleryMediaUploadUrl', $this->context->contentContainer->
                 <ul class="alert alert-danger">
                 </ul>
             </div>
-            <?php echo GalleryContent::widget([ 'gallery' => $gallery, 'context' => $this->context ]); ?>
+            <?php echo CustomGalleryContent::widget([ 'gallery' => $gallery, 'context' => $this->context ]); ?>
         </div>
     </div>
     <?php echo Html::endForm(); ?>

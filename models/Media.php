@@ -6,8 +6,7 @@ use humhub\modules\user\models\User;
 use humhub\modules\comment\models\Comment;
 use humhub\modules\content\models\Content;
 use humhub\modules\content\components\ContentActiveRecord;
-use humhub\modules\gallery\libs\FileUtilities;
-use humhub\modules\file\libs\ImageConverter;
+use humhub\modules\gallery\libs\FileUtils;
 
 /**
  * This is the model class for table "gallery_media".
@@ -90,12 +89,12 @@ class Media extends ContentActiveRecord
 
     public function getUrl($download = false)
     {
-        // FIXME: dirty workaround to avoid errors if basefile is uninitialized. this happens sometimes when basefile is accessed shortly after being saved with its related media file       
+        // FIXME: dirty workaround to avoid errors if basefile is uninitialized. this happens sometimes when basefile is accessed shortly after being saved with its related media file
         return isset($this->baseFile) ? $this->baseFile->getUrl() . ($download ? '&' . http_build_query([
             'download' => 1
         ]) : '') : "";
     }
-    
+
     public function getCreator()
     {
         return User::findOne([
@@ -121,45 +120,9 @@ class Media extends ContentActiveRecord
         return $query;
     }
     
-    // TODO: move me out of here to File
-    public function getQuadraticThumbnailUrl($maxDimension = 1000)
+    public function getSquareThumbnailUrl($maxDimension = 1000)
     {
-        $suffix = $maxDimension.'_thumb_quad';
-    
-        $basefile = $this->baseFile;
-        
-        if(!isset($this->baseFile)) {
-            return "";
-        }
-        
-        $originalFilename = $basefile->getStoredFilePath();
-        $previewFilename = $basefile->getStoredFilePath($suffix);
-    
-        // already generated
-        if (is_file($previewFilename)) {
-            return $basefile->getUrl($suffix);
-        }
-    
-        // Check file exists & has valid mime type
-        if ($basefile->getMimeBaseType() != "image" || !is_file($originalFilename)) {
-            return "";
-        }
-    
-        $imageInfo = @getimagesize($originalFilename);
-        
-        // check valid image dimesions
-        if(!isset($imageInfo[0]) || !isset($imageInfo[1])) {
-            return "";
-        }
-        
-        // Check if image type is supported
-        if ($imageInfo[2] != IMAGETYPE_PNG && $imageInfo[2] != IMAGETYPE_JPEG && $imageInfo[2] != IMAGETYPE_GIF) {
-            return "";
-        }
-        
-        $dim = min($imageInfo[0], $imageInfo[1], $maxDimension);
-        ImageConverter::Resize($originalFilename, $previewFilename, array('mode' => 'force', 'width' => $dim, 'height' => $dim));
-        return $basefile->getUrl($suffix);    
+        return FileUtils::getSquareThumbnailUrlFromFile($this->baseFile, $maxDimension);
     }
 
     /**

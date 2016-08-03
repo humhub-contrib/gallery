@@ -17,7 +17,7 @@ $this->registerJsVar('galleryMediaUploadUrl', 'unused');
         <div class="row button-action-menu">
             <div class="col-sm-4">
                 <a class="btn btn-default" data-target="#globalModal"
-                    href="<?php echo $this->context->contentContainer->createUrl('/gallery/edit/gallery'); ?>"><i
+                    href="<?php echo $this->context->contentContainer->createUrl('/gallery/custom-gallery/edit'); ?>"><i
                     class="glyphicon glyphicon-plus"></i> Add
                     Gallery</a>
             </div>
@@ -28,7 +28,7 @@ $this->registerJsVar('galleryMediaUploadUrl', 'unused');
                 <ul class="alert alert-danger">
                 </ul>
             </div>
-            <?php echo GalleryList::widget([ 'galleries' => $galleries, 'context' => $this->context ]); ?>
+            <?php echo GalleryList::widget([ 'stream_galleries' => $stream_galleries, 'custom_galleries' => $custom_galleries, 'context' => $this->context ]); ?>
         </div>
     </div>
     <?php echo Html::endForm(); ?>

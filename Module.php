@@ -8,6 +8,8 @@ use humhub\modules\content\components\ContentContainerModule;
 use humhub\modules\content\components\ContentContainerActiveRecord;
 use humhub\modules\content\models\Content;
 use yii\helpers\Url;
+use humhub\modules\gallery\models\StreamGallery;
+use humhub\modules\gallery\models\CustomGallery;
 
 class Module extends ContentContainerModule
 {
@@ -51,8 +53,12 @@ class Module extends ContentContainerModule
             return models\Media::findOne([
                 'id' => $id
             ]);
-        } elseif ($type == 'gallery') {
-            return models\Gallery::findOne([
+        } elseif ($type == 'stream-gallery') {
+            return models\StreamGallery::findOne([
+                'id' => $id
+            ]);
+        } elseif ($type == 'custom-gallery') {
+            return models\CustomGallery::findOne([
                 'id' => $id
             ]);
         }
@@ -61,17 +67,30 @@ class Module extends ContentContainerModule
 
     public function disable()
     {
-        foreach (models\Gallery::find()->all() as $key => $gallery) {
+        foreach (models\CustomGallery::find()->all() as $key => $gallery) {
             $gallery->delete();
         }
         foreach (models\Media::find()->all() as $key => $media) {
             $media->delete();
         }
     }
+    
+    public function enableContentContainer($container) {
+        $streamGallery = new StreamGallery();
+        $streamGallery->title = Yii::t('GalleryModule.base', 'Posted pictures');
+        $streamGallery->description = Yii::t('GalleryModule.base', 'This gallery contains all posted pictures.');
+        $streamGallery->type = StreamGallery::TYPE_STREAM_GALLERY;
+        $streamGallery->content->container = $container;
+        $streamGallery->save();
+    }
 
-    public function disableContentContainer(\humhub\modules\content\components\ContentContainerActiveRecord $container)
+    public function disableContentContainer(ContentContainerActiveRecord $container)
     {
-        $galleries = models\Gallery::find()->contentContainer($container)->all();
+        $galleries = StreamGallery::find()->contentContainer($container)->all();
+        foreach ($galleries as $gallery) {
+            $gallery->delete();
+        }
+        $galleries = CustomGallery::find()->contentContainer($container)->all();
         foreach ($galleries as $gallery) {
             $gallery->delete();
         }

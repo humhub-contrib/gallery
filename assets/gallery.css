@@ -95,6 +95,14 @@
 #galleryContainer .button-action-menu {
   margin-bottom: 20px;
 }
+#galleryContainer #galleryList .galleryEmptyMessage .panel,
+#galleryContainer #galleryContent .galleryEmptyMessage .panel {
+  margin: 0;
+}
+#galleryContainer #galleryList .galleryEmptyMessage .panel .panel-body,
+#galleryContainer #galleryContent .galleryEmptyMessage .panel .panel-body {
+  margin: 10px;
+}
 #galleryContainer #galleryList .panel,
 #galleryContainer #galleryContent .panel {
   position: relative;

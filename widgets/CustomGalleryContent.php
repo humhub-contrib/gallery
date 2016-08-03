@@ -13,7 +13,7 @@ namespace humhub\modules\gallery\widgets;
  * @since 1.0
  * @author Sebastian Stumpf
  */
-class GalleryContent extends \yii\base\Widget
+class CustomGalleryContent extends \yii\base\Widget
 {
     
     public $gallery;
@@ -21,7 +21,7 @@ class GalleryContent extends \yii\base\Widget
 
     public function run()
     {
-        return $this->render('gallery_content', array('gallery' => $this->gallery));
+        return $this->render('custom_gallery_content', array('gallery' => $this->gallery));
     }
 }
 

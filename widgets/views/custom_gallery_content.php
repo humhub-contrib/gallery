@@ -12,6 +12,16 @@ $rowClosed = true;
 ?>
 
 <div id="galleryContent" class="col-sm-12">
+    <?php if($gallery->isEmpty()): ?>
+        <div class="galleryEmptyMessage">
+            <div class="panel">
+                <div class="panel-body">
+                    <p><strong><?php echo Yii::t('GalleryModule.base', 'This gallery is empty.');?></strong></p>
+                    <?php echo Yii::t('GalleryModule.base', 'You can upload images using the buttons above.');?>
+                </div>
+            </div>
+        </div>
+    <?php endif; ?>
     <?php foreach($gallery->mediaList as $media): ?>
         <?php if($counter % 3 === 0) :
             echo '<div class="row">';
@@ -22,14 +32,14 @@ $rowClosed = true;
                     <div class="panel-body">
                         <a class="zoom" href="<?php echo $media->getUrl(); ?>#.jpeg" data-type="image" data-toggle="lightbox" data-parent="#galleryContent"  data-gallery="GalleryModule-Gallery-<?php echo $gallery->id; ?>"
                             data-footer='<p style="overflow:hidden; text-overflow:ellipsis;"><strong><?php echo $media->title; ?></strong></p><?php echo $media->description != "" ? "<p>$media->description</p>" : ""; ?><button type="button" class="btn btn-primary" data-dismiss="modal"><?php echo Yii::t('FileModule.base', 'Close'); ?></button>'>
-                            <img src="<?php echo $media->getQuadraticThumbnailUrl(); ?>" />
+                            <img src="<?php echo $media->getSquareThumbnailUrl(); ?>" />
                             <span class="overlay"><i class="glyphicon glyphicon-fullscreen"></i></span>
                         </a>
                     </div>
                     <div class="panel-footer">
                         <span class="pull-right gallery-media-file-controls">
-                            <a data-target="#globalModal" href="<?php echo $this->context->context->contentContainer->createUrl('/gallery/delete', ['open-gallery-id' => $gallery->id,'item-id' => $media->getItemId()]);?>"><i class="fa fa-trash"></i></a> 
-                            <a data-target="#globalModal" href="<?php echo $this->context->context->contentContainer->createUrl('/gallery/edit/media', ['open-gallery-id' => $gallery->id,'item-id' => $media->getItemId()]);?>"><i class="fa fa-edit"></i></a>
+                            <a data-target="#globalModal" href="<?php echo $this->context->context->contentContainer->createUrl('/gallery/custom-gallery/delete-multiple', ['open-gallery-id' => $gallery->id,'item-id' => $media->getItemId()]);?>"><i class="fa fa-trash"></i></a> 
+                            <a data-target="#globalModal" href="<?php echo $this->context->context->contentContainer->createUrl('/gallery/media/edit', ['open-gallery-id' => $gallery->id,'item-id' => $media->getItemId()]);?>"><i class="fa fa-edit"></i></a>
                         </span>
                         <div class="clearfix"></div>
                     </div>
