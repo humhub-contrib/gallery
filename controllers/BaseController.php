@@ -14,6 +14,7 @@ use humhub\modules\gallery\permissions\WriteAccess;
 use yii\web\HttpException;
 use humhub\modules\gallery\models\Gallery;
 use yii\base\Model;
+use humhub\modules\content\widgets\WallEntry;
 
 /**
  * Description of a Base Controller for the gallery module.

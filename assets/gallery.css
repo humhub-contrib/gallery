@@ -103,10 +103,15 @@
 #galleryContainer #galleryContent .galleryEmptyMessage .panel .panel-body {
   margin: 10px;
 }
+#galleryContainer #galleryList .nav-pills.preferences,
+#galleryContainer #galleryContent .nav-pills.preferences {
+  position: static;
+  right: 0;
+  left: 0;
+}
 #galleryContainer #galleryList .panel,
 #galleryContainer #galleryContent .panel {
   position: relative;
-  overflow: hidden;
   display: block;
   border-radius: 0 !important;
 }
@@ -208,6 +213,12 @@
   border-bottom-left-radius: 0 !important;
   font-weight: 600;
   text-align: center;
+}
+#galleryContainer #galleryList .panel .panel-header .pull-left,
+#galleryContainer #galleryContent .panel .panel-header .pull-left {
+  max-width: 75%;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 #galleryContainer #galleryList .panel-default,
 #galleryContainer #galleryContent .panel-default {

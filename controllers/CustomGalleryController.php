@@ -44,7 +44,7 @@ class CustomGalleryController extends ListController
     {
         return $this->renderGallery();
     }
-
+    
     /**
      * Action to sort the media files.
      *
@@ -67,13 +67,23 @@ class CustomGalleryController extends ListController
     {
         $this->canWrite(true);
         
+        $fromWall = Yii::$app->request->get('fromWall');
         $itemId = Yii::$app->request->get('item-id');
         $openGalleryId = Yii::$app->request->get('open-gallery-id');
+        $cancel = Yii::$app->request->get('cancel');
         // check if a gallery with the given id exists.
-        $gallery = $this->module->getItemById($itemId);
+        $gallery = $this->module->getItemById($itemId);      
+        
+        if ($fromWall && $cancel) {
+            return $this->renderAjaxContent($gallery->getWallOut());
+        }
         
         // if no gallery is found with the given id, a new one has to be created
         if (! ($gallery instanceof CustomGallery)) {
+            // can't create galleries from wall!!!
+            if ($fromWall) {
+                throw new HttpException(401, Yii::t('GalleryModule.base', 'Cannot edit non existing Gallery.'));
+            }
             // create a new gallery
             $gallery = new CustomGallery();
             $gallery->editable_by = CustomGallery::EDITABLE_BY_MEMBERS;
@@ -85,13 +95,21 @@ class CustomGalleryController extends ListController
         
         if ($data !== null && $gallery->load(Yii::$app->request->post()) && $gallery->validate()) {
             $gallery->save();
-            return $this->renderGallery(true);
+            if ($fromWall) {
+                return $this->renderAjaxContent($gallery->getWallOut([
+                    'justEdited' => true
+                ]));
+            } else {
+                return $this->renderGallery(true);
+            }
         }
         
         // render modal
-        return $this->renderAjax('/custom-gallery/modal_gallery_edit', [
+        return $this->renderAjax($fromWall ? '/custom-gallery/wall_gallery_edit' : '/custom-gallery/modal_gallery_edit', [
             'openGalleryId' => $openGalleryId,
-            'gallery' => $gallery
+            'gallery' => $gallery,
+            'contentContainer' => $this->contentContainer,
+            'fromWall' => $fromWall
         ]);
     }
 

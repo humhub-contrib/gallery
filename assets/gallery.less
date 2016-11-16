@@ -18,10 +18,15 @@
                 }
             }
         }
-    
+        
+        .nav-pills.preferences {
+            position:static;
+            right:0;
+            left:0;
+        }
+        
         .panel {
             position: relative;
-            overflow: hidden;
             display: block;
             border-radius: 0 !important;
 
@@ -127,6 +132,12 @@
                 border-bottom-left-radius: 0 !important;
                 font-weight: 600;
                 text-align: center;
+                
+                .pull-left {
+                    max-width: 75%;
+                    overflow:hidden;
+                    text-overflow: ellipsis;
+                }
             }
         }
 

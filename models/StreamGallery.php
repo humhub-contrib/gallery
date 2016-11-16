@@ -21,6 +21,13 @@ use humhub\modules\gallery\libs\FileUtils;
 class StreamGallery extends BaseGallery
 {
 
+    public function getUrl()
+    {
+        return $this->content->container->createUrl('/gallery/stream-gallery/view', [
+            'open-gallery-id' => $this->id
+            ]);
+    }
+    
     public function getPreviewImageUrl()
     {
         // search for file by given thumbnail id

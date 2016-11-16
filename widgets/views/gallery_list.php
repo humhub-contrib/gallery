@@ -21,18 +21,27 @@ $rowClosed = true;
                 <div class="col-sm-4 gallery">
                     <div class="panel panel-default">
                         <div class="panel-header">
-                            <?php echo Html::encode($gallery->title); ?>
+                            <div class="pull-left">
+                                <?php echo Html::encode($gallery->title); ?>
+                            </div>
+                            <div class="pull-right">
+                                <ul class="nav nav-pills preferences">
+                                        <li class="dropdown">
+                                            <a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="fa fa-angle-down"></i></a>
+                                            <ul class="dropdown-menu pull-right">
+                                                <li>
+                                                    <a data-target="#globalModal" href="<?php echo $this->context->context->contentContainer->createUrl('/gallery/stream-gallery/edit', ['item-id' => $gallery->getItemId()])?>"><i class="fa fa-edit"></i><?php echo Yii::t('GalleryModule.base', 'Edit gallery information'); ?></a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                            </div>
+                            <div class="clearfix"></div>
                         </div>
                         <div class="panel-body">
                             <a href="<?php echo $this->context->context->contentContainer->createUrl('/gallery/stream-gallery/view', ['open-gallery-id' => $gallery->id]); ?>">
                                 <img src="<?php echo $gallery->getPreviewImageUrl(); ?>" />
                             </a>
-                        </div>
-                        <div class="panel-footer">
-                            <span class="pull-right gallery-media-file-controls">
-                                <a data-target="#globalModal" href="<?php echo $this->context->context->contentContainer->createUrl('/gallery/stream-gallery/edit', ['item-id' => $gallery->getItemId()])?>"><i class="fa fa-edit"></i></a>
-                            </span>
-                            <div class="clearfix"></div>
                         </div>
                     </div>
                 </div>
@@ -51,19 +60,29 @@ $rowClosed = true;
             <div class="col-sm-4 gallery">
                 <div class="panel panel-default">
                     <div class="panel-header">
-                        <?php echo Html::encode($gallery->title); ?>
+                        <div class="pull-left">
+                            <?php echo Html::encode($gallery->title); ?>
+                        </div>
+                        <div class="pull-right">
+                            <ul class="nav nav-pills preferences">
+                                    <li class="dropdown">
+                                        <a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="fa fa-angle-down"></i></a>
+                                        <ul class="dropdown-menu pull-right">
+                                            <li>
+                                                <a data-target="#globalModal" href="<?php echo $this->context->context->contentContainer->createUrl('/gallery/list/delete-multiple', ['item-id' => $gallery->getItemId()])?>"><i class="fa fa-trash"></i><?php echo Yii::t('GalleryModule.base', 'Delete gallery'); ?></a>                                            </li>
+                                            <li>
+                                                <a data-target="#globalModal" href="<?php echo $this->context->context->contentContainer->createUrl('/gallery/custom-gallery/edit', ['item-id' => $gallery->getItemId()])?>"><i class="fa fa-edit"></i><?php echo Yii::t('GalleryModule.base', 'Edit gallery information'); ?></a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                        </div>
+                        <div class="clearfix"></div>
                     </div>
                     <div class="panel-body">
                         <a href="<?php echo $this->context->context->contentContainer->createUrl('/gallery/custom-gallery/view', ['open-gallery-id' => $gallery->id]); ?>">
                             <img src="<?php echo $gallery->getPreviewImageUrl(); ?>" />
                         </a>
-                    </div>
-                    <div class="panel-footer">
-                        <span class="pull-right gallery-media-file-controls">
-                            <a data-target="#globalModal" href="<?php echo $this->context->context->contentContainer->createUrl('/gallery/list/delete-multiple', ['item-id' => $gallery->getItemId()])?>"><i class="fa fa-trash"></i></a> 
-                            <a data-target="#globalModal" href="<?php echo $this->context->context->contentContainer->createUrl('/gallery/custom-gallery/edit', ['item-id' => $gallery->getItemId()])?>"><i class="fa fa-edit"></i></a>
-                        </span>
-                        <div class="clearfix"></div>
                     </div>
                 </div>
             </div>

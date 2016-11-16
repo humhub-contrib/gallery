@@ -16,6 +16,13 @@ use yii\helpers\FileHelper;
 class CustomGallery extends BaseGallery
 {
 
+    public function getUrl()
+    {
+        return $this->content->container->createUrl('/gallery/custom-gallery/view', [
+            'open-gallery-id' => $this->id
+        ]);
+    }
+    
     public function getPreviewImageUrl()
     {
         // search for file by given thumbnail id

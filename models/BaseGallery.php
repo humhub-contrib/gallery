@@ -36,6 +36,33 @@ class BaseGallery extends ContentActiveRecord
     const EDITABLE_BY_MEMBERS = 2;
 
     /**
+     * @inheritdoc
+     */
+    public $autoAddToWall = true;
+    
+    /**
+     * @inheritdoc
+     */
+    public $wallEntryClass = "humhub\modules\gallery\widgets\WallEntryGallery";
+    
+    public function getWallUrl()
+    {
+        $firstWallEntryId = $this->content->getFirstWallEntryId();
+    
+        if ($firstWallEntryId == '') {
+            return '';
+        }
+    
+        return \yii\helpers\Url::toRoute(['/content/perma/wall-entry', 'id' => $firstWallEntryId]);
+    }
+    
+    /**
+     * Overwrite!
+     */
+    public function getUrl()
+    {}
+    
+    /**
      * Overwrite!
      */
     public function getItemId()

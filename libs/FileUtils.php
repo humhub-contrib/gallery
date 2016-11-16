@@ -3,6 +3,9 @@ namespace humhub\modules\gallery\libs;
 
 use Yii;
 use humhub\modules\file\libs\ImageConverter;
+use humhub\modules\comment\models\Comment;
+use humhub\modules\content\models\Content;
+use humhub\modules\post\models\Post;
 
 /**
  * This is a utility lib for files.
@@ -151,7 +154,7 @@ class FileUtils
     /**
      * Crop an image file to a square thumbnail.
      * The thumbnail will be saved with the suffix "&lt;width&gt;_thumb_square"
-     * @param string $basefile the file to crop.
+     * @param File $basefile the file to crop.
      * @param number $maxDimension limit maximum with/height.
      * @return string the thumbnail's url or null if an error occured.
      */
@@ -194,5 +197,47 @@ class FileUtils
         'height' => $dim
         ));
         return $basefile->getUrl($suffix);
+    }
+    
+    /**
+     * Get the content model the file is connected to.
+     * @param File $basefile the file.
+     */
+    public static function getBaseContent($file = null) {
+        if($file === null) {
+            return null;
+        }
+        $searchItem = $file;
+        // if the item is connected to a Comment, we have to search for the corresponding Post
+        if ($file->object_model === Comment::className()) {
+            $searchItem = Comment::findOne([
+                'id' => $file->object_id
+                ]);
+        }
+        $query = Content::find();
+        $query->andWhere([
+            'content.object_id' => $searchItem->object_id,
+            'content.object_model' => $searchItem->object_model
+            ]);
+        return $query->one();
+    }
+    
+    /**
+     * Get the post the file is connected to.
+     * @param File $basefile the file.
+     */
+    public static function getBasePost($file = null) {
+        if($file === null) {
+            return null;
+        }
+        $searchItem = $file;
+        // if the item is connected to a Comment, we have to search for the corresponding Post
+        if ($file->object_model === Comment::className()) {
+            $searchItem = Comment::findOne([
+                'id' => $file->object_id
+                ]);
+        }
+        $return = Post::findOne(['id' => $searchItem->object_id
+                ]);
     }
 }

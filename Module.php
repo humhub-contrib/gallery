@@ -10,6 +10,7 @@ use humhub\modules\content\models\Content;
 use yii\helpers\Url;
 use humhub\modules\gallery\models\StreamGallery;
 use humhub\modules\gallery\models\CustomGallery;
+use humhub\modules\file\models\File;
 
 class Module extends ContentContainerModule
 {
@@ -61,10 +62,21 @@ class Module extends ContentContainerModule
             return models\CustomGallery::findOne([
                 'id' => $id
             ]);
+        } elseif ($type == 'file') {
+            return File::findOne([
+                'id' => $id
+            ]);
         }
         return null;
     }
 
+    public static function getUserById($id)
+    {
+        return User::findOne([
+            'id' => $id
+            ]);
+    }
+    
     public function disable()
     {
         foreach (models\CustomGallery::find()->all() as $key => $gallery) {

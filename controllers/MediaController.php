@@ -9,6 +9,7 @@ namespace humhub\modules\gallery\controllers;
 
 use Yii;
 use humhub\modules\gallery\models\Media;
+use yii\web\HttpException;
 
 /**
  * Description of a Media Controller for the gallery module.
@@ -31,30 +32,42 @@ class MediaController extends CustomGalleryController
     public function actionEdit()
     {
         $this->canWrite(true);
-        
+
+        $fromWall = Yii::$app->request->get('fromWall');
         $itemId = Yii::$app->request->get('item-id');
         $openGalleryId = Yii::$app->request->get('open-gallery-id');
-        // check if a gallery with the given id exists.
-        $media = $this->module->getItemById($itemId);
+        $cancel = Yii::$app->request->get('cancel');
+        // check if a media file with the given id exists.
+        $media = $this->module->getItemById($itemId);        
         
-        // if no gallery is found with the given id, a new one has to be created
-        if (! ($media instanceof Media)) {
-            // create a new gallery
-            $media = new Media();
-            $media->content->container = $this->contentContainer;
+        if ($fromWall && $cancel) {
+            return $this->renderAjaxContent($media->getWallOut());
+        }
+        
+        // if not return cause this should not happen
+        if (empty($media) || ! ($media instanceof Media)) {
+            throw new HttpException(401, Yii::t('GalleryModule.base', 'Cannot edit non existing Media.'));
         }
         
         $data = Yii::$app->request->post('Media');
         
         if ($data !== null && $media->load(Yii::$app->request->post()) && $media->validate()) {
             $media->save();
-            return $this->renderGallery(true);
+            if ($fromWall) {
+                return $this->renderAjaxContent($media->getWallOut([
+                    'justEdited' => true
+                    ]));
+            } else {
+                return $this->renderGallery(true);
+            }
         }
         
         // render modal
-        return $this->renderAjax('/media/modal_media_edit', [
+        return $this->renderAjax($fromWall ? '/media/wall_media_edit' : '/media/modal_media_edit', [
             'openGalleryId' => $openGalleryId,
-            'media' => $media
+            'media' => $media,
+            'contentContainer' => $this->contentContainer,
+            'fromWall' => $fromWall
         ]);
     }
 }

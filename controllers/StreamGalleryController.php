@@ -9,6 +9,9 @@ namespace humhub\modules\gallery\controllers;
 
 use Yii;
 use humhub\modules\gallery\models\StreamGallery;
+use humhub\modules\file\models\File;
+use humhub\modules\content\components\ContentActiveRecord;
+use humhub\modules\gallery\libs\FileUtils;
 
 /**
  * Description of a Stream Gallery Controller for the gallery module.
@@ -20,6 +23,20 @@ use humhub\modules\gallery\models\StreamGallery;
 class StreamGalleryController extends ListController
 {
 
+    /**
+     * Ajax action that returns the wall entry content of a given item.
+     */
+    public function actionGetWallEntry() {
+        $itemId = Yii::$app->request->get('item-id');
+        // check if a gallery with the given id exists.
+        $item = $this->module->getItemById($itemId);
+        $post = FileUtils::getBasePost($item);
+        var_dump($post);
+        var_dump($post->className());
+        var_dump($post instanceof ContentActiveRecord);
+        return ($post instanceof ContentActiveRecord) ? $post->getWallOut() : "";
+    }
+    
     /**
      *
      * @return redirect to /view.

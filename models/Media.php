@@ -27,9 +27,30 @@ class Media extends ContentActiveRecord
     /**
      * @inheritdoc
      */
+    public $autoAddToWall = true;
+
+    /**
+     * @inheritdoc
+     */
+    public $wallEntryClass = "humhub\modules\gallery\widgets\WallEntryMedia";
+    
+    /**
+     * @inheritdoc
+     */
     public static function tableName()
     {
         return 'gallery_media';
+    }
+    
+    public function getWallUrl()
+    {
+        $firstWallEntryId = $this->content->getFirstWallEntryId();
+    
+        if ($firstWallEntryId == '') {
+            return '';
+        }
+    
+        return \yii\helpers\Url::toRoute(['/content/perma/wall-entry', 'id' => $firstWallEntryId]);
     }
 
     /**
@@ -140,4 +161,16 @@ class Media extends ContentActiveRecord
     {
         return $this->getTitle();
     }
+    
+    public function getTitle() {
+        return $this->title;
+    }
+    
+    public function getParentGallery() {
+         $query = $this->hasOne(CustomGallery::className(), [
+            'id' => 'gallery_id'
+        ]);
+        return $query;
+    }
+    
 }

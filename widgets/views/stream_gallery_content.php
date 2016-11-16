@@ -6,6 +6,8 @@ use humhub\models\Setting;
 use yii\bootstrap\ButtonDropdown;
 use humhub\modules\cfiles\widgets\DropdownButton;
 use humhub\modules\gallery\libs\FileUtils;
+use humhub\modules\gallery\Module;
+use humhub\widgets\AjaxButton;
 
 $bundle = \humhub\modules\gallery\Assets::register($this);
 $counter = 0;
@@ -24,12 +26,53 @@ $rowClosed = true;
         </div>
     <?php endif; ?>
     <?php foreach($gallery->fileList as $file): ?>
+        <?php $creator = Module::getUserById($file->created_by); 
+            $basePost = FileUtils::getBaseContent($file);?>
         <?php if($counter % 3 === 0) :
             echo '<div class="row">';
             $rowClosed = false;
         endif; ?>
             <div class="col-sm-4 galleryMediaFile">
                 <div class="panel panel-default">
+                    <div class="panel-header">
+                        <div class="pull-left">
+                            <a href="<?php echo $creator->createUrl(); ?>">
+                                <img class="img-rounded tt img_margin"
+                                    src="<?php echo $creator->getProfileImage()->getUrl(); ?>"
+                                    width="21" height="21" alt="21x21" data-src="holder.js/21x21"
+                                    style="width: 21px; height: 21px;"
+                                    data-original-title="<?php echo Yii::t('CfilesModule.base', 'posted by ') . $creator->getDisplayName(); ?>"
+                                    data-placement="top" title="" data-toggle="tooltip">
+                            </a>
+                        </div>
+                        <div class="pull-right">
+                            <ul class="nav nav-pills preferences">
+                                <li class="dropdown">
+                                    <a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="fa fa-angle-down"></i></a>
+                                    <ul class="dropdown-menu pull-right">
+                                        <li>
+                                            <a data-target="#globalModal" href="<?php echo $basePost->getUrl(); ?>"><i class="fa fa-link"></i> <?php echo Yii::t('GalleryModule.base', 'Show post'); ?></a>
+                                        </li>
+                                        <li>
+                                            <?php echo \humhub\widgets\AjaxButton::widget([
+                                                'label' => Yii::t('UserModule.views_profile_cropProfileImage', 'Save'),
+                                                'ajaxOptions' => [
+                                                    'type' => 'GET',
+                                                    'beforeSend' => new yii\web\JsExpression('function(){ setModalLoader(); }'),
+                                                    'success' => new yii\web\JsExpression('function(html){ $("#globalModal").html(html); }'),
+                                                    'url' => '#',
+                                                ],
+                                                'htmlOptions' => [
+                                                    'class' => 'btn btn-primary'
+                                                ]
+                                            ]); ?>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
                     <div class="panel-body">
                         <a class="zoom" href="<?php echo $file->getUrl(); ?>#.jpeg" data-type="image" data-toggle="lightbox" data-parent="#galleryContent"  data-gallery="GalleryModule-Gallery-<?php echo $gallery->id; ?>"
                             data-footer='<p style="overflow:hidden; text-overflow:ellipsis;"><strong><?php echo $file->title; ?></strong></p><button type="button" class="btn btn-primary" data-dismiss="modal"><?php echo Yii::t('FileModule.base', 'Close'); ?></button>'>
@@ -37,7 +80,6 @@ $rowClosed = true;
                             <span class="overlay"><i class="glyphicon glyphicon-fullscreen"></i></span>
                         </a>
                     </div>
-
                 </div>
             </div>
         <?php if(++$counter % 3 === 0) :
