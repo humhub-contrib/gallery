@@ -44,6 +44,9 @@ $rowClosed = true;
                                         <li>
                                             <a data-target="#globalModal" href="<?php echo $this->context->context->contentContainer->createUrl('/gallery/media/edit', ['open-gallery-id' => $gallery->id,'item-id' => $media->getItemId()]);?>"><i class="fa fa-edit"></i> <?php echo Yii::t('GalleryModule.base', 'Edit image info'); ?></a>
                                         </li>
+                                        <li>
+                                            <a href="<?php echo $media->getUrl(true); ?>"><i class="fa fa-download"></i> <?php echo Yii::t('GalleryModule.base', 'Save'); ?></a>
+                                        </li>
                                     </ul>
                                 </li>
                             </ul>

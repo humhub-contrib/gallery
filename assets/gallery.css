@@ -92,6 +92,14 @@
 #galleryContainer .gallery-description {
   padding-bottom: 20px;
 }
+#galleryContainer .truncate {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+#galleryContainer .back-button {
+  margin-bottom: 10px;
+}
 #galleryContainer .button-action-menu {
   margin-bottom: 20px;
 }

@@ -21,7 +21,7 @@ $rowClosed = true;
                 <div class="col-sm-4 gallery">
                     <div class="panel panel-default">
                         <div class="panel-header">
-                            <div class="pull-left">
+                            <div class="pull-left truncate tt" data-toggle="tooltip" data-placement="top" title="" data-original-title="<?php echo Html::encode($gallery->title); ?>">
                                 <?php echo Html::encode($gallery->title); ?>
                             </div>
                             <div class="pull-right">
@@ -60,8 +60,8 @@ $rowClosed = true;
             <div class="col-sm-4 gallery">
                 <div class="panel panel-default">
                     <div class="panel-header">
-                        <div class="pull-left">
-                            <?php echo Html::encode($gallery->title); ?>
+                        <div class="pull-left truncate tt" data-toggle="tooltip" data-placement="top" title="" data-original-title="<?php echo Html::encode($gallery->title); ?>">
+                                <?php echo Html::encode($gallery->title); ?>
                         </div>
                         <div class="pull-right">
                             <ul class="nav nav-pills preferences">
@@ -69,9 +69,13 @@ $rowClosed = true;
                                         <a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="fa fa-angle-down"></i></a>
                                         <ul class="dropdown-menu pull-right">
                                             <li>
-                                                <a data-target="#globalModal" href="<?php echo $this->context->context->contentContainer->createUrl('/gallery/list/delete-multiple', ['item-id' => $gallery->getItemId()])?>"><i class="fa fa-trash"></i><?php echo Yii::t('GalleryModule.base', 'Delete gallery'); ?></a>                                            </li>
+                                                <a data-target="#globalModal" href="<?php echo $this->context->context->contentContainer->createUrl('/gallery/list/delete-multiple', ['item-id' => $gallery->getItemId()])?>"><i class="fa fa-trash"></i><?php echo Yii::t('GalleryModule.base', 'Delete gallery'); ?></a>                                            
+                                            </li>
                                             <li>
                                                 <a data-target="#globalModal" href="<?php echo $this->context->context->contentContainer->createUrl('/gallery/custom-gallery/edit', ['item-id' => $gallery->getItemId()])?>"><i class="fa fa-edit"></i><?php echo Yii::t('GalleryModule.base', 'Edit gallery information'); ?></a>
+                                            </li>
+                                            <li>
+                                                <a href="<?php echo $gallery->getWallUrl(); ?>"><i class="fa fa-edit"></i><?php echo Yii::t('GalleryModule.base', 'Show on Wall'); ?></a>
                                             </li>
                                         </ul>
                                     </li>

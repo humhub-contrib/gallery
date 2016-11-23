@@ -20,6 +20,11 @@ use humhub\modules\gallery\libs\FileUtils;
  */
 class StreamGallery extends BaseGallery
 {
+    
+    /**
+     * @inheritdoc
+     */
+    public $autoAddToWall = false;
 
     public function getUrl()
     {

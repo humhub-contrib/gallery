@@ -9,6 +9,8 @@ $this->registerJsVar('galleryMediaUploadUrl', 'unused');
 <div id="galleryContainer" class="panel panel-default">
     <?php echo Html::beginForm(null, null, ['data-target' => '#globalModal', 'id' => 'gallery-form']); ?>
     <div class="panel-body">
+        <a class="btn btn-default btn-sm back-button" href="<?php echo $this->context->contentContainer->createUrl('/gallery/list'); ?>"><i
+            class="glyphicon glyphicon-arrow-left"></i> <?php echo Yii::t('GalleryModule.base', 'Back to the list'); ?></a>
         <h1><strong><?php echo Html::encode($gallery->title); ?></strong></h1>
         <div class="row">
             <div class="col-sm-12 gallery-description">
