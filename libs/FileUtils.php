@@ -240,4 +240,19 @@ class FileUtils
         $return = Post::findOne(['id' => $searchItem->object_id
                 ]);
     }
+    
+    /**
+     * Get the comment, post or other model via which the file was uploaded and is connected to.
+     * @param File $basefile the file.
+     */
+    public static function getBaseObject($file = null) {
+        if($file === null) {
+            return null;
+        }
+        $object = call_user_func([$file->object_model, 'findOne'], [
+                'id' => $file->object_id
+                ]);
+        
+        return $object;
+    }
 }

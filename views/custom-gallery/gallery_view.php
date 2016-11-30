@@ -1,6 +1,9 @@
 <?php
 use yii\helpers\Html;
 use humhub\modules\gallery\widgets\CustomGalleryContent;
+use humhub\modules\like\widgets\LikeLink;
+use humhub\modules\comment\widgets\CommentLink;
+use humhub\modules\comment\widgets\Comments;
 
 $bundle = \humhub\modules\gallery\Assets::register($this);
 $this->registerJsVar('galleryMediaUploadUrl', $this->context->contentContainer->createUrl('upload', [
@@ -9,6 +12,7 @@ $this->registerJsVar('galleryMediaUploadUrl', $this->context->contentContainer->
 ?>
 <div id="galleryContainer" class="panel panel-default">
     <?php echo Html::beginForm(null, null, ['data-target' => '#globalModal', 'id' => 'gallery-form']); ?>
+    <?php echo Html::endForm(); ?>
     <div class="panel-body">
         <a class="btn btn-default btn-sm back-button" href="<?php echo $this->context->contentContainer->createUrl('/gallery/list'); ?>"><i
             class="glyphicon glyphicon-arrow-left"></i> <?php echo Yii::t('GalleryModule.base', 'Back to the list'); ?></a>
@@ -18,6 +22,17 @@ $this->registerJsVar('galleryMediaUploadUrl', $this->context->contentContainer->
                 <?php echo Html::encode($gallery->description); ?><br />
             </div>
         </div>
+        <div class="row">
+            <div class="col-sm-12 social-activities colorFont5">
+                <?php echo LikeLink::widget(['object' => $gallery]); ?>
+                |
+                <?php echo CommentLink::widget(['object' => $gallery]); ?>
+            </div>
+            <div class="col-sm-12 comments">
+                <?php echo Comments::widget(['object' => $gallery]); ?>
+            </div>
+        </div>
+        <hr />
         <div class="row button-action-menu">
             <div class="col-sm-4">
                 <span class="fileinput-button btn btn-default overflow-hidden"> <i
@@ -45,5 +60,4 @@ $this->registerJsVar('galleryMediaUploadUrl', $this->context->contentContainer->
             <?php echo CustomGalleryContent::widget([ 'gallery' => $gallery, 'context' => $this->context ]); ?>
         </div>
     </div>
-    <?php echo Html::endForm(); ?>
 </div>

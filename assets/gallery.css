@@ -92,6 +92,72 @@
 #galleryContainer .gallery-description {
   padding-bottom: 20px;
 }
+#galleryContainer .panel-body .row {
+  margin-left: -10px;
+  margin-right: -10px;
+}
+#galleryContainer .panel-body .row .col-xs-1,
+#galleryContainer .panel-body .row .col-sm-1,
+#galleryContainer .panel-body .row .col-md-1,
+#galleryContainer .panel-body .row .col-lg-1,
+#galleryContainer .panel-body .row .col-xs-2,
+#galleryContainer .panel-body .row .col-sm-2,
+#galleryContainer .panel-body .row .col-md-2,
+#galleryContainer .panel-body .row .col-lg-2,
+#galleryContainer .panel-body .row .col-xs-3,
+#galleryContainer .panel-body .row .col-sm-3,
+#galleryContainer .panel-body .row .col-md-3,
+#galleryContainer .panel-body .row .col-lg-3,
+#galleryContainer .panel-body .row .col-xs-4,
+#galleryContainer .panel-body .row .col-sm-4,
+#galleryContainer .panel-body .row .col-md-4,
+#galleryContainer .panel-body .row .col-lg-4,
+#galleryContainer .panel-body .row .col-xs-5,
+#galleryContainer .panel-body .row .col-sm-5,
+#galleryContainer .panel-body .row .col-md-5,
+#galleryContainer .panel-body .row .col-lg-5,
+#galleryContainer .panel-body .row .col-xs-6,
+#galleryContainer .panel-body .row .col-sm-6,
+#galleryContainer .panel-body .row .col-md-6,
+#galleryContainer .panel-body .row .col-lg-6,
+#galleryContainer .panel-body .row .col-xs-7,
+#galleryContainer .panel-body .row .col-sm-7,
+#galleryContainer .panel-body .row .col-md-7,
+#galleryContainer .panel-body .row .col-lg-7,
+#galleryContainer .panel-body .row .col-xs-8,
+#galleryContainer .panel-body .row .col-sm-8,
+#galleryContainer .panel-body .row .col-md-8,
+#galleryContainer .panel-body .row .col-lg-8,
+#galleryContainer .panel-body .row .col-xs-9,
+#galleryContainer .panel-body .row .col-sm-9,
+#galleryContainer .panel-body .row .col-md-9,
+#galleryContainer .panel-body .row .col-lg-9,
+#galleryContainer .panel-body .row .col-xs-10,
+#galleryContainer .panel-body .row .col-sm-10,
+#galleryContainer .panel-body .row .col-md-10,
+#galleryContainer .panel-body .row .col-lg-10,
+#galleryContainer .panel-body .row .col-xs-11,
+#galleryContainer .panel-body .row .col-sm-11,
+#galleryContainer .panel-body .row .col-md-11,
+#galleryContainer .panel-body .row .col-lg-11,
+#galleryContainer .panel-body .row .col-xs-12,
+#galleryContainer .panel-body .row .col-sm-12,
+#galleryContainer .panel-body .row .col-md-12,
+#galleryContainer .panel-body .row .col-lg-12 {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+#galleryContainer .social-activities {
+  font-size: 11px;
+  color: #aeaeae;
+  margin-bottom: 0;
+}
+#galleryContainer .social-activities a {
+  font-size: 11px;
+  color: #aeaeae;
+  margin-top: 10px;
+  margin-bottom: 0;
+}
 #galleryContainer .truncate {
   white-space: nowrap;
   overflow: hidden;
@@ -110,6 +176,10 @@
 #galleryContainer #galleryList .galleryEmptyMessage .panel .panel-body,
 #galleryContainer #galleryContent .galleryEmptyMessage .panel .panel-body {
   margin: 10px;
+}
+#galleryContainer #galleryList .galleryEmptyMessage .panel .panel-body img,
+#galleryContainer #galleryContent .galleryEmptyMessage .panel .panel-body img {
+  overflow: hidden;
 }
 #galleryContainer #galleryList .nav-pills.preferences,
 #galleryContainer #galleryContent .nav-pills.preferences {
@@ -212,6 +282,17 @@
   font-size: 1.125em;
   cursor: pointer;
   padding-left: 5px;
+}
+#galleryContainer #galleryList .panel .panel-footer .social-activities,
+#galleryContainer #galleryContent .panel .panel-footer .social-activities {
+  font-size: 11px;
+  margin-bottom: 0;
+}
+#galleryContainer #galleryList .panel .panel-footer .social-activities a,
+#galleryContainer #galleryContent .panel .panel-footer .social-activities a {
+  font-size: 11px;
+  margin-top: 10px;
+  margin-bottom: 0;
 }
 #galleryContainer #galleryList .panel .panel-header,
 #galleryContainer #galleryContent .panel .panel-header {

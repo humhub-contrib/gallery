@@ -2,12 +2,16 @@
 use yii\helpers\Html;
 use humhub\modules\gallery\widgets\CustomGalleryContent;
 use humhub\modules\gallery\widgets\StreamGalleryContent;
+use humhub\modules\comment\widgets\CommentLink;
+use humhub\modules\like\widgets\LikeLink;
+use humhub\modules\comment\widgets\Comments;
 
 $bundle = \humhub\modules\gallery\Assets::register($this);
 $this->registerJsVar('galleryMediaUploadUrl', 'unused');
 ?>
 <div id="galleryContainer" class="panel panel-default">
     <?php echo Html::beginForm(null, null, ['data-target' => '#globalModal', 'id' => 'gallery-form']); ?>
+    <?php echo Html::endForm(); ?>
     <div class="panel-body">
         <a class="btn btn-default btn-sm back-button" href="<?php echo $this->context->contentContainer->createUrl('/gallery/list'); ?>"><i
             class="glyphicon glyphicon-arrow-left"></i> <?php echo Yii::t('GalleryModule.base', 'Back to the list'); ?></a>
@@ -32,5 +36,4 @@ $this->registerJsVar('galleryMediaUploadUrl', 'unused');
             <?php echo StreamGalleryContent::widget([ 'gallery' => $gallery, 'context' => $this->context ]); ?>
         </div>
     </div>
-    <?php echo Html::endForm(); ?>
 </div>

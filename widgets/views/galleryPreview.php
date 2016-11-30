@@ -23,7 +23,7 @@ $rowClosed = true;
         endif; ?>
             <div class="col-sm-2 galleryMediaFile" style="padding: 5px;">
                 <a href="<?php echo $media->getUrl(); ?>#.jpeg" data-type="image" data-toggle="lightbox" data-parent="#galleryContent"  data-gallery="GalleryModule-Gallery-<?php echo $gallery->id; ?>"
-                    data-footer='<p style="overflow:hidden; text-overflow:ellipsis;"><strong><?php echo $media->title; ?></strong></p><?php echo $media->description != "" ? "<p>$media->description</p>" : ""; ?><button type="button" class="btn btn-primary" data-dismiss="modal"><?php echo Yii::t('GalleryModule.base', 'Close'); ?></button>'>
+                    data-footer='<p style="overflow:hidden; text-overflow:ellipsis;"><strong><?php echo Html::encode(Html::encode($media->title)); ?></strong></p><?php echo $media->description != "" ? "<p>".Html::encode(Html::encode($media->description))."</p>" : ""; ?><button type="button" class="btn btn-primary" data-dismiss="modal"><?php echo Yii::t('GalleryModule.base', 'Close'); ?></button>'>
                     <img style="width:100%;" src="<?php echo $media->getSquareThumbnailUrl(); ?>" />
                 </a>
             </div>
