@@ -18,7 +18,6 @@ class GalleryList extends \yii\base\Widget
     
     public $stream_galleries;
     public $custom_galleries;
-    public $context;
 
     public function run()
     {

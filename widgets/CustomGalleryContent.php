@@ -17,7 +17,6 @@ class CustomGalleryContent extends \yii\base\Widget
 {
     
     public $gallery;
-    public $context;
 
     public function run()
     {

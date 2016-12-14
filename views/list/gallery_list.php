@@ -14,6 +14,7 @@ $this->registerJsVar('galleryMediaUploadUrl', 'unused');
 <div id="galleryContainer" class="panel panel-default">
     <?php echo Html::beginForm(null, null, ['data-target' => '#globalModal', 'id' => 'gallery-form']); ?>
     <div class="panel-body">
+        <?php if($this->context->canWrite(false)): ?>
         <div class="row button-action-menu">
             <div class="col-sm-4">
                 <a class="btn btn-default" data-target="#globalModal"
@@ -22,7 +23,7 @@ $this->registerJsVar('galleryMediaUploadUrl', 'unused');
                     Gallery</a>
             </div>
         </div>
-
+        <?php endif; ?>
         <div class="row">
             <div id="logContainer" class="col-sm-12" style="display: none">
                 <ul class="alert alert-danger">

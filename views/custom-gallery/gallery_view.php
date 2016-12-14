@@ -33,6 +33,7 @@ $this->registerJsVar('galleryMediaUploadUrl', $this->context->contentContainer->
             </div>
         </div>
         <hr />
+        <?php if($this->context->canWrite(false)): ?>
         <div class="row button-action-menu">
             <div class="col-sm-4">
                 <span class="fileinput-button btn btn-default overflow-hidden"> <i
@@ -52,6 +53,7 @@ $this->registerJsVar('galleryMediaUploadUrl', $this->context->contentContainer->
                     Gallery</a>
             </div>
         </div>
+        <?php endif;?>
         <div class="row">
             <div id="logContainer" class="col-sm-12" style="display: none">
                 <ul class="alert alert-danger">

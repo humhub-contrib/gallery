@@ -10,6 +10,7 @@ use humhub\modules\comment\widgets\CommentLink;
 use humhub\modules\gallery\Module;
 
 $bundle = \humhub\modules\gallery\Assets::register($this);
+$contentContainer = Yii::$app->controller->contentContainer;
 $counter = 0;
 $rowClosed = true;
 ?>
@@ -27,22 +28,24 @@ $rowClosed = true;
                             <div class="pull-left truncate tt" data-toggle="tooltip" data-placement="top" title="" data-original-title="<?php echo Html::encode($gallery->title); ?>">
                                 <?php echo Html::encode($gallery->title); ?>
                             </div>
+                            <?php if(Yii::$app->controller->canWrite(false)): ?>
                             <div class="pull-right">
                                 <ul class="nav nav-pills preferences">
                                         <li class="dropdown">
                                             <a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="fa fa-angle-down"></i></a>
                                             <ul class="dropdown-menu pull-right">
                                                 <li>
-                                                    <a data-target="#globalModal" href="<?php echo $this->context->context->contentContainer->createUrl('/gallery/stream-gallery/edit', ['item-id' => $gallery->getItemId()])?>"><i class="fa fa-edit"></i><?php echo Yii::t('GalleryModule.base', 'Edit gallery information'); ?></a>
+                                                    <a data-target="#globalModal" href="<?php echo $contentContainer->createUrl('/gallery/stream-gallery/edit', ['item-id' => $gallery->getItemId()])?>"><i class="fa fa-edit"></i><?php echo Yii::t('GalleryModule.base', 'Edit gallery information'); ?></a>
                                                 </li>
                                             </ul>
                                         </li>
                                     </ul>
                             </div>
+                            <?php endif; ?>
                             <div class="clearfix"></div>
                         </div>
                         <div class="panel-body">
-                            <a href="<?php echo $this->context->context->contentContainer->createUrl('/gallery/stream-gallery/view', ['open-gallery-id' => $gallery->id]); ?>">
+                            <a href="<?php echo $contentContainer->createUrl('/gallery/stream-gallery/view', ['open-gallery-id' => $gallery->id]); ?>">
                                 <img src="<?php echo $gallery->getPreviewImageUrl(); ?>" />
                             </a>
                         </div>
@@ -87,12 +90,14 @@ $rowClosed = true;
                                     <li class="dropdown">
                                         <a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="fa fa-angle-down"></i></a>
                                         <ul class="dropdown-menu pull-right">
+                                            <?php if(Yii::$app->controller->canWrite(false)): ?>
                                             <li>
-                                                <a data-target="#globalModal" href="<?php echo $this->context->context->contentContainer->createUrl('/gallery/list/delete-multiple', ['item-id' => $gallery->getItemId()])?>"><i class="fa fa-trash"></i><?php echo Yii::t('GalleryModule.base', 'Delete gallery'); ?></a>                                            
+                                                <a data-target="#globalModal" href="<?php echo $contentContainer->createUrl('/gallery/list/delete-multiple', ['item-id' => $gallery->getItemId()])?>"><i class="fa fa-trash"></i><?php echo Yii::t('GalleryModule.base', 'Delete gallery'); ?></a>                                            
                                             </li>
                                             <li>
-                                                <a data-target="#globalModal" href="<?php echo $this->context->context->contentContainer->createUrl('/gallery/custom-gallery/edit', ['item-id' => $gallery->getItemId()])?>"><i class="fa fa-edit"></i><?php echo Yii::t('GalleryModule.base', 'Edit gallery information'); ?></a>
+                                                <a data-target="#globalModal" href="<?php echo $contentContainer->createUrl('/gallery/custom-gallery/edit', ['item-id' => $gallery->getItemId()])?>"><i class="fa fa-edit"></i><?php echo Yii::t('GalleryModule.base', 'Edit gallery information'); ?></a>
                                             </li>
+                                            <?php endif; ?>
                                             <li>
                                                 <a href="<?php echo $gallery->getWallUrl(); ?>"><i class="fa fa-edit"></i><?php echo Yii::t('GalleryModule.base', 'Show on Wall'); ?></a>
                                             </li>
@@ -103,7 +108,7 @@ $rowClosed = true;
                         <div class="clearfix"></div>
                     </div>
                     <div class="panel-body">
-                        <a href="<?php echo $this->context->context->contentContainer->createUrl('/gallery/custom-gallery/view', ['open-gallery-id' => $gallery->id]); ?>">
+                        <a href="<?php echo $contentContainer->createUrl('/gallery/custom-gallery/view', ['open-gallery-id' => $gallery->id]); ?>">
                             <img src="<?php echo $gallery->getPreviewImageUrl(); ?>" />
                         </a>
                     </div>

@@ -8,8 +8,10 @@ use humhub\modules\cfiles\widgets\DropdownButton;
 use humhub\modules\like\widgets\LikeLink;
 use humhub\modules\comment\widgets\CommentLink;
 use humhub\modules\gallery\Module;
+use humhub\modules\gallery\permissions\WriteAccess;
 
 $bundle = \humhub\modules\gallery\Assets::register($this);
+$contentContainer = Yii::$app->controller->contentContainer;
 $counter = 0;
 $rowClosed = true;
 ?>
@@ -19,8 +21,12 @@ $rowClosed = true;
         <div class="galleryEmptyMessage">
             <div class="panel">
                 <div class="panel-body">
-                    <p><strong><?php echo Yii::t('GalleryModule.base', 'This gallery is empty.');?></strong></p>
+                    <?php if(Yii::$app->controller->canWrite(false)): ?>
+                    <p><strong><?php echo Yii::t('GalleryModule.base', 'This gallery is still empty.');?></strong></p>
                     <?php echo Yii::t('GalleryModule.base', 'You can upload images using the buttons above.');?>
+                    <?php else: ?>
+                    <p style="margin-top:10px;"><strong><?php echo Yii::t('GalleryModule.base', 'This gallery is still empty.');?></strong></p>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>
@@ -55,12 +61,14 @@ $rowClosed = true;
                                         <li>
                                             <a href="<?php echo $media->getWallUrl(); ?>"><i class="fa fa-link"></i> <?php echo Yii::t('GalleryModule.base', 'Show post'); ?></a>
                                         </li>
+                                        <?php if(Yii::$app->controller->canWrite(false)): ?>
                                         <li>
-                                            <a data-target="#globalModal" href="<?php echo $this->context->context->contentContainer->createUrl('/gallery/custom-gallery/delete-multiple', ['open-gallery-id' => $gallery->id,'item-id' => $media->getItemId()]);?>"><i class="fa fa-trash"></i> <?php echo Yii::t('GalleryModule.base', 'Delete image'); ?></a>
+                                            <a data-target="#globalModal" href="<?php echo $contentContainer->createUrl('/gallery/custom-gallery/delete-multiple', ['open-gallery-id' => $gallery->id,'item-id' => $media->getItemId()]);?>"><i class="fa fa-trash"></i> <?php echo Yii::t('GalleryModule.base', 'Delete image'); ?></a>
                                         </li>
                                         <li>
-                                            <a data-target="#globalModal" href="<?php echo $this->context->context->contentContainer->createUrl('/gallery/media/edit', ['open-gallery-id' => $gallery->id,'item-id' => $media->getItemId()]);?>"><i class="fa fa-edit"></i> <?php echo Yii::t('GalleryModule.base', 'Edit image info'); ?></a>
+                                            <a data-target="#globalModal" href="<?php echo $contentContainer->createUrl('/gallery/media/edit', ['open-gallery-id' => $gallery->id,'item-id' => $media->getItemId()]);?>"><i class="fa fa-edit"></i> <?php echo Yii::t('GalleryModule.base', 'Edit image info'); ?></a>
                                         </li>
+                                        <?php endif; ?>
                                         <li>
                                             <a href="<?php echo $media->getUrl(true); ?>"><i class="fa fa-download"></i> <?php echo Yii::t('GalleryModule.base', 'Save'); ?></a>
                                         </li>

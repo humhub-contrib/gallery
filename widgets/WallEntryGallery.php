@@ -11,6 +11,7 @@ namespace humhub\modules\gallery\widgets;
 use humhub\modules\gallery\models\StreamGallery;
 use humhub\modules\gallery\models\CustomGallery;
 use humhub\modules\gallery\models\BaseGallery;
+use humhub\modules\gallery\permissions\WriteAccess;
 /**
  * @inheritdoc
  */
@@ -21,7 +22,7 @@ class WallEntryGallery extends \humhub\modules\content\widgets\WallEntry
      * @inheritdoc
      */
     public $editRoute = "/gallery/custom-gallery/edit";
-
+    
     /**
      * @inheritdoc
      */
@@ -37,18 +38,10 @@ class WallEntryGallery extends \humhub\modules\content\widgets\WallEntry
      */
     public function getEditUrl()
     {    
-        // Edit route for stream galleries differs
-        if($this->contentObject instanceof StreamGallery) {
-            $this->editRoute = "/gallery/stream-gallery/edit";
-        }
-        
-        if (parent::getEditUrl() === "") {
-            return "";
-        }
-        
-        if(is_subclass_of($this->contentObject, BaseGallery::className())) {
+        if(is_subclass_of($this->contentObject, BaseGallery::className()) && $this->contentObject->content->container->permissionManager->can(new WriteAccess())) {
             return $this->contentObject->content->container->createUrl($this->editRoute, ['item-id' => $this->contentObject->getItemId(), 'fromWall' => true]);
         }
+        return "";
     }
 
 }

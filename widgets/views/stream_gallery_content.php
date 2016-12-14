@@ -59,20 +59,6 @@ $rowClosed = true;
                                         <li>
                                             <a href="<?php echo $baseContent->getUrl(); ?>"><i class="fa fa-link"></i> <?php echo Yii::t('GalleryModule.base', 'Show post'); ?></a>
                                         </li>
-<!--                                         <li> -->
-                                            <?php //echo \humhub\widgets\AjaxButton::widget([
-//                                                 'label' => '<i class="fa fa-download" style="margin-right:5px;"></i> '.Yii::t('GalleryModule.base', 'Save'),
-//                                                 'ajaxOptions' => [
-//                                                     'type' => 'GET',
-//                                                     'beforeSend' => new yii\web\JsExpression('function(){ setModalLoader(); }'),
-//                                                     'success' => new yii\web\JsExpression('function(html){ $("#globalModal").html(html); }'),
-//                                                     'url' => '#',
-//                                                 ],
-//                                                 'htmlOptions' => [
-//                                                     'class' => 'btn btn-primary'
-//                                                 ]
-//                                             ]); ?>
-<!--                                         </li> -->
                                         <li>
                                             <a href="<?php echo $file->getUrl() . '&' . http_build_query(['download' => true]); ?>"><i class="fa fa-download"></i> <?php echo Yii::t('GalleryModule.base', 'Save'); ?></a>
                                         </li>

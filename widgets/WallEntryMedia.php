@@ -9,6 +9,7 @@
 namespace humhub\modules\gallery\widgets;
 
 use humhub\modules\gallery\models\Media;
+use humhub\modules\gallery\permissions\WriteAccess;
 /**
  * @inheritdoc
  */
@@ -40,13 +41,11 @@ class WallEntryMedia extends \humhub\modules\content\widgets\WallEntry
      */
     public function getEditUrl()
     {
-        if (parent::getEditUrl() === "") {
-            return "";
-        }
-        if($this->contentObject instanceof Media) {
+        if($this->contentObject instanceof Media && $this->contentObject->content->container->permissionManager->can(new WriteAccess())) {
             return $this->contentObject->content->container->createUrl($this->editRoute, ['item-id' => $this->contentObject->getItemId(), 'fromWall' => true]);
         }
         return "";
+        
     }
 
 }

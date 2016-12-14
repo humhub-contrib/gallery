@@ -40,7 +40,7 @@ class WriteAccess extends \humhub\libs\BasePermission
     /**
      * @inheritdoc
      */
-    protected $title = "Write access";
+    protected $title = "Gallery write access";
 
     /**
      * @inheritdoc

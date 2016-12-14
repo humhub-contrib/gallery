@@ -45,7 +45,7 @@ abstract class BaseController extends ContentContainerController
      *            default true throws exception if permission failure.
      * @return boolean current user has write acces.
      */
-    protected function canWrite($throw = true)
+    public function canWrite($throw = true)
     {
         $permission = false;
         // check if user is on his own profile
