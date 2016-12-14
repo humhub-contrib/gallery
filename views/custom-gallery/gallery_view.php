@@ -59,7 +59,7 @@ $this->registerJsVar('galleryMediaUploadUrl', $this->context->contentContainer->
                 <ul class="alert alert-danger">
                 </ul>
             </div>
-            <?php echo CustomGalleryContent::widget([ 'gallery' => $gallery, 'context' => $this->context ]); ?>
+            <?php echo CustomGalleryContent::widget([ 'gallery' => $gallery]); ?>
         </div>
     </div>
 </div>

@@ -165,7 +165,6 @@ class CustomGalleryController extends ListController
         // render and add gallery content to the response
         $response['galleryHtml'] = CustomGalleryContent::widget([
             'gallery' => $parentGallery,
-            'context' => $this
         ]);
         return $response;
     }

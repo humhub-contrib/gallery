@@ -29,7 +29,7 @@ $this->registerJsVar('galleryMediaUploadUrl', 'unused');
                 <ul class="alert alert-danger">
                 </ul>
             </div>
-            <?php echo GalleryList::widget([ 'stream_galleries' => $stream_galleries, 'custom_galleries' => $custom_galleries, 'context' => $this->context ]); ?>
+            <?php echo GalleryList::widget([ 'stream_galleries' => $stream_galleries, 'custom_galleries' => $custom_galleries]); ?>
         </div>
     </div>
     <?php echo Html::endForm(); ?>

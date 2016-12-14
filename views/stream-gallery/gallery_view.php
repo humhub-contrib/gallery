@@ -35,7 +35,7 @@ $this->registerJsVar('galleryMediaUploadUrl', 'unused');
                 <ul class="alert alert-danger">
                 </ul>
             </div>
-            <?php echo StreamGalleryContent::widget([ 'gallery' => $gallery, 'context' => $this->context ]); ?>
+            <?php echo StreamGalleryContent::widget([ 'gallery' => $gallery]); ?>
         </div>
     </div>
 </div>
