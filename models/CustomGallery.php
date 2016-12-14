@@ -88,7 +88,7 @@ class CustomGallery extends BaseGallery
 
     public function getMediaList()
     {
-        return $this->mediaListQuery()->all();
+        return $this->mediaListQuery()->contentContainer($this->content->container)->readable()->all();
     }
     
     public function isEmpty() {

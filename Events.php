@@ -30,13 +30,13 @@ class Events extends \yii\base\Object
     {
         if ($event->sender->user !== null && $event->sender->user->isModuleEnabled('gallery')) {
             
-            if ($event->sender->user->canAccessPrivateContent()) {
+            //if ($event->sender->user->canAccessPrivateContent()) {
                 $event->sender->addItem(array(
                     'label' => Yii::t('GalleryModule.base', 'Gallery'),
                     'url' => $event->sender->user->createUrl('/gallery/list'),
                     'isActive' => (Yii::$app->controller->module && Yii::$app->controller->module->id == 'gallery')
                 ));
-            }
+            //}
         }
     }
 }

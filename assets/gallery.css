@@ -89,12 +89,13 @@
   border: none;
   border-radius: 0px;
 }
-#galleryContainer .gallery-description {
-  padding-bottom: 20px;
-}
 #galleryContainer .panel-body .row {
   margin-left: -10px;
   margin-right: -10px;
+  padding-bottom: 20px;
+}
+#galleryContainer .panel-body .row:last-child {
+  padding-bottom: 0px;
 }
 #galleryContainer .panel-body .row .col-xs-1,
 #galleryContainer .panel-body .row .col-sm-1,
@@ -166,9 +167,6 @@
 #galleryContainer .back-button {
   margin-bottom: 10px;
 }
-#galleryContainer .button-action-menu {
-  margin-bottom: 20px;
-}
 #galleryContainer #galleryList .galleryEmptyMessage .panel,
 #galleryContainer #galleryContent .galleryEmptyMessage .panel {
   margin: 0;
@@ -189,6 +187,7 @@
 }
 #galleryContainer #galleryList .panel,
 #galleryContainer #galleryContent .panel {
+  margin: 0;
   position: relative;
   display: block;
   border-radius: 0 !important;

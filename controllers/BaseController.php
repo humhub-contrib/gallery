@@ -15,6 +15,7 @@ use yii\web\HttpException;
 use humhub\modules\gallery\models\Gallery;
 use yii\base\Model;
 use humhub\modules\content\widgets\WallEntry;
+use humhub\modules\gallery\Module;
 
 /**
  * Description of a Base Controller for the gallery module.
@@ -47,23 +48,14 @@ abstract class BaseController extends ContentContainerController
      */
     public function canWrite($throw = true)
     {
-        $permission = false;
-        // check if user is on his own profile
-        if ($this->contentContainer instanceof User) {
-            if ($this->contentContainer->id === Yii::$app->user->getIdentity()->id) {
-                $permission = true;
-            }
-        } else {
-            $permission = $this->contentContainer->permissionManager->can(new WriteAccess());
+        $permission = Module::canWrite($this->contentContainer);
+
+        if ($permission) {
+            return true;
+        } elseif($throw) {
+            throw new HttpException(401, Yii::t('GalleryModule.base', 'Insufficient rights to execute this action.'));
         }
-        
-        if (! $permission) {
-            if ($throw) {
-                throw new HttpException(401, Yii::t('GalleryModule.base', 'Insufficient rights to execute this action.'));
-            }
-            return false;
-        }
-        return true;
+        return false;
     }
 
     /**

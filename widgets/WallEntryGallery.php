@@ -12,6 +12,7 @@ use humhub\modules\gallery\models\StreamGallery;
 use humhub\modules\gallery\models\CustomGallery;
 use humhub\modules\gallery\models\BaseGallery;
 use humhub\modules\gallery\permissions\WriteAccess;
+use humhub\modules\gallery\Module;
 /**
  * @inheritdoc
  */
@@ -38,7 +39,7 @@ class WallEntryGallery extends \humhub\modules\content\widgets\WallEntry
      */
     public function getEditUrl()
     {    
-        if(is_subclass_of($this->contentObject, BaseGallery::className()) && $this->contentObject->content->container->permissionManager->can(new WriteAccess())) {
+        if(Module::canWrite($this->contentObject->content->container)) {
             return $this->contentObject->content->container->createUrl($this->editRoute, ['item-id' => $this->contentObject->getItemId(), 'fromWall' => true]);
         }
         return "";

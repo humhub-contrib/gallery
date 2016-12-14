@@ -11,6 +11,8 @@ use yii\helpers\Url;
 use humhub\modules\gallery\models\StreamGallery;
 use humhub\modules\gallery\models\CustomGallery;
 use humhub\modules\file\models\File;
+use humhub\modules\content\models\ContentContainer;
+use humhub\modules\gallery\permissions\WriteAccess;
 
 class Module extends ContentContainerModule
 {
@@ -93,6 +95,7 @@ class Module extends ContentContainerModule
         $streamGallery->description = Yii::t('GalleryModule.base', 'This gallery contains all posted pictures.');
         $streamGallery->type = StreamGallery::TYPE_STREAM_GALLERY;
         $streamGallery->content->container = $container;
+        $streamGallery->content->visibility = Content::VISIBILITY_PUBLIC;
         $streamGallery->save();
     }
 
@@ -134,5 +137,22 @@ class Module extends ContentContainerModule
         return Url::to([
             '/gallery/config'
         ]);
+    }
+
+    /**
+     * Check if the current User has write permission for the gallery module and its content.
+     * 
+     * @param ContentContainer $contentContainer the current content container.
+     * @return boolean
+     */
+    public static function canWrite(ContentContainerActiveRecord $contentContainer) {
+        // check if user is on his own profile
+        if ($contentContainer instanceof User) {
+            if ($contentContainer->id === Yii::$app->user->getIdentity()->id) {
+                return true;
+            }
+        }
+        return $contentContainer->permissionManager->can(new WriteAccess());
+    
     }
 }

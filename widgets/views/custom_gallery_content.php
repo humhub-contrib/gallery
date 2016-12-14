@@ -19,16 +19,12 @@ $rowClosed = true;
 <div id="galleryContent" class="col-sm-12">
     <?php if($gallery->isEmpty()): ?>
         <div class="galleryEmptyMessage">
-            <div class="panel">
-                <div class="panel-body">
-                    <?php if(Yii::$app->controller->canWrite(false)): ?>
-                    <p><strong><?php echo Yii::t('GalleryModule.base', 'This gallery is still empty.');?></strong></p>
-                    <?php echo Yii::t('GalleryModule.base', 'You can upload images using the buttons above.');?>
-                    <?php else: ?>
-                    <p style="margin-top:10px;"><strong><?php echo Yii::t('GalleryModule.base', 'This gallery is still empty.');?></strong></p>
-                    <?php endif; ?>
-                </div>
-            </div>
+            <?php if(Yii::$app->controller->canWrite(false)): ?>
+            <b><?php echo Yii::t('GalleryModule.base', 'This gallery is still empty.');?></b><br/>
+            <?php echo Yii::t('GalleryModule.base', 'You can upload images using the buttons above.');?>
+            <?php else: ?>
+            <p style="margin-top:10px;"><strong><?php echo Yii::t('GalleryModule.base', 'This gallery is still empty.');?></strong></p>
+            <?php endif; ?>
         </div>
     <?php endif; ?>
     <?php foreach($gallery->mediaList as $media): ?>

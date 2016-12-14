@@ -19,12 +19,8 @@ $rowClosed = true;
 <div id="galleryContent" class="col-sm-12">
     <?php if($gallery->isEmpty()): ?>
         <div class="galleryEmptyMessage">
-            <div class="panel">
-                <div class="panel-body">
-                    <p><strong><?php echo Yii::t('GalleryModule.base', 'This gallery is empty.');?></strong></p>
-                    <?php echo Yii::t('GalleryModule.base', 'No images have been posted to the stream yet :(.');?>
-                </div>
-            </div>
+            <b><?php echo Yii::t('GalleryModule.base', 'This gallery is empty.');?></b><br/>
+            <?php echo Yii::t('GalleryModule.base', 'No images have been posted to the stream yet :(.');?>
         </div>
     <?php endif; ?>
     <?php foreach($gallery->fileList as $file): ?>
