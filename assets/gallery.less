@@ -1,5 +1,5 @@
 @import "buttonactionlist.less";
-
+@info: #6fdbe8;
 #galleryContainer {
     .panel-body {
         .row {
@@ -38,7 +38,7 @@
     .back-button {
         margin-bottom: 10px;
     }
-
+    
     #galleryList, #galleryContent {
         .galleryEmptyMessage {
             .panel {
@@ -63,6 +63,11 @@
             position: relative;
             display: block;
             border-radius: 0 !important;
+
+            &.shadowPublic {
+                box-shadow: 0 0 3px @info;
+                -webkit-box-shadow: 0 0 3px @info;
+            }
 
             .panel-body {
                 position: relative;

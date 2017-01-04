@@ -16,6 +16,8 @@ use humhub\modules\gallery\widgets\GalleryPreview;
     <?php echo $form->field($gallery, 'description')->label(false)->textArea(array('class' => 'form-control', 'id' => 'gallery_gallery_description_' . $gallery->id, 'placeholder' => Yii::t('GalleryModule.base', 'Edit the gallery description...'))); ?>
     <?= \humhub\widgets\RichTextEditor::widget(['id' => 'gallery_gallery_description_' . $gallery->id, 'inputContent' => $gallery->description, 'record' => $gallery]); ?>
     
+    <?php echo $form->field($gallery->content, 'visibility')->checkbox(['label' => Yii::t('GalleryModule.base', 'Make this gallery public')]); ?>
+    
     <?php echo \humhub\widgets\AjaxButton::widget([
         'label' => Yii::t('GalleryModule.base', 'Save'),
         'ajaxOptions' => [

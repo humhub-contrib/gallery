@@ -192,6 +192,11 @@
   display: block;
   border-radius: 0 !important;
 }
+#galleryContainer #galleryList .panel.shadowPublic,
+#galleryContainer #galleryContent .panel.shadowPublic {
+  box-shadow: 0 0 3px #6fdbe8;
+  -webkit-box-shadow: 0 0 3px #6fdbe8;
+}
 #galleryContainer #galleryList .panel .panel-body,
 #galleryContainer #galleryContent .panel .panel-body {
   position: relative;

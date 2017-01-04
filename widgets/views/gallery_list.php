@@ -8,6 +8,7 @@ use humhub\modules\cfiles\widgets\DropdownButton;
 use humhub\modules\like\widgets\LikeLink;
 use humhub\modules\comment\widgets\CommentLink;
 use humhub\modules\gallery\Module;
+use humhub\modules\content\models\Content;
 
 $bundle = \humhub\modules\gallery\Assets::register($this);
 $contentContainer = Yii::$app->controller->contentContainer;
@@ -25,7 +26,7 @@ $noVisibleContent = true;
                 $rowClosed = false;
             endif; ?>
                 <div class="col-sm-4 gallery">
-                    <div class="panel panel-default">
+                    <div class="panel panel-default shadowPublic">
                         <div class="panel-header">
                             <div class="pull-left truncate tt" data-toggle="tooltip" data-placement="top" title="" data-original-title="<?php echo Html::encode($gallery->title); ?>">
                                 <?php echo Html::encode($gallery->title); ?>
@@ -73,7 +74,7 @@ $noVisibleContent = true;
             $rowClosed = false;
         endif; ?>
             <div class="col-sm-4 gallery">
-                <div class="panel panel-default">
+                <div class="panel panel-default <?php if($gallery->content->visibility == Content::VISIBILITY_PUBLIC) : echo 'shadowPublic'; endif;  ?>">
                     <div class="panel-header">
                         <div class="pull-left" style="margin-right:4px;">
                             <a href="<?php echo $creator->createUrl(); ?>">

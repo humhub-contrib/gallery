@@ -28,12 +28,6 @@ class BaseGallery extends ContentActiveRecord
     const TYPE_CUSTOM_GALLERY = 1;
 
     const TYPE_STREAM_GALLERY = 2;
-
-    const EDITABLE_BY_NONE = 0;
-
-    const EDITABLE_BY_OWNER = 1;
-
-    const EDITABLE_BY_MEMBERS = 2;
     
     /**
      * Overwrite!

@@ -14,6 +14,7 @@ use humhub\modules\gallery\models\Media;
 use humhub\modules\file\models\File;
 use humhub\modules\gallery\libs\FileUtils;
 use humhub\modules\gallery\widgets\CustomGalleryContent;
+use humhub\modules\content\models\Content;
 
 /**
  * Description of a Custom Gallery Controller for the gallery module.
@@ -70,6 +71,9 @@ class CustomGalleryController extends ListController
         $fromWall = Yii::$app->request->get('fromWall');
         $itemId = Yii::$app->request->get('item-id');
         $openGalleryId = Yii::$app->request->get('open-gallery-id');
+        $visibility = Yii::$app->request->get('visibility');
+        // default visibility is private
+        $visibility = $visibility !== Content::VISIBILITY_PUBLIC ? Content::VISIBILITY_PRIVATE : Content::VISIBILITY_PUBLIC;
         $cancel = Yii::$app->request->get('cancel');
         // check if a gallery with the given id exists.
         $gallery = $this->module->getItemById($itemId);      
@@ -86,14 +90,18 @@ class CustomGalleryController extends ListController
             }
             // create a new gallery
             $gallery = new CustomGallery();
-            $gallery->editable_by = CustomGallery::EDITABLE_BY_MEMBERS;
             $gallery->type = CustomGallery::TYPE_CUSTOM_GALLERY;
             $gallery->content->container = $this->contentContainer;
         }
         
-        $data = Yii::$app->request->post('CustomGallery');
+        $gallery_form_data = Yii::$app->request->post('CustomGallery');
+        $content_form_data = Yii::$app->request->post('Content');
+        // format visibility
+        $content_form_data['visibility'] = $content_form_data['visibility'] != Content::VISIBILITY_PUBLIC ? Content::VISIBILITY_PRIVATE : Content::VISIBILITY_PUBLIC;
         
-        if ($data !== null && $gallery->load(Yii::$app->request->post()) && $gallery->validate()) {
+        if ($gallery_form_data !== null && $gallery->load(Yii::$app->request->post()) && $gallery->validate()) {
+            $gallery->content->visibility = $content_form_data['visibility'];
+            $gallery->content->save();
             $gallery->save();
             if ($fromWall) {
                 return $this->renderAjaxContent($gallery->getWallOut([

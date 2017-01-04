@@ -1,12 +1,13 @@
 <?php
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
+use humhub\compat\CActiveForm;
 ?>
 
 <div class="modal-dialog modal-dialog-small animated fadeIn">
     <div class="modal-content">
         <?php
-        $form = ActiveForm::begin([
+        $form = CActiveForm::begin([
             'id' => 'Gallery',
             'class' => 'form-horizontal'
         ]);
@@ -24,6 +25,7 @@ use yii\bootstrap\ActiveForm;
         <div class="modal-body">
             <?php echo $form->field($gallery, 'title'); ?>
             <?php echo $form->field($gallery, 'description')->textArea(); ?>
+            <?php echo $form->field($gallery->content, 'visibility')->checkbox(['label' => Yii::t('GalleryModule.base', 'Make this gallery public')]); ?>
         </div>
 
         <div class="modal-footer">
@@ -51,6 +53,6 @@ use yii\bootstrap\ActiveForm;
             </button>
 
         </div>
-        <?php ActiveForm::end()?>
+        <?php CActiveForm::end()?>
     </div>
 </div>
