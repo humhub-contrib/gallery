@@ -8,14 +8,17 @@
 
 namespace humhub\modules\gallery\controllers;
 
-use Yii;
-use humhub\modules\gallery\models\CustomGallery;
-use yii\web\UploadedFile;
-use humhub\modules\gallery\models\Media;
-use humhub\modules\file\models\File;
-use humhub\modules\gallery\libs\FileUtils;
-use humhub\modules\gallery\widgets\CustomGalleryContent;
-use humhub\modules\content\models\Content;
+use \humhub\modules\content\models\Content;
+use \humhub\modules\file\models\File;
+use \humhub\modules\file\models\FileUpload;
+use \humhub\modules\gallery\libs\FileUtils;
+use \humhub\modules\gallery\models\CustomGallery;
+use \humhub\modules\gallery\models\Media;
+use \humhub\modules\gallery\widgets\CustomGalleryContent;
+use \Yii;
+use \yii\base\NotSupportedException;
+use \yii\web\HttpException;
+use \yii\web\UploadedFile;
 
 /**
  * Description of a Custom Gallery Controller for the gallery module.
@@ -150,18 +153,38 @@ class CustomGalleryController extends ListController
                 ]);
                 continue;
             }
-            $media = new Media();
-            $baseFile = new File();
-            $baseFile->setUploadedFile($uploadedFile);
-            if ($baseFile->validate()) {
-                $media->title = FileUtils::sanitizeFilename($uploadedFile->name);
-                $media->content->container = $this->contentContainer;
-                $media->gallery_id = $parentGallery->id;
-                if ($media->validate()) {
-                    $media->save();
-                    $baseFile->object_model = $media->className();
-                    $baseFile->object_id = $media->id;
-                    $baseFile->save();
+
+            //@deprecated: v1.1 compatibility
+            if (version_compare(Yii::$app->version, '1.2', '<')) {
+
+                $media = new Media();
+                $baseFile = new File();
+                $baseFile->setUploadedFile($uploadedFile);
+                if ($baseFile->validate()) {
+                    $media->title = FileUtils::sanitizeFilename($uploadedFile->name);
+                    $media->content->container = $this->contentContainer;
+                    $media->gallery_id = $parentGallery->id;
+                    if ($media->validate()) {
+                        $media->save();
+                        $baseFile->object_model = $media->className();
+                        $baseFile->object_id = $media->id;
+                        $baseFile->save();
+                    }
+                }
+            } else {
+                $media = new Media();
+                $baseFile = new FileUpload;
+                $baseFile->setUploadedFile($uploadedFile);
+                if ($baseFile->validate()) {
+                    $media->title = $baseFile->file_name;
+                    $media->content->container = $this->contentContainer;
+                    $media->gallery_id = $parentGallery->id;
+                    if ($media->validate()) {
+                        $media->save();
+                        $baseFile->object_model = $media->className();
+                        $baseFile->object_id = $media->id;
+                        $baseFile->save();
+                    }
                 }
             }
             $response['errors'] = $this->extractAndCombineErrors($response['errors'], [

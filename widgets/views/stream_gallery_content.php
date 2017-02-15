@@ -56,7 +56,15 @@ $rowClosed = true;
                                         <a href="<?php echo $baseContent->getUrl(); ?>"><i class="fa fa-link"></i> <?php echo Yii::t('GalleryModule.base', 'Show post'); ?></a>
                                     </li>
                                     <li>
-                                        <a href="<?php echo $file->getUrl() . '&' . http_build_query(['download' => true]); ?>"><i class="fa fa-download"></i> <?php echo Yii::t('GalleryModule.base', 'Save'); ?></a>
+                                        <?php
+                                        //@deprecated: v1.1 compatibility
+                                        if (version_compare(Yii::$app->version, '1.2', '<')):
+                                            $downloadUrl = $file->getUrl() . '&' . http_build_query(['download' => true]);
+                                        else:
+                                            $downloadUrl = $file->getUrl(['download' => true]);
+                                        endif;
+                                        ?>
+                                        <a data-pjax-prevent="1" href="<?php echo $downloadUrl; ?>"><i class="fa fa-download"></i> <?php echo Yii::t('GalleryModule.base', 'Save'); ?></a>
                                     </li>
                                 </ul>
                             </li>
@@ -76,7 +84,7 @@ $rowClosed = true;
 
                         <?php echo LikeLink::widget(['object' => $baseObject]); ?>
                         |
-                        <?php echo CommentLink::widget(['object' => $baseObject, 'mode' => CommentLink::MODE_POPUP]); ?>
+    <?php echo CommentLink::widget(['object' => $baseObject, 'mode' => CommentLink::MODE_POPUP]); ?>
                     </div>
                 </div>
             </div>
@@ -88,5 +96,5 @@ $rowClosed = true;
         endif;
         ?>
     <?php endforeach; ?>
-    <?php echo $rowClosed ? "" : '</div>'; ?>
+<?php echo $rowClosed ? "" : '</div>'; ?>
 </div>

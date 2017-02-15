@@ -45,13 +45,17 @@ class Media extends ContentActiveRecord
 
     public function getWallUrl()
     {
-        $firstWallEntryId = $this->content->getFirstWallEntryId();
-
-        if ($firstWallEntryId == '') {
-            return '';
+        //@deprecated: v1.1 compatibility
+        if (version_compare(Yii::$app->version, '1.2', '<')) {
+            $firstWallEntryId = $this->content->getFirstWallEntryId();
+            if ($firstWallEntryId == '') {
+                return '';
+            }
+            return Url::toRoute(['/content/perma/wall-entry', 'id' => $firstWallEntryId]);
+        } else {
+            $permaLink = Url::to(['/content/perma', 'id' => $this->content->id], true);
+            return $permaLink;
         }
-
-        return Url::toRoute(['/content/perma/wall-entry', 'id' => $firstWallEntryId]);
     }
 
     /**
@@ -111,10 +115,14 @@ class Media extends ContentActiveRecord
 
     public function getUrl($download = false)
     {
-        // FIXME: dirty workaround to avoid errors if basefile is uninitialized. this happens sometimes when basefile is accessed shortly after being saved with its related media file
-        return isset($this->baseFile) ? $this->baseFile->getUrl() . ($download ? '&' . http_build_query([
-                    'download' => 1
-                ]) : '') : "";
+        //@deprecated: v1.1 compatibility
+        if (version_compare(Yii::$app->version, '1.2', '<')) {
+            return isset($this->baseFile) ? $this->baseFile->getUrl() . ($download ? '&' . http_build_query([
+                        'download' => 1
+                    ]) : '') : "";
+        } else {
+            return $this->baseFile->getUrl(['download' => $download]);
+        }
     }
 
     public function getCreator()

@@ -64,7 +64,7 @@ $rowClosed = true;
                                         </li>
                                     <?php endif; ?>
                                     <li>
-                                        <a href="<?php echo $media->getUrl(true); ?>"><i class="fa fa-download"></i> <?php echo Yii::t('GalleryModule.base', 'Save'); ?></a>
+                                        <a data-pjax-prevent="1" href="<?php echo $media->getUrl(true); ?>"><i class="fa fa-download"></i> <?php echo Yii::t('GalleryModule.base', 'Save'); ?></a>
                                     </li>
                                 </ul>
                             </li>

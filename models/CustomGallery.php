@@ -3,6 +3,7 @@
 namespace humhub\modules\gallery\models;
 
 use \yii\helpers\Url;
+use \Yii;
 
 /**
  * This is the model class for a custom gallery.
@@ -26,13 +27,18 @@ class CustomGallery extends BaseGallery
 
     public function getWallUrl()
     {
-        $firstWallEntryId = $this->content->getFirstWallEntryId();
 
-        if ($firstWallEntryId == '') {
-            return '';
+        //@deprecated: v1.1 compatibility
+        if (version_compare(Yii::$app->version, '1.2', '<')) {
+            $firstWallEntryId = $this->content->getFirstWallEntryId();
+            if ($firstWallEntryId == '') {
+                return '';
+            }
+            return Url::toRoute(['/content/perma/wall-entry', 'id' => $firstWallEntryId]);
+        } else {
+            $permaLink = Url::to(['/content/perma', 'id' => $this->content->id], true);
+            return $permaLink;
         }
-
-        return Url::toRoute(['/content/perma/wall-entry', 'id' => $firstWallEntryId]);
     }
 
     public function getUrl()

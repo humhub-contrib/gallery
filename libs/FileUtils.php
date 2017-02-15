@@ -126,12 +126,16 @@ class FileUtils
      *
      * @param string $file_name            
      * @return string
+     * @deprecated since version 1.2
      */
     public static function sanitizeFilename($filename)
     {
         $file = new File();
         $file->file_name = $filename;
-        $file->sanitizeFilename();
+        // function no longer available since 1.2
+        if (version_compare(Yii::$app->version, '1.2', '<')) {
+            $file->sanitizeFilename();
+        }
         return $file->file_name;
     }
 
@@ -164,7 +168,7 @@ class FileUtils
         if ($basefile === null) {
             return;
         }
-
+        
         $suffix = $maxDimension . '_thumb_square';
         $originalFilename = $basefile->getStoredFilePath();
         $previewFilename = $basefile->getStoredFilePath($suffix);
