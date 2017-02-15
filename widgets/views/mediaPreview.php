@@ -36,7 +36,7 @@ $title = Html::encode($file->getTitle());
        <?php foreach ($htmlConf as $key => $val): 
            echo $key.'="'.$val.'"'; 
        endforeach; ?>>
-        <span><i class="fa fa-cloud-download ?> fa-fw"></i><span>&nbsp;<?php echo Yii::t('CfilesModule.base', 'Download') ?></span></span>
+        <span><i class="fa fa-cloud-download fa-fw"></i><span>&nbsp;<?php echo Yii::t('CfilesModule.base', 'Download') ?></span></span>
     </a>
 <?php endif; ?>
 <h5>

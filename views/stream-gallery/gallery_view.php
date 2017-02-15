@@ -6,7 +6,7 @@ use humhub\modules\comment\widgets\CommentLink;
 use humhub\modules\like\widgets\LikeLink;
 use humhub\modules\comment\widgets\Comments;
 
-$bundle = \humhub\modules\gallery\Assets::register($this);
+$bundle = \humhub\modules\gallery\assets\Assets::register($this);
 $this->registerJsVar('galleryMediaUploadUrl', 'unused');
 ?>
 <div id="galleryContainer" class="panel panel-default">

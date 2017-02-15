@@ -10,7 +10,7 @@ use humhub\modules\comment\widgets\CommentLink;
 use humhub\modules\gallery\Module;
 use humhub\modules\gallery\permissions\WriteAccess;
 
-$bundle = \humhub\modules\gallery\Assets::register($this);
+$bundle = \humhub\modules\gallery\assets\Assets::register($this);
 $contentContainer = Yii::$app->controller->contentContainer;
 $counter = 0;
 $rowClosed = true;

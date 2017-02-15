@@ -131,7 +131,7 @@ class BaseGallery extends ContentActiveRecord
 
     protected function getDefaultPreviewImageUrl()
     {
-        $path = Yii::$app->getModule('gallery')->getAssetsUrl() . '/resources';
+        $path = Yii::$app->getModule('gallery')->getAssetsUrl();
         $path = $path . '/file-picture-o.svg';
         return $path;
     }

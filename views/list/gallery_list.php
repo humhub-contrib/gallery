@@ -7,7 +7,7 @@ use yii\bootstrap\ButtonDropdown;
 use humhub\modules\cfiles\widgets\DropdownButton;
 use humhub\modules\gallery\widgets\GalleryList;
 
-$bundle = \humhub\modules\gallery\Assets::register($this);
+$bundle = \humhub\modules\gallery\assets\Assets::register($this);
 $this->registerJsVar('galleryMediaUploadUrl', 'unused');
 ?>
 

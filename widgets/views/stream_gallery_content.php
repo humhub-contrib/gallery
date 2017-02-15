@@ -11,7 +11,7 @@ use humhub\widgets\AjaxButton;
 use humhub\modules\like\widgets\LikeLink;
 use humhub\modules\comment\widgets\CommentLink;
 
-$bundle = \humhub\modules\gallery\Assets::register($this);
+$bundle = \humhub\modules\gallery\assets\Assets::register($this);
 $counter = 0;
 $rowClosed = true;
 ?>
