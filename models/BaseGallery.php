@@ -1,11 +1,12 @@
 <?php
+
 namespace humhub\modules\gallery\models;
 
-use Yii;
-use humhub\modules\user\models\User;
-use humhub\modules\content\components\ContentActiveRecord;
-use yii\helpers\FileHelper;
-use humhub\modules\gallery\libs\FileUtils;
+use \humhub\modules\content\components\ContentActiveRecord;
+use \humhub\modules\file\models\File;
+use \humhub\modules\gallery\libs\FileUtils;
+use \humhub\modules\user\models\User;
+use \Yii;
 
 /**
  * This is the abstract model class for table "gallery_gallery".
@@ -26,26 +27,31 @@ class BaseGallery extends ContentActiveRecord
 {
 
     const TYPE_CUSTOM_GALLERY = 1;
-
     const TYPE_STREAM_GALLERY = 2;
-    
+
     /**
      * Overwrite!
      */
     public function getUrl()
-    {}
-    
+    {
+        
+    }
+
     /**
      * Overwrite!
      */
     public function getItemId()
-    {}
+    {
+        
+    }
 
     /**
      * Overwrite!
      */
     public function getPreviewImageUrl()
-    {}
+    {
+        
+    }
 
     /**
      * @inheritdoc
@@ -102,14 +108,14 @@ class BaseGallery extends ContentActiveRecord
     public function getCreator()
     {
         return User::findOne([
-            'id' => $this->content->created_by
+                    'id' => $this->content->created_by
         ]);
     }
 
     public function getEditor()
     {
         return User::findOne([
-            'id' => $this->content->updated_by
+                    'id' => $this->content->updated_by
         ]);
     }
 
@@ -152,4 +158,5 @@ class BaseGallery extends ContentActiveRecord
         }
         return null;
     }
+
 }

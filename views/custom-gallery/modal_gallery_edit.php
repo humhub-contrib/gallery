@@ -1,15 +1,16 @@
 <?php
-use yii\helpers\Html;
-use yii\bootstrap\ActiveForm;
-use humhub\compat\CActiveForm;
+
+use \humhub\compat\CActiveForm;
+use \humhub\widgets\AjaxButton;
+use \yii\web\JsExpression;
 ?>
 
 <div class="modal-dialog modal-dialog-small animated fadeIn">
     <div class="modal-content">
         <?php
         $form = CActiveForm::begin([
-            'id' => 'Gallery',
-            'class' => 'form-horizontal'
+                    'id' => 'Gallery',
+                    'class' => 'form-horizontal'
         ]);
         ?>
         <div class="modal-header">
@@ -30,13 +31,12 @@ use humhub\compat\CActiveForm;
 
         <div class="modal-footer">
             <?php
-            
-            echo \humhub\widgets\AjaxButton::widget([
+            echo AjaxButton::widget([
                 'label' => Yii::t('GalleryModule.base', 'Save'),
                 'ajaxOptions' => [
                     'type' => 'POST',
-                    'beforeSend' => new yii\web\JsExpression('function(){ setModalLoader(); }'),
-                    'success' => new yii\web\JsExpression('function(html){ $("#globalModal").modal("hide"); $("#galleryContainer").html(html);}'),
+                    'beforeSend' => new JsExpression('function(){ setModalLoader(); }'),
+                    'success' => new JsExpression('function(html){ $("#globalModal").modal("hide"); $("#galleryContainer").html(html);}'),
                     'url' => $this->context->contentContainer->createUrl('/gallery/custom-gallery/edit', [
                         'item-id' => $gallery->getItemId(),
                         'open-gallery-id' => $openGalleryId
@@ -48,11 +48,11 @@ use humhub\compat\CActiveForm;
             ]);
             ?>
             <button type="button" class="btn btn-primary"
-                data-dismiss="modal">
-                <?php echo Yii::t( 'GalleryModule.base', 'Close'); ?>
+                    data-dismiss="modal">
+                        <?php echo Yii::t('GalleryModule.base', 'Close'); ?>
             </button>
 
         </div>
-        <?php CActiveForm::end()?>
+        <?php CActiveForm::end() ?>
     </div>
 </div>

@@ -5,15 +5,14 @@
  * @copyright Copyright (c) 2015 HumHub GmbH & Co. KG
  * @license https://www.humhub.com/licences
  */
+
 namespace humhub\modules\gallery\controllers;
 
-use Yii;
-use humhub\modules\gallery\models\Gallery;
-use humhub\modules\gallery\models\StreamGallery;
-use humhub\modules\gallery\models\BaseGallery;
-use humhub\modules\gallery\models\CustomGallery;
-use yii\base\NotSupportedException;
-use yii\web\HttpException;
+use \humhub\modules\gallery\models\CustomGallery;
+use \humhub\modules\gallery\models\StreamGallery;
+use \Yii;
+use \yii\base\NotSupportedException;
+use \yii\web\HttpException;
 
 /**
  * Description of ListController for the gallery module.
@@ -44,21 +43,21 @@ class ListController extends BaseController
     public function actionDeleteMultiple()
     {
         $this->canWrite(true);
-        
+
         $confirmed = Yii::$app->request->get('confirm');
         $itemId = Yii::$app->request->get('item-id');
         $openGalleryId = Yii::$app->request->get('open-gallery-id');
         $selectedItems = Yii::$app->request->post('selected');
-        
+
         if ($confirmed) {
             if (is_array($selectedItems)) {
                 $notDeleted = [];
                 foreach ($selectedItems as $itemId) {
-                    if (! $this->deleteItem($itemId)) {
+                    if (!$this->deleteItem($itemId)) {
                         $notDeleted[] = $itemId;
                     }
                 }
-                if (! empty($notDeleted) && $this->module->debug) {
+                if (!empty($notDeleted) && $this->module->debug) {
                     throw new HttpException(400, Yii::t('GalleryModule.base', 'Following items could not be deleted: (%ids%).', [
                         '%ids%' => implode(', ', $notDeleted)
                     ]));
@@ -67,10 +66,10 @@ class ListController extends BaseController
             }
         } else {
             return $this->renderAjax('/shared/modal_delete', [
-                'openGalleryId' => $openGalleryId,
-                'selectedItems' => array_merge($selectedItems == null ? [] : $selectedItems, $itemId == null ? [] : [
-                    $itemId
-                ])
+                        'openGalleryId' => $openGalleryId,
+                        'selectedItems' => array_merge($selectedItems == null ? [] : $selectedItems, $itemId == null ? [] : [
+                            $itemId
+                        ])
             ]);
         }
     }
@@ -129,4 +128,5 @@ class ListController extends BaseController
         // no gallery is open at the list level
         return null;
     }
+
 }

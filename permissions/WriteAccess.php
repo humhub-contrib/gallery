@@ -5,9 +5,11 @@
  * @copyright Copyright (c) 2015 HumHub GmbH & Co. KG
  * @license https://www.humhub.com/licences
  */
+
 namespace humhub\modules\gallery\permissions;
 
-use humhub\modules\space\models\Space;
+use \humhub\libs\BasePermission;
+use \humhub\modules\space\models\Space;
 
 /**
  * WriteAccess Permission
@@ -16,7 +18,7 @@ use humhub\modules\space\models\Space;
  * @since 1.0
  * @author Sebastian Stumpf
  */
-class WriteAccess extends \humhub\libs\BasePermission
+class WriteAccess extends BasePermission
 {
 
     /**
@@ -51,4 +53,5 @@ class WriteAccess extends \humhub\libs\BasePermission
      * @inheritdoc
      */
     protected $moduleId = 'gallery';
+
 }

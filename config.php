@@ -1,6 +1,7 @@
 <?php
-use humhub\modules\space\widgets\Menu;
-use humhub\modules\user\widgets\ProfileMenu;
+
+use \humhub\modules\space\widgets\Menu;
+use \humhub\modules\user\widgets\ProfileMenu;
 
 return [
     'id' => 'gallery',

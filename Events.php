@@ -1,7 +1,9 @@
 <?php
+
 namespace humhub\modules\gallery;
 
-use Yii;
+use \Yii;
+use \yii\base\Object;
 
 /**
  * The event handler for the gallery module.
@@ -10,7 +12,7 @@ use Yii;
  * @since 1.0
  * @author Sebastian Stumpf
  */
-class Events extends \yii\base\Object
+class Events extends Object
 {
 
     public static function onSpaceMenuInit($event)
@@ -29,14 +31,15 @@ class Events extends \yii\base\Object
     public static function onProfileMenuInit($event)
     {
         if ($event->sender->user !== null && $event->sender->user->isModuleEnabled('gallery')) {
-            
+
             //if ($event->sender->user->canAccessPrivateContent()) {
-                $event->sender->addItem(array(
-                    'label' => Yii::t('GalleryModule.base', 'Gallery'),
-                    'url' => $event->sender->user->createUrl('/gallery/list'),
-                    'isActive' => (Yii::$app->controller->module && Yii::$app->controller->module->id == 'gallery')
-                ));
+            $event->sender->addItem(array(
+                'label' => Yii::t('GalleryModule.base', 'Gallery'),
+                'url' => $event->sender->user->createUrl('/gallery/list'),
+                'isActive' => (Yii::$app->controller->module && Yii::$app->controller->module->id == 'gallery')
+            ));
             //}
         }
     }
+
 }

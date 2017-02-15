@@ -1,18 +1,20 @@
 <?php
 namespace humhub\modules\gallery;
 
-use Yii;
-use humhub\modules\space\models\Space;
-use humhub\modules\user\models\User;
-use humhub\modules\content\components\ContentContainerModule;
-use humhub\modules\content\components\ContentContainerActiveRecord;
-use humhub\modules\content\models\Content;
-use yii\helpers\Url;
-use humhub\modules\gallery\models\StreamGallery;
-use humhub\modules\gallery\models\CustomGallery;
-use humhub\modules\file\models\File;
-use humhub\modules\content\models\ContentContainer;
-use humhub\modules\gallery\permissions\WriteAccess;
+use \humhub\modules\content\components\ContentContainerActiveRecord;
+use \humhub\modules\content\components\ContentContainerModule;
+use \humhub\modules\content\models\Content;
+use \humhub\modules\content\models\ContentContainer;
+use \humhub\modules\file\models\File;
+use \humhub\modules\gallery\models\CustomGallery;
+use \humhub\modules\gallery\models\Media;
+use \humhub\modules\gallery\models\StreamGallery;
+use \humhub\modules\gallery\permissions\WriteAccess;
+use \humhub\modules\space\models\Space;
+use \humhub\modules\user\models\User;
+use \Yii;
+use \yii\debug\models\search\Profile;
+use \yii\helpers\Url;
 
 class Module extends ContentContainerModule
 {
@@ -37,7 +39,7 @@ class Module extends ContentContainerModule
     {
         if ($contentContainer instanceof Space || $contentContainer instanceof Profile) {
             return [
-                new permissions\WriteAccess()
+                new WriteAccess()
             ];
         }
         
@@ -53,15 +55,15 @@ class Module extends ContentContainerModule
         list ($type, $id) = explode('_', $itemId);
         
         if ($type == 'media') {
-            return models\Media::findOne([
+            return Media::findOne([
                 'id' => $id
             ]);
         } elseif ($type == 'stream-gallery') {
-            return models\StreamGallery::findOne([
+            return StreamGallery::findOne([
                 'id' => $id
             ]);
         } elseif ($type == 'custom-gallery') {
-            return models\CustomGallery::findOne([
+            return CustomGallery::findOne([
                 'id' => $id
             ]);
         } elseif ($type == 'file') {
@@ -81,10 +83,10 @@ class Module extends ContentContainerModule
     
     public function disable()
     {
-        foreach (models\CustomGallery::find()->all() as $key => $gallery) {
+        foreach (CustomGallery::find()->all() as $key => $gallery) {
             $gallery->delete();
         }
-        foreach (models\Media::find()->all() as $key => $media) {
+        foreach (Media::find()->all() as $key => $media) {
             $media->delete();
         }
     }
@@ -109,7 +111,7 @@ class Module extends ContentContainerModule
         foreach ($galleries as $gallery) {
             $gallery->delete();
         }
-        $mediaList = models\Media::find()->contentContainer($container)->all();
+        $mediaList = Media::find()->contentContainer($container)->all();
         foreach ($mediaList as $media) {
             $media->delete();
         }

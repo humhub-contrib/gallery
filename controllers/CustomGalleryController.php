@@ -5,6 +5,7 @@
  * @copyright Copyright (c) 2015 HumHub GmbH & Co. KG
  * @license https://www.humhub.com/licences
  */
+
 namespace humhub\modules\gallery\controllers;
 
 use Yii;
@@ -45,7 +46,7 @@ class CustomGalleryController extends ListController
     {
         return $this->renderGallery();
     }
-    
+
     /**
      * Action to sort the media files.
      *
@@ -67,7 +68,7 @@ class CustomGalleryController extends ListController
     public function actionEdit()
     {
         $this->canWrite(true);
-        
+
         $fromWall = Yii::$app->request->get('fromWall');
         $itemId = Yii::$app->request->get('item-id');
         $openGalleryId = Yii::$app->request->get('open-gallery-id');
@@ -76,14 +77,14 @@ class CustomGalleryController extends ListController
         $visibility = $visibility !== Content::VISIBILITY_PUBLIC ? Content::VISIBILITY_PRIVATE : Content::VISIBILITY_PUBLIC;
         $cancel = Yii::$app->request->get('cancel');
         // check if a gallery with the given id exists.
-        $gallery = $this->module->getItemById($itemId);      
-        
+        $gallery = $this->module->getItemById($itemId);
+
         if ($fromWall && $cancel) {
             return $this->renderAjaxContent($gallery->getWallOut());
         }
-        
+
         // if no gallery is found with the given id, a new one has to be created
-        if (! ($gallery instanceof CustomGallery)) {
+        if (!($gallery instanceof CustomGallery)) {
             // can't create galleries from wall!!!
             if ($fromWall) {
                 throw new HttpException(401, Yii::t('GalleryModule.base', 'Cannot edit non existing Gallery.'));
@@ -93,31 +94,30 @@ class CustomGalleryController extends ListController
             $gallery->type = CustomGallery::TYPE_CUSTOM_GALLERY;
             $gallery->content->container = $this->contentContainer;
         }
-        
+
         $gallery_form_data = Yii::$app->request->post('CustomGallery');
         $content_form_data = Yii::$app->request->post('Content');
         // format visibility
         $content_form_data['visibility'] = $content_form_data['visibility'] != Content::VISIBILITY_PUBLIC ? Content::VISIBILITY_PRIVATE : Content::VISIBILITY_PUBLIC;
-        
+
         if ($gallery_form_data !== null && $gallery->load(Yii::$app->request->post()) && $gallery->validate()) {
             $gallery->content->visibility = $content_form_data['visibility'];
-            $gallery->content->save();
             $gallery->save();
             if ($fromWall) {
                 return $this->renderAjaxContent($gallery->getWallOut([
-                    'justEdited' => true
+                                    'justEdited' => true
                 ]));
             } else {
                 return $this->renderGallery(true);
             }
         }
-        
+
         // render modal
         return $this->renderAjax($fromWall ? '/custom-gallery/wall_gallery_edit' : '/custom-gallery/modal_gallery_edit', [
-            'openGalleryId' => $openGalleryId,
-            'gallery' => $gallery,
-            'contentContainer' => $this->contentContainer,
-            'fromWall' => $fromWall
+                    'openGalleryId' => $openGalleryId,
+                    'gallery' => $gallery,
+                    'contentContainer' => $this->contentContainer,
+                    'fromWall' => $fromWall
         ]);
     }
 
@@ -131,22 +131,22 @@ class CustomGalleryController extends ListController
     public function actionUpload()
     {
         Yii::$app->response->format = 'json';
-        
+
         $this->canWrite(true);
-        
+
         $response = [];
         $response['errors'] = [];
-        
+
         $parentGallery = $this->getOpenGallery();
         if ($parentGallery == null) {
             $response['errors'][] = Yii::t('GalleryModule.base', 'No valid gallery specified for the uploaded files.');
             return $response;
         }
-        
+
         foreach (UploadedFile::getInstancesByName('files') as $uploadedFile) {
-            if (! $this->isValidExtension($uploadedFile->extension)) {
+            if (!$this->isValidExtension($uploadedFile->extension)) {
                 $response['errors'][] = Yii::t('GalleryModule.base', 'Filetype of %filename% is not supported.', [
-                    '%filename%' => $uploadedFile->name
+                            '%filename%' => $uploadedFile->name
                 ]);
                 continue;
             }
@@ -167,12 +167,12 @@ class CustomGalleryController extends ListController
             $response['errors'] = $this->extractAndCombineErrors($response['errors'], [
                 $media,
                 $baseFile
-            ], $uploadedFile->name, false);
+                    ], $uploadedFile->name, false);
         }
-        
+
         // render and add gallery content to the response
         $response['galleryHtml'] = CustomGalleryContent::widget([
-            'gallery' => $parentGallery,
+                    'gallery' => $parentGallery,
         ]);
         return $response;
     }
@@ -191,9 +191,9 @@ class CustomGalleryController extends ListController
         $gallery = $this->getOpenGallery($openGalleryId);
         if ($gallery != null) {
             return $ajax ? $this->renderAjax("/custom-gallery/gallery_view", [
-                'gallery' => $gallery
-            ]) : $this->render("/custom-gallery/gallery_view", [
-                'gallery' => $gallery
+                        'gallery' => $gallery
+                    ]) : $this->render("/custom-gallery/gallery_view", [
+                        'gallery' => $gallery
             ]);
         } else {
             return parent::renderGallery($ajax);
@@ -204,8 +204,9 @@ class CustomGalleryController extends ListController
     {
         $id = $openGalleryId == null ? Yii::$app->request->get('open-gallery-id') : $openGalleryId;
         return CustomGallery::findOne([
-            'id' => $id,
-            'type' => CustomGallery::TYPE_CUSTOM_GALLERY
+                    'id' => $id,
+                    'type' => CustomGallery::TYPE_CUSTOM_GALLERY
         ]);
     }
+
 }

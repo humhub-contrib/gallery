@@ -1,14 +1,14 @@
 <?php
-use yii\helpers\Html;
-use humhub\modules\like\widgets\LikeLink;
-use humhub\modules\comment\widgets\CommentLink;
-use humhub\modules\gallery\widgets\GalleryPreview;
+
+use \humhub\modules\gallery\widgets\GalleryPreview;
+use \humhub\widgets\RichText;
+use \yii\helpers\Html;
 ?>
 
 <div class="gallery-wallout-gallery">
     <div class="gallery-wallentry-header" style="overflow: hidden; margin-bottom: 20px;">    
         <h1><strong><?php echo Html::encode($gallery->title); ?></strong></h1>    
-        <div><?php echo humhub\widgets\RichText::widget(['text' => (trim($gallery->description) ? $gallery->description : ''), 'record' => $gallery]); ?></div>
+        <div><?php echo RichText::widget(['text' => (trim($gallery->description) ? $gallery->description : ''), 'record' => $gallery]); ?></div>
     </div>
     <div class="gallery-wallentry-content" id="gallery-wallout-gallery-content-<?php echo $gallery->id; ?>" style="overflow: hidden;">
         <div class="preview">
@@ -25,7 +25,7 @@ use humhub\modules\gallery\widgets\GalleryPreview;
 </div>
 
 <script type="text/javascript">
-            
+
     $(document).ready(function () {
 
         var _galleryContentHeight = $('#gallery-wallout-gallery-content-<?php echo $gallery->id; ?>').outerHeight();
@@ -75,7 +75,7 @@ use humhub\modules\gallery\widgets\GalleryPreview;
             // update link state
             $('#more-link-gallery-wallout-gallery-' + gallery_id).attr('data-state', 'down');
 
-            $('body, html').animate({ 
+            $('body, html').animate({
                 scrollTop: $('#more-link-gallery-wallout-gallery-' + gallery_id).closest('.wall-entry').offset().top - 100
             }, 600);
 

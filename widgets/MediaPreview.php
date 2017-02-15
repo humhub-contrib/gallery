@@ -8,17 +8,19 @@
 
 namespace humhub\modules\gallery\widgets;
 
+use \humhub\components\Widget;
+
 /**
  * @inheritdoc
  */
-class MediaPreview extends \humhub\components\Widget
+class MediaPreview extends Widget
 {
 
     public $file;
     public $height = -1;
     public $width = -1;
     public $htmlConf = [];
-    
+
     /**
      * @inheritdoc
      */

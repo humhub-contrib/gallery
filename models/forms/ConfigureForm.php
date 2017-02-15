@@ -1,7 +1,8 @@
 <?php
+
 namespace humhub\modules\gallery\models\forms;
 
-use Yii;
+use \yii\base\Model;
 
 /**
  * ConfigureForm defines the configurable fields for the gallery module.
@@ -12,7 +13,7 @@ use Yii;
  * @since 1.0
  * @author Sebastian Stumpf
  */
-class ConfigureForm extends \yii\base\Model
+class ConfigureForm extends Model
 {
 
     public $dummy;
@@ -39,4 +40,5 @@ class ConfigureForm extends \yii\base\Model
             'dummy' => 'Dummy config option'
         ];
     }
+
 }

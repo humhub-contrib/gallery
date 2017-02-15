@@ -1,10 +1,8 @@
 <?php
+
 namespace humhub\modules\gallery\models;
 
-use Yii;
-use humhub\modules\user\models\User;
-use humhub\modules\content\components\ContentActiveRecord;
-use yii\helpers\FileHelper;
+use \yii\helpers\Url;
 
 /**
  * This is the model class for a custom gallery.
@@ -20,30 +18,30 @@ class CustomGallery extends BaseGallery
      * @inheritdoc
      */
     public $autoAddToWall = true;
-    
+
     /**
      * @inheritdoc
      */
     public $wallEntryClass = "humhub\modules\gallery\widgets\WallEntryGallery";
-    
+
     public function getWallUrl()
     {
         $firstWallEntryId = $this->content->getFirstWallEntryId();
-    
+
         if ($firstWallEntryId == '') {
             return '';
         }
-    
-        return \yii\helpers\Url::toRoute(['/content/perma/wall-entry', 'id' => $firstWallEntryId]);
+
+        return Url::toRoute(['/content/perma/wall-entry', 'id' => $firstWallEntryId]);
     }
-    
+
     public function getUrl()
     {
         return $this->content->container->createUrl('/gallery/custom-gallery/view', [
-            'open-gallery-id' => $this->id
+                    'open-gallery-id' => $this->id
         ]);
     }
-    
+
     public function getPreviewImageUrl()
     {
         // search for file by given thumbnail id
@@ -52,10 +50,10 @@ class CustomGallery extends BaseGallery
             return $path;
         }
         $media = $this->mediaListQuery()
-            ->orderBy([
-            'sort_order' => SORT_ASC
-        ])
-            ->one();
+                ->orderBy([
+                    'sort_order' => SORT_ASC
+                ])
+                ->one();
         if ($media != null) {
             return $media->getSquareThumbnailUrl();
         } else {
@@ -69,7 +67,7 @@ class CustomGallery extends BaseGallery
         foreach ($this->getMediaList() as $media) {
             $media->delete();
         }
-        
+
         return parent::beforeDelete();
     }
 
@@ -90,8 +88,10 @@ class CustomGallery extends BaseGallery
     {
         return $this->mediaListQuery()->contentContainer($this->content->container)->readable()->all();
     }
-    
-    public function isEmpty() {
+
+    public function isEmpty()
+    {
         return $this->mediaListQuery()->one() === null;
     }
+
 }

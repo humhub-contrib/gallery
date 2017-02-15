@@ -1,12 +1,13 @@
 <?php
+
 namespace humhub\modules\gallery\models;
 
-use Yii;
-use humhub\modules\user\models\User;
-use humhub\modules\comment\models\Comment;
-use humhub\modules\content\models\Content;
-use humhub\modules\content\components\ContentActiveRecord;
-use humhub\modules\gallery\libs\FileUtils;
+use \humhub\modules\content\components\ContentActiveRecord;
+use \humhub\modules\file\models\File;
+use \humhub\modules\gallery\libs\FileUtils;
+use \humhub\modules\user\models\User;
+use \Yii;
+use \yii\helpers\Url;
 
 /**
  * This is the model class for table "gallery_media".
@@ -33,7 +34,7 @@ class Media extends ContentActiveRecord
      * @inheritdoc
      */
     public $wallEntryClass = "humhub\modules\gallery\widgets\WallEntryMedia";
-    
+
     /**
      * @inheritdoc
      */
@@ -41,16 +42,16 @@ class Media extends ContentActiveRecord
     {
         return 'gallery_media';
     }
-    
+
     public function getWallUrl()
     {
         $firstWallEntryId = $this->content->getFirstWallEntryId();
-    
+
         if ($firstWallEntryId == '') {
             return '';
         }
-    
-        return \yii\helpers\Url::toRoute(['/content/perma/wall-entry', 'id' => $firstWallEntryId]);
+
+        return Url::toRoute(['/content/perma/wall-entry', 'id' => $firstWallEntryId]);
     }
 
     /**
@@ -112,27 +113,27 @@ class Media extends ContentActiveRecord
     {
         // FIXME: dirty workaround to avoid errors if basefile is uninitialized. this happens sometimes when basefile is accessed shortly after being saved with its related media file
         return isset($this->baseFile) ? $this->baseFile->getUrl() . ($download ? '&' . http_build_query([
-            'download' => 1
-        ]) : '') : "";
+                    'download' => 1
+                ]) : '') : "";
     }
 
     public function getCreator()
     {
         return User::findOne([
-            'id' => $this->baseFile->created_by
+                    'id' => $this->baseFile->created_by
         ]);
     }
 
     public function getEditor()
     {
         return User::findOne([
-            'id' => $this->baseFile->updated_by
+                    'id' => $this->baseFile->updated_by
         ]);
     }
 
     public function getBaseFile()
     {
-        $query = $this->hasOne(\humhub\modules\file\models\File::className(), [
+        $query = $this->hasOne(File::className(), [
             'object_id' => 'id'
         ]);
         $query->andWhere([
@@ -140,7 +141,7 @@ class Media extends ContentActiveRecord
         ]);
         return $query;
     }
-    
+
     public function getSquareThumbnailUrl($maxDimension = 1000)
     {
         return FileUtils::getSquareThumbnailUrlFromFile($this->baseFile, $maxDimension);
@@ -161,16 +162,18 @@ class Media extends ContentActiveRecord
     {
         return $this->getTitle();
     }
-    
-    public function getTitle() {
+
+    public function getTitle()
+    {
         return $this->title;
     }
-    
-    public function getParentGallery() {
-         $query = $this->hasOne(CustomGallery::className(), [
+
+    public function getParentGallery()
+    {
+        $query = $this->hasOne(CustomGallery::className(), [
             'id' => 'gallery_id'
         ]);
         return $query;
     }
-    
+
 }

@@ -5,13 +5,14 @@
  * @copyright Copyright (c) 2015 HumHub GmbH & Co. KG
  * @license https://www.humhub.com/licences
  */
+
 namespace humhub\modules\gallery\controllers;
 
-use Yii;
-use humhub\modules\gallery\models\StreamGallery;
-use humhub\modules\file\models\File;
-use humhub\modules\content\components\ContentActiveRecord;
-use humhub\modules\gallery\libs\FileUtils;
+use \humhub\modules\content\components\ContentActiveRecord;
+use \humhub\modules\gallery\libs\FileUtils;
+use \humhub\modules\gallery\models\StreamGallery;
+use \Yii;
+use \yii\web\HttpException;
 
 /**
  * Description of a Stream Gallery Controller for the gallery module.
@@ -26,7 +27,8 @@ class StreamGalleryController extends ListController
     /**
      * Ajax action that returns the wall entry content of a given item.
      */
-    public function actionGetWallEntry() {
+    public function actionGetWallEntry()
+    {
         $itemId = Yii::$app->request->get('item-id');
         // check if a gallery with the given id exists.
         $item = $this->module->getItemById($itemId);
@@ -36,7 +38,7 @@ class StreamGalleryController extends ListController
         var_dump($post instanceof ContentActiveRecord);
         return ($post instanceof ContentActiveRecord) ? $post->getWallOut() : "";
     }
-    
+
     /**
      *
      * @return redirect to /view.
@@ -68,29 +70,29 @@ class StreamGalleryController extends ListController
     public function actionEdit()
     {
         $this->canWrite(true);
-        
+
         $itemId = Yii::$app->request->get('item-id');
         $openGalleryId = Yii::$app->request->get('open-gallery-id');
         // check if a gallery with the given id exists.
         $gallery = $this->module->getItemById($itemId);
-        
+
         // if no gallery is found with the given id, a new one has to be created
-        if (! ($gallery instanceof StreamGallery)) {
+        if (!($gallery instanceof StreamGallery)) {
             // stream gallery must not be created by user
-            return -1;            
+            return -1;
         }
-        
+
         $data = Yii::$app->request->post('StreamGallery');
-        
+
         if ($data !== null && $gallery->load(Yii::$app->request->post()) && $gallery->validate()) {
             $gallery->save();
             return $this->renderGallery(true);
         }
-        
+
         // render modal
         return $this->renderAjax('/stream-gallery/modal_gallery_edit', [
-            'openGalleryId' => $openGalleryId,
-            'gallery' => $gallery
+                    'openGalleryId' => $openGalleryId,
+                    'gallery' => $gallery
         ]);
     }
 
@@ -108,9 +110,9 @@ class StreamGalleryController extends ListController
         $gallery = $this->getOpenGallery($openGalleryId);
         if ($gallery != null) {
             return $ajax ? $this->renderAjax("/stream-gallery/gallery_view", [
-                'gallery' => $gallery
-            ]) : $this->render("/stream-gallery/gallery_view", [
-                'gallery' => $gallery
+                        'gallery' => $gallery
+                    ]) : $this->render("/stream-gallery/gallery_view", [
+                        'gallery' => $gallery
             ]);
         } else {
             return parent::renderGallery($ajax);
@@ -121,7 +123,8 @@ class StreamGalleryController extends ListController
     {
         $id = $openGalleryId == null ? Yii::$app->request->get('open-gallery-id') : $openGalleryId;
         return StreamGallery::findOne([
-            'id' => $id
+                    'id' => $id
         ]);
     }
+
 }

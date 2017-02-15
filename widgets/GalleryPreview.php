@@ -8,17 +8,19 @@
 
 namespace humhub\modules\gallery\widgets;
 
+use \humhub\components\Widget;
+
 /**
  * @inheritdoc
  */
-class GalleryPreview extends \humhub\components\Widget
+class GalleryPreview extends Widget
 {
 
     public $gallery;
     public $htmlConf = [];
     public $lightboxDataParent;
     public $lightboxDataGallery;
-    
+
     /**
      * @inheritdoc
      */

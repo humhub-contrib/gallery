@@ -1,17 +1,12 @@
 <?php
+
 namespace humhub\modules\gallery\models;
 
-use Yii;
-use humhub\modules\user\models\User;
-use humhub\modules\content\components\ContentActiveRecord;
-use yii\helpers\FileHelper;
-use humhub\modules\file\models\File;
-use humhub\modules\comment\models\Comment;
-use humhub\modules\post\models\Post;
-use humhub\modules\gallery\libs\FileUtils;
-use humhub\modules\content\models\Content;
-use humhub\modules\content\components\ActiveQueryContent;
-use humhub\modules\space\models\Space;
+use \humhub\modules\comment\models\Comment;
+use \humhub\modules\file\models\File;
+use \humhub\modules\gallery\libs\FileUtils;
+use \humhub\modules\post\models\Post;
+use \Yii;
 
 /**
  * This is the model class for a stream gallery.
@@ -23,7 +18,7 @@ use humhub\modules\space\models\Space;
  */
 class StreamGallery extends BaseGallery
 {
-    
+
     /**
      * @inheritdoc
      */
@@ -32,10 +27,10 @@ class StreamGallery extends BaseGallery
     public function getUrl()
     {
         return $this->content->container->createUrl('/gallery/stream-gallery/view', [
-            'open-gallery-id' => $this->id
-            ]);
+                    'open-gallery-id' => $this->id
+        ]);
     }
-    
+
     public function getPreviewImageUrl()
     {
         // search for file by given thumbnail id
@@ -45,10 +40,10 @@ class StreamGallery extends BaseGallery
         }
         // get first image from the complete filelist as fallback
         $file = $this->fileListQuery()
-            ->orderBy([
-            'updated_at' => SORT_ASC
-        ])
-            ->one();
+                ->orderBy([
+                    'updated_at' => SORT_ASC
+                ])
+                ->one();
         if ($file !== null) {
             return FileUtils::getSquareThumbnailUrlFromFile($file);
         }
@@ -63,8 +58,8 @@ class StreamGallery extends BaseGallery
 
     private function fileListQuery()
     {
-        $query = \humhub\modules\file\models\File::find();
-                       
+        $query = File::find();
+
         // join comments to the file if available
         $query->join('LEFT JOIN', 'comment', '(file.object_id=comment.id AND file.object_model=' . Yii::$app->db->quoteValue(Comment::className()) . ')');
         // join parent post of comment or file
@@ -73,45 +68,47 @@ class StreamGallery extends BaseGallery
         // select only the one for the given content container for Yii version >= 1.1
         $query->andWhere([
             'content.contentcontainer_id' => $this->content->contentcontainer_id
-            ]);
+        ]);
         // only accept Posts as the base content, so stuff from submodules like files itsself or gallery will be excluded
         $query->andWhere([
             'or',
             [
-            '=',
-            'comment.object_model',
-            Post::className()
+                '=',
+                'comment.object_model',
+                Post::className()
             ],
             [
-            '=',
-            'file.object_model',
-            Post::className()
+                '=',
+                'file.object_model',
+                Post::className()
             ]
-            ]);
+        ]);
         // only get gallery suitable content types
         $query->andWhere([
             'like',
             'file.mime_type',
             'image/'
-            ]);
+        ]);
         return $query;
     }
 
     public function getFileList()
     {
         $files = $this->fileListQuery()
-            ->orderBy([
-            'updated_at' => SORT_DESC
-        ])
-            ->all();
+                ->orderBy([
+                    'updated_at' => SORT_DESC
+                ])
+                ->all();
         //TODO: This is ugly and probably slow. Would be much nicer to already filter in the query.
         return array_filter($files, function ($file) {
             return $file->canRead();
         });
     }
-    
-    public function isEmpty() {
+
+    public function isEmpty()
+    {
         // TODO: This also seems very slow. Would be much nicer to already filter in the query and use getFileListQuery->one().
         return sizeof($this->getFileList()) == 0;
     }
+
 }

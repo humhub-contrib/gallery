@@ -1,4 +1,5 @@
 <?php
+
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 ?>
@@ -7,8 +8,8 @@ use yii\bootstrap\ActiveForm;
     <div class="modal-content">
         <?php
         $form = ActiveForm::begin([
-            'id' => 'Gallery',
-            'class' => 'form-horizontal'
+                    'id' => 'Gallery',
+                    'class' => 'form-horizontal'
         ]);
         ?>
         <div class="modal-header">
@@ -24,7 +25,6 @@ use yii\bootstrap\ActiveForm;
 
         <div class="modal-footer">
             <?php
-            
             echo \humhub\widgets\AjaxButton::widget([
                 'label' => Yii::t('GalleryModule.base', 'Save'),
                 'ajaxOptions' => [
@@ -42,11 +42,11 @@ use yii\bootstrap\ActiveForm;
             ]);
             ?>
             <button type="button" class="btn btn-primary"
-                data-dismiss="modal">
-                <?php echo Yii::t( 'GalleryModule.base', 'Close'); ?>
+                    data-dismiss="modal">
+                        <?php echo Yii::t('GalleryModule.base', 'Close'); ?>
             </button>
 
         </div>
-        <?php ActiveForm::end()?>
+        <?php ActiveForm::end() ?>
     </div>
 </div>

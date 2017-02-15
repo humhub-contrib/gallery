@@ -5,17 +5,15 @@
  * @copyright Copyright (c) 2015 HumHub GmbH & Co. KG
  * @license https://www.humhub.com/licences
  */
+
 namespace humhub\modules\gallery\controllers;
 
-use Yii;
-use humhub\modules\content\components\ContentContainerController;
-use humhub\modules\user\models\User;
-use humhub\modules\gallery\permissions\WriteAccess;
-use yii\web\HttpException;
-use humhub\modules\gallery\models\Gallery;
-use yii\base\Model;
-use humhub\modules\content\widgets\WallEntry;
-use humhub\modules\gallery\Module;
+use \humhub\modules\content\components\ContentContainerController;
+use \humhub\modules\gallery\Module;
+use \humhub\modules\user\models\User;
+use \Yii;
+use \yii\base\Model;
+use \yii\web\HttpException;
 
 /**
  * Description of a Base Controller for the gallery module.
@@ -52,7 +50,7 @@ abstract class BaseController extends ContentContainerController
 
         if ($permission) {
             return true;
-        } elseif($throw) {
+        } elseif ($throw) {
             throw new HttpException(401, Yii::t('GalleryModule.base', 'Insufficient rights to execute this action.'));
         }
         return false;
@@ -67,7 +65,7 @@ abstract class BaseController extends ContentContainerController
     protected function getUserById($id)
     {
         return User::findOne([
-            'id' => $id
+                    'id' => $id
         ]);
     }
 
@@ -95,7 +93,7 @@ abstract class BaseController extends ContentContainerController
         if ($item instanceof Model) {
             return $item->delete();
         }
-        
+
         return false;
     }
 
@@ -116,8 +114,7 @@ abstract class BaseController extends ContentContainerController
     {
         $errors = $baseErrors;
         foreach ($models as $model) {
-            $modelErrors = array_map(function ($value, $key) use($prefix, $useKey)
-            {
+            $modelErrors = array_map(function ($value, $key) use($prefix, $useKey) {
                 return $prefix . ($useKey ? $key : '') . ': ' . $value[0];
             }, array_values($model->getErrors()), array_keys($model->getErrors()));
             $errors = array_merge($errors, $modelErrors);
@@ -136,4 +133,5 @@ abstract class BaseController extends ContentContainerController
     {
         return in_array($ext, self::$validExtensions);
     }
+
 }
