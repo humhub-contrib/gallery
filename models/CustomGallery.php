@@ -60,7 +60,7 @@ class CustomGallery extends BaseGallery
                     'sort_order' => SORT_ASC
                 ])
                 ->one();
-        if ($media != null) {
+        if ($media != null && !empty($media->getSquareThumbnailUrl()) ) {
             return $media->getSquareThumbnailUrl();
         } else {
             // return default image if gallery is empty

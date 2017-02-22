@@ -44,7 +44,7 @@ class StreamGallery extends BaseGallery
                     'updated_at' => SORT_ASC
                 ])
                 ->one();
-        if ($file !== null) {
+        if ($file !== null && !empty(FileUtils::getSquareThumbnailUrlFromFile($file))) {
             return FileUtils::getSquareThumbnailUrlFromFile($file);
         }
         // return default image if gallery is empty

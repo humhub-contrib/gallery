@@ -4,9 +4,10 @@ namespace humhub\modules\gallery\libs;
 
 use \humhub\modules\comment\models\Comment;
 use \humhub\modules\content\models\Content;
-use \humhub\modules\file\libs\ImageConverter;
 use \humhub\modules\file\models\File;
+use \humhub\modules\gallery\models\SquarePreviewImage;
 use \humhub\modules\post\models\Post;
+use \Yii;
 
 /**
  * This is a utility lib for files.
@@ -20,82 +21,43 @@ class FileUtils
 
     public static $map = [
         'code' => [
-            'ext' => [
-                'html',
-                'cmd',
-                'bat',
-                'xml'
-            ],
+            'ext' => ['html', 'cmd', 'bat', 'xml'],
             'icon' => 'fa-file-code-o'
         ],
         'archive' => [
-            'ext' => [
-                'zip',
-                'rar',
-                'gz',
-                'tar'
-            ],
+            'ext' => ['zip', 'rar', 'gz', 'tar'],
             'icon' => 'fa-file-archive-o'
         ],
         'audio' => [
-            'ext' => [
-                'mp3',
-                'wav'
-            ],
+            'ext' => ['mp3', 'wav'],
             'icon' => 'fa-file-audio-o'
         ],
         'excel' => [
-            'ext' => [
-                'xls',
-                'xlsx'
-            ],
+            'ext' => ['xls', 'xlsx'],
             'icon' => 'fa-file-excel-o'
         ],
         'image' => [
-            'ext' => [
-                'jpg',
-                'gif',
-                'bmp',
-                'svg',
-                'tiff',
-                'png'
-            ],
+            'ext' => ['jpg', 'gif', 'bmp', 'svg', 'tiff', 'png'],
             'icon' => 'fa-file-image-o'
         ],
         'pdf' => [
-            'ext' => [
-                'pdf'
-            ],
+            'ext' => ['pdf'],
             'icon' => 'fa-file-pdf-o'
         ],
         'powerpoint' => [
-            'ext' => [
-                'ppt',
-                'pptx'
-            ],
+            'ext' => ['ppt', 'pptx'],
             'icon' => 'fa-file-powerpoint-o'
         ],
         'text' => [
-            'ext' => [
-                'txt',
-                'log',
-                'md'
-            ],
+            'ext' => ['txt', 'log', 'md'],
             'icon' => 'fa-file-text-o'
         ],
         'video' => [
-            'ext' => [
-                'mp4',
-                'mpeg',
-                'swf'
-            ],
+            'ext' => ['mp4', 'mpeg', 'swf'],
             'icon' => 'fa-file-video-o'
         ],
         'word' => [
-            'ext' => [
-                'doc',
-                'docx'
-            ],
+            'ext' => ['doc', 'docx'],
             'icon' => 'fa-file-word-o'
         ],
         'default' => [
@@ -124,7 +86,7 @@ class FileUtils
     /**
      * Sanitize a filename.
      *
-     * @param string $file_name            
+     * @param string $filename            
      * @return string
      * @deprecated since version 1.2
      */
@@ -165,43 +127,12 @@ class FileUtils
      */
     public static function getSquareThumbnailUrlFromFile($basefile = null, $maxDimension = 1000)
     {
-        if ($basefile === null) {
-            return;
-        }
-        
-        $suffix = $maxDimension . '_thumb_square';
-        $originalFilename = $basefile->getStoredFilePath();
-        $previewFilename = $basefile->getStoredFilePath($suffix);
-
-        // already generated
-        if (is_file($previewFilename)) {
-            return $basefile->getUrl($suffix);
-        }
-
-        // Check file exists & has valid mime type
-        if ($basefile->getMimeBaseType() != "image" || !is_file($originalFilename)) {
+        $previewImage = new SquarePreviewImage();
+        if ($previewImage->applyFile($basefile)) {
+            return $previewImage->getUrl();
+        } else {
             return "";
         }
-
-        $imageInfo = @getimagesize($originalFilename);
-
-        // check valid image dimesions
-        if (!isset($imageInfo[0]) || !isset($imageInfo[1])) {
-            return "";
-        }
-
-        // Check if image type is supported
-        if ($imageInfo[2] != IMAGETYPE_PNG && $imageInfo[2] != IMAGETYPE_JPEG && $imageInfo[2] != IMAGETYPE_GIF) {
-            return "";
-        }
-
-        $dim = min($imageInfo[0], $imageInfo[1], $maxDimension);
-        ImageConverter::Resize($originalFilename, $previewFilename, array(
-            'mode' => 'force',
-            'width' => $dim,
-            'height' => $dim
-        ));
-        return $basefile->getUrl($suffix);
     }
 
     /**

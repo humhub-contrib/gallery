@@ -73,7 +73,7 @@ $rowClosed = true;
                     <div class="clearfix"></div>
                 </div>
                 <div class="panel-body">
-                    <a class="zoom" href="<?php echo $media->getUrl(); ?>#.jpeg" data-type="image" data-toggle="lightbox" data-parent="#galleryContent"  data-gallery="GalleryModule-Gallery-<?php echo $gallery->id; ?>"
+                    <a class="zoom" href="<?php echo $media->getUrl(); ?>#.jpeg" data-type="image" data-toggle="lightbox" data-parent="#galleryContent"  data-gallery="GalleryModule-Gallery-<?php echo $gallery->id; ?>" data-ui-gallery="GalleryModule-Gallery-<?php echo $gallery->id; ?>"
                        data-footer='<p style="overflow:hidden; text-overflow:ellipsis;"><strong><?php echo Html::encode(Html::encode($media->title)); ?></strong></p><?php echo ($media->description != "" ? "<p>" . Html::encode(Html::encode($media->description)) . "</p>" : ""); ?><button type="button" class="btn btn-primary" data-dismiss="modal"><?php echo Yii::t('FileModule.base', 'Close'); ?></button>'>
                         <img src="<?php echo $media->getSquareThumbnailUrl(); ?>" />
                         <span class="overlay"><i class="glyphicon glyphicon-fullscreen"></i></span>

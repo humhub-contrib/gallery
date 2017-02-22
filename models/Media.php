@@ -150,9 +150,22 @@ class Media extends ContentActiveRecord
         return $query;
     }
 
+    protected function getFallbackPreviewImageUrl()
+    {
+        $path = Yii::$app->getModule('gallery')->getAssetsUrl();
+        $path = $path . '/file-picture-o.svg';
+        return $path;
+    }
+    
     public function getSquareThumbnailUrl($maxDimension = 1000)
     {
-        return FileUtils::getSquareThumbnailUrlFromFile($this->baseFile, $maxDimension);
+        $previewImage = FileUtils::getSquareThumbnailUrlFromFile($this->baseFile, $maxDimension);
+        if(!empty($previewImage)) {
+            return $previewImage;
+        } else {
+            return $this->getFallbackPreviewImageUrl();
+        }
+        
     }
 
     /**
