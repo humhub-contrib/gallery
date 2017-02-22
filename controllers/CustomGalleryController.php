@@ -125,6 +125,56 @@ class CustomGalleryController extends ListController
     }
 
     /**
+     * Handles the file upload for are particular UploadedFile
+     */
+    protected function handleMediaUpload(\humhub\modules\gallery\models\BaseGallery $parentGallery, yii\web\UploadedFile $cfile)
+    {
+        $media = new Media();
+        // Save humhubfile
+        $mediaUpload = new \humhub\modules\gallery\models\MediaUpload();
+        $mediaUpload->setUploadedFile($cfile);
+        $valid = $mediaUpload->validate();
+        if (!$valid) {
+            $media->title = $mediaUpload->file_name;
+            $media->content->container = $this->contentContainer;
+            $media->gallery_id = $parentGallery->id;
+            $valid = $media->validate();
+            // connect media and file
+            if (!$valid) {
+                $media->save();
+                $mediaUpload->object_model = $media->className();
+                $mediaUpload->object_id = $media->id;
+                $mediaUpload->save();
+            }
+        }
+        return $valid ? $media : $this->getUploadErrorResponse($mediaUpload, $media);
+    }
+
+    /**
+     * Returns the error response for a media upload as array
+     *
+     * @param File $file
+     * @param Media $media
+     * @return array the upload error information
+     */
+    protected function getUploadErrorResponse(File $file, Media $media)
+    {
+        $errorMessage = Yii::t('GalleryModule.base', 'File {fileName} could not be uploaded!', ['fileName' => $file->file_name]);
+
+        if ($file->getErrors()) {
+            $errorMessage = $file->getErrors('uploadedFile');
+        } elseif ($media->getErrors()) {
+            $errorMessage = $media->getErrors();
+        }
+        return [
+            'error' => true,
+            'errors' => $errorMessage,
+            'name' => $file->file_name,
+            'size' => $file->size
+        ];
+    }
+
+    /**
      * Action to upload multiple files.
      * @url-param 'open-gallery-id' id of the open gallery the files should be stored in.
      *
@@ -134,70 +184,14 @@ class CustomGalleryController extends ListController
     public function actionUpload()
     {
         Yii::$app->response->format = 'json';
-
         $this->canWrite(true);
-
-        $response = [];
-        $response['errors'] = [];
-
         $parentGallery = $this->getOpenGallery();
-        if ($parentGallery == null) {
-            $response['errors'][] = Yii::t('GalleryModule.base', 'No valid gallery specified for the uploaded files.');
-            return $response;
+
+        $files = array();
+        foreach (UploadedFile::getInstancesByName('files') as $cFile) {
+            $files[] = $this->handleMediaUpload($parentGallery, $cFile);
         }
-
-        foreach (UploadedFile::getInstancesByName('files') as $uploadedFile) {
-            if (!$this->isValidExtension($uploadedFile->extension)) {
-                $response['errors'][] = Yii::t('GalleryModule.base', 'Filetype of %filename% is not supported.', [
-                            '%filename%' => $uploadedFile->name
-                ]);
-                continue;
-            }
-
-            //@deprecated: v1.1 compatibility
-            if (version_compare(Yii::$app->version, '1.2', '<')) {
-
-                $media = new Media();
-                $baseFile = new File();
-                $baseFile->setUploadedFile($uploadedFile);
-                if ($baseFile->validate()) {
-                    $media->title = FileUtils::sanitizeFilename($uploadedFile->name);
-                    $media->content->container = $this->contentContainer;
-                    $media->gallery_id = $parentGallery->id;
-                    if ($media->validate()) {
-                        $media->save();
-                        $baseFile->object_model = $media->className();
-                        $baseFile->object_id = $media->id;
-                        $baseFile->save();
-                    }
-                }
-            } else {
-                $media = new Media();
-                $baseFile = new FileUpload;
-                $baseFile->setUploadedFile($uploadedFile);
-                if ($baseFile->validate()) {
-                    $media->title = $baseFile->file_name;
-                    $media->content->container = $this->contentContainer;
-                    $media->gallery_id = $parentGallery->id;
-                    if ($media->validate()) {
-                        $media->save();
-                        $baseFile->object_model = $media->className();
-                        $baseFile->object_id = $media->id;
-                        $baseFile->save();
-                    }
-                }
-            }
-            $response['errors'] = $this->extractAndCombineErrors($response['errors'], [
-                $media,
-                $baseFile
-                    ], $uploadedFile->name, false);
-        }
-
-        // render and add gallery content to the response
-        $response['galleryHtml'] = CustomGalleryContent::widget([
-                    'gallery' => $parentGallery,
-        ]);
-        return $response;
+        return ['files' => $files];
     }
 
     /**

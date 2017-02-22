@@ -8,11 +8,8 @@ use \humhub\modules\like\widgets\LikeLink;
 use \yii\helpers\Html;
 
 $bundle = Assets::register($this);
-$this->registerJsVar('galleryMediaUploadUrl', $this->context->contentContainer->createUrl('upload', [
-            'open-gallery-id' => $gallery->id
-]));
 ?>
-<div id="galleryContainer" class="panel panel-default">
+<div id="gallery-container" class="panel panel-default">
     <?php echo Html::beginForm(null, null, ['data-target' => '#globalModal', 'id' => 'gallery-form']); ?>
     <?php echo Html::endForm(); ?>
     <div class="panel-body">
@@ -35,27 +32,8 @@ $this->registerJsVar('galleryMediaUploadUrl', $this->context->contentContainer->
             </div>
         </div>
         <hr />
-        <?php if ($this->context->canWrite(false)): ?>
-            <div class="row button-action-menu">
-                <div class="col-sm-4">
-                    <span class="fileinput-button btn btn-default overflow-hidden"> <i
-                            class="glyphicon glyphicon-plus"></i> <?php echo Yii::t('GalleryModule.base', 'Upload'); ?> <input
-                            id="galleryMediaUpload" type="file" name="files[]"
-                            multiple>
-                    </span>
-                </div>
-                <div class="col-sm-4">
-                    <a class="btn btn-default" data-target="#globalModal"
-                       href="<?php echo $this->context->contentContainer->createUrl('edit', ['open-gallery-id' => $gallery->id, 'item-id' => $gallery->getItemId()]); ?>">Edit
-                        Gallery</a>
-                </div>
-                <div class="col-sm-4">
-                    <a class="btn btn-default" data-target="#globalModal"
-                       href="<?php echo $this->context->contentContainer->createUrl('/gallery/list/delete-multiple', ['item-id' => $gallery->getItemId()]); ?>">Delete
-                        Gallery</a>
-                </div>
-            </div>
-        <?php endif; ?>
+        <?= \humhub\modules\file\widgets\UploadProgress::widget(['id' => 'gallery-upload-progress']) ?>
+        <?php echo \humhub\modules\gallery\widgets\GalleryMenu::widget(['gallery' => $gallery, 'canWrite' => $this->context->canWrite(), 'contentContainer' => $this->context->contentContainer]); ?> 
         <div class="row">
             <div id="logContainer" class="col-sm-12" style="display: none">
                 <ul class="alert alert-danger">

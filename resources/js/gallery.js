@@ -38,33 +38,33 @@ $(function () {
     /**
      * Install uploader (blueimp basic jquery plugin)
      */
-    $uploader = $('#galleryMediaUpload');
-    $uploader.fileupload({
-        url: galleryMediaUploadUrl,
-        dataType: 'json',
-        done: function (e, data) {
-            $('#galleryContent').html(data.result.galleryHtml);
-            if (!jQuery.isEmptyObject(data.result.errors)) {
-                updateLog(data.result.errors);
-            }
-        },
-        fail: function (e, data) {
-            console.log(data.jqXHR.responseJSON);
-            updateLog(data.jqXHR.responseJSON.message);
-        },
-        start: function (e, data) {
-            clearLog();
-        },
-        progressall: function (e, data) {
-            var progress = parseInt(data.loaded / data.total * 100, 10);
-            if (progress != 100) {
-                $('#progress').show();
-                $('#progress .progress-bar').css('width', progress + '%');
-            } else {
-                $('#progress').hide();
-            }
-        }
-    })
-    $uploader.prop('disabled', !$.support.fileInput);
-    $uploader.parent().addClass($.support.fileInput ? undefined : 'disabled');
+//    $uploader = $('#gallery-media-upload');
+//    $uploader.fileupload({
+//        url: galleryMediaUploadUrl,
+//        dataType: 'json',
+//        done: function (e, data) {
+//            $('#gallery-content').html(data.result.galleryHtml);
+//            if (!jQuery.isEmptyObject(data.result.errors)) {
+//                updateLog(data.result.errors);
+//            }
+//        },
+//        fail: function (e, data) {
+//            console.log(data.jqXHR.responseJSON);
+//            updateLog(data.jqXHR.responseJSON.message);
+//        },
+//        start: function (e, data) {
+//            clearLog();
+//        },
+//        progressall: function (e, data) {
+//            var progress = parseInt(data.loaded / data.total * 100, 10);
+//            if (progress != 100) {
+//                $('#progress').show();
+//                $('#progress .progress-bar').css('width', progress + '%');
+//            } else {
+//                $('#progress').hide();
+//            }
+//        }
+//    })
+//    $uploader.prop('disabled', !$.support.fileInput);
+//    $uploader.parent().addClass($.support.fileInput ? undefined : 'disabled');
 });

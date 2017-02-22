@@ -10,7 +10,7 @@ use humhub\modules\comment\widgets\Comments;
 $bundle = \humhub\modules\gallery\assets\Assets::register($this);
 $this->registerJsVar('galleryMediaUploadUrl', 'unused');
 ?>
-<div id="galleryContainer" class="panel panel-default">
+<div id="gallery-container" class="panel panel-default">
     <?php echo Html::beginForm(null, null, ['data-target' => '#globalModal', 'id' => 'gallery-form']); ?>
     <?php echo Html::endForm(); ?>
     <div class="panel-body">

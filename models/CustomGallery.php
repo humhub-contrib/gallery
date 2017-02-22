@@ -14,17 +14,11 @@ use \Yii;
  */
 class CustomGallery extends BaseGallery
 {
-
-    /**
-     * @inheritdoc
-     */
-    public $autoAddToWall = true;
-
     /**
      * @inheritdoc
      */
     public $wallEntryClass = "humhub\modules\gallery\widgets\WallEntryGallery";
-
+    
     public function getWallUrl()
     {
 

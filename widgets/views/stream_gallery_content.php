@@ -12,7 +12,7 @@ $counter = 0;
 $rowClosed = true;
 ?>
 
-<div id="galleryContent" class="col-sm-12">
+<div id="gallery-content" class="col-sm-12">
     <?php if ($gallery->isEmpty()): ?>
         <div class="galleryEmptyMessage">
             <b><?php echo Yii::t('GalleryModule.base', 'This gallery is empty.'); ?></b><br/>
@@ -73,7 +73,7 @@ $rowClosed = true;
                     <div class="clearfix"></div>
                 </div>
                 <div class="panel-body">
-                    <a class="zoom" href="<?php echo $file->getUrl(); ?>#.jpeg" data-type="image" data-toggle="lightbox" data-parent="#galleryContent" data-gallery="GalleryModule-Gallery-<?php echo $gallery->id; ?>" data-ui-gallery="GalleryModule-Gallery-<?php echo $gallery->id; ?>"
+                    <a class="zoom" href="<?php echo $file->getUrl(); ?>#.jpeg" data-type="image" data-toggle="lightbox" data-parent="#gallery-content" data-gallery="GalleryModule-Gallery-<?php echo $gallery->id; ?>" data-ui-gallery="GalleryModule-Gallery-<?php echo $gallery->id; ?>"
                        data-footer='<p style="overflow:hidden; text-overflow:ellipsis;"><strong><?php echo Html::encode(Html::encode($file->title)); ?></strong></p><button type="button" class="btn btn-primary" data-dismiss="modal"><?php echo Yii::t('FileModule.base', 'Close'); ?></button>'>
                         <img src="<?php echo FileUtils::getSquareThumbnailUrlFromFile($file); ?>" />
                         <span class="overlay"><i class="glyphicon glyphicon-fullscreen"></i></span>

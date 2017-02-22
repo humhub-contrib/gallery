@@ -77,7 +77,7 @@ class Media extends ContentActiveRecord
                 'description',
                 'string',
                 'max' => 1000
-            ]
+            ], ''
         ];
     }
 

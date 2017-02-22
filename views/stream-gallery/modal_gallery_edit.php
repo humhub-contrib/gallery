@@ -30,7 +30,7 @@ use yii\bootstrap\ActiveForm;
                 'ajaxOptions' => [
                     'type' => 'POST',
                     'beforeSend' => new yii\web\JsExpression('function(){ setModalLoader(); }'),
-                    'success' => new yii\web\JsExpression('function(html){ $("#globalModal").modal("hide"); $("#galleryContainer").html(html);}'),
+                    'success' => new yii\web\JsExpression('function(html){ $("#globalModal").modal("hide"); $("#gallery-container").html(html);}'),
                     'url' => $this->context->contentContainer->createUrl('/gallery/stream-gallery/edit', [
                         'item-id' => $gallery->getItemId(),
                         'open-gallery-id' => $openGalleryId

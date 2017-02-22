@@ -8,7 +8,7 @@ $bundle = Assets::register($this);
 $this->registerJsVar('galleryMediaUploadUrl', 'unused');
 ?>
 
-<div id="galleryContainer" class="panel panel-default">
+<div id="gallery-container" class="panel panel-default">
     <?php echo Html::beginForm(null, null, ['data-target' => '#globalModal', 'id' => 'gallery-form']); ?>
     <div class="panel-body">
         <?php if ($this->context->canWrite(false)): ?>

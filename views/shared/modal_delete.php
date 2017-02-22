@@ -39,7 +39,7 @@ use \yii\web\JsExpression;
                 'ajaxOptions' => [
                     'type' => 'POST',
                     'beforeSend' => new JsExpression('function(){ setModalLoader(); }'),
-                    'success' => new JsExpression('function(html){ $("#globalModal").modal("hide"); $("#galleryContainer").html(html);}'),
+                    'success' => new JsExpression('function(html){ $("#globalModal").modal("hide"); $("#gallery-container").html(html);}'),
                     'error' => new JsExpression('function(data){ $("#globalModal").modal("hide"); updateLog(data.responseJSON.message); }'),
                     'url' => $this->context->contentContainer->createUrl('delete-multiple', [
                         'open-gallery-id' => $openGalleryId,

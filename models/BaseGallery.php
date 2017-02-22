@@ -56,6 +56,15 @@ class BaseGallery extends ContentActiveRecord
     /**
      * @inheritdoc
      */
+    public function beforeSave($insert)
+    {
+        $this->streamChannel = null;
+        return parent::beforeSave($insert);
+    }
+    
+    /**
+     * @inheritdoc
+     */
     public static function tableName()
     {
         return 'gallery_gallery';
@@ -67,29 +76,10 @@ class BaseGallery extends ContentActiveRecord
     public function rules()
     {
         return [
-            [
-                'title',
-                'required'
-            ],
-            [
-                'title',
-                'string',
-                'max' => 255
-            ],
-            [
-                'description',
-                'string',
-                'max' => 1000
-            ],
-            [
-                [
-                    'sort_order',
-                    'thumb_file_id',
-                    'editable_by',
-                    'type',
-                ],
-                'safe'
-            ]
+            ['title', 'required'],
+            ['title', 'string', 'max' => 255],
+            ['description', 'string', 'max' => 1000],
+            [['sort_order', 'thumb_file_id', 'editable_by', 'type',], 'safe']
         ];
     }
 
@@ -107,16 +97,12 @@ class BaseGallery extends ContentActiveRecord
 
     public function getCreator()
     {
-        return User::findOne([
-                    'id' => $this->content->created_by
-        ]);
+        return User::findOne(['id' => $this->content->created_by]);
     }
 
     public function getEditor()
     {
-        return User::findOne([
-                    'id' => $this->content->updated_by
-        ]);
+        return User::findOne(['id' => $this->content->updated_by]);
     }
 
     /**
@@ -151,7 +137,7 @@ class BaseGallery extends ContentActiveRecord
             if ($file !== null) {
                 return FileUtils::getSquareThumbnailUrlFromFile($file);
             } else {
-                // save with id null if nthumbfile not found
+                // save with id null if no thumbfile not found
                 $this->thumb_file_id = null;
                 $this->save();
             }

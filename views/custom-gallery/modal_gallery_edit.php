@@ -36,7 +36,7 @@ use \yii\web\JsExpression;
                 'ajaxOptions' => [
                     'type' => 'POST',
                     'beforeSend' => new JsExpression('function(){ setModalLoader(); }'),
-                    'success' => new JsExpression('function(html){ $("#globalModal").modal("hide"); $("#galleryContainer").html(html);}'),
+                    'success' => new JsExpression('function(html){ $("#globalModal").modal("hide"); $("#gallery-container").html(html);}'),
                     'url' => $this->context->contentContainer->createUrl('/gallery/custom-gallery/edit', [
                         'item-id' => $gallery->getItemId(),
                         'open-gallery-id' => $openGalleryId
