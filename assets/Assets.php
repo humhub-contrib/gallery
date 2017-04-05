@@ -30,7 +30,7 @@ class Assets extends AssetBundle
         'js/gallery.js',
     ];
     public $jsOptions = [
-        'position' => \yii\web\View::POS_HEAD
+        'position' => \yii\web\View::POS_END
     ];
 
     /**

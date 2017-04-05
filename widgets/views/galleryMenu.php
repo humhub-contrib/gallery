@@ -15,7 +15,7 @@ $uploadUrl = $contentContainer->createUrl('upload', ['open-gallery-id' => $galle
                         'id' => 'gallery-media-upload',
                         'progress' => '#gallery-upload-progress',
                         'url' => $uploadUrl,
-                        'preview' => '#gallery-content',
+                        //'preview' => '#gallery-content',
                         'tooltip' => false,
                         'cssButtonClass' => 'btn-success',
                         'label' => Yii::t('GalleryModule.base', 'Upload'),
