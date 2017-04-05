@@ -64,20 +64,9 @@ class Media extends ContentActiveRecord
     public function rules()
     {
         return [
-            [
-                'gallery_id',
-                'integer'
-            ],
-            [
-                'title',
-                'string',
-                'max' => 255
-            ],
-            [
-                'description',
-                'string',
-                'max' => 1000
-            ], ''
+            ['gallery_id', 'integer'],
+            ['title', 'string', 'max' => 255],
+            ['description', 'string', 'max' => 1000],
         ];
     }
 
@@ -156,16 +145,15 @@ class Media extends ContentActiveRecord
         $path = $path . '/file-picture-o.svg';
         return $path;
     }
-    
+
     public function getSquareThumbnailUrl($maxDimension = 1000)
     {
         $previewImage = FileUtils::getSquareThumbnailUrlFromFile($this->baseFile, $maxDimension);
-        if(!empty($previewImage)) {
+        if (!empty($previewImage)) {
             return $previewImage;
         } else {
             return $this->getFallbackPreviewImageUrl();
         }
-        
     }
 
     /**

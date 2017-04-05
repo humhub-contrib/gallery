@@ -107,9 +107,6 @@ $noVisibleContent = true;
                                             <a data-target="#globalModal" href="<?php echo $contentContainer->createUrl('/gallery/custom-gallery/edit', ['item-id' => $gallery->getItemId()]) ?>"><i class="fa fa-edit"></i><?php echo Yii::t('GalleryModule.base', 'Edit gallery information'); ?></a>
                                         </li>
     <?php endif; ?>
-                                    <li>
-                                        <a href="<?php echo $gallery->getWallUrl(); ?>"><i class="fa fa-edit"></i><?php echo Yii::t('GalleryModule.base', 'Show on Wall'); ?></a>
-                                    </li>
                                 </ul>
                             </li>
                         </ul>

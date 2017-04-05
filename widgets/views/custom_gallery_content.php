@@ -13,7 +13,7 @@ $rowClosed = true;
 ?>
 
 <div id="gallery-content" class="col-sm-12">
-    <script>console.log("gallery_loaded")</script>
+    <script>console.log("gallery loading")</script>
     <?php if ($gallery->isEmpty()): ?>
         <div class="galleryEmptyMessage">
             <?php if (Yii::$app->controller->canWrite(false)): ?>
@@ -97,4 +97,5 @@ $rowClosed = true;
         ?>
     <?php endforeach; ?>
     <?php echo $rowClosed ? "" : '</div>'; ?>
+    <script>console.log("gallery loading finished")</script>
 </div>

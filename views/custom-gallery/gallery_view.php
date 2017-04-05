@@ -32,7 +32,6 @@ $bundle = Assets::register($this);
             </div>
         </div>
         <hr />
-        <?= \humhub\modules\file\widgets\UploadProgress::widget(['id' => 'gallery-upload-progress']) ?>
         <?php echo \humhub\modules\gallery\widgets\GalleryMenu::widget(['gallery' => $gallery, 'canWrite' => $this->context->canWrite(), 'contentContainer' => $this->context->contentContainer]); ?> 
         <div class="row">
             <div id="logContainer" class="col-sm-12" style="display: none">

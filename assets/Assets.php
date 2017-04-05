@@ -30,13 +30,11 @@ class Assets extends AssetBundle
         'js/gallery.js',
     ];
     public $jsOptions = [
-        'position' => \yii\web\View::POS_END
+        'position' => \yii\web\View::POS_HEAD
     ];
 
-    public function init()
-    {
-        $this->sourcePath = dirname(dirname(__FILE__)) . '/resources';
-        parent::init();
-    }
-
+    /**
+     * @inheritdoc
+     */
+    public $sourcePath = '@gallery/resources';
 }

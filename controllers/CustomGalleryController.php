@@ -134,20 +134,21 @@ class CustomGalleryController extends ListController
         $mediaUpload = new \humhub\modules\gallery\models\MediaUpload();
         $mediaUpload->setUploadedFile($cfile);
         $valid = $mediaUpload->validate();
-        if (!$valid) {
+        if ($valid) {
             $media->title = $mediaUpload->file_name;
             $media->content->container = $this->contentContainer;
             $media->gallery_id = $parentGallery->id;
             $valid = $media->validate();
             // connect media and file
-            if (!$valid) {
+            if ($valid) {
                 $media->save();
                 $mediaUpload->object_model = $media->className();
                 $mediaUpload->object_id = $media->id;
                 $mediaUpload->save();
             }
         }
-        return $valid ? $media : $this->getUploadErrorResponse($mediaUpload, $media);
+        return $valid ? $mediaUpload->getInfoArray() : '';
+        //return $valid ? $media : $this->getUploadErrorResponse($mediaUpload, $media);
     }
 
     /**

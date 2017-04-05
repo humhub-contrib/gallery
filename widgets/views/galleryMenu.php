@@ -6,6 +6,7 @@ $deleteUrl = $contentContainer->createUrl('/gallery/list/delete-multiple', ['ite
 $editUrl = $contentContainer->createUrl('edit', ['open-gallery-id' => $gallery->id, 'item-id' => $gallery->getItemId()]);
 $uploadUrl = $contentContainer->createUrl('upload', ['open-gallery-id' => $gallery->id]);
 ?>
+<?= \humhub\modules\file\widgets\UploadProgress::widget(['id' => 'gallery-upload-progress']) ?>
 <?php if ($canWrite): ?>
     <div class="row button-action-menu">
         <div class="col-sm-4">
