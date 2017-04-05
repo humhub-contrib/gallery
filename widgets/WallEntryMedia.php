@@ -25,6 +25,11 @@ class WallEntryMedia extends WallEntry
     /**
      * @inheritdoc
      */
+    public $editMode = self::EDIT_MODE_MODAL;
+    
+    /**
+     * @inheritdoc
+     */
     public $showFiles = false;
 
     /**

@@ -106,9 +106,7 @@ class Media extends ContentActiveRecord
     {
         //@deprecated: v1.1 compatibility
         if (version_compare(Yii::$app->version, '1.2', '<')) {
-            return isset($this->baseFile) ? $this->baseFile->getUrl() . ($download ? '&' . http_build_query([
-                        'download' => 1
-                    ]) : '') : "";
+            return isset($this->baseFile) ? $this->baseFile->getUrl() . ($download ? '&' . http_build_query(['download' => 1]) : '') : "";
         } else {
             return $this->baseFile->getUrl(['download' => $download]);
         }
@@ -130,12 +128,8 @@ class Media extends ContentActiveRecord
 
     public function getBaseFile()
     {
-        $query = $this->hasOne(File::className(), [
-            'object_id' => 'id'
-        ]);
-        $query->andWhere([
-            'file.object_model' => self::className()
-        ]);
+        $query = $this->hasOne(File::className(), ['object_id' => 'id']);
+        $query->andWhere(['file.object_model' => self::className()]);
         return $query;
     }
 
@@ -179,10 +173,13 @@ class Media extends ContentActiveRecord
 
     public function getParentGallery()
     {
-        $query = $this->hasOne(CustomGallery::className(), [
-            'id' => 'gallery_id'
-        ]);
+        $query = $this->hasOne(CustomGallery::className(), ['id' => 'gallery_id']);
         return $query;
+    }
+
+    public function getEditUrl()
+    {
+        return $this->content->container->createUrl('/gallery/media/edit', ['id' => $this->getItemId()]);
     }
 
 }

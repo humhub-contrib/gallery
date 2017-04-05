@@ -55,16 +55,14 @@ class MediaController extends CustomGalleryController
         if ($data !== null && $media->load(Yii::$app->request->post()) && $media->validate()) {
             $media->save();
             if ($fromWall) {
-                return $this->renderAjaxContent($media->getWallOut([
-                                    'justEdited' => true
-                ]));
+                return $this->renderAjaxContent($media->getWallOut(['justEdited' => true]));
             } else {
                 return $this->renderGallery(true);
             }
         }
 
         // render modal
-        return $this->renderAjax($fromWall ? '/media/wall_media_edit' : '/media/modal_media_edit', [
+        return $this->renderAjax('/media/modal_media_edit', [
                     'openGalleryId' => $openGalleryId,
                     'media' => $media,
                     'contentContainer' => $this->contentContainer,
