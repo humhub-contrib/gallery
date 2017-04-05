@@ -37,17 +37,11 @@ class MediaController extends CustomGalleryController
         $fromWall = Yii::$app->request->get('fromWall');
         $itemId = Yii::$app->request->get('item-id');
         $openGalleryId = Yii::$app->request->get('open-gallery-id');
-        $cancel = Yii::$app->request->get('cancel');
-        // check if a media file with the given id exists.
         $media = $this->module->getItemById($itemId);
 
-        if ($fromWall && $cancel) {
-            return $this->renderAjaxContent($media->getWallOut());
-        }
-
-        // if not return cause this should not happen
+        // no media file with given item id exists
         if (empty($media) || !($media instanceof Media)) {
-            throw new HttpException(401, Yii::t('GalleryModule.base', 'Cannot edit non existing Media.'));
+            throw new HttpException(401, Yii::t('GalleryModule.base', 'Media not found.'));
         }
 
         $data = Yii::$app->request->post('Media');
@@ -55,14 +49,17 @@ class MediaController extends CustomGalleryController
         if ($data !== null && $media->load(Yii::$app->request->post()) && $media->validate()) {
             $media->save();
             if ($fromWall) {
-                return $this->renderAjaxContent($media->getWallOut(['justEdited' => true]));
+                return $this->asJson(['success' => true]);
             } else {
-                return $this->renderGallery(true);
+                $this->view->saved();
+                return $this->htmlRedirect($this->contentContainer->createUrl('/gallery/custom-gallery/view', ['open-gallery-id' => $openGalleryId]));
+                // TODO: only load the changed element
+                // return $this->renderGallery(true, $openGalleryId);
             }
         }
 
         // render modal
-        return $this->renderAjax('/media/modal_media_edit', [
+        return $this->renderPartial('/media/modal_media_edit', [
                     'openGalleryId' => $openGalleryId,
                     'media' => $media,
                     'contentContainer' => $this->contentContainer,

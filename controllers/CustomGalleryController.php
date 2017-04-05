@@ -72,26 +72,16 @@ class CustomGalleryController extends ListController
     {
         $this->canWrite(true);
 
-        $fromWall = Yii::$app->request->get('fromWall');
         $itemId = Yii::$app->request->get('item-id');
         $openGalleryId = Yii::$app->request->get('open-gallery-id');
         $visibility = Yii::$app->request->get('visibility');
         // default visibility is private
         $visibility = $visibility !== Content::VISIBILITY_PUBLIC ? Content::VISIBILITY_PRIVATE : Content::VISIBILITY_PUBLIC;
-        $cancel = Yii::$app->request->get('cancel');
         // check if a gallery with the given id exists.
         $gallery = $this->module->getItemById($itemId);
 
-        if ($fromWall && $cancel) {
-            return $this->renderAjaxContent($gallery->getWallOut());
-        }
-
         // if no gallery is found with the given id, a new one has to be created
         if (!($gallery instanceof CustomGallery)) {
-            // can't create galleries from wall!!!
-            if ($fromWall) {
-                throw new HttpException(401, Yii::t('GalleryModule.base', 'Cannot edit non existing Gallery.'));
-            }
             // create a new gallery
             $gallery = new CustomGallery();
             $gallery->type = CustomGallery::TYPE_CUSTOM_GALLERY;
@@ -106,21 +96,17 @@ class CustomGalleryController extends ListController
         if ($gallery_form_data !== null && $gallery->load(Yii::$app->request->post()) && $gallery->validate()) {
             $gallery->content->visibility = $content_form_data['visibility'];
             $gallery->save();
-            if ($fromWall) {
-                return $this->renderAjaxContent($gallery->getWallOut([
-                                    'justEdited' => true
-                ]));
-            } else {
-                return $this->renderGallery(true);
-            }
+            $this->view->saved();
+            return $this->htmlRedirect($this->contentContainer->createUrl('/gallery/custom-gallery/view', ['open-gallery-id' => $openGalleryId]));
+            // TODO: only load the changed element
+            // return $this->renderGallery(true, $openGalleryId);
         }
 
         // render modal
-        return $this->renderAjax($fromWall ? '/custom-gallery/wall_gallery_edit' : '/custom-gallery/modal_gallery_edit', [
+        return $this->renderPartial('/custom-gallery/modal_gallery_edit', [
                     'openGalleryId' => $openGalleryId,
                     'gallery' => $gallery,
                     'contentContainer' => $this->contentContainer,
-                    'fromWall' => $fromWall
         ]);
     }
 
@@ -208,7 +194,7 @@ class CustomGalleryController extends ListController
     {
         $gallery = $this->getOpenGallery($openGalleryId);
         if ($gallery != null) {
-            return $ajax ? $this->renderAjax("/custom-gallery/gallery_view", [
+            return $ajax ? $this->renderPartial("/custom-gallery/gallery_view", [
                         'gallery' => $gallery
                     ]) : $this->render("/custom-gallery/gallery_view", [
                         'gallery' => $gallery

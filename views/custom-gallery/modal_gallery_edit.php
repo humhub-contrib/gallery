@@ -1,27 +1,9 @@
-<?php
+<?php \humhub\widgets\ModalDialog::begin([
+    'header' =>  $gallery->isNewRecord ? Yii::t('GalleryModule.base', '<strong>Add</strong> new gallery') : Yii::t('GalleryModule.base', '<strong>Edit</strong> gallery'),
+    'animation' => 'fadeIn',
+    'size' => 'small']) ?>
 
-use \humhub\compat\CActiveForm;
-use \humhub\widgets\AjaxButton;
-use \yii\web\JsExpression;
-?>
-
-<div class="modal-dialog modal-dialog-small animated fadeIn">
-    <div class="modal-content">
-        <?php
-        $form = CActiveForm::begin([
-                    'id' => 'Gallery',
-                    'class' => 'form-horizontal'
-        ]);
-        ?>
-        <div class="modal-header">
-            <h4 class="modal-title" id="myModalLabel">
-                <?php if ($gallery->isNewRecord): ?>
-                    <?php echo Yii::t('GalleryModule.base', '<strong>Create</strong> gallery'); ?>
-                <?php else: ?>
-                    <?php echo Yii::t('GalleryModule.base', '<strong>Edit</strong> gallery'); ?>
-                <?php endif; ?>
-            </h4>
-        </div>
+    <?php $form = \yii\bootstrap\ActiveForm::begin(['id' => 'Gallery', 'class' => 'form-horizontal']); ?>
 
         <div class="modal-body">
             <?php echo $form->field($gallery, 'title'); ?>
@@ -30,29 +12,14 @@ use \yii\web\JsExpression;
         </div>
 
         <div class="modal-footer">
-            <?php
-            echo AjaxButton::widget([
-                'label' => Yii::t('GalleryModule.base', 'Save'),
-                'ajaxOptions' => [
-                    'type' => 'POST',
-                    'beforeSend' => new JsExpression('function(){ setModalLoader(); }'),
-                    'success' => new JsExpression('function(html){ $("#globalModal").modal("hide"); $("#gallery-container").html(html);}'),
-                    'url' => $this->context->contentContainer->createUrl('/gallery/custom-gallery/edit', [
-                        'item-id' => $gallery->getItemId(),
-                        'open-gallery-id' => $openGalleryId
-                    ])
-                ],
-                'htmlOptions' => [
-                    'class' => 'btn btn-primary'
-                ]
-            ]);
-            ?>
-            <button type="button" class="btn btn-primary"
-                    data-dismiss="modal">
-                        <?php echo Yii::t('GalleryModule.base', 'Close'); ?>
+            <button href="#" class="btn btn-primary" data-action-click="ui.modal.submit" data-ui-loader type="submit"
+               data-action-url="<?= $contentContainer->createUrl('/gallery/custom-gallery/edit', ['item-id' => $gallery->getItemId(), 'open-gallery-id' => $openGalleryId]) ?>">
+                   <?= \Yii::t('GalleryModule.base', 'Save'); ?>
             </button>
-
+            <button type="button" class="btn btn-primary" data-dismiss="modal">
+                <?= \Yii::t('GalleryModule.base', 'Close'); ?>
+            </button>
         </div>
-        <?php CActiveForm::end() ?>
-    </div>
-</div>
+    <?php \yii\bootstrap\ActiveForm::end() ?>
+
+<?php \humhub\widgets\ModalDialog::end() ?>

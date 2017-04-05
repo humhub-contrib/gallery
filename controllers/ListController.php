@@ -98,7 +98,7 @@ class ListController extends BaseController
             'stream_galleries' => $this->getStreamGalleries(),
             'custom_galleries' => $this->getCustomGalleries()
         ];
-        return $ajax ? $this->renderAjax("/list/gallery_list", $params) : $this->render("/list/gallery_list", $params);
+        return $ajax ? $this->renderPartial("/list/gallery_list", $params) : $this->render("/list/gallery_list", $params);
     }
 
     /**

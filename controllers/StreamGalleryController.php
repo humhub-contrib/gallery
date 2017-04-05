@@ -86,13 +86,17 @@ class StreamGalleryController extends ListController
 
         if ($data !== null && $gallery->load(Yii::$app->request->post()) && $gallery->validate()) {
             $gallery->save();
-            return $this->renderGallery(true);
+            $this->view->saved();
+            return $this->htmlRedirect($this->contentContainer->createUrl('/gallery/custom-gallery/view', ['open-gallery-id' => $openGalleryId]));
+            // TODO: only load the changed element
+            // return $this->renderGallery(true, $openGalleryId);
         }
 
         // render modal
         return $this->renderAjax('/stream-gallery/modal_gallery_edit', [
                     'openGalleryId' => $openGalleryId,
-                    'gallery' => $gallery
+                    'gallery' => $gallery,
+                    'contentContainer' => $this->contentContainer,
         ]);
     }
 
