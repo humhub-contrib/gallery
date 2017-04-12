@@ -10,7 +10,7 @@ $counter = 0;
 $rowClosed = true;
 ?>
 
-<div id="gallery-content" class="col-sm-12">
+<div id="gallery-list" class="col-sm-12">
     <?php if ($gallery->isEmpty()): ?>
         <div class="galleryEmptyMessage">
             <b><?php echo Yii::t('GalleryModule.base', 'This gallery is empty.'); ?></b><br/>
@@ -28,7 +28,7 @@ $rowClosed = true;
             echo '<div class="row">';
             $rowClosed = false;
         endif;
-        echo humhub\modules\gallery\widgets\MediaListEntry::widget(['entryObject' => $file, 'parentGallery' => $gallery]);
+        echo humhub\modules\gallery\widgets\GalleryListEntry::widget(['entryObject' => $file, 'parentGallery' => $gallery]);
         if (++$counter % 3 === 0) :
             echo '</div>';
             $rowClosed = true;

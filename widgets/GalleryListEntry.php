@@ -19,7 +19,7 @@ use \Yii;
  * @since 1.0
  * @author Sebastian Stumpf
  */
-class MediaListEntry extends Widget
+class GalleryListEntry extends Widget
 {
 
     public $entryObject;
@@ -41,6 +41,8 @@ class MediaListEntry extends Widget
             $downloadUrl = $this->entryObject->getUrl(true);
             $fileUrl = $this->entryObject->getUrl();            
             $thumbnailUrl = $this->entryObject->getSquareThumbnailUrl();
+            $footerOverwrite = false;
+            $shadowPublic = false;
             
             $writeAccess = Yii::$app->controller->canWrite(false);
             
@@ -58,15 +60,54 @@ class MediaListEntry extends Widget
             $downloadUrl = $this->entryObject->getUrl(['download' => true]);
             $fileUrl = $this->entryObject->getUrl();            
             $thumbnailUrl = \humhub\modules\gallery\libs\FileUtils::getSquareThumbnailUrlFromFile($this->entryObject);
+            $footerOverwrite = false;
+            $shadowPublic = false;
             
             $writeAccess = false;
+        } elseif ($this->entryObject instanceof \humhub\modules\gallery\models\StreamGallery) {
+            $creator = '';
+            $contentObject = $this->entryObject;            
+            
+            $entryTitle = Yii::t('GalleryModule.base', 'Posted Media Files');
+            $entryDescription = '';
+            
+            $wallUrl = '';
+            $deleteUrl = '';
+            $editUrl = $contentContainer->createUrl('/gallery/stream-gallery/edit', ['item-id' => $this->entryObject->getItemId()]);
+            $downloadUrl = '';
+            $fileUrl = $this->entryObject->getUrl();            
+            $thumbnailUrl = $this->entryObject->getPreviewImageUrl();
+            $footerOverwrite = Yii::t('GalleryModule.base', 'This gallery contains all the posted media files.');
+            $shadowPublic = true;
+            
+            $writeAccess = Yii::$app->controller->canWrite(false);
+        } elseif ($this->entryObject instanceof \humhub\modules\gallery\models\CustomGallery) {
+            $creator = '';
+            $contentObject = $this->entryObject;            
+            
+            $entryTitle = $this->entryObject->title;
+            $entryDescription = $this->entryObject->description;
+            
+            $wallUrl = '';
+            $deleteUrl = $contentContainer->createUrl('/gallery/list/delete-multiple', ['item-id' => $this->entryObject->getItemId()]);
+            $editUrl = $contentContainer->createUrl('/gallery/custom-gallery/edit', ['item-id' => $this->entryObject->getItemId()]);
+            $downloadUrl = '';
+            $fileUrl = $this->entryObject->getUrl();            
+            $thumbnailUrl = $this->entryObject->getPreviewImageUrl();
+            $footerOverwrite = false;
+            $shadowPublic = $this->entryObject->content->visibility == \humhub\modules\content\models\Content::VISIBILITY_PUBLIC;
+            
+            $writeAccess = Yii::$app->controller->canWrite(false);
+        } else {
+            return '';
         }
-        $uiGalleryId = "GalleryModule-Gallery-".$this->parentGallery->id;
         
-        return $this->render('mediaListEntry', [
-                    'creatorUrl' => $creator->createUrl(),
-                    'creatorThumbnailUrl' => $creator->getProfileImage()->getUrl(),
-                    'creatorName' => $creator->getDisplayName(),
+        $uiGalleryId = $this->parentGallery ? "GalleryModule-Gallery-".$this->parentGallery->id : '';
+        
+        return $this->render('galleryListEntry', [
+                    'creatorUrl' => $creator ? $creator->createUrl() : '',
+                    'creatorThumbnailUrl' => $creator ? $creator->getProfileImage()->getUrl() : '',
+                    'creatorName' => $creator ? $creator->getDisplayName() : '',
                     'entryTitle' => $entryTitle,
                     'entryDescription' => $entryDescription,
                     'wallUrl' => $wallUrl,
@@ -79,6 +120,8 @@ class MediaListEntry extends Widget
                     'writeAccess' => $writeAccess,
                     'uiGalleryId' => $uiGalleryId,
                     'contentObject' => $contentObject,
+                    'shadowPublic' => $shadowPublic ? 'shadowPublic' : '',
+                    'footerOverwrite' => $footerOverwrite,
         ]);
     }
 

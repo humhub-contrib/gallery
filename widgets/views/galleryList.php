@@ -14,7 +14,7 @@ $rowClosed = true;
 $noVisibleContent = true;
 ?>
 
-<div id="galleryList" class="col-sm-12">
+<div id="gallery-list" class="col-sm-12">
     <?php foreach ($stream_galleries as $gallery): ?>
         <?php if (!$gallery->isEmpty()): ?>
             <?php $noVisibleContent = false; ?>
@@ -23,41 +23,7 @@ $noVisibleContent = true;
                 echo '<div class="row">';
                 $rowClosed = false;
             endif;
-            ?>
-            <div class="col-sm-4 gallery">
-                <div class="panel panel-default shadowPublic">
-                    <div class="panel-body">
-                        <a href="<?php echo $contentContainer->createUrl('/gallery/stream-gallery/view', ['open-gallery-id' => $gallery->id]); ?>">
-                            <img src="<?php echo $gallery->getPreviewImageUrl(); ?>" />
-                        </a>
-                    </div>
-                    <div class="panel-heading overlay">
-                        <div class="pull-left truncate tt" data-toggle="tooltip" data-placement="top" title="" data-original-title="<?php echo Html::encode($gallery->title); ?>">
-                            <?php echo Html::encode($gallery->title); ?>
-                        </div>
-                        <?php if (Yii::$app->controller->canWrite(false)): ?>
-                            <div class="pull-right">
-                                <ul class="nav nav-pills preferences">
-                                    <li class="dropdown">
-                                        <a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="fa fa-angle-down"></i></a>
-                                        <ul class="dropdown-menu pull-right">
-                                            <li>
-                                                <a data-target="#globalModal" href="<?php echo $contentContainer->createUrl('/gallery/stream-gallery/edit', ['item-id' => $gallery->getItemId()]) ?>"><i class="fa fa-edit"></i><?php echo Yii::t('GalleryModule.base', 'Edit gallery information'); ?></a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </div>
-                        <?php endif; ?>
-                    </div>
-                    <div class="panel-footer overlay">
-                        <div class="social-activities colorFont5">
-                            <?php echo Html::encode($gallery->description); ?>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <?php
+            echo \humhub\modules\gallery\widgets\GalleryListEntry::widget(['entryObject' => $gallery]);
             if (++$counter % 3 === 0) :
                 echo '</div>';
                 $rowClosed = true;
@@ -74,59 +40,7 @@ $noVisibleContent = true;
             echo '<div class="row">';
             $rowClosed = false;
         endif;
-        ?>
-        <div class="col-sm-4 gallery">
-            <div class="panel panel-default <?php if ($gallery->content->visibility == Content::VISIBILITY_PUBLIC) : echo 'shadowPublic';
-    endif;
-        ?>">
-                <div class="panel-body">
-                    <a href="<?php echo $contentContainer->createUrl('/gallery/custom-gallery/view', ['open-gallery-id' => $gallery->id]); ?>">
-                        <img src="<?php echo $gallery->getPreviewImageUrl(); ?>" />
-                    </a>
-                </div>
-                <div class="panel-heading overlay">
-                    <div class="pull-left" style="margin-right:4px;">
-                        <a href="<?php echo $creator->createUrl(); ?>">
-                            <img class="img-rounded tt img_margin"
-                                 src="<?php echo $creator->getProfileImage()->getUrl(); ?>"
-                                 width="21" height="21" alt="21x21" data-src="holder.js/21x21"
-                                 style="width: 21px; height: 21px;"
-                                 data-original-title="<?php echo Yii::t('CfilesModule.base', 'Gallery created by ') . $creator->getDisplayName(); ?>"
-                                 data-placement="top" title="" data-toggle="tooltip">
-                        </a>
-                    </div>
-                    <div class="pull-left truncate tt" data-toggle="tooltip" data-placement="top" title="" data-original-title="<?php echo Html::encode($gallery->title); ?>">
-    <?php echo Html::encode($gallery->title); ?>
-                    </div>
-                    <div class="pull-right">
-                        <ul class="nav nav-pills preferences">
-                            <li class="dropdown">
-                                <a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="fa fa-angle-down"></i></a>
-                                <ul class="dropdown-menu pull-right">
-    <?php if (Yii::$app->controller->canWrite(false)): ?>
-                                        <li>
-                                            <a data-target="#globalModal" href="<?php echo $contentContainer->createUrl('/gallery/list/delete-multiple', ['item-id' => $gallery->getItemId()]) ?>"><i class="fa fa-trash"></i><?php echo Yii::t('GalleryModule.base', 'Delete gallery'); ?></a>                                            
-                                        </li>
-                                        <li>
-                                            <a data-target="#globalModal" href="<?php echo $contentContainer->createUrl('/gallery/custom-gallery/edit', ['item-id' => $gallery->getItemId()]) ?>"><i class="fa fa-edit"></i><?php echo Yii::t('GalleryModule.base', 'Edit gallery information'); ?></a>
-                                        </li>
-    <?php endif; ?>
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="clearfix"></div>
-                </div>
-                <div class="panel-footer overlay">
-                    <div class="social-activities colorFont5">
-                        <?php echo LikeLink::widget(['object' => $gallery]); ?>
-                        |
-    <?php echo CommentLink::widget(['object' => $gallery, 'mode' => CommentLink::MODE_POPUP]); ?>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <?php
+        echo \humhub\modules\gallery\widgets\GalleryListEntry::widget(['entryObject' => $gallery]);
         if (++$counter % 3 === 0) :
             echo '</div>';
             $rowClosed = true;

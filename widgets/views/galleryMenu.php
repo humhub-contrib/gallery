@@ -1,10 +1,6 @@
 <?php
 
 use humhub\modules\file\widgets\FileHandlerButtonDropdown;
-
-$deleteUrl = $contentContainer->createUrl('/gallery/list/delete-multiple', ['item-id' => $gallery->getItemId()]);
-$editUrl = $contentContainer->createUrl('edit', ['open-gallery-id' => $gallery->id, 'item-id' => $gallery->getItemId()]);
-$uploadUrl = $contentContainer->createUrl('upload', ['open-gallery-id' => $gallery->id]);
 ?>
 <?= \humhub\modules\file\widgets\UploadProgress::widget(['id' => 'gallery-upload-progress']) ?>
 <?php if ($canWrite): ?>
@@ -15,7 +11,6 @@ $uploadUrl = $contentContainer->createUrl('upload', ['open-gallery-id' => $galle
                         'id' => 'gallery-media-upload',
                         'progress' => '#gallery-upload-progress',
                         'url' => $uploadUrl,
-                        //'preview' => '#gallery-content',
                         'tooltip' => false,
                         'cssButtonClass' => 'btn-success',
                         'label' => Yii::t('GalleryModule.base', 'Upload'),

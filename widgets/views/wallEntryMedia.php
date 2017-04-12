@@ -1,5 +1,4 @@
 <?php
-/* @var $previewImage \humhub\modules\file\converter\PreviewImage */
 
 use humhub\modules\file\libs\FileHelper;
 use humhub\libs\Html;

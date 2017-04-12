@@ -1,11 +1,8 @@
 <?php
 
-use \humhub\modules\comment\widgets\CommentLink;
 use \humhub\modules\gallery\assets\Assets;
 use \humhub\modules\gallery\Module;
-use \humhub\modules\like\widgets\LikeLink;
-use \humhub\modules\gallery\widgets\MediaListEntry;
-use \yii\helpers\Html;
+use \humhub\modules\gallery\widgets\GalleryListEntry;
 
 $bundle = Assets::register($this);
 $contentContainer = Yii::$app->controller->contentContainer;
@@ -13,8 +10,7 @@ $counter = 0;
 $rowClosed = true;
 ?>
 
-<div id="gallery-content" class="col-sm-12">
-    <script>console.log("gallery loading")</script>
+<div id="gallery-list" class="col-sm-12">
     <?php if ($gallery->isEmpty()): ?>
         <div class="galleryEmptyMessage">
             <?php if (Yii::$app->controller->canWrite(false)): ?>
@@ -32,7 +28,7 @@ $rowClosed = true;
             echo '<div class="row">';
             $rowClosed = false;
         endif;
-        echo MediaListEntry::widget(['entryObject' => $media, 'parentGallery' => $gallery]);
+        echo GalleryListEntry::widget(['entryObject' => $media, 'parentGallery' => $gallery]);
         if (++$counter % 3 === 0) :
             echo '</div>';
             $rowClosed = true;

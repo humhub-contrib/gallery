@@ -39,11 +39,16 @@ class GalleryMenu extends \yii\base\Widget
         $fileHandlerImport = FileHandlerCollection::getByType(FileHandlerCollection::TYPE_IMPORT);
         $fileHandlerCreate = FileHandlerCollection::getByType(FileHandlerCollection::TYPE_CREATE);
 
+        $deleteUrl = $this->contentContainer->createUrl('/gallery/list/delete-multiple', ['item-id' => $this->gallery->getItemId()]);
+        $editUrl = $this->contentContainer->createUrl('edit', ['open-gallery-id' => $this->gallery->id, 'item-id' => $this->gallery->getItemId()]);
+        $uploadUrl = $this->contentContainer->createUrl('upload', ['open-gallery-id' => $this->gallery->id]);
+        
         return $this->render('galleryMenu', [
-                    'gallery' => $this->gallery,
-                    'contentContainer' => $this->contentContainer,
                     'canWrite' => $this->canWrite,
                     'fileHandlers' => array_merge($fileHandlerCreate, $fileHandlerImport),
+                    'deleteUrl' => $deleteUrl,
+                    'editUrl' => $editUrl,
+                    'uploadUrl' => $uploadUrl,
         ]);
     }
 
