@@ -26,7 +26,12 @@ $noVisibleContent = true;
             ?>
             <div class="col-sm-4 gallery">
                 <div class="panel panel-default shadowPublic">
-                    <div class="panel-header">
+                    <div class="panel-body">
+                        <a href="<?php echo $contentContainer->createUrl('/gallery/stream-gallery/view', ['open-gallery-id' => $gallery->id]); ?>">
+                            <img src="<?php echo $gallery->getPreviewImageUrl(); ?>" />
+                        </a>
+                    </div>
+                    <div class="panel-heading overlay">
                         <div class="pull-left truncate tt" data-toggle="tooltip" data-placement="top" title="" data-original-title="<?php echo Html::encode($gallery->title); ?>">
                             <?php echo Html::encode($gallery->title); ?>
                         </div>
@@ -44,14 +49,8 @@ $noVisibleContent = true;
                                 </ul>
                             </div>
                         <?php endif; ?>
-                        <div class="clearfix"></div>
                     </div>
-                    <div class="panel-body">
-                        <a href="<?php echo $contentContainer->createUrl('/gallery/stream-gallery/view', ['open-gallery-id' => $gallery->id]); ?>">
-                            <img src="<?php echo $gallery->getPreviewImageUrl(); ?>" />
-                        </a>
-                    </div>
-                    <div class="panel-footer">
+                    <div class="panel-footer overlay">
                         <div class="social-activities colorFont5">
                             <?php echo Html::encode($gallery->description); ?>
                         </div>
@@ -80,7 +79,12 @@ $noVisibleContent = true;
             <div class="panel panel-default <?php if ($gallery->content->visibility == Content::VISIBILITY_PUBLIC) : echo 'shadowPublic';
     endif;
         ?>">
-                <div class="panel-header">
+                <div class="panel-body">
+                    <a href="<?php echo $contentContainer->createUrl('/gallery/custom-gallery/view', ['open-gallery-id' => $gallery->id]); ?>">
+                        <img src="<?php echo $gallery->getPreviewImageUrl(); ?>" />
+                    </a>
+                </div>
+                <div class="panel-heading overlay">
                     <div class="pull-left" style="margin-right:4px;">
                         <a href="<?php echo $creator->createUrl(); ?>">
                             <img class="img-rounded tt img_margin"
@@ -113,12 +117,7 @@ $noVisibleContent = true;
                     </div>
                     <div class="clearfix"></div>
                 </div>
-                <div class="panel-body">
-                    <a href="<?php echo $contentContainer->createUrl('/gallery/custom-gallery/view', ['open-gallery-id' => $gallery->id]); ?>">
-                        <img src="<?php echo $gallery->getPreviewImageUrl(); ?>" />
-                    </a>
-                </div>
-                <div class="panel-footer">
+                <div class="panel-footer overlay">
                     <div class="social-activities colorFont5">
                         <?php echo LikeLink::widget(['object' => $gallery]); ?>
                         |

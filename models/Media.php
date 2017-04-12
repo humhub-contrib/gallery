@@ -142,7 +142,9 @@ class Media extends ContentActiveRecord
 
     public function getSquareThumbnailUrl($maxDimension = 1000)
     {
-        $previewImage = FileUtils::getSquareThumbnailUrlFromFile($this->baseFile, $maxDimension);
+        try {
+            $previewImage = FileUtils::getSquareThumbnailUrlFromFile($this->baseFile, $maxDimension);
+        } catch (Exception $e) {}
         if (!empty($previewImage)) {
             return $previewImage;
         } else {

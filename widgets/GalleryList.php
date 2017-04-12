@@ -25,7 +25,7 @@ class GalleryList extends Widget
 
     public function run()
     {
-        return $this->render('gallery_list', array('stream_galleries' => $this->stream_galleries, 'custom_galleries' => $this->custom_galleries));
+        return $this->render('galleryList', array('stream_galleries' => $this->stream_galleries, 'custom_galleries' => $this->custom_galleries));
     }
 
 }

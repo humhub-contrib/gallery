@@ -62,7 +62,6 @@
             margin: 0;
             position: relative;
             display: block;
-            border-radius: 0 !important;
 
             &.shadowPublic {
                 box-shadow: 0 0 3px @info;
@@ -70,11 +69,14 @@
             }
 
             .panel-body {
-                position: relative;
                 padding: 0 !important;
                 overflow: hidden;
                 height: auto;
-
+                border-radius: 0;
+                &.overlayed {
+                        
+                }
+                
                 a {
                     overflow: hidden;
 
@@ -151,10 +153,12 @@
 
             .panel-footer {
                 padding: 8px !important;
-                background-color: #f9f9f9 !important;
-                border-bottom-right-radius: 0 !important;
-                border-bottom-left-radius: 0 !important;
-
+                border-radius: 0 !important;
+                font-weight: 600;
+                text-align: center;
+                background-color: rgb(235, 237, 239);
+                background-color: rgba(235, 237, 239, 0.3);
+                border: none;
                 .gallery-media-file-controls {
                     a {
                         font-size: 1.125em;
@@ -164,30 +168,36 @@
                 }
                 .social-activities {
                     font-size: 11px;
-                    //color: #aeaeae;
                     margin-bottom: 0;
 
                     a {
                         font-size: 11px;
-                        //color: #aeaeae;
                         margin-top: 10px;
                         margin-bottom: 0;
                     }
                 }
+                
+                &.overlay {
+                    bottom: 0; left: 0; right: 0;
+                    position: absolute;
+                }
             }
 
-            .panel-header {
+            .panel-heading {
                 padding: 8px !important;
-                background-color: #f9f9f9 !important;
-                border-bottom-right-radius: 0 !important;
-                border-bottom-left-radius: 0 !important;
+                border-radius: 0 !important;
                 font-weight: 600;
                 text-align: center;
-
+                background-color: rgb(235, 237, 239);
+                background-color: rgba(235, 237, 239, 0.3);
                 .pull-left {
                     max-width: 75%;
                     overflow:hidden;
                     text-overflow: ellipsis;
+                }
+                &.overlay {
+                    top: 0; left: 0; right: 0;
+                    position: absolute;
                 }
             }
         }
