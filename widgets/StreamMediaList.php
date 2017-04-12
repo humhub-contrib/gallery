@@ -17,14 +17,14 @@ use \yii\base\Widget;
  * @since 1.0
  * @author Sebastian Stumpf
  */
-class StreamGalleryContent extends Widget
+class StreamMediaList extends Widget
 {
 
     public $gallery;
 
     public function run()
     {
-        return $this->render('stream_gallery_content', array('gallery' => $this->gallery));
+        return $this->render('streamMediaList', array('gallery' => $this->gallery));
     }
 
 }

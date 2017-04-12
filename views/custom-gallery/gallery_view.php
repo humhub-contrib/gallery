@@ -3,7 +3,7 @@
 use \humhub\modules\comment\widgets\CommentLink;
 use \humhub\modules\comment\widgets\Comments;
 use \humhub\modules\gallery\assets\Assets;
-use \humhub\modules\gallery\widgets\CustomGalleryContent;
+use \humhub\modules\gallery\widgets\CustomMediaList;
 use \humhub\modules\like\widgets\LikeLink;
 use \yii\helpers\Html;
 
@@ -38,7 +38,7 @@ $bundle = Assets::register($this);
                 <ul class="alert alert-danger">
                 </ul>
             </div>
-            <?php echo CustomGalleryContent::widget(['gallery' => $gallery]); ?>
+            <?php echo CustomMediaList::widget(['gallery' => $gallery]); ?>
         </div>
     </div>
 </div>

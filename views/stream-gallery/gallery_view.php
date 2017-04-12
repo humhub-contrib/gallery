@@ -1,8 +1,8 @@
 <?php
 
 use yii\helpers\Html;
-use humhub\modules\gallery\widgets\CustomGalleryContent;
-use humhub\modules\gallery\widgets\StreamGalleryContent;
+use humhub\modules\gallery\widgets\CustomMediaList;
+use humhub\modules\gallery\widgets\StreamMediaList;
 use humhub\modules\comment\widgets\CommentLink;
 use humhub\modules\like\widgets\LikeLink;
 use humhub\modules\comment\widgets\Comments;
@@ -36,7 +36,7 @@ $this->registerJsVar('galleryMediaUploadUrl', 'unused');
                 <ul class="alert alert-danger">
                 </ul>
             </div>
-            <?php echo StreamGalleryContent::widget(['gallery' => $gallery]); ?>
+            <?php echo StreamMediaList::widget(['gallery' => $gallery]); ?>
         </div>
     </div>
 </div>

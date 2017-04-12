@@ -17,14 +17,14 @@ use \yii\base\Widget;
  * @since 1.0
  * @author Sebastian Stumpf
  */
-class CustomGalleryContent extends Widget
+class CustomMediaList extends Widget
 {
 
     public $gallery;
 
     public function run()
     {
-        return $this->render('custom_gallery_content', array('gallery' => $this->gallery));
+        return $this->render('customMediaList', array('gallery' => $this->gallery));
     }
 
 }
