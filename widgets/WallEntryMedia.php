@@ -8,13 +8,14 @@
 
 namespace humhub\modules\gallery\widgets;
 
-use \humhub\modules\content\widgets\WallEntry;
-use \humhub\modules\gallery\Module;
+use humhub\modules\file\converter\PreviewImage;
+use humhub\modules\gallery\models\Media;
+use humhub\libs\MimeHelper;
 
 /**
  * @inheritdoc
  */
-class WallEntryMedia extends WallEntry
+class WallEntryMedia extends \humhub\modules\content\widgets\WallEntry
 {
 
     /**
@@ -26,18 +27,28 @@ class WallEntryMedia extends WallEntry
      * @inheritdoc
      */
     public $editMode = self::EDIT_MODE_MODAL;
-    
-    /**
-     * @inheritdoc
-     */
-    public $showFiles = false;
 
     /**
      * @inheritdoc
      */
     public function run()
     {
-        return $this->render('wallEntryMedia', array('media' => $this->contentObject));
+        $media = $this->contentObject;
+
+        $galleryUrl = '#';
+        if ($media->parentGallery !== null) {
+            $galleryUrl = $media->parentGallery->getUrl();
+        }
+
+        return $this->render('wallEntryMedia', [
+                    'media' => $media,
+                    'title' => $media->getTitle(),
+                    'fileSize' => $media->getSize(),
+                    'file' => $media->baseFile,
+                    'previewImage' => new PreviewImage(),
+                    'galleryUrl' => $galleryUrl,
+                    'mimeIconClass' => MimeHelper::getMimeIconClassByExtension($media->baseFile)
+        ]);
     }
 
     /**
@@ -47,7 +58,10 @@ class WallEntryMedia extends WallEntry
      */
     public function getEditUrl()
     {
-        if (Module::canWrite($this->contentObject->content->container)) {
+        if (parent::getEditUrl() === "") {
+            return "";
+        }
+        if ($this->contentObject instanceof Media) {
             return $this->contentObject->content->container->createUrl($this->editRoute, ['item-id' => $this->contentObject->getItemId(), 'fromWall' => true]);
         }
         return "";

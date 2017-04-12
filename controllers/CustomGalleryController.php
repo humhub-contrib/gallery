@@ -130,6 +130,7 @@ class CustomGalleryController extends ListController
                 $media->save();
                 $mediaUpload->object_model = $media->className();
                 $mediaUpload->object_id = $media->id;
+                $mediaUpload->show_in_stream = false;
                 $mediaUpload->save();
             }
         }
