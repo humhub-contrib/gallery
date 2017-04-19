@@ -26,7 +26,7 @@ $this->registerJsVar('galleryMediaUploadUrl', 'unused');
                 <ul class="alert alert-danger">
                 </ul>
             </div>
-            <?php echo GalleryList::widget(['stream_galleries' => $stream_galleries, 'custom_galleries' => $custom_galleries]); ?>
+            <?php echo GalleryList::widget(['entryList' => array_merge($stream_galleries, $custom_galleries)]); ?>
         </div>
     </div>
     <?php echo Html::endForm(); ?>

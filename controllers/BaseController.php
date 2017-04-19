@@ -70,17 +70,6 @@ abstract class BaseController extends ContentContainerController
     }
 
     /**
-     * Get the currently open gallery.
-     * @url-param 'open-gallery-id' id of the open gallery.
-     *
-     * @param int $openGalleryId
-     *            If specified the id from the url-param is ignored.
-     *            
-     * @return null | models\Gallery
-     */
-    abstract protected function getOpenGallery($openGalleryId = null);
-
-    /**
      * Delete an item identified by its type and id: &lt;type&gt;_&lt;id&gt;.
      * Also deletes all subcontent.
      *
@@ -134,4 +123,25 @@ abstract class BaseController extends ContentContainerController
         return in_array($ext, self::$validExtensions);
     }
 
+    /**
+     * Get the currently open gallery.
+     * @url-param 'open-gallery-id' id of the open gallery.
+     *
+     * @param int $openGalleryId
+     *            If specified the id from the url-param is ignored.
+     *            
+     * @return null | models\Gallery
+     */
+    abstract protected function getOpenGallery($openGalleryId = null);
+
+    /**
+     * Render a specified gallery or the gallery list.
+     * @url-param 'open-gallery-id' id of the open gallery. The gallery list is rendered if no gallery with this id is found.
+     *
+     * @param string $ajax
+     *            render as ajax. default: false
+     * @param string $openGalleryId
+     *            the custom gallery to render.
+     */
+    abstract protected function renderGallery($ajax = false, $openGalleryId = null);
 }
