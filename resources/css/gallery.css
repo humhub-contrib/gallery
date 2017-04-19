@@ -26,18 +26,6 @@
   font-size: 1em !important;
   font-weight: normal !important;
 }
-.panel .panel-body .button-action-menu .btn-default:hover {
-  background-color: #e6e6e6 !important;
-}
-.panel .panel-body .button-action-menu .btn-success:hover {
-  background-color: #89cc5e !important;
-}
-.panel .panel-body .button-action-menu .btn-danger:hover {
-  background-color: #ff6f6f !important;
-}
-.panel .panel-body .button-action-menu .btn-primary:hover {
-  background-color: #286090 !important;
-}
 .panel .panel-body .button-action-menu .btn-group {
   width: 100%;
 }
@@ -159,6 +147,10 @@
   margin-top: 10px;
   margin-bottom: 0;
 }
+#gallery-container .social-activities a:hover {
+  color: #555;
+  text-decoration: none;
+}
 #gallery-container .truncate {
   white-space: nowrap;
   overflow: hidden;
@@ -166,6 +158,10 @@
 }
 #gallery-container .back-button {
   margin-bottom: 10px;
+}
+#gallery-container .shadowPublic {
+  box-shadow: 0 0 3px 0 #6fdbe8;
+  -webkit-box-shadow: 0 0 3px 0 #6fdbe8;
 }
 #gallery-container #gallery-list .galleryEmptyMessage .panel {
   margin: 0;
@@ -185,10 +181,6 @@
   margin: 0;
   position: relative;
   display: block;
-}
-#gallery-container #gallery-list .gallery-list-entry .panel.shadowPublic {
-  box-shadow: 0 0 3px #6fdbe8;
-  -webkit-box-shadow: 0 0 3px #6fdbe8;
 }
 #gallery-container #gallery-list .gallery-list-entry .panel .panel-body {
   padding: 0 !important;
@@ -264,23 +256,13 @@
   border-radius: 0 !important;
   font-weight: 600;
   text-align: center;
-  background-color: #ebedef;
-  background-color: rgba(235, 237, 239, 0.3);
-  border: none;
+  background-color: #ffffff;
+  background-color: rgba(255, 255, 255, 0.9);
 }
 #gallery-container #gallery-list .gallery-list-entry .panel .panel-footer .gallery-media-file-controls a {
   font-size: 1.125em;
   cursor: pointer;
   padding-left: 5px;
-}
-#gallery-container #gallery-list .gallery-list-entry .panel .panel-footer .social-activities {
-  font-size: 11px;
-  margin-bottom: 0;
-}
-#gallery-container #gallery-list .gallery-list-entry .panel .panel-footer .social-activities a {
-  font-size: 11px;
-  margin-top: 10px;
-  margin-bottom: 0;
 }
 #gallery-container #gallery-list .gallery-list-entry .panel .panel-footer.overlay {
   bottom: 0;
@@ -293,8 +275,8 @@
   border-radius: 0 !important;
   font-weight: 600;
   text-align: center;
-  background-color: #ebedef;
-  background-color: rgba(235, 237, 239, 0.3);
+  background-color: #ffffff;
+  background-color: rgba(255, 255, 255, 0.9);
 }
 #gallery-container #gallery-list .gallery-list-entry .panel .panel-heading .pull-left {
   max-width: 75%;
@@ -306,7 +288,4 @@
   left: 0;
   right: 0;
   position: absolute;
-}
-#gallery-container #gallery-list .gallery-list-entry .panel-default {
-  border-color: #ebedef !important;
 }

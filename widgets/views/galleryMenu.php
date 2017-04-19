@@ -25,7 +25,7 @@ use humhub\modules\file\widgets\FileHandlerButtonDropdown;
                 Gallery</a>
         </div>
         <div class="col-sm-4">
-            <a class="btn btn-default" data-target="#globalModal"
+            <a class="btn btn-danger" data-target="#globalModal"
                href="<?= $deleteUrl ?>">Delete
                 Gallery</a>
         </div>

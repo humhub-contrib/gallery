@@ -1,5 +1,8 @@
 @import "buttonactionlist.less";
 @info: #6fdbe8;
+@font5: #aeaeae;
+@font3: #555;
+
 #gallery-container {
     .panel-body {
         .row {
@@ -18,14 +21,19 @@
 
     .social-activities {
         font-size: 11px;
-        color: #aeaeae;
+        color: @font5;
         margin-bottom: 0;
 
         a {
             font-size: 11px;
-            color: #aeaeae;
+            color: @font5;
             margin-top: 10px;
             margin-bottom: 0;
+            
+            &:hover {
+                color: @font3;
+                text-decoration: none;
+            }
         }
     }
 
@@ -39,6 +47,11 @@
         margin-bottom: 10px;
     }
 
+    .shadowPublic {
+        box-shadow: 0 0 3px 0 @info;
+        -webkit-box-shadow: 0 0 3px 0 @info;
+    }
+    
     #gallery-list {
         .galleryEmptyMessage {
             .panel {
@@ -58,15 +71,11 @@
             left:0;
         }
         .gallery-list-entry{
+
             .panel {
                 margin: 0;
                 position: relative;
                 display: block;
-
-                &.shadowPublic {
-                    box-shadow: 0 0 3px @info;
-                    -webkit-box-shadow: 0 0 3px @info;
-                }
 
                 .panel-body {
                     padding: 0 !important;
@@ -156,24 +165,13 @@
                     border-radius: 0 !important;
                     font-weight: 600;
                     text-align: center;
-                    background-color: rgb(235, 237, 239);
-                    background-color: rgba(235, 237, 239, 0.3);
-                    border: none;
+                    background-color: rgb(255, 255, 255);
+                    background-color: rgba(255, 255, 255, 0.9);
                     .gallery-media-file-controls {
                         a {
                             font-size: 1.125em;
                             cursor: pointer;
                             padding-left: 5px;
-                        }
-                    }
-                    .social-activities {
-                        font-size: 11px;
-                        margin-bottom: 0;
-
-                        a {
-                            font-size: 11px;
-                            margin-top: 10px;
-                            margin-bottom: 0;
                         }
                     }
 
@@ -188,8 +186,8 @@
                     border-radius: 0 !important;
                     font-weight: 600;
                     text-align: center;
-                    background-color: rgb(235, 237, 239);
-                    background-color: rgba(235, 237, 239, 0.3);
+                    background-color: rgb(255, 255, 255);
+                    background-color: rgba(255, 255, 255, 0.9);
                     .pull-left {
                         max-width: 75%;
                         overflow:hidden;
@@ -200,10 +198,6 @@
                         position: absolute;
                     }
                 }
-            }
-
-            .panel-default {
-                border-color: #ebedef !important;
             }
         }
     }

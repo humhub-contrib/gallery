@@ -1,11 +1,7 @@
 <?php
 
-use \humhub\modules\comment\widgets\CommentLink;
-use \humhub\modules\content\models\Content;
 use \humhub\modules\gallery\assets\Assets;
 use \humhub\modules\gallery\Module;
-use \humhub\modules\like\widgets\LikeLink;
-use \yii\helpers\Html;
 
 $bundle = Assets::register($this);
 $contentContainer = Yii::$app->controller->contentContainer;
