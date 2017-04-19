@@ -5,10 +5,10 @@ use \humhub\modules\gallery\widgets\GalleryList;
 use \yii\helpers\Html;
 
 $bundle = Assets::register($this);
-$this->registerJsVar('galleryMediaUploadUrl', 'unused');
 ?>
 
 <div id="gallery-container" class="panel panel-default">
+    <div class="panel-heading"><?php echo Yii::t('GalleryModule.base', '<strong>List</strong> of galleries'); ?></div>
     <?php echo Html::beginForm(null, null, ['data-target' => '#globalModal', 'id' => 'gallery-form']); ?>
     <div class="panel-body">
         <?php if ($this->context->canWrite(false)): ?>

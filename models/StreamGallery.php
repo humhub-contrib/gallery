@@ -110,4 +110,10 @@ class StreamGallery extends BaseGallery
         // TODO: This also seems very slow. Would be much nicer to already filter in the query and use getFileListQuery->one().
         return sizeof($this->getFileList()) == 0;
     }
+
+    public function getCreator()
+    {
+        // stream galleries should be automatically created
+        return '';
+    }
 }

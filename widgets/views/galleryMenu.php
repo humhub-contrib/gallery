@@ -2,9 +2,15 @@
 
 use humhub\modules\file\widgets\FileHandlerButtonDropdown;
 ?>
-<?= \humhub\modules\file\widgets\UploadProgress::widget(['id' => 'gallery-upload-progress']) ?>
-<?php if ($canWrite): ?>
-    <div class="row button-action-menu">
+<div>
+    <a class="btn btn-default btn-sm" href="<?= $this->context->contentContainer->createUrl('/gallery/list') ?>">
+        <i class="glyphicon glyphicon-arrow-left"></i> <?= Yii::t('GalleryModule.base', 'Back to the list') ?></a>
+</div>
+
+<div class="row button-action-menu">
+    <?php if ($canWrite): ?>
+        <?= \humhub\modules\file\widgets\UploadProgress::widget(['id' => 'gallery-upload-progress']) ?>
+        <hr />
         <div class="col-sm-4">
             <?php
             $uploadButton = humhub\modules\file\widgets\UploadButton::widget([
@@ -29,6 +35,6 @@ use humhub\modules\file\widgets\FileHandlerButtonDropdown;
                href="<?= $deleteUrl ?>">Delete
                 Gallery</a>
         </div>
-    </div>
-<?php endif; ?>
+    <?php endif; ?>
+</div>
 

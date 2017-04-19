@@ -130,18 +130,6 @@ class Module extends ContentContainerModule
     }
 
     /**
-     * @inheritdoc
-     * 
-     * @deprecated IS DUMMY IMPLEMENTATION.
-     */
-    public function getConfigUrl()
-    {
-        return Url::to([
-            '/gallery/config'
-        ]);
-    }
-
-    /**
      * Check if the current User has write permission for the gallery module and its content.
      * 
      * @param ContentContainer $contentContainer the current content container.

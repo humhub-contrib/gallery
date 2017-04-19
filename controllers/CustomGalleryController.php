@@ -10,11 +10,8 @@ namespace humhub\modules\gallery\controllers;
 
 use \humhub\modules\content\models\Content;
 use \humhub\modules\file\models\File;
-use \humhub\modules\file\models\FileUpload;
-use \humhub\modules\gallery\libs\FileUtils;
 use \humhub\modules\gallery\models\CustomGallery;
 use \humhub\modules\gallery\models\Media;
-use \humhub\modules\gallery\widgets\CustomMediaList;
 use \Yii;
 use \yii\base\NotSupportedException;
 use \yii\web\HttpException;

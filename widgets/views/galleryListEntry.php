@@ -39,6 +39,7 @@ $bundle = Assets::register($this);
             <div class="pull-left truncate tt" data-toggle="tooltip" data-placement="top" title="" data-original-title="<?= Html::encode($entryTitle) ?>">
                 <?= Html::encode($entryTitle); ?>
             </div>
+            <?php if ($wallUrl || $downloadUrl || ($writeAccess && ($deleteUrl || $editUrl))): ?>
             <div class="pull-right">
                 <ul class="nav nav-pills preferences">
                     <li class="dropdown">
@@ -70,6 +71,7 @@ $bundle = Assets::register($this);
                     </li>
                 </ul>
             </div>
+            <?php endif; ?>
         </div>        
         <div class="panel-footer overlay">
             <div class="social-activities colorFont5">

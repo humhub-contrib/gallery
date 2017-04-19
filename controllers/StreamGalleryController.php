@@ -60,47 +60,6 @@ class StreamGalleryController extends ListController
     }
 
     /**
-     * Action to edit a gallery.
-     * @url-param 'item-id' the gallery's id.
-     * @url-param 'open-gallery-id' id of the open gallery. Used for redirecting.
-     *
-     * @throws HttpException if insufficient permission.
-     * @return string the redered html.
-     */
-    public function actionEdit()
-    {
-        $this->canWrite(true);
-
-        $itemId = Yii::$app->request->get('item-id');
-        $openGalleryId = Yii::$app->request->get('open-gallery-id');
-        // check if a gallery with the given id exists.
-        $gallery = $this->module->getItemById($itemId);
-
-        // if no gallery is found with the given id, a new one has to be created
-        if (!($gallery instanceof StreamGallery)) {
-            // stream gallery must not be created by user
-            return -1;
-        }
-
-        $data = Yii::$app->request->post('StreamGallery');
-
-        if ($data !== null && $gallery->load(Yii::$app->request->post()) && $gallery->validate()) {
-            $gallery->save();
-            $this->view->saved();
-            return $this->htmlRedirect($this->contentContainer->createUrl('/gallery/custom-gallery/view', ['open-gallery-id' => $openGalleryId]));
-            // TODO: only load the changed element
-            // return $this->renderGallery(true, $openGalleryId);
-        }
-
-        // render modal
-        return $this->renderAjax('/stream-gallery/modal_gallery_edit', [
-                    'openGalleryId' => $openGalleryId,
-                    'gallery' => $gallery,
-                    'contentContainer' => $this->contentContainer,
-        ]);
-    }
-
-    /**
      * Render a specified stream gallery or the gallery list.
      * @url-param 'open-gallery-id' id of the open gallery. The gallery list is rendered if no gallery with this id is found.
      *
@@ -131,4 +90,15 @@ class StreamGalleryController extends ListController
         ]);
     }
 
+    /**
+     * 
+     * @overwrite
+     */
+    public function canWrite($throw = true)
+    {
+        if ($throw) {
+            throw new HttpException(401, Yii::t('GalleryModule.base', 'Insufficient rights to execute this action.'));
+        }
+        return false;
+    }
 }

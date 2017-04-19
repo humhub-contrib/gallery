@@ -29,7 +29,7 @@ class GalleryListEntry extends Widget
     {
         $contentContainer = Yii::$app->controller->contentContainer;
         if($this->entryObject instanceof \humhub\modules\gallery\models\Media) {
-            $creator = Module::getUserById($this->entryObject->baseFile->created_by);
+            $creator = $this->entryObject->getCreator();
             $contentObject = $this->entryObject;
             
             $entryTitle = $this->entryObject->title;
@@ -65,7 +65,7 @@ class GalleryListEntry extends Widget
             
             $writeAccess = false;
         } elseif ($this->entryObject instanceof \humhub\modules\gallery\models\StreamGallery) {
-            $creator = '';
+            $creator = $this->entryObject->getCreator();
             $contentObject = $this->entryObject;            
             
             $entryTitle = Yii::t('GalleryModule.base', 'Posted Media Files');
@@ -73,7 +73,7 @@ class GalleryListEntry extends Widget
             
             $wallUrl = '';
             $deleteUrl = '';
-            $editUrl = $contentContainer->createUrl('/gallery/stream-gallery/edit', ['item-id' => $this->entryObject->getItemId()]);
+            $editUrl = '';
             $downloadUrl = '';
             $fileUrl = $this->entryObject->getUrl();            
             $thumbnailUrl = $this->entryObject->getPreviewImageUrl();
@@ -82,7 +82,7 @@ class GalleryListEntry extends Widget
             
             $writeAccess = Yii::$app->controller->canWrite(false);
         } elseif ($this->entryObject instanceof \humhub\modules\gallery\models\CustomGallery) {
-            $creator = '';
+            $creator = $this->entryObject->getCreator();
             $contentObject = $this->entryObject;            
             
             $entryTitle = $this->entryObject->title;

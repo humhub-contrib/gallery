@@ -29,7 +29,7 @@
             color: @font5;
             margin-top: 10px;
             margin-bottom: 0;
-            
+
             &:hover {
                 color: @font3;
                 text-decoration: none;
@@ -43,15 +43,11 @@
         text-overflow: ellipsis;
     }
 
-    .back-button {
-        margin-bottom: 10px;
-    }
-
     .shadowPublic {
         box-shadow: 0 0 3px 0 @info;
         -webkit-box-shadow: 0 0 3px 0 @info;
     }
-    
+
     #gallery-list {
         .galleryEmptyMessage {
             .panel {
@@ -196,6 +192,88 @@
                     &.overlay {
                         top: 0; left: 0; right: 0;
                         position: absolute;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media (min-width: 750px) {
+    #gallery-container {
+        .panel-body {
+            #gallery-list {
+                .gallery-list-entry{
+                    .panel {
+                        .panel-heading {
+                            .pull-left {
+                                max-width: 45%;
+                            }
+                        }
+                        .panel-footer {
+                            &.overlay {
+                                display: none;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media (min-width: 991px) {
+    #gallery-container {
+        .panel-body {
+            #gallery-list {
+                .gallery-list-entry{
+                    .panel {
+                        .panel-heading {
+                            .pull-left {
+                                max-width: 70%;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media (min-width: 1210px) {
+    #gallery-container {
+        .panel-body {
+            #gallery-list {
+                .gallery-list-entry{
+                    .panel {
+                        .panel-heading {
+                            .pull-left {
+                                max-width: 75%;
+                            }
+                        }
+                        .panel-footer {
+                            &.overlay {
+                                display: block;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media (min-width: 1420px) {
+    #gallery-container {
+        .panel-body {
+            #gallery-list {
+                .gallery-list-entry{
+                    .panel {
+                        .panel-heading {
+                            .pull-left {
+                                max-width: 85%;
+                            }
+                        }
                     }
                 }
             }
