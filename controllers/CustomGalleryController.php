@@ -9,7 +9,6 @@
 namespace humhub\modules\gallery\controllers;
 
 use \humhub\modules\content\models\Content;
-use \humhub\modules\file\models\File;
 use \humhub\modules\gallery\models\CustomGallery;
 use \humhub\modules\gallery\models\Media;
 use \Yii;
@@ -96,7 +95,6 @@ class CustomGalleryController extends ListController
             $this->view->saved();
             return $this->htmlRedirect($this->contentContainer->createUrl('/gallery/custom-gallery/view', ['open-gallery-id' => $openGalleryId]));
             // TODO: only load the changed element
-            // return $this->renderGallery(true, $openGalleryId);
         }
 
         // render modal
@@ -131,32 +129,15 @@ class CustomGalleryController extends ListController
                 $mediaUpload->save();
             }
         }
-        return $valid ? $mediaUpload->getInfoArray() : '';
-        //return $valid ? $media : $this->getUploadErrorResponse($mediaUpload, $media);
-    }
-
-    /**
-     * Returns the error response for a media upload as array
-     *
-     * @param File $file
-     * @param Media $media
-     * @return array the upload error information
-     */
-    protected function getUploadErrorResponse(File $file, Media $media)
-    {
-        $errorMessage = Yii::t('GalleryModule.base', 'File {fileName} could not be uploaded!', ['fileName' => $file->file_name]);
-
-        if ($file->getErrors()) {
-            $errorMessage = $file->getErrors('uploadedFile');
-        } elseif ($media->getErrors()) {
-            $errorMessage = $media->getErrors();
+        $result = $mediaUpload->getInfoArray();
+        // TODO: there is probably a better way to do so as upper method call is deprecated
+        $result['error'] = !$valid;
+        $result['errors'] = '';
+        foreach ($mediaUpload->getErrors() as $error) {
+            $result['errors'] .= $result['name'] . ' - ' . implode(', ', $error) . '\n';
         }
-        return [
-            'error' => true,
-            'errors' => $errorMessage,
-            'name' => $file->file_name,
-            'size' => $file->size
-        ];
+
+        return $result;
     }
 
     /**
@@ -172,10 +153,18 @@ class CustomGalleryController extends ListController
         $this->canWrite(true);
         $parentGallery = $this->getOpenGallery();
 
+        $errors = false;
         $files = array();
         foreach (UploadedFile::getInstancesByName('files') as $cFile) {
-            $files[] = $this->handleMediaUpload($parentGallery, $cFile);
+            $result = $this->handleMediaUpload($parentGallery, $cFile);
+            $errors = $errors | $result['error'];
+            $files[] = $result;
         }
+
+        if (!$errors) {
+            $this->view->success('Upload complete');
+        }
+
         return ['files' => $files];
     }
 

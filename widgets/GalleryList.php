@@ -15,7 +15,7 @@ use \yii\base\Widget;
 use \yii\helpers\Html;
 
 /**
- * Widget that renders a gallery list.
+ * Widget that renders a list of entries in the gallery module.
  *
  * @package humhub.modules.gallery.widgets
  * @since 1.0

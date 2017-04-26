@@ -26,18 +26,6 @@ abstract class BaseController extends ContentContainerController
 {
 
     /**
-     * The supported extensions
-     */
-    public static $validExtensions = [
-        'jpg',
-        'gif',
-        'bmp',
-        'svg',
-        'tiff',
-        'png'
-    ];
-
-    /**
      * Checks if user can write
      *
      * @param $throw boolean
@@ -64,9 +52,7 @@ abstract class BaseController extends ContentContainerController
      */
     protected function getUserById($id)
     {
-        return User::findOne([
-                    'id' => $id
-        ]);
+        return User::findOne(['id' => $id]);
     }
 
     /**
@@ -84,43 +70,6 @@ abstract class BaseController extends ContentContainerController
         }
 
         return false;
-    }
-
-    /**
-     * Combines and merges given errormessages with the errors from a model.
-     *
-     * @param array $baseErrors
-     *            the errors that should be merged with the model errors.
-     * @param array&lt;Model&gt; $models
-     *            the models the errors will be extracted from.
-     * @param string $prefix
-     *            appended at the start of the model error (e.g. model-name).
-     * @param boolean $useKey
-     *            also append the key from the model errors specifying the attribute name. Default true.
-     * @return array&lt;string&gt; the merged errors
-     */
-    protected function extractAndCombineErrors($baseErrors, $models, $prefix = '', $useKey = true)
-    {
-        $errors = $baseErrors;
-        foreach ($models as $model) {
-            $modelErrors = array_map(function ($value, $key) use($prefix, $useKey) {
-                return $prefix . ($useKey ? $key : '') . ': ' . $value[0];
-            }, array_values($model->getErrors()), array_keys($model->getErrors()));
-            $errors = array_merge($errors, $modelErrors);
-        }
-        return $errors;
-    }
-
-    /**
-     * Check if the given extension is supported.
-     *
-     * @param string $ext
-     *            the extension.
-     * @return boolean true if supported.
-     */
-    protected function isValidExtension($ext)
-    {
-        return in_array($ext, self::$validExtensions);
     }
 
     /**

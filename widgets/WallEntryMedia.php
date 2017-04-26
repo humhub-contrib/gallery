@@ -13,7 +13,11 @@ use humhub\modules\gallery\models\Media;
 use humhub\libs\MimeHelper;
 
 /**
- * @inheritdoc
+ * Widget that renders the Wallentry for a Media file.
+ *
+ * @package humhub.modules.gallery.widgets
+ * @since 1.0
+ * @author Sebastian Stumpf
  */
 class WallEntryMedia extends \humhub\modules\content\widgets\WallEntry
 {

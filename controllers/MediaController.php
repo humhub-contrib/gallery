@@ -41,7 +41,7 @@ class MediaController extends CustomGalleryController
 
         // no media file with given item id exists
         if (empty($media) || !($media instanceof Media)) {
-            throw new HttpException(401, Yii::t('GalleryModule.base', 'Media not found.'));
+            $this->view->error(Yii::t('GalleryModule.base', 'Not found'));
         }
 
         $data = Yii::$app->request->post('Media');
@@ -53,8 +53,7 @@ class MediaController extends CustomGalleryController
             } else {
                 $this->view->saved();
                 return $this->htmlRedirect($this->contentContainer->createUrl('/gallery/custom-gallery/view', ['open-gallery-id' => $openGalleryId]));
-                // TODO: only load the changed element
-                // return $this->renderGallery(true, $openGalleryId);
+                // TODO: only load the changed element for better performance
             }
         }
 

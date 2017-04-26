@@ -4,6 +4,17 @@
 @font3: #555;
 
 #gallery-container {
+    
+    &.shadowPublic {
+        box-shadow: 0 0 3px 0 @info;
+        -webkit-box-shadow: 0 0 3px 0 @info;
+    }
+    
+    .shadowPublic {
+        box-shadow: 0 0 3px 0 @info;
+        -webkit-box-shadow: 0 0 3px 0 @info;
+    }
+    
     .panel-body {
         .row {
             margin-left: -10px;
@@ -41,11 +52,6 @@
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
-    }
-
-    .shadowPublic {
-        box-shadow: 0 0 3px 0 @info;
-        -webkit-box-shadow: 0 0 3px 0 @info;
     }
 
     #gallery-list {

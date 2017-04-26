@@ -5,14 +5,17 @@ namespace humhub\modules\gallery\widgets;
 use humhub\modules\file\handler\FileHandlerCollection;
 
 /**
- * Widget for rendering the file list menu.
+ * Widget for rendering the menue buttons for the gallery module.
+ *
+ * @package humhub.modules.gallery.widgets
+ * @since 1.0
+ * @author Sebastian Stumpf
  */
 class GalleryMenu extends \yii\base\Widget
 {
 
     /**
-     * Current gallery model instance.
-     * @var \humhub\modules\gallery\models\BaseGallery
+     * var humhub\modules\gallery\models\BaseGallery Current gallery model instance.
      */
     public $gallery;
 
@@ -42,7 +45,7 @@ class GalleryMenu extends \yii\base\Widget
         $deleteUrl = $this->contentContainer->createUrl('/gallery/list/delete-multiple', ['item-id' => $this->gallery->getItemId()]);
         $editUrl = $this->contentContainer->createUrl('edit', ['open-gallery-id' => $this->gallery->id, 'item-id' => $this->gallery->getItemId()]);
         $uploadUrl = $this->contentContainer->createUrl('upload', ['open-gallery-id' => $this->gallery->id]);
-        
+
         return $this->render('galleryMenu', [
                     'canWrite' => $this->canWrite,
                     'fileHandlers' => array_merge($fileHandlerCreate, $fileHandlerImport),

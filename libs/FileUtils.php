@@ -5,9 +5,6 @@ namespace humhub\modules\gallery\libs;
 use \humhub\modules\comment\models\Comment;
 use \humhub\modules\content\models\Content;
 use \humhub\modules\file\models\File;
-use \humhub\modules\gallery\models\SquarePreviewImage;
-use \humhub\modules\post\models\Post;
-use \Yii;
 
 /**
  * This is a utility lib for files.
@@ -17,127 +14,10 @@ use \Yii;
  * @author Sebastian Stumpf
  */
 class FileUtils
-{
-
-    public static $map = [
-        'code' => [
-            'ext' => ['html', 'cmd', 'bat', 'xml'],
-            'icon' => 'fa-file-code-o'
-        ],
-        'archive' => [
-            'ext' => ['zip', 'rar', 'gz', 'tar'],
-            'icon' => 'fa-file-archive-o'
-        ],
-        'audio' => [
-            'ext' => ['mp3', 'wav'],
-            'icon' => 'fa-file-audio-o'
-        ],
-        'excel' => [
-            'ext' => ['xls', 'xlsx'],
-            'icon' => 'fa-file-excel-o'
-        ],
-        'image' => [
-            'ext' => ['jpg', 'gif', 'bmp', 'svg', 'tiff', 'png'],
-            'icon' => 'fa-file-image-o'
-        ],
-        'pdf' => [
-            'ext' => ['pdf'],
-            'icon' => 'fa-file-pdf-o'
-        ],
-        'powerpoint' => [
-            'ext' => ['ppt', 'pptx'],
-            'icon' => 'fa-file-powerpoint-o'
-        ],
-        'text' => [
-            'ext' => ['txt', 'log', 'md'],
-            'icon' => 'fa-file-text-o'
-        ],
-        'video' => [
-            'ext' => ['mp4', 'mpeg', 'swf'],
-            'icon' => 'fa-file-video-o'
-        ],
-        'word' => [
-            'ext' => ['doc', 'docx'],
-            'icon' => 'fa-file-word-o'
-        ],
-        'default' => [
-            'ext' => [],
-            'icon' => 'fa-file-o'
-        ]
-    ];
-
-    /**
-     * Get the extensions font awesome icon class.
-     *
-     * @param string $ext
-     *            the extension.
-     * @return string the font awesome icon class for this extension.
-     */
-    public static function getIconClassByExt($ext = '')
-    {
-        foreach (self::$map as $type => $info) {
-            if (in_array(strtolower($ext), $info['ext'])) {
-                return $info['icon'];
-            }
-        }
-        return self::$map['default']['icon'];
-    }
-
-    /**
-     * Sanitize a filename.
-     *
-     * @param string $filename            
-     * @return string
-     * @deprecated since version 1.2
-     */
-    public static function sanitizeFilename($filename)
-    {
-        $file = new File();
-        $file->file_name = $filename;
-        // function no longer available since 1.2
-        if (version_compare(Yii::$app->version, '1.2', '<')) {
-            $file->sanitizeFilename();
-        }
-        return $file->file_name;
-    }
-
-    /**
-     * Get the extensions type.
-     *
-     * @param string $ext
-     *            the extension.
-     * @return string the type or 'unknown'.
-     */
-    public static function getItemTypeByExt($ext)
-    {
-        foreach (self::$map as $type => $info) {
-            if (in_array(strtolower($ext), $info['ext'])) {
-                return $type;
-            }
-        }
-        return 'unknown';
-    }
-
-    /**
-     * Crop an image file to a square thumbnail.
-     * The thumbnail will be saved with the suffix "&lt;width&gt;_thumb_square"
-     * @param File $basefile the file to crop.
-     * @param number $maxDimension limit maximum with/height.
-     * @return string the thumbnail's url or null if an error occured.
-     */
-    public static function getSquareThumbnailUrlFromFile($basefile = null, $maxDimension = 1000)
-    {
-        $previewImage = new SquarePreviewImage();
-        if ($previewImage->applyFile($basefile)) {
-            return $previewImage->getUrl();
-        } else {
-            return "";
-        }
-    }
-
+{    
     /**
      * Get the content model the file is connected to.
-     * @param File $basefile the file.
+     * @param File $file the file.
      */
     public static function getBaseContent($file = null)
     {
@@ -160,28 +40,8 @@ class FileUtils
     }
 
     /**
-     * Get the post the file is connected to.
-     * @param File $basefile the file.
-     */
-    public static function getBasePost($file = null)
-    {
-        if ($file === null) {
-            return null;
-        }
-        $searchItem = $file;
-        // if the item is connected to a Comment, we have to search for the corresponding Post
-        if ($file->object_model === Comment::className()) {
-            $searchItem = Comment::findOne([
-                        'id' => $file->object_id
-            ]);
-        }
-        $return = Post::findOne(['id' => $searchItem->object_id
-        ]);
-    }
-
-    /**
      * Get the comment, post or other model via which the file was uploaded and is connected to.
-     * @param File $basefile the file.
+     * @param File $file the file.
      */
     public static function getBaseObject($file = null)
     {

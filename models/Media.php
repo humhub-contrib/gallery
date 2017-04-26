@@ -45,17 +45,7 @@ class Media extends ContentActiveRecord
 
     public function getWallUrl()
     {
-        //@deprecated: v1.1 compatibility
-        if (version_compare(Yii::$app->version, '1.2', '<')) {
-            $firstWallEntryId = $this->content->getFirstWallEntryId();
-            if ($firstWallEntryId == '') {
-                return '';
-            }
-            return Url::toRoute(['/content/perma/wall-entry', 'id' => $firstWallEntryId]);
-        } else {
-            $permaLink = Url::to(['/content/perma', 'id' => $this->content->id], true);
-            return $permaLink;
-        }
+        return Url::to(['/content/perma', 'id' => $this->content->id], true);
     }
 
     /**
@@ -87,11 +77,6 @@ class Media extends ContentActiveRecord
         return 'media_' . $this->id;
     }
 
-    public function getItemType()
-    {
-        return FileUtils::getItemTypeByExt($this->baseFile->getExtension());
-    }
-
     public function getFileName()
     {
         return $this->baseFile->file_name;
@@ -104,26 +89,17 @@ class Media extends ContentActiveRecord
 
     public function getUrl($download = false)
     {
-        //@deprecated: v1.1 compatibility
-        if (version_compare(Yii::$app->version, '1.2', '<')) {
-            return isset($this->baseFile) ? $this->baseFile->getUrl() . ($download ? '&' . http_build_query(['download' => 1]) : '') : "";
-        } else {
-            return $this->baseFile->getUrl(['download' => $download]);
-        }
+        return $this->baseFile->getUrl(['download' => $download]);
     }
 
     public function getCreator()
     {
-        return User::findOne([
-                    'id' => $this->baseFile->created_by
-        ]);
+        return User::findOne(['id' => $this->baseFile->created_by]);
     }
 
     public function getEditor()
     {
-        return User::findOne([
-                    'id' => $this->baseFile->updated_by
-        ]);
+        return User::findOne(['id' => $this->baseFile->updated_by]);
     }
 
     public function getBaseFile()
@@ -140,16 +116,14 @@ class Media extends ContentActiveRecord
         return $path;
     }
 
-    public function getSquareThumbnailUrl($maxDimension = 1000)
+    public function getSquarePreviewImageUrl()
     {
         try {
-            $previewImage = FileUtils::getSquareThumbnailUrlFromFile($this->baseFile, $maxDimension);
-        } catch (Exception $e) {}
-        if (!empty($previewImage)) {
-            return $previewImage;
-        } else {
-            return $this->getFallbackPreviewImageUrl();
+            $previewImage = SquarePreviewImage::getSquarePreviewImageUrlFromFile($this->baseFile);
+        } catch (Exception $e) {
+            
         }
+        return empty($previewImage) ? $this->getFallbackPreviewImageUrl() : $previewImage;
     }
 
     /**
@@ -175,8 +149,7 @@ class Media extends ContentActiveRecord
 
     public function getParentGallery()
     {
-        $query = $this->hasOne(CustomGallery::className(), ['id' => 'gallery_id']);
-        return $query;
+        return $this->hasOne(CustomGallery::className(), ['id' => 'gallery_id']);
     }
 
     public function getEditUrl()

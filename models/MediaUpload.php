@@ -11,12 +11,17 @@ class MediaUpload extends \humhub\modules\file\models\FileUpload
 {
 
     /**
+     * The supported extensions
+     */
+    public $validExtensions = ['jpg', 'gif', 'bmp', 'svg', 'tiff', 'png'];
+
+    /**
      * @inheritdoc
      */
     public function rules()
     {
         $rules = [
-            ['uploadedFile', 'file', 'extensions' => ['jpg', 'gif', 'bmp', 'svg', 'tiff', 'png']],
+            ['uploadedFile', 'file', 'extensions' => $this->validExtensions],
         ];
         return array_merge(parent::rules(), $rules);
     }

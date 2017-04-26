@@ -13,7 +13,7 @@ use \yii\base\Widget;
 use \Yii;
 
 /**
- * Widget that renders the gallery content.
+ * Widget that renders an entry inside a list in the gallery module
  *
  * @package humhub.modules.gallery.widgets
  * @since 1.0
@@ -40,7 +40,7 @@ class GalleryListEntry extends Widget
             $editUrl = $contentContainer->createUrl('/gallery/media/edit', ['open-gallery-id' => $this->parentGallery->id, 'item-id' => $this->entryObject->getItemId()]);
             $downloadUrl = $this->entryObject->getUrl(true);
             $fileUrl = $this->entryObject->getUrl();            
-            $thumbnailUrl = $this->entryObject->getSquareThumbnailUrl();
+            $thumbnailUrl = $this->entryObject->getSquarePreviewImageUrl();
             $footerOverwrite = false;
             $shadowPublic = false;
             
@@ -59,9 +59,9 @@ class GalleryListEntry extends Widget
             $editUrl = '';
             $downloadUrl = $this->entryObject->getUrl(['download' => true]);
             $fileUrl = $this->entryObject->getUrl();            
-            $thumbnailUrl = \humhub\modules\gallery\libs\FileUtils::getSquareThumbnailUrlFromFile($this->entryObject);
+            $thumbnailUrl = \humhub\modules\gallery\models\SquarePreviewImage::getSquarePreviewImageUrlFromFile($this->entryObject);
             $footerOverwrite = false;
-            $shadowPublic = false;
+            $shadowPublic = $baseContent->visibility == \humhub\modules\content\models\Content::VISIBILITY_PUBLIC;
             
             $writeAccess = false;
         } elseif ($this->entryObject instanceof \humhub\modules\gallery\models\StreamGallery) {
@@ -95,7 +95,7 @@ class GalleryListEntry extends Widget
             $fileUrl = $this->entryObject->getUrl();            
             $thumbnailUrl = $this->entryObject->getPreviewImageUrl();
             $footerOverwrite = false;
-            $shadowPublic = $this->entryObject->content->visibility == \humhub\modules\content\models\Content::VISIBILITY_PUBLIC;
+            $shadowPublic = $this->entryObject->isPublic();
             
             $writeAccess = Yii::$app->controller->canWrite(false);
         } else {
@@ -124,5 +124,4 @@ class GalleryListEntry extends Widget
                     'footerOverwrite' => $footerOverwrite,
         ]);
     }
-
 }

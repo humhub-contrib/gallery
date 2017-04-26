@@ -1,4 +1,16 @@
 <?php
+/**
+ * @link https://www.humhub.org/
+ * @copyright Copyright (c) 2015 HumHub GmbH & Co. KG
+ * @license https://www.humhub.com/licences
+ * 
+ * @package humhub.modules.gallery.views
+ * @since 1.0
+ * @author Sebastian Stumpf
+ */
+?>
+
+<?php
 
 use \humhub\modules\comment\widgets\CommentLink;
 use \humhub\modules\gallery\assets\Assets;
@@ -40,37 +52,37 @@ $bundle = Assets::register($this);
                 <?= Html::encode($entryTitle); ?>
             </div>
             <?php if ($wallUrl || $downloadUrl || ($writeAccess && ($deleteUrl || $editUrl))): ?>
-            <div class="pull-right">
-                <ul class="nav nav-pills preferences">
-                    <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="fa fa-angle-down"></i></a>
-                        <ul class="dropdown-menu pull-right">
-                            <?php if ($wallUrl): ?>
-                                <li>
-                                    <a href="<?= $wallUrl ?>"><i class="fa fa-link"></i> <?= Yii::t('GalleryModule.base', 'Show connected post') ?></a>
-                                </li>
-                            <?php endif; ?>
-                            <?php if ($writeAccess): ?>
-                                <?php if ($deleteUrl): ?>
+                <div class="pull-right">
+                    <ul class="nav nav-pills preferences">
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="fa fa-angle-down"></i></a>
+                            <ul class="dropdown-menu pull-right">
+                                <?php if ($wallUrl): ?>
                                     <li>
-                                        <a data-target="#globalModal" href="<?= $deleteUrl ?>"><i class="fa fa-trash"></i> <?= Yii::t('GalleryModule.base', 'Delete') ?></a>
+                                        <a href="<?= $wallUrl ?>"><i class="fa fa-link"></i> <?= Yii::t('GalleryModule.base', 'Show connected post') ?></a>
                                     </li>
                                 <?php endif; ?>
-                                <?php if ($editUrl): ?>
+                                <?php if ($writeAccess): ?>
+                                    <?php if ($deleteUrl): ?>
+                                        <li>
+                                            <a data-target="#globalModal" href="<?= $deleteUrl ?>"><i class="fa fa-trash"></i> <?= Yii::t('GalleryModule.base', 'Delete') ?></a>
+                                        </li>
+                                    <?php endif; ?>
+                                    <?php if ($editUrl): ?>
+                                        <li>
+                                            <a data-target="#globalModal" href="<?= $editUrl ?>"><i class="fa fa-edit"></i> <?= Yii::t('GalleryModule.base', 'Edit') ?></a>
+                                        </li>
+                                    <?php endif; ?>
+                                <?php endif; ?>
+                                <?php if ($downloadUrl): ?>
                                     <li>
-                                        <a data-target="#globalModal" href="<?= $editUrl ?>"><i class="fa fa-edit"></i> <?= Yii::t('GalleryModule.base', 'Edit') ?></a>
+                                        <a data-pjax-prevent="1" href="<?= $downloadUrl ?>"><i class="fa fa-download"></i> <?= Yii::t('GalleryModule.base', 'Download') ?></a>
                                     </li>
                                 <?php endif; ?>
-                            <?php endif; ?>
-                            <?php if ($downloadUrl): ?>
-                                <li>
-                                    <a data-pjax-prevent="1" href="<?= $downloadUrl ?>"><i class="fa fa-download"></i> <?= Yii::t('GalleryModule.base', 'Download') ?></a>
-                                </li>
-                            <?php endif; ?>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
             <?php endif; ?>
         </div>        
         <div class="panel-footer overlay">

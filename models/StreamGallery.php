@@ -26,9 +26,7 @@ class StreamGallery extends BaseGallery
 
     public function getUrl()
     {
-        return $this->content->container->createUrl('/gallery/stream-gallery/view', [
-                    'open-gallery-id' => $this->id
-        ]);
+        return $this->content->container->createUrl('/gallery/stream-gallery/view', ['open-gallery-id' => $this->id]);
     }
 
     public function getPreviewImageUrl()
@@ -40,12 +38,10 @@ class StreamGallery extends BaseGallery
         }
         // get first image from the complete filelist as fallback
         $file = $this->fileListQuery()
-                ->orderBy([
-                    'updated_at' => SORT_ASC
-                ])
+                ->orderBy(['updated_at' => SORT_ASC])
                 ->one();
-        if ($file !== null && !empty(FileUtils::getSquareThumbnailUrlFromFile($file))) {
-            return FileUtils::getSquareThumbnailUrlFromFile($file);
+        if ($file !== null && !empty(SquarePreviewImage::getSquarePreviewImageUrlFromFile($file))) {
+            return SquarePreviewImage::getSquarePreviewImageUrlFromFile($file);
         }
         // return default image if gallery is empty
         return $this->getDefaultPreviewImageUrl();
@@ -66,29 +62,15 @@ class StreamGallery extends BaseGallery
         $query->join('LEFT JOIN', 'content', '(comment.object_model=content.object_model AND comment.object_id=content.object_id) OR (file.object_model=content.object_model AND file.object_id=content.object_id)');
 
         // select only the one for the given content container for Yii version >= 1.1
-        $query->andWhere([
-            'content.contentcontainer_id' => $this->content->contentcontainer_id
-        ]);
+        $query->andWhere(['content.contentcontainer_id' => $this->content->contentcontainer_id]);
         // only accept Posts as the base content, so stuff from submodules like files itsself or gallery will be excluded
         $query->andWhere([
             'or',
-            [
-                '=',
-                'comment.object_model',
-                Post::className()
-            ],
-            [
-                '=',
-                'file.object_model',
-                Post::className()
-            ]
+            ['=', 'comment.object_model', Post::className()],
+            ['=', 'file.object_model', Post::className()]
         ]);
         // only get gallery suitable content types
-        $query->andWhere([
-            'like',
-            'file.mime_type',
-            'image/'
-        ]);
+        $query->andWhere(['like', 'file.mime_type', 'image/']);
         return $query;
     }
 
@@ -113,7 +95,8 @@ class StreamGallery extends BaseGallery
 
     public function getCreator()
     {
-        // stream galleries should be automatically created
+        // stream galleries should be automatically created, internally they have a creator but that should not be displayed
         return '';
     }
+
 }

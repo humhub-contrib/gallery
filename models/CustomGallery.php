@@ -3,7 +3,6 @@
 namespace humhub\modules\gallery\models;
 
 use \yii\helpers\Url;
-use \Yii;
 
 /**
  * This is the model class for a custom gallery.
@@ -14,52 +13,44 @@ use \Yii;
  */
 class CustomGallery extends BaseGallery
 {
+
     /**
      * @inheritdoc
      */
     public $wallEntryClass = "humhub\modules\gallery\widgets\WallEntryGallery";
-    
+
     public function getWallUrl()
     {
-
-        //@deprecated: v1.1 compatibility
-        if (version_compare(Yii::$app->version, '1.2', '<')) {
-            $firstWallEntryId = $this->content->getFirstWallEntryId();
-            if ($firstWallEntryId == '') {
-                return '';
-            }
-            return Url::toRoute(['/content/perma/wall-entry', 'id' => $firstWallEntryId]);
-        } else {
-            $permaLink = Url::to(['/content/perma', 'id' => $this->content->id], true);
-            return $permaLink;
-        }
+        return Url::to(['/content/perma', 'id' => $this->content->id], true);
     }
 
     public function getUrl()
     {
-        return $this->content->container->createUrl('/gallery/custom-gallery/view', [
-                    'open-gallery-id' => $this->id
-        ]);
+        return $this->content->container->createUrl('/gallery/custom-gallery/view', ['open-gallery-id' => $this->id]);
     }
 
+    public function isPublic() {
+        return $this->content->visibility == \humhub\modules\content\models\Content::VISIBILITY_PUBLIC;
+    }
+    
     public function getPreviewImageUrl()
     {
-        // search for file by given thumbnail id
+        // get preview image from a set thumbfile
         $path = $this->getPreviewImageUrlFromThumbFileId();
         if ($path !== null) {
             return $path;
         }
+        // get preview image from the file list
         $media = $this->mediaListQuery()
                 ->orderBy([
                     'sort_order' => SORT_ASC
                 ])
                 ->one();
-        if ($media != null && !empty($media->getSquareThumbnailUrl()) ) {
-            return $media->getSquareThumbnailUrl();
-        } else {
-            // return default image if gallery is empty
-            return $this->getDefaultPreviewImageUrl();
-        }
+        if ($media != null && !empty($media->getSquarePreviewImageUrl())) {
+            return $media->getSquarePreviewImageUrl();
+        } 
+        // return default image if gallery is empty
+        return $this->getDefaultPreviewImageUrl();
     }
 
     public function beforeDelete()

@@ -13,7 +13,7 @@ use yii\web\AssetBundle;
 /**
  * The asset bundle for the gallery module.
  *
- * @package humhub.modules.gallery
+ * @package humhub.modules.gallery.assets
  * @since 1.0
  * @author Sebastian Stumpf
  */

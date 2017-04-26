@@ -4,7 +4,6 @@ namespace humhub\modules\gallery\models;
 
 use \humhub\modules\content\components\ContentActiveRecord;
 use \humhub\modules\file\models\File;
-use \humhub\modules\gallery\libs\FileUtils;
 use \humhub\modules\user\models\User;
 use \Yii;
 
@@ -29,38 +28,7 @@ class BaseGallery extends ContentActiveRecord
     const TYPE_CUSTOM_GALLERY = 1;
     const TYPE_STREAM_GALLERY = 2;
 
-    /**
-     * Overwrite!
-     */
-    public function getUrl()
-    {
-        
-    }
-
-    /**
-     * Overwrite!
-     */
-    public function getItemId()
-    {
-        
-    }
-
-    /**
-     * Overwrite!
-     */
-    public function getPreviewImageUrl()
-    {
-        
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function beforeSave($insert)
-    {
-        $this->streamChannel = null;
-        return parent::beforeSave($insert);
-    }
+    public $streamChannel = null;
     
     /**
      * @inheritdoc
@@ -135,7 +103,7 @@ class BaseGallery extends ContentActiveRecord
             $file = File::findOne($this->thumb_file_id);
             // set thumb image id not found
             if ($file !== null) {
-                return FileUtils::getSquareThumbnailUrlFromFile($file);
+                return SquarePreviewImage::getSquarePreviewImageUrlFromFile($file);
             } else {
                 // save with id null if no thumbfile not found
                 $this->thumb_file_id = null;

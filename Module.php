@@ -14,7 +14,6 @@ use \humhub\modules\space\models\Space;
 use \humhub\modules\user\models\User;
 use \Yii;
 use \yii\debug\models\search\Profile;
-use \yii\helpers\Url;
 
 class Module extends ContentContainerModule
 {
