@@ -9,12 +9,10 @@ Module for managing galleries inside spaces and on profiles.
 - Uploading files too big to be processed by the server may cause errors
 
 ##Features TODO
-- Display errors when uploading files
 - Choose gallery preview image from gallery content
 - Delete multiple files inside a gallery at once
 - Enable sorting of gallery images
 - Display image description somewhere in the blueimp gallery view
-- Dynamically display uploaded images one by one instead of reloading whole page when finished
 - Some kind of pagination for long long galleries
 - Support for videos
 - Support embedded videos (youtube, ...)
