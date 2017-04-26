@@ -25,11 +25,13 @@ $bundle = Assets::register($this);
     <div class="panel-heading"><?= Yii::t('GalleryModule.base', '<strong>Gallery</strong> ') . Html::encode($gallery->title); ?></div>
 
     <div class="panel-body">
-        <div class="row">
-            <div class="col-sm-12 gallery-description">
-                <?php echo Html::encode($gallery->description); ?><br />
+        <?php if($gallery->description): ?>
+            <div class="row">
+                <div class="col-sm-12 gallery-description">
+                    <?php echo Html::encode($gallery->description); ?><br />
+                </div>
             </div>
-        </div>
+        <?php endif; ?>
         <div class="row">
             <div class="col-sm-12 social-activities colorFont5">
                 <?php echo LikeLink::widget(['object' => $gallery]); ?>
@@ -40,7 +42,7 @@ $bundle = Assets::register($this);
                 <?php echo Comments::widget(['object' => $gallery]); ?>
             </div>
         </div>
-        <?php echo \humhub\modules\gallery\widgets\GalleryMenu::widget(['gallery' => $gallery, 'canWrite' => $this->context->canWrite(), 'contentContainer' => $this->context->contentContainer]); ?> 
+        <?php echo \humhub\modules\gallery\widgets\GalleryMenu::widget(['gallery' => $gallery, 'canWrite' => $this->context->canWrite(false), 'contentContainer' => $this->context->contentContainer]); ?> 
         <div class="row">
             <div id="logContainer" class="col-sm-12" style="display: none">
                 <ul class="alert alert-danger">

@@ -6,8 +6,9 @@ Module for managing galleries inside spaces and on profiles.
 - works only with humhub v1.2 + versions
 
 ##Known Bugs
-- Uploading files too big to be processed by the server may cause errors
-- Noone but yourself can currently see you galleries on your profile.
+- Downloading files in chrome causes text on the whole page to be rendered buggy after the first time, after the second time all text will dissapear
+- Uploading multiple files sometimes causes the page not to reload if one of them causes an error
+- Uploading files to a profile generally does not trigger page reload
 
 ##Features TODO
 - Choose gallery preview image from gallery content
@@ -17,21 +18,6 @@ Module for managing galleries inside spaces and on profiles.
 - Some kind of pagination for long long galleries
 - Support for videos
 - Support embedded videos (youtube, ...)
-- permission management for space module
-	- write access edit / delete / create galleries
-		- space: declared in space permission config (owner/admins/moderator/member/users)
-	- write access for gallery content 
-		- defined for each gallery (owner/admins/moderator/member/users)
-	- read access levels of galleries
-		- defined for each gallery (owner/admins/moderator/member/users)
-		- non accessible galleries are not shown in gallery overview 
-- permission management for profile module
-	- write access edit / delete / create galleries
-		- solely the profile owner
-	- write access for gallery content 
-		- solely the profile owner
-	- read access levels of galleries
-		- defined for each gallery (public/followers/private)
 
 <br />
 <img src="https://www.diva-e.com/images/Logo_Homepage.svg" alt="Drawing" style="width: 100px;"/>

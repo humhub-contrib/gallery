@@ -42,7 +42,7 @@ class GalleryListEntry extends Widget
             $fileUrl = $this->entryObject->getUrl();            
             $thumbnailUrl = $this->entryObject->getSquarePreviewImageUrl();
             $footerOverwrite = false;
-            $shadowPublic = false;
+            $shadowPublic = $contentObject->content->visibility == \humhub\modules\content\models\Content::VISIBILITY_PUBLIC;
             
             $writeAccess = Yii::$app->controller->canWrite(false);
             

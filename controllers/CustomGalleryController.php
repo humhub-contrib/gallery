@@ -90,7 +90,14 @@ class CustomGalleryController extends ListController
         $content_form_data['visibility'] = $content_form_data['visibility'] != Content::VISIBILITY_PUBLIC ? Content::VISIBILITY_PRIVATE : Content::VISIBILITY_PUBLIC;
 
         if ($gallery_form_data !== null && $gallery->load(Yii::$app->request->post()) && $gallery->validate()) {
-            $gallery->content->visibility = $content_form_data['visibility'];
+            if ($gallery->content->visibility != $content_form_data['visibility']) {
+                // visibility has changed, this will also be changed for all contained objects
+                $gallery->content->visibility = $content_form_data['visibility'];
+                foreach($gallery->mediaList as $media) {
+                    $media->content->visibility = $content_form_data['visibility'];
+                    $media->save();
+                }
+            }
             $gallery->save();
             $this->view->saved();
             return $this->htmlRedirect($this->contentContainer->createUrl('/gallery/custom-gallery/view', ['open-gallery-id' => $openGalleryId]));
@@ -119,6 +126,7 @@ class CustomGalleryController extends ListController
             $media->title = $mediaUpload->file_name;
             $media->content->container = $this->contentContainer;
             $media->gallery_id = $parentGallery->id;
+            $media->content->visibility = $parentGallery->isPublic() ? Content::VISIBILITY_PUBLIC : Content::VISIBILITY_PRIVATE; 
             $valid = $media->validate();
             // connect media and file
             if ($valid) {
