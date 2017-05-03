@@ -74,7 +74,8 @@
         }
         .row {
             padding-bottom: 10px;
-            .gallery-list-entry{
+
+            .gallery-list-entry {
                 .panel {
                     border-radius: 3px !important;
                     overflow: hidden;
@@ -96,16 +97,65 @@
                                 -webkit-transition: all 0.5s;
                                 -o-transition: all 0.5s;
                             }
-                            i {
-                                display: inline-block;
-                                width:100%;
-                                height:auto;
-                                font-size:100px;
+                            span.overlay {
+                                visibility: hidden;
+                                position: absolute;
+                                top: 0;
+                                left: 0;
+                                height: 100%;
+                                width: 100%;
+                                background-color: #000;
+                                i {
+                                    display: inline-block;
+                                    width:100%;
+                                    height:auto;
+                                    font-size:100px;
+                                }
                             }
                         }
+                    }
 
-                        a.zoom {
-                            &:hover {
+                    .overlay {                 
+                        opacity: 0;
+                        transition: opacity 0.5s ease-in-out;
+                        -moz-transition: opacity 0.5s ease-in-out;
+                        -webkit-transition: opacity 0.5s ease-in-out;
+                        -o-transition: opacity 0.5s ease-in-out;
+                    }
+
+                    .panel-footer,.panel-heading {
+                        position: absolute;
+                        padding: 8px !important;
+                        border-radius: 0 !important;
+                        font-weight: 600;
+                        text-align: center;
+                        background-color: rgb(255, 255, 255);
+                        background-color: rgba(255, 255, 255, 0.9);
+                        .gallery-media-file-controls {
+                            a {
+                                font-size: 1.125em;
+                                cursor: pointer;
+                                padding-left: 5px;
+                            }
+                        }
+                        .pull-left {
+                            max-width: 75%;
+                            overflow:hidden;
+                            text-overflow: ellipsis;
+                        }
+                    }
+                    .panel-footer {
+                        bottom: 0; left: 0; right: 0;
+                    }
+                    .panel-heading {
+                        top: 0; left: 0; right: 0;
+                    }
+                }
+
+                &:hover {
+                    .panel {
+                        .panel-body {
+                            a {
                                 img {
                                     transform: scale(1.3);
                                     -ms-transform: scale(1.3);
@@ -139,60 +189,15 @@
                                     }
                                 }
                             }
-
-                            span.overlay {
-                                position: absolute;
-                                top: 0;
-                                left: 0;
-                                visibility: hidden;
-                                height: 100%;
-                                width: 100%;
-                                background-color: #000;
-                                opacity: 0;
-                                transition: opacity .25s ease-out;
-                                -moz-transition: opacity .25s ease-out;
-                                -webkit-transition: opacity .25s ease-out;
-                                -o-transition: opacity .25s ease-out;
-                            }
-                        }
-                    }
-
-                    .panel-footer {
-                        padding: 8px !important;
-                        border-radius: 0 !important;
-                        font-weight: 600;
-                        text-align: center;
-                        background-color: rgb(255, 255, 255);
-                        background-color: rgba(255, 255, 255, 0.9);
-                        .gallery-media-file-controls {
-                            a {
-                                font-size: 1.125em;
-                                cursor: pointer;
-                                padding-left: 5px;
-                            }
                         }
 
-                        &.overlay {
-                            bottom: 0; left: 0; right: 0;
-                            position: absolute;
-                        }
-                    }
-
-                    .panel-heading {
-                        padding: 8px !important;
-                        border-radius: 0 !important;
-                        font-weight: 600;
-                        text-align: center;
-                        background-color: rgb(255, 255, 255);
-                        background-color: rgba(255, 255, 255, 0.9);
-                        .pull-left {
-                            max-width: 75%;
-                            overflow:hidden;
-                            text-overflow: ellipsis;
-                        }
-                        &.overlay {
-                            top: 0; left: 0; right: 0;
-                            position: absolute;
+                        .panel-footer,.panel-heading {
+                            visibility: visible;
+                            opacity: 0.9;
+                            -moz-opacity: 0.9;
+                            -webkit-opacity: 0.9;
+                            filter: alpha(opacity=90);
+                            -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=90)";
                         }
                     }
                 }

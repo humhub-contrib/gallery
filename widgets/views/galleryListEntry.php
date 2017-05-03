@@ -23,8 +23,7 @@ $bundle = Assets::register($this);
 <div class="col-sm-4 gallery-list-entry">
     <div class="panel panel-default <?= $shadowPublic ?>">
         <div class="panel-body">
-            <a class="zoom" 
-               href="<?= $fileUrl ?>#.jpeg" 
+            <a href="<?= $fileUrl ?>#.jpeg" 
                <?php if ($uiGalleryId): ?>
                    data-type="image" 
                    data-toggle="lightbox" 
@@ -32,7 +31,8 @@ $bundle = Assets::register($this);
                    data-description="<?= $entryDescription ?>"
                    data-ui-gallery="<?= $uiGalleryId ?>"
                <?php endif; ?>>
-                <img src="<?= $thumbnailUrl ?>" /><span class="overlay"><i class="glyphicon glyphicon-fullscreen"></i></span>
+                <img src="<?= $thumbnailUrl ?>" />
+                <span class="overlay"><i class="glyphicon glyphicon-fullscreen"></i></span>
             </a>
         </div>
         <div class="panel-heading overlay">
