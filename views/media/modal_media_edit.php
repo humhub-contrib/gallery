@@ -19,7 +19,6 @@
 <?php $form = \yii\bootstrap\ActiveForm::begin(); ?>
 
 <div class="modal-body">
-    <?php echo $form->field($media, 'title'); ?>
     <?php echo $form->field($media, 'description')->textArea(); ?>
 </div>
 

@@ -24,32 +24,20 @@ $bundle = Assets::register($this);
     <div class="panel panel-default <?= $shadowPublic ?>">
         <div class="panel-body">
             <a href="<?= $fileUrl ?>#.jpeg" 
-               <?php if ($uiGalleryId): ?>
+            <?php if ($uiGalleryId): ?>
                    data-type="image" 
                    data-toggle="lightbox" 
                    data-parent="#gallery-content"
-                   data-description="<?= $entryDescription ?>"
+                   data-description="<?= $title ?>"
                    data-ui-gallery="<?= $uiGalleryId ?>"
                <?php endif; ?>>
                 <img src="<?= $thumbnailUrl ?>" />
                 <span class="overlay"><i class="glyphicon glyphicon-fullscreen"></i></span>
             </a>
         </div>
-        <div class="panel-heading overlay">
-            <?php if ($creatorUrl || $creatorThumbnailUrl): ?>
-                <div class="pull-left" style="margin-right:4px;">
-                    <a href="<?= $creatorUrl ?>">
-                        <img class="img-rounded tt img_margin"
-                             src="<?= $creatorThumbnailUrl ?>"
-                             width="21" height="21" alt="21x21" data-src="holder.js/21x21"
-                             style="width: 21px; height: 21px;"
-                             data-original-title="<?php echo Yii::t('CfilesModule.base', 'added by ') . $creatorName ?>"
-                             data-placement="top" title="" data-toggle="tooltip">
-                    </a>
-                </div>
-            <?php endif; ?>
-            <div class="pull-left truncate tt" data-toggle="tooltip" data-placement="top" title="" data-original-title="<?= Html::encode($entryTitle) ?>">
-                <?= Html::encode($entryTitle); ?>
+        <div class="panel-heading overlay background-none">
+            <div class="footnotesize pull-left truncate tt" data-toggle="tooltip" data-placement="top" title="" data-original-title="<?= Html::encode($title) ?>">
+                <?= Html::encode($title); ?>
             </div>
             <?php if ($wallUrl || $downloadUrl || ($writeAccess && ($deleteUrl || $editUrl))): ?>
                 <div class="pull-right">
@@ -84,9 +72,21 @@ $bundle = Assets::register($this);
                     </ul>
                 </div>
             <?php endif; ?>
-        </div>        
+            <?php if ($creatorUrl || $creatorThumbnailUrl): ?>
+                <div class="pull-right" style="margin-right:5px;">
+                    <a href="<?= $creatorUrl ?>">
+                        <img class="img-rounded tt img_margin"
+                             src="<?= $creatorThumbnailUrl ?>"
+                             width="21" height="21" alt="21x21" data-src="holder.js/21x21"
+                             style="width: 21px; height: 21px;"
+                             data-original-title="<?php echo Yii::t('CfilesModule.base', 'added by ') . $creatorName ?>"
+                             data-placement="top" title="" data-toggle="tooltip">
+                    </a>
+                </div>
+            <?php endif; ?>
+        </div>     
         <div class="panel-footer overlay">
-            <div class="social-activities colorFont5">
+            <div class="social-activities colorFont5 pull-right">
                 <?php if ($footerOverwrite): ?>
                     <?= $footerOverwrite ?>
                 <?php else: ?>

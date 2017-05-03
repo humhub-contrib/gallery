@@ -32,8 +32,7 @@ class GalleryListEntry extends Widget
             $creator = $this->entryObject->getCreator();
             $contentObject = $this->entryObject;
             
-            $entryTitle = $this->entryObject->title;
-            $entryDescription = $this->entryObject->description;
+            $title = $this->entryObject->description;
             
             $wallUrl = $this->entryObject->getWallUrl();
             $deleteUrl = $contentContainer->createUrl('/gallery/custom-gallery/delete-multiple', ['open-gallery-id' => $this->parentGallery->id, 'item-id' => $this->entryObject->getItemId()]);
@@ -51,8 +50,7 @@ class GalleryListEntry extends Widget
             $contentObject = \humhub\modules\gallery\libs\FileUtils::getBaseObject($this->entryObject);
             $baseContent = \humhub\modules\gallery\libs\FileUtils::getBaseContent($this->entryObject);
                         
-            $entryTitle = $this->entryObject->file_name;
-            $entryDescription = $contentObject->message;
+            $title = $contentObject->message;
             
             $wallUrl = $baseContent->getUrl();
             $deleteUrl = '';
@@ -68,8 +66,7 @@ class GalleryListEntry extends Widget
             $creator = $this->entryObject->getCreator();
             $contentObject = $this->entryObject;            
             
-            $entryTitle = Yii::t('GalleryModule.base', 'Posted Media Files');
-            $entryDescription = '';
+            $title = Yii::t('GalleryModule.base', 'Posted Media Files');;
             
             $wallUrl = '';
             $deleteUrl = '';
@@ -85,8 +82,7 @@ class GalleryListEntry extends Widget
             $creator = $this->entryObject->getCreator();
             $contentObject = $this->entryObject;            
             
-            $entryTitle = $this->entryObject->title;
-            $entryDescription = $this->entryObject->description;
+            $title = $this->entryObject->title;
             
             $wallUrl = '';
             $deleteUrl = $contentContainer->createUrl('/gallery/list/delete-multiple', ['item-id' => $this->entryObject->getItemId()]);
@@ -108,8 +104,7 @@ class GalleryListEntry extends Widget
                     'creatorUrl' => $creator ? $creator->createUrl() : '',
                     'creatorThumbnailUrl' => $creator ? $creator->getProfileImage()->getUrl() : '',
                     'creatorName' => $creator ? $creator->getDisplayName() : '',
-                    'entryTitle' => $entryTitle,
-                    'entryDescription' => $entryDescription,
+                    'title' => $title,
                     'wallUrl' => $wallUrl,
                     'deleteUrl' => $deleteUrl,
                     'editUrl' => $editUrl,
