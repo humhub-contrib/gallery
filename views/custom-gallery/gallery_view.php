@@ -32,6 +32,7 @@ $bundle = Assets::register($this);
                 </div>
             </div>
         <?php endif; ?>
+        <?php if(0): // deactivate comments section for now?>
         <div class="row">
             <div class="col-sm-12 social-activities colorFont5">
                 <?php echo LikeLink::widget(['object' => $gallery]); ?>
@@ -42,6 +43,7 @@ $bundle = Assets::register($this);
                 <?php echo Comments::widget(['object' => $gallery]); ?>
             </div>
         </div>
+        <?php endif; ?>
         <?php echo \humhub\modules\gallery\widgets\GalleryMenu::widget(['gallery' => $gallery, 'canWrite' => $this->context->canWrite(false), 'contentContainer' => $this->context->contentContainer]); ?> 
         <div class="row">
             <div id="logContainer" class="col-sm-12" style="display: none">
