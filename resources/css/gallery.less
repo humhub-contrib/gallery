@@ -15,21 +15,6 @@
         -webkit-box-shadow: 0 0 3px 0 @info;
     }
 
-    .panel-body {
-        .row {
-            margin-left: -5px;
-            margin-right: -5px;
-            padding-bottom: 15px;
-            &:last-child {
-                padding-bottom: 0px;
-            }
-            .col-xs-1, .col-sm-1, .col-md-1, .col-lg-1, .col-xs-2, .col-sm-2, .col-md-2, .col-lg-2, .col-xs-3, .col-sm-3, .col-md-3, .col-lg-3, .col-xs-4, .col-sm-4, .col-md-4, .col-lg-4, .col-xs-5, .col-sm-5, .col-md-5, .col-lg-5, .col-xs-6, .col-sm-6, .col-md-6, .col-lg-6, .col-xs-7, .col-sm-7, .col-md-7, .col-lg-7, .col-xs-8, .col-sm-8, .col-md-8, .col-lg-8, .col-xs-9, .col-sm-9, .col-md-9, .col-lg-9, .col-xs-10, .col-sm-10, .col-md-10, .col-lg-10, .col-xs-11, .col-sm-11, .col-md-11, .col-lg-11, .col-xs-12, .col-sm-12, .col-md-12, .col-lg-12 {
-                padding-left:5px;
-                padding-right:5px;
-            }
-        }
-    }
-
     .social-activities {
         font-size: 11px;
         color: #fff;
@@ -53,39 +38,56 @@
         text-overflow: ellipsis;
     }
 
+    .dropdown-menu {
+        .btn-group {
+            width: 100%;
+            .btn {
+                padding: 4px 15px;
+                font-size: 13px;
+                color: #fff;
+                &:hover {
+                    text-decoration: none;
+                }
+            }
+        }
+    }
+    
     #gallery-list {
+        margin: 0px 10px 0px 10px !important;
         .galleryEmptyMessage {
             .panel {
                 margin: 0;
                 .panel-body {
                     margin: 10px;
-                    img {
+/*                    img {
                         overflow:hidden;
-                    }
+                    }*/
                 }
             }
         }
-
-        .nav-pills.preferences {
-            position:static;
-            right:0;
-            left:0;
-        }
+        
         .row {
-            padding-bottom: 10px;
+            padding: 5px 0px 0px 5px !important;
+            margin: 0;
 
             .gallery-list-entry {
+                padding: 0px 5px 5px 0px;
+                margin: 0;
+                
                 .panel {
                     border-radius: 3px !important;
-                    overflow: hidden;
                     margin: 0;
                     position: relative;
                     display: block;
-
+                    width: 100%;
                     .panel-body {
                         padding: 0 !important;
                         height: auto;
+                        width: 100%;
                         a {
+                            overflow: hidden;
+                            display: block;
+                            width: 100%;
                             img {
                                 display: block;
                                 margin: 0;
@@ -98,6 +100,7 @@
                             }
                             span.overlay {
                                 visibility: hidden;
+                                display: block;
                                 position: absolute;
                                 top: 0;
                                 left: 0;
@@ -105,15 +108,21 @@
                                 width: 100%;
                                 background-color: #000;
                                 i {
+                                    position: absolute;
+                                    top: 45%;
+                                    left: 0%;
+                                    width: 100%;
+                                    font-size: 1.5em;
+                                    color: #fff !important;
+                                    text-align: center;
                                     display: inline-block;
                                     width:100%;
                                     height:auto;
-                                    font-size:100px;
                                 }
                             }
                         }
                     }
-
+                    
                     .overlay {                 
                         opacity: 0;
                         transition: opacity 0.5s ease-in-out;
@@ -140,8 +149,6 @@
                         }
                         .pull-left {
                             max-width: 75%;
-                            overflow:hidden;
-                            text-overflow: ellipsis;
                         }
                         &.background-none {
                             background: none;
@@ -151,6 +158,7 @@
                         bottom: 0; left: 0; right: 0;
                     }
                     .panel-heading {
+                        font-size: 12px;
                         top: 0; left: 0; right: 0;
                     }
                 }
@@ -168,22 +176,14 @@
                                 }
 
                                 span.overlay {
-                                    display: block;
                                     visibility: visible;
                                     opacity: 0.55;
                                     -moz-opacity: 0.55;
                                     -webkit-opacity: 0.55;
-                                    filter: alpha(opacity=65);
-                                    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=65)";
+                                    filter: alpha(opacity=55);
+                                    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=55)";
 
                                     i {
-                                        position: absolute;
-                                        top: 45%;
-                                        left: 0%;
-                                        width: 100%;
-                                        font-size: 2.25em;
-                                        color: #fff !important;
-                                        text-align: center;
                                         opacity: 1;
                                         -moz-opacity: 1;
                                         -webkit-opacity: 1;
@@ -195,7 +195,6 @@
                         }
 
                         .panel-footer,.panel-heading {
-                            visibility: visible;
                             opacity: 0.9;
                             -moz-opacity: 0.9;
                             -webkit-opacity: 0.9;
@@ -209,14 +208,14 @@
     }
 }
 
-@media (max-width: 750px) {
+/*@media (max-width: 750px) {
     #gallery-container {
         .panel-body {
             #gallery-list {
                 .row {
                     padding-bottom: 0px;
                     .gallery-list-entry {
-                        padding-bottom: 10px;
+                        //-bottom: 10px;
                         .panel {
                             .panel-heading {
                                 .pull-left {
@@ -246,7 +245,7 @@
                 .row {
                     padding-bottom: 10px;
                     .gallery-list-entry {
-                        padding-bottom: 0px;
+                        //padding-bottom: 0px;
                         .panel {
                             .panel-heading {
                                 .pull-left {
@@ -327,7 +326,7 @@
                         .panel {
                             .panel-heading {
                                 .pull-left {
-                                    max-width: 80%;
+                                    max-width: 70%;
                                 }
                             }
                         }
@@ -336,4 +335,4 @@
             }
         }
     }
-}
+}*/

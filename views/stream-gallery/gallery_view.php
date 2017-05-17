@@ -38,11 +38,12 @@ if ($this->context->contentContainer instanceof humhub\modules\space\models\Spac
                 <?= Html::encode($description) ?><br />
             </div>
         </div>
-        <?= \humhub\modules\gallery\widgets\GalleryMenu::widget([
-            'gallery' => $gallery,
-            'canWrite' => $this->context->canWrite(false),
-            'contentContainer' => $this->context->contentContainer
-        ]) ?> 
+        <div style="padding: 10px 0 10px 0;" class="row">
+            <div class="col-sm-1">
+                <a class="btn btn-default btn-sm" href="<?= $this->context->contentContainer->createUrl('/gallery/list') ?>">
+                    <i class="glyphicon glyphicon-arrow-left"></i> <?= Yii::t('GalleryModule.base', 'Back to the list') ?></a>
+            </div>
+        </div>
         <div class="row">
             <?= humhub\modules\gallery\widgets\GalleryList::widget([
                 'entryList' => $gallery->getFileList(),

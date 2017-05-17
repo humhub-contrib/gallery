@@ -33,6 +33,12 @@ class GalleryMenu extends \yii\base\Widget
      * @var integer FileList item count.
      */
     public $itemCount;
+    
+    /**
+     *
+     * @var boolean Render dropdown or buttons row. 
+     */
+    public $dropdown = false;
 
     /**
      * @inheritdoc
@@ -46,7 +52,7 @@ class GalleryMenu extends \yii\base\Widget
         $editUrl = $this->contentContainer->createUrl('edit', ['open-gallery-id' => $this->gallery->id, 'item-id' => $this->gallery->getItemId()]);
         $uploadUrl = $this->contentContainer->createUrl('upload', ['open-gallery-id' => $this->gallery->id]);
 
-        return $this->render('galleryMenu', [
+        return $this->render($this->dropdown ? 'galleryMenuDropdown' :'galleryMenu', [
                     'canWrite' => $this->canWrite,
                     'fileHandlers' => array_merge($fileHandlerCreate, $fileHandlerImport),
                     'deleteUrl' => $deleteUrl,

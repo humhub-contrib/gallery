@@ -42,7 +42,7 @@ class GalleryListEntry extends Widget
             $thumbnailUrl = $this->entryObject->getSquarePreviewImageUrl();
             $footerOverwrite = false;
             $shadowPublic = $contentObject->content->visibility == \humhub\modules\content\models\Content::VISIBILITY_PUBLIC;
-            
+            $alwaysShowHeading = false;
             $writeAccess = Yii::$app->controller->canWrite(false);
             
         } elseif ($this->entryObject instanceof \humhub\modules\file\models\File) {
@@ -59,6 +59,7 @@ class GalleryListEntry extends Widget
             $fileUrl = $this->entryObject->getUrl();            
             $thumbnailUrl = \humhub\modules\gallery\models\SquarePreviewImage::getSquarePreviewImageUrlFromFile($this->entryObject);
             $footerOverwrite = false;
+            $alwaysShowHeading = false;
             $shadowPublic = $baseContent->visibility == \humhub\modules\content\models\Content::VISIBILITY_PUBLIC;
             
             $writeAccess = false;
@@ -76,7 +77,7 @@ class GalleryListEntry extends Widget
             $thumbnailUrl = $this->entryObject->getPreviewImageUrl();
             $footerOverwrite = Yii::t('GalleryModule.base', 'This gallery contains all the posted media files.');
             $shadowPublic = true;
-            
+            $alwaysShowHeading = true;
             $writeAccess = Yii::$app->controller->canWrite(false);
         } elseif ($this->entryObject instanceof \humhub\modules\gallery\models\CustomGallery) {
             $creator = $this->entryObject->getCreator();
@@ -91,12 +92,15 @@ class GalleryListEntry extends Widget
             $fileUrl = $this->entryObject->getUrl();            
             $thumbnailUrl = $this->entryObject->getPreviewImageUrl();
             $footerOverwrite = false;
+            $alwaysShowHeading = true;
             $shadowPublic = $this->entryObject->isPublic();
             
             $writeAccess = Yii::$app->controller->canWrite(false);
         } else {
             return '';
         }
+        
+        $creator = ''; //todo: currently there is no place for the creator in the gallery entry snippet
         
         $uiGalleryId = $this->parentGallery ? "GalleryModule-Gallery-".$this->parentGallery->id : '';
         
@@ -117,6 +121,7 @@ class GalleryListEntry extends Widget
                     'contentObject' => $contentObject,
                     'shadowPublic' => $shadowPublic ? 'shadowPublic' : '',
                     'footerOverwrite' => $footerOverwrite,
+                    'alwaysShowHeading' => $alwaysShowHeading,
         ]);
     }
 }
