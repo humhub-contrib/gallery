@@ -54,6 +54,7 @@ $bundle = Assets::register($this);
                     <i class="glyphicon glyphicon-arrow-left"></i> <?= Yii::t('GalleryModule.base', 'Back to the list') ?></a>
             </div>
         </div>
+        <div id="gallery-upload-progress" style="display:none;"></div>
         <div class="row">
             <?php echo humhub\modules\gallery\widgets\GalleryList::widget(['entryList' => $gallery->getMediaList(), 'parentGallery' => $gallery]); ?>
         </div>

@@ -18,13 +18,10 @@ $bundle = Assets::register($this);
 ?>
 
 <div id="gallery-list" class="col">
-    <?php if (!$entryList): ?>
-        <?= $htmlContentEmpty ?>
-    <?php else: ?>
     <div class="row">
+        <?php echo \humhub\modules\gallery\widgets\GalleryListEntryAdd::widget(['parentGallery' => $parentGallery]) ?>
         <?php foreach ($entryList as $entry): ?>
-            <?php echo \humhub\modules\gallery\widgets\GalleryListEntry::widget(['entryObject' => $entry, 'parentGallery' => $parentGallery])?>
+            <?php echo \humhub\modules\gallery\widgets\GalleryListEntry::widget(['entryObject' => $entry, 'parentGallery' => $parentGallery]) ?>
         <?php endforeach; ?>
     </div>
-    <?php endif; ?>
 </div>

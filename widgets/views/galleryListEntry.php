@@ -31,7 +31,7 @@ $bundle = Assets::register($this);
                    data-description="<?= $title ?>"
                    data-ui-gallery="<?= $uiGalleryId ?>"
                <?php endif; ?>>
-                <img src="<?= $thumbnailUrl ?>" />
+                <img class="<?= $imagePadding ? 'padding15perc' : '' ?>" src="<?= $thumbnailUrl ?>" />
                 <span class="overlay"><i class="glyphicon glyphicon-fullscreen"></i></span>
             </a>
         </div>
