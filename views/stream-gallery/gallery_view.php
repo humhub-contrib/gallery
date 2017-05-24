@@ -40,7 +40,7 @@ if ($this->context->contentContainer instanceof humhub\modules\space\models\Spac
         </div>
         <div style="padding: 10px 0 10px 0;" class="row">
             <div class="col-sm-1">
-                <a class="btn btn-default btn-sm" href="<?= $this->context->contentContainer->createUrl('/gallery/list') ?>">
+                <a class="btn btn-default btn-sm" data-ui-loader href="<?= $this->context->contentContainer->createUrl('/gallery/list') ?>">
                     <i class="glyphicon glyphicon-arrow-left"></i> <?= Yii::t('GalleryModule.base', 'Back to the list') ?></a>
             </div>
         </div>

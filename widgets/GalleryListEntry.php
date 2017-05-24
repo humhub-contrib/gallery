@@ -75,7 +75,7 @@ class GalleryListEntry extends Widget
             $downloadUrl = '';
             $fileUrl = $this->entryObject->getUrl();
             $thumbnailUrl = $this->entryObject->getPreviewImageUrl();
-            $footerOverwrite = Yii::t('GalleryModule.base', 'This gallery contains all the posted media files.');
+            $footerOverwrite = ' '; 
             $shadowPublic = true;
             $alwaysShowHeading = true;
             $writeAccess = Yii::$app->controller->canWrite(false);

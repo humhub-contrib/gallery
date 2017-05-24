@@ -29,6 +29,7 @@ $bundle = Assets::register($this);
                    data-toggle="lightbox" 
                    data-parent="#gallery-content"
                    data-description="<?= $title ?>"
+                   title="<?= $title ?>"
                    data-ui-gallery="<?= $uiGalleryId ?>"
                <?php endif; ?>>
                 <img class="<?= $imagePadding ? 'padding15perc' : '' ?>" src="<?= $thumbnailUrl ?>" />
