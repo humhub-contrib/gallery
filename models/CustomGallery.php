@@ -2,6 +2,7 @@
 
 namespace humhub\modules\gallery\models;
 
+use humhub\modules\content\components\ContentContainerActiveRecord;
 use \yii\helpers\Url;
 
 /**
@@ -75,9 +76,14 @@ class CustomGallery extends BaseGallery
         return $query;
     }
 
-    public function getMediaList()
+    public static function findLatest(ContentContainerActiveRecord $contentContainer)
     {
-        return $this->mediaListQuery()->contentContainer($this->content->container)->readable()->all();
+        return self::find()->contentContainer($contentContainer)->one();
+    }
+
+    public function getMediaList($max = null)
+    {
+        return $this->mediaListQuery()->contentContainer($this->content->container)->readable()->limit($max)->all();
     }
 
     public function isEmpty()

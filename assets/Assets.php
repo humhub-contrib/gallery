@@ -23,12 +23,15 @@ class Assets extends AssetBundle
     public $publishOptions = [
         'forceCopy' => true
     ];
+
     public $css = [
         'css/gallery.css',
     ];
+
     public $js = [
         'js/gallery.js',
     ];
+    
     public $jsOptions = [
         'position' => \yii\web\View::POS_END
     ];

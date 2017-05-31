@@ -18,6 +18,8 @@ use \yii\debug\models\search\Profile;
 class Module extends ContentContainerModule
 {
 
+    public $snippetMaxImages = 20;
+
     public $debug = false;
 
     /**
@@ -90,7 +92,7 @@ class Module extends ContentContainerModule
         }
     }
     
-    public function enableContentContainer($container) {
+    public function enableContentContainer(ContentContainerActiveRecord $container) {
         $streamGallery = new StreamGallery();
         $streamGallery->title = Yii::t('GalleryModule.base', 'Posted pictures');
         $streamGallery->description = Yii::t('GalleryModule.base', 'This gallery contains all posted pictures.');

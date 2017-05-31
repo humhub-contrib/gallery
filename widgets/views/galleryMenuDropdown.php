@@ -32,7 +32,7 @@ use humhub\modules\file\widgets\FileHandlerButtonDropdown;
                                 'tooltip' => false,
                                 'label' => Yii::t('GalleryModule.base', 'Upload'),
                                 'dropZone' => '#gallery-container',
-                                'cssButtonClass' => 'btn-link',
+                                'cssButtonClass' => 'btn-link'
                             ])
                     ?>
                     <li>

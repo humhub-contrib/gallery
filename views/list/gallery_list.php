@@ -21,7 +21,7 @@ $bundle = Assets::register($this);
 
 <div id="gallery-container" class="panel panel-default">
     <div class="panel-heading">
-        <div class="pull-left" style="margin-right:40px;"><?php echo Yii::t('GalleryModule.base', '<strong>List</strong> of galleries'); ?></div>
+        <div class="pull-left" style="margin-right:40px;"><?= Yii::t('GalleryModule.base', '<strong>List</strong> of galleries'); ?></div>
         <div class="pull-right">
             <ul class="nav nav-pills preferences">
                 <li class="dropdown">
@@ -32,7 +32,14 @@ $bundle = Assets::register($this);
                     <ul class="dropdown-menu pull-right">
                         <?php if ($this->context->canWrite(false)): ?>
                             <li>
-                                <a data-target="#globalModal" href="<?php echo $this->context->contentContainer->createUrl('/gallery/custom-gallery/edit'); ?>"><i class="glyphicon glyphicon-plus"></i> <?= Yii::t('GalleryModule.base', 'Add Gallery') ?></a>
+                                <a href="<?= $this->context->contentContainer->createUrl('/gallery/setting'); ?>">
+                                    <i class="fa fa-cogs"></i> <?= Yii::t('GalleryModule.base', 'Settings') ?>
+                                </a>
+                            </li>
+                            <li>
+                                <a data-target="#globalModal" href="<?= $this->context->contentContainer->createUrl('/gallery/custom-gallery/edit'); ?>">
+                                    <i class="glyphicon glyphicon-plus"></i> <?= Yii::t('GalleryModule.base', 'Add Gallery') ?>
+                                </a>
                             </li>
                         <?php endif; ?>
                     </ul>
@@ -41,11 +48,12 @@ $bundle = Assets::register($this);
         </div>
         <div class="clearfix"></div>
     </div>
+
     <?php echo Html::beginForm(null, null, ['data-target' => '#globalModal', 'id' => 'gallery-form']); ?>
-    <div class="panel-body">
-        <div class="row">
-            <?php echo GalleryList::widget(['entryList' => array_merge($stream_galleries, $custom_galleries)]); ?>
+        <div class="panel-body">
+            <div class="row">
+                <?php echo GalleryList::widget(['entryList' => array_merge($stream_galleries, $custom_galleries)]); ?>
+            </div>
         </div>
-    </div>
     <?php echo Html::endForm(); ?>
 </div>
