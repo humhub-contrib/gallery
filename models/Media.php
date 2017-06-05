@@ -8,6 +8,7 @@ use \humhub\modules\gallery\libs\FileUtils;
 use \humhub\modules\user\models\User;
 use \Yii;
 use \yii\helpers\Url;
+use yii\web\UploadedFile;
 
 /**
  * This is the model class for table "gallery_media".
@@ -24,6 +25,10 @@ use \yii\helpers\Url;
  */
 class Media extends ContentActiveRecord
 {
+    /**
+     * @var BaseGallery used for instantiation
+     */
+    public $gallery;
 
     /**
      * @inheritdoc
@@ -41,6 +46,19 @@ class Media extends ContentActiveRecord
     public static function tableName()
     {
         return 'gallery_media';
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function init()
+    {
+        parent::init();
+        if($this->gallery) {
+            $this->gallery_id =  $this->gallery->id;
+            $this->content->visibility = $this->gallery->content->visibility;
+            $this->content->container = $this->gallery->content->container;
+        }
     }
 
     public function getWallUrl()
@@ -155,6 +173,36 @@ class Media extends ContentActiveRecord
     public function getEditUrl()
     {
         return $this->content->container->createUrl('/gallery/media/edit', ['id' => $this->getItemId()]);
+    }
+
+    /**
+     * Saves the given uploaded file.
+     *
+     * @param UploadedFile $cfile
+     * @return MediaUpload
+     */
+    public function handleUpload(UploadedFile $file)
+    {
+        $mediaUpload = new MediaUpload();
+        $mediaUpload->setUploadedFile($file);
+        $valid = $mediaUpload->validate();
+
+        if ($valid) {
+            $this->title = $mediaUpload->file_name;
+
+            $valid = $this->validate();
+
+            if ($valid) {
+                if($this->save()) {
+                    $mediaUpload->object_model = self::class;
+                    $mediaUpload->object_id = $this->id;
+                    $mediaUpload->show_in_stream = false;
+                    $mediaUpload->save();
+                }
+            }
+        }
+
+        return $mediaUpload;
     }
 
 }

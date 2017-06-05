@@ -5,6 +5,7 @@ namespace humhub\modules\gallery\models;
 use \humhub\modules\content\components\ContentActiveRecord;
 use \humhub\modules\file\models\File;
 use \humhub\modules\user\models\User;
+use humhub\modules\gallery\Module;
 use \Yii;
 
 /**
@@ -24,9 +25,6 @@ use \Yii;
  */
 class BaseGallery extends ContentActiveRecord
 {
-
-    const TYPE_CUSTOM_GALLERY = 1;
-    const TYPE_STREAM_GALLERY = 2;
 
     public $streamChannel = null;
     
@@ -81,6 +79,14 @@ class BaseGallery extends ContentActiveRecord
         return Yii::t('GalleryModule.base', "Gallery");
     }
 
+    public function getTitle() {
+        return $this->title;
+    }
+
+    public function getUrl() {
+        return null;
+    }
+
     /**
      * @inheritdoc
      */
@@ -94,6 +100,53 @@ class BaseGallery extends ContentActiveRecord
         $path = Yii::$app->getModule('gallery')->getAssetsUrl();
         $path = $path . '/file-picture-o.svg';
         return $path;
+    }
+
+    public function getMetaData()
+    {
+        return [
+            'creator' => '', // not in use $this->entryObject->getCreator()
+            'title' => $this->getTitle(),
+            'wallUrl' => '',
+            'deleteUrl' => '',
+            'editUrl' => '',
+            'downloadUrl' => '',
+            'fileUrl' => $this->getUrl(),
+            'thumbnailUrl' => $this->getPreviewImageUrl(),
+            'contentContainer' => '',
+            'writeAccess' => Module::canWrite($this->content->getContainer()),
+            'contentObject' => $this,
+            'footerOverwrite' => false,
+            'alwaysShowHeading' => true,
+            'imagePadding' => ''
+        ];
+    }
+
+    public static function findOne($condition)
+    {
+        if(static::class !== BaseGallery::class) {
+            $condition = $condition ? $condition : [];
+            $condition['type'] = isset($condition['type']) ? $condition['type'] : static::class;
+            return parent::findOne($condition);
+        }
+
+        return parent::findOne($condition);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function beforeSave($insert)
+    {
+        if($insert) {
+            $this->type = static::class;
+        }
+        return parent::beforeSave($insert);
+    }
+
+    public function getPreviewImageUrl()
+    {
+        return $this->getDefaultPreviewImageUrl();
     }
 
     protected function getPreviewImageUrlFromThumbFileId()

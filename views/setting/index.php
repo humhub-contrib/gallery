@@ -9,16 +9,15 @@ use yii\bootstrap\ActiveForm;
         <?= Yii::t('GalleryModule.base', '<strong>Gallery</strong> settings')?>
     </div>
     <div class="panel-body">
-        <div class="help-block"><?= Yii::t('GalleryModule.base', 'Here you can configure the gallery snippet for this space.')?>
             <a class="btn btn-default btn-sm pull-right" data-ui-loader href="<?= $this->context->contentContainer->createUrl('/gallery/list') ?>">
                 <i class="glyphicon glyphicon-arrow-left"></i> <?= Yii::t('GalleryModule.base', 'Back to overview') ?>
             </a>
-        </div>
-        <br>
+        <br />
         <?php if($settings->hasGallery()) : ?>
             <?php $form = ActiveForm::begin() ?>
                 <?= $form->field($settings, 'snippetGallery')->dropDownList($settings->getGallerySelection())?>
                 <?= $form->field($settings, 'hideSnippet')->checkbox() ?>
+                <br />
                 <button type="submit" class="btn btn-primary" data-ui-loader><?= Yii::t('base', 'Save');?></button>
             <?php ActiveForm::end() ?>
         <?php else : ?>

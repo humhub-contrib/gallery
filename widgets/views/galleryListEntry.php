@@ -21,7 +21,7 @@ $bundle = Assets::register($this);
 ?>
 
 <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2 col-xl-2 gallery-list-entry">
-    <div class="panel panel-default <?= $shadowPublic ?>">
+    <div class="panel panel-default">
         <div class="panel-body">
             <a href="<?= $fileUrl ?>#.jpeg" 
             <?php if ($uiGalleryId): ?>
@@ -32,7 +32,7 @@ $bundle = Assets::register($this);
                    title="<?= $title ?>"
                    data-ui-gallery="<?= $uiGalleryId ?>"
                <?php endif; ?>>
-                <img class="<?= $imagePadding ? 'padding15perc' : '' ?>" src="<?= $thumbnailUrl ?>" alt="<?= Html::encode($title)?>" />
+                <img class="<?= $imagePadding ? 'padding15perc' : '' ?>" src="<?= $thumbnailUrl ?>" alt="<?= Html::encode($title)?>" style="display:none" onload="galleryModuleFadeIn(this)" />
                 <span class="overlay"><i class="glyphicon glyphicon-fullscreen"></i></span>
             </a>
         </div>
@@ -56,11 +56,12 @@ $bundle = Assets::register($this);
                              src="<?= $creatorThumbnailUrl ?>"
                              width="21" height="21" alt="21x21" data-src="holder.js/21x21"
                              style="width: 21px; height: 21px;"
-                             data-original-title="<?php echo Yii::t('CfilesModule.base', 'added by ') . $creatorName ?>"
+                             data-original-title="<?php echo Yii::t('GalleryModule.base', 'added by ') . $creatorName ?>"
                              data-placement="top" title="" data-toggle="tooltip">
                     </a>
                 </div>
             <?php endif; ?>
+
             <?php if ($wallUrl || $downloadUrl || ($writeAccess && ($deleteUrl || $editUrl))): ?>
                 <ul class="pull-right nav nav-pills preferences">
                     <li class="dropdown">
@@ -74,7 +75,11 @@ $bundle = Assets::register($this);
                             <?php if ($writeAccess): ?>
                                 <?php if ($deleteUrl): ?>
                                     <li>
-                                        <a data-target="#globalModal" href="<?= $deleteUrl ?>"><i class="fa fa-trash"></i> <?= Yii::t('GalleryModule.base', 'Delete') ?></a>
+                                        <a data-action-click="ui.modal.post" data-action-url="<?= $deleteUrl ?>"
+                                           data-action-confirm-header="<?= Yii::t('GalleryModule.base', '<strong>Confirm</strong> delete item') ?>"
+                                           data-action-confirm="<?= Yii::t('GalleryModule.base', 'Do you really want to delete this item with all related content?') ?>">
+                                            <i class="fa fa-trash"></i> <?= Yii::t('GalleryModule.base', 'Delete') ?>
+                                        </a>
                                     </li>
                                 <?php endif; ?>
                                 <?php if ($editUrl): ?>

@@ -8,7 +8,11 @@
 
 namespace humhub\modules\gallery\controllers;
 
+use humhub\modules\content\components\ActiveQueryContent;
+use humhub\modules\content\components\ContentActiveRecord;
 use \humhub\modules\content\components\ContentContainerController;
+use humhub\modules\gallery\models\BaseGallery;
+use humhub\modules\gallery\models\Media;
 use \humhub\modules\gallery\Module;
 use \humhub\modules\user\models\User;
 use \Yii;
@@ -28,8 +32,9 @@ abstract class BaseController extends ContentContainerController
     /**
      * Checks if user can write
      *
-     * @param $throw boolean
-     *            default true throws exception if permission failure.
+     * TODO: Use $managePermission after 1.2.1 !!
+     *
+     * @param $throw boolean default true throws exception if permission failure.
      * @return boolean current user has write acces.
      */
     public function canWrite($throw = true)
@@ -45,17 +50,6 @@ abstract class BaseController extends ContentContainerController
     }
 
     /**
-     * Get a user by id.
-     *
-     * @param integer $id            
-     * @return User the user or null.
-     */
-    protected function getUserById($id)
-    {
-        return User::findOne(['id' => $id]);
-    }
-
-    /**
      * Delete an item identified by its type and id: &lt;type&gt;_&lt;id&gt;.
      * Also deletes all subcontent.
      *
@@ -65,7 +59,7 @@ abstract class BaseController extends ContentContainerController
     protected function deleteItem($itemId)
     {
         $item = $this->module->getItemById($itemId);
-        if ($item instanceof Model) {
+        if($item instanceof ContentActiveRecord && $item->content->canEdit()) {
             return $item->delete();
         }
 
@@ -74,7 +68,7 @@ abstract class BaseController extends ContentContainerController
 
     /**
      * Get the currently open gallery.
-     * @url-param 'open-gallery-id' id of the open gallery.
+     * @url-param 'openGalleryId' id of the open gallery.
      *
      * @param int $openGalleryId
      *            If specified the id from the url-param is ignored.
@@ -85,7 +79,7 @@ abstract class BaseController extends ContentContainerController
 
     /**
      * Render a specified gallery or the gallery list.
-     * @url-param 'open-gallery-id' id of the open gallery. The gallery list is rendered if no gallery with this id is found.
+     * @url-param 'openGalleryId' id of the open gallery. The gallery list is rendered if no gallery with this id is found.
      *
      * @param string $ajax
      *            render as ajax. default: false

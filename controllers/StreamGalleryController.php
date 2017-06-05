@@ -31,8 +31,8 @@ class StreamGalleryController extends ListController
     }
 
     /**
-     * Action to render the custom gallery view specified by open-gallery-id.
-     * @url-param 'open-gallery-id' id of the open gallery.
+     * Action to render the custom gallery view specified by openGalleryId.
+     * @url-param 'openGalleryId' id of the open gallery.
      *
      * @return The rendered view.
      */
@@ -43,7 +43,7 @@ class StreamGalleryController extends ListController
 
     /**
      * Render a specified stream gallery or the gallery list.
-     * @url-param 'open-gallery-id' id of the open gallery. The gallery list is rendered if no gallery with this id is found.
+     * @url-param 'openGalleryId' id of the open gallery. The gallery list is rendered if no gallery with this id is found.
      *
      * @param string $ajax
      *            render as ajax. default: false
@@ -66,10 +66,8 @@ class StreamGalleryController extends ListController
 
     protected function getOpenGallery($openGalleryId = null)
     {
-        $id = $openGalleryId == null ? Yii::$app->request->get('open-gallery-id') : $openGalleryId;
-        return StreamGallery::findOne([
-                    'id' => $id
-        ]);
+        $id = ($openGalleryId == null) ? Yii::$app->request->get('openGalleryId') : $openGalleryId;
+        return StreamGallery::findOne(['id' => $id]);
     }
 
     /**

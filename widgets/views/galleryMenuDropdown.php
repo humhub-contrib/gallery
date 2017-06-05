@@ -23,31 +23,35 @@ use humhub\modules\file\widgets\FileHandlerButtonDropdown;
                 <span class="caret"></span>
             </a>
             <ul class="dropdown-menu pull-right">
-                <?php if ($canWrite): ?>
-                    <?php
-                    $uploadButton = humhub\modules\file\widgets\UploadButton::widget([
-                                'id' => 'gallery-media-upload',
-                                'progress' => '#gallery-upload-progress',
-                                'url' => $uploadUrl,
-                                'tooltip' => false,
-                                'label' => Yii::t('GalleryModule.base', 'Upload'),
-                                'dropZone' => '#gallery-container',
-                                'cssButtonClass' => 'btn-link'
-                            ])
-                    ?>
+
+                <?php $uploadButton = humhub\modules\file\widgets\UploadButton::widget([
+                            'id' => 'gallery-media-upload',
+                            'progress' => '#gallery-upload-progress',
+                            'url' => $uploadUrl,
+                            'tooltip' => false,
+                            'label' => Yii::t('GalleryModule.base', 'Upload'),
+                            'dropZone' => '#gallery-container',
+                            'buttonOptions' => [
+                                    'class' => '',
+                                    'style' => 'width:100%;'
+                            ]
+                ])?>
+                <li>
+                    <a href="#" onclick="$(this).find('span')[0].click()"><?= $uploadButton ?></a>
+                </li>
+                <?php if ($editUrl): ?>
                     <li>
-                        <?= FileHandlerButtonDropdown::widget(['primaryButton' => $uploadButton, 'handlers' => $fileHandlers, 'pullRight' => true]); ?>
+                        <a data-target="#globalModal" href="<?= $editUrl ?>"><i class="fa fa-edit"></i> <?= Yii::t('GalleryModule.base', 'Edit Gallery') ?></a>
                     </li>
-                    <?php if ($editUrl): ?>
-                        <li>
-                            <a data-target="#globalModal" href="<?= $editUrl ?>"><i class="fa fa-edit"></i> <?= Yii::t('GalleryModule.base', 'Edit Gallery') ?></a>
-                        </li>
-                    <?php endif; ?>
-                    <?php if ($deleteUrl): ?>
-                        <li>
-                            <a data-target="#globalModal" href="<?= $deleteUrl ?>"><i class="fa fa-trash"></i> <?= Yii::t('GalleryModule.base', 'Delete Gallery') ?></a>
-                        </li>
-                    <?php endif; ?>
+                <?php endif; ?>
+                <?php if ($deleteUrl): ?>
+                    <li>
+                        <a data-action-click="ui.modal.post" data-action-url="<?= $deleteUrl ?>"
+                                data-action-confirm-header="<?= Yii::t('GalleryModule.base', '<strong>Confirm</strong> delete gallery') ?>"
+                                data-action-confirm="<?= Yii::t('GalleryModule.base', 'Do you really want to delete this gallery with all related content?') ?>">
+                            <i class="fa fa-trash"></i> <?= Yii::t('GalleryModule.base', 'Delete Gallery') ?>
+                        </a>
+                    </li>
                 <?php endif; ?>
             </ul>
         </li>

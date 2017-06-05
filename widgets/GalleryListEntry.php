@@ -8,7 +8,11 @@
 
 namespace humhub\modules\gallery\widgets;
 
-use \humhub\modules\gallery\Module;
+use humhub\modules\file\models\File;
+use humhub\modules\gallery\libs\FileUtils;
+use humhub\modules\gallery\models\BaseGallery;
+use humhub\modules\gallery\models\Media;
+use humhub\modules\gallery\models\SquarePreviewImage;
 use \yii\base\Widget;
 use \Yii;
 
@@ -27,104 +31,63 @@ class GalleryListEntry extends Widget
 
     public function run()
     {
-        $contentContainer = Yii::$app->controller->contentContainer;
-        $imagePadding = '';
-        if ($this->entryObject instanceof \humhub\modules\gallery\models\Media) {
-            $creator = $this->entryObject->getCreator();
-            $contentObject = $this->entryObject;
-
-            $title = $this->entryObject->description;
-
-            $wallUrl = $this->entryObject->getWallUrl();
-            $deleteUrl = $contentContainer->createUrl('/gallery/custom-gallery/delete-multiple', ['open-gallery-id' => $this->parentGallery->id, 'item-id' => $this->entryObject->getItemId()]);
-            $editUrl = $contentContainer->createUrl('/gallery/media/edit', ['open-gallery-id' => $this->parentGallery->id, 'item-id' => $this->entryObject->getItemId()]);
-            $downloadUrl = $this->entryObject->getUrl(true);
-            $fileUrl = $this->entryObject->getUrl();
-            $thumbnailUrl = $this->entryObject->getSquarePreviewImageUrl();
-            $footerOverwrite = false;
-            $shadowPublic = $contentObject->content->visibility == \humhub\modules\content\models\Content::VISIBILITY_PUBLIC;
-            $alwaysShowHeading = false;
-            $writeAccess = Yii::$app->controller->canWrite(false);
-        } elseif ($this->entryObject instanceof \humhub\modules\file\models\File) {
-            $creator = Module::getUserById($this->entryObject->created_by);
-            $contentObject = \humhub\modules\gallery\libs\FileUtils::getBaseObject($this->entryObject);
-            $baseContent = \humhub\modules\gallery\libs\FileUtils::getBaseContent($this->entryObject);
-
-            $title = $contentObject->message;
-
-            $wallUrl = $baseContent->getUrl();
-            $deleteUrl = '';
-            $editUrl = '';
-            $downloadUrl = $this->entryObject->getUrl(['download' => true]);
-            $fileUrl = $this->entryObject->getUrl();
-            $thumbnailUrl = \humhub\modules\gallery\models\SquarePreviewImage::getSquarePreviewImageUrlFromFile($this->entryObject);
-            $footerOverwrite = false;
-            $alwaysShowHeading = false;
-            $shadowPublic = $baseContent->visibility == \humhub\modules\content\models\Content::VISIBILITY_PUBLIC;
-
-            $writeAccess = false;
-        } elseif ($this->entryObject instanceof \humhub\modules\gallery\models\StreamGallery) {
-            $creator = $this->entryObject->getCreator();
-            $contentObject = $this->entryObject;
-
-            $title = Yii::t('GalleryModule.base', 'Posted Media Files');
-
-            $wallUrl = '';
-            $deleteUrl = '';
-            $editUrl = '';
-            $downloadUrl = '';
-            $fileUrl = $this->entryObject->getUrl();
-            $thumbnailUrl = $this->entryObject->getPreviewImageUrl();
-            $footerOverwrite = ' '; 
-            $shadowPublic = true;
-            $alwaysShowHeading = true;
-            $writeAccess = Yii::$app->controller->canWrite(false);
-        } elseif ($this->entryObject instanceof \humhub\modules\gallery\models\CustomGallery) {
-            $creator = $this->entryObject->getCreator();
-            $contentObject = $this->entryObject;
-
-            $title = $this->entryObject->title;
-
-            $wallUrl = '';
-            $deleteUrl = $contentContainer->createUrl('/gallery/list/delete-multiple', ['item-id' => $this->entryObject->getItemId()]);
-            $editUrl = $contentContainer->createUrl('/gallery/custom-gallery/edit', ['item-id' => $this->entryObject->getItemId()]);
-            $downloadUrl = '';
-            $fileUrl = $this->entryObject->getUrl();
-            $thumbnailUrl = $this->entryObject->getPreviewImageUrl();
-            $footerOverwrite = false;
-            $alwaysShowHeading = true;
-            $shadowPublic = $this->entryObject->isPublic();
-
-            $imagePadding = $this->entryObject->isEmpty();
-            $writeAccess = Yii::$app->controller->canWrite(false);
+        if ($this->entryObject instanceof Media) {
+            $metaData = $this->getMediaMetaData($this->entryObject);
+        } elseif ($this->entryObject instanceof File) {
+            $metaData = $this->getFileMetaData($this->entryObject);
+        } elseif ($this->entryObject instanceof BaseGallery) {
+            $metaData = $this->entryObject->getMetaData();
         } else {
-            return '';
+            return;
         }
 
-        $creator = ''; //todo: currently there is no place for the creator in the gallery entry snippet
+        $metaData['creatorUrl'] = !empty($metaData['creator']) ? $metaData['creator']->createUrl() : '';
+        $metaData['creatorThumbnailUrl'] = !empty($metaData['creator'])  ? $metaData['creator']->getProfileImage()->getUrl() : '';
+        $metaData['uiGalleryId'] = $this->parentGallery ? "GalleryModule-Gallery-" . $this->parentGallery->id : '';
 
-        $uiGalleryId = $this->parentGallery ? "GalleryModule-Gallery-" . $this->parentGallery->id : '';
-
-        return $this->render('galleryListEntry', [
-                    'creatorUrl' => $creator ? $creator->createUrl() : '',
-                    'creatorThumbnailUrl' => $creator ? $creator->getProfileImage()->getUrl() : '',
-                    'creatorName' => $creator ? $creator->getDisplayName() : '',
-                    'title' => $title,
-                    'wallUrl' => $wallUrl,
-                    'deleteUrl' => $deleteUrl,
-                    'editUrl' => $editUrl,
-                    'downloadUrl' => $downloadUrl,
-                    'fileUrl' => $fileUrl,
-                    'thumbnailUrl' => $thumbnailUrl,
-                    'contentContainer' => $contentContainer,
-                    'writeAccess' => $writeAccess,
-                    'uiGalleryId' => $uiGalleryId,
-                    'contentObject' => $contentObject,
-                    'shadowPublic' => $shadowPublic ? 'shadowPublic' : '',
-                    'footerOverwrite' => $footerOverwrite,
-                    'alwaysShowHeading' => $alwaysShowHeading,
-                    'imagePadding' => $imagePadding
-        ]);
+        return $this->render('galleryListEntry', $metaData);
     }
 
+    private function getMediaMetaData(Media $media)
+    {
+        $contentContainer = Yii::$app->controller->contentContainer;
+
+        return [
+            'creator' => '', // not in use
+            'title' => $media->description,
+            'wallUrl' => $media->getWallUrl(),
+            'deleteUrl' => $contentContainer->createUrl('/gallery/custom-gallery/delete-multiple', ['openGalleryId' => $this->parentGallery->id, 'itemId' => $media->getItemId()]),
+            'editUrl' => $contentContainer->createUrl('/gallery/media/edit', ['openGalleryId' => $this->parentGallery->id, 'itemId' => $media->getItemId()]),
+            'downloadUrl' =>$media->getUrl(true),
+            'fileUrl' => $media->getUrl(),
+            'thumbnailUrl' => $media->getSquarePreviewImageUrl(),
+            'writeAccess' => Yii::$app->controller->canWrite(false),
+            'contentObject' => $media,
+            'footerOverwrite' => false,
+            'alwaysShowHeading' => false,
+            'imagePadding' => ''
+        ];
+    }
+
+    private function getFileMetaData(File $file)
+    {
+        $contentObject = FileUtils::getBaseObject($file);
+        $content = $contentObject->content;
+
+        return [
+            'creator' => '', // not in use
+            'title' => $contentObject->message,
+            'wallUrl' => $content->getUrl(),
+            'deleteUrl' => '',
+            'editUrl' => '',
+            'downloadUrl' => $file->getUrl(['download' => true]),
+            'fileUrl' =>  $file->getUrl(),
+            'thumbnailUrl' => SquarePreviewImage::getSquarePreviewImageUrlFromFile($file),
+            'writeAccess' => false,
+            'contentObject' => $contentObject,
+            'footerOverwrite' => false,
+            'alwaysShowHeading' => false,
+            'imagePadding' => ''
+        ];
+    }
 }

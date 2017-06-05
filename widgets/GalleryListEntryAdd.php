@@ -29,11 +29,16 @@ class GalleryListEntryAdd extends Widget
 
     public function run()
     {
+        $contentContainer = Yii::$app->controller->contentContainer;
+
+        if(!Yii::$app->getModule('gallery')->canWrite($contentContainer)) {
+            return;
+        }
+
         // we do not want to render the add icon in stream galleries
         if ($this->parentGallery instanceof StreamGallery) {
             return;
         }
-        $contentContainer = Yii::$app->controller->contentContainer;
 
         if ($this->parentGallery) {
             return $this->render('galleryListEntryAdd', [

@@ -16,7 +16,7 @@ use humhub\modules\file\libs\FileHelper;
 use humhub\libs\Html;
 ?>
 
-<div class="pull-left">
+<div class="pull-left" style="min-height:133px;">
     <?php if ($previewImage->applyFile($file)): ?>
         <?= $previewImage->renderGalleryLink(['style' => 'padding-right:12px']); ?>
     <?php else: ?>
@@ -24,14 +24,21 @@ use humhub\libs\Html;
     <?php endif; ?>
 </div>
 
-<strong><?= FileHelper::createLink($file, null, ['style' => 'text-decoration: underline']); ?></strong><br />
-<small><?= Yii::t('GalleryModule.base', 'Size: {size}', ['size' => Yii::$app->formatter->asShortSize($fileSize, 1)]); ?></small><br />
+<span></span>
+<strong><?= FileHelper::createLink($file, null, ['style' => 'text-decoration: underline']); ?></strong><br /><br>
 
 <?php if (!empty($media->description)): ?>
-    <br />
     <?= Html::encode($media->description); ?>
-    <br />
+    <br /><br>
 <?php endif; ?>
+
+<small>
+    <?php if($galleryName) : ?>
+        <strong><?= Yii::t('GalleryModule.base', 'Gallery:'); ?></strong> <a href="<?= $galleryUrl ?>"><?= Html::encode($galleryName) ?></a><br />
+    <?php endif ?>
+    <strong><?= Yii::t('GalleryModule.base', 'Size:'); ?></strong> <?=Yii::$app->formatter->asShortSize($fileSize, 1); ?>
+</small><br />
+
 
 <br />
 

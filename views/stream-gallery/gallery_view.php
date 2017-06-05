@@ -30,20 +30,19 @@ if ($this->context->contentContainer instanceof humhub\modules\space\models\Spac
 
 <div id="gallery-container" class="panel panel-default">
 
-    <div class="panel-heading"><?= Yii::t('GalleryModule.base', '<strong>Gallery</strong> ') . Html::encode($title) ?></div>
+    <div class="panel-heading" style="background-color: <?= $this->theme->variable('background-color-secondary') ?>"><?= Yii::t('GalleryModule.base', '<strong>Gallery</strong> ') . Html::encode($title) ?></div>
 
     <div class="panel-body">
         <div class="row">
             <div class="col-sm-12 gallery-description">
-                <?= Html::encode($description) ?><br />
+                <i class="fa fa-arrow-circle-right"></i>
+                <?= Html::encode($description) ?>
+                <a class="btn btn-default btn-sm pull-right" data-ui-loader href="<?= $this->context->contentContainer->createUrl('/gallery/list') ?>">
+                    <i class="glyphicon glyphicon-arrow-left"></i> <?= Yii::t('GalleryModule.base', 'Back to overview') ?>
+                </a>
             </div>
         </div>
-        <div style="padding: 10px 0 10px 0;" class="row">
-            <div class="col-sm-1">
-                <a class="btn btn-default btn-sm" data-ui-loader href="<?= $this->context->contentContainer->createUrl('/gallery/list') ?>">
-                    <i class="glyphicon glyphicon-arrow-left"></i> <?= Yii::t('GalleryModule.base', 'Back to the list') ?></a>
-            </div>
-        </div>
+
         <div class="row">
             <?= humhub\modules\gallery\widgets\GalleryList::widget([
                 'entryList' => $gallery->getFileList(),

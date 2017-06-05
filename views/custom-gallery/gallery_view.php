@@ -28,7 +28,7 @@ $bundle = Assets::register($this);
             <?= Yii::t('GalleryModule.base', '<strong>Gallery</strong> ') . Html::encode($gallery->title); ?>
         </div>
 
-        <?= \humhub\modules\gallery\widgets\GalleryMenu::widget(['dropdown' => true, 'gallery' => $gallery,
+        <?= \humhub\modules\gallery\widgets\GalleryMenu::widget(['gallery' => $gallery,
             'canWrite' => $this->context->canWrite(false),
             'contentContainer' => $this->context->contentContainer]); ?>
 

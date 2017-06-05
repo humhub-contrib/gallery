@@ -6,6 +6,7 @@ use \humhub\modules\content\components\ContentContainerModule;
 use \humhub\modules\content\models\Content;
 use \humhub\modules\content\models\ContentContainer;
 use \humhub\modules\file\models\File;
+use humhub\modules\gallery\models\BaseGallery;
 use \humhub\modules\gallery\models\CustomGallery;
 use \humhub\modules\gallery\models\Media;
 use \humhub\modules\gallery\models\StreamGallery;
@@ -56,22 +57,15 @@ class Module extends ContentContainerModule
         list ($type, $id) = explode('_', $itemId);
         
         if ($type == 'media') {
-            return Media::findOne([
-                'id' => $id
-            ]);
+            return Media::findOne(['id' => $id]);
         } elseif ($type == 'stream-gallery') {
-            return StreamGallery::findOne([
-                'id' => $id
-            ]);
+            return StreamGallery::findOne(['id' => $id]);
         } elseif ($type == 'custom-gallery') {
-            return CustomGallery::findOne([
-                'id' => $id
-            ]);
+            return CustomGallery::findOne(['id' => $id]);
         } elseif ($type == 'file') {
-            return File::findOne([
-                'id' => $id
-            ]);
+            return File::findOne(['id' => $id]);
         }
+
         return null;
     }
 
@@ -90,13 +84,16 @@ class Module extends ContentContainerModule
         foreach (Media::find()->all() as $key => $media) {
             $media->delete();
         }
+
+        parent::disable();
     }
     
     public function enableContentContainer(ContentContainerActiveRecord $container) {
-        $streamGallery = new StreamGallery();
-        $streamGallery->title = Yii::t('GalleryModule.base', 'Posted pictures');
-        $streamGallery->description = Yii::t('GalleryModule.base', 'This gallery contains all posted pictures.');
-        $streamGallery->type = StreamGallery::TYPE_STREAM_GALLERY;
+        $streamGallery = new StreamGallery([
+            'title' => Yii::t('GalleryModule.base', 'Posted pictures'),
+            'description' => Yii::t('GalleryModule.base', 'This gallery contains all posted pictures.')
+        ]);
+
         $streamGallery->content->container = $container;
         $streamGallery->content->visibility = Content::VISIBILITY_PUBLIC;
         $streamGallery->save();
@@ -108,10 +105,12 @@ class Module extends ContentContainerModule
         foreach ($galleries as $gallery) {
             $gallery->delete();
         }
+
         $galleries = CustomGallery::find()->contentContainer($container)->all();
         foreach ($galleries as $gallery) {
             $gallery->delete();
         }
+
         $mediaList = Media::find()->contentContainer($container)->all();
         foreach ($mediaList as $media) {
             $media->delete();

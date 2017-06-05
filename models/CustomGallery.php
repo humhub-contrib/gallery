@@ -3,6 +3,7 @@
 namespace humhub\modules\gallery\models;
 
 use humhub\modules\content\components\ContentContainerActiveRecord;
+use humhub\modules\content\models\Content;
 use \yii\helpers\Url;
 
 /**
@@ -27,11 +28,11 @@ class CustomGallery extends BaseGallery
 
     public function getUrl()
     {
-        return $this->content->container->createUrl('/gallery/custom-gallery/view', ['open-gallery-id' => $this->id]);
+        return $this->content->container->createUrl('/gallery/custom-gallery/view', ['openGalleryId' => $this->id]);
     }
 
     public function isPublic() {
-        return $this->content->visibility == \humhub\modules\content\models\Content::VISIBILITY_PUBLIC;
+        return $this->content->isPublic();
     }
     
     public function getPreviewImageUrl()
@@ -65,7 +66,11 @@ class CustomGallery extends BaseGallery
 
     public function getItemId()
     {
-        return 'custom-gallery_' . $this->id;
+        if($this->id != null) {
+            return 'custom-gallery_' . $this->id;
+        }
+
+        return null;
     }
 
     public function mediaListQuery()
@@ -76,9 +81,18 @@ class CustomGallery extends BaseGallery
         return $query;
     }
 
+    public function getMetaData()
+    {
+        $result = parent::getMetaData();
+        $result['deleteUrl'] = $this->content->getContainer()->createUrl('/gallery/list/delete-multiple', ['itemId' => $this->getItemId()]);
+        $result['editUrl'] = $this->content->getContainer()->createUrl('/gallery/custom-gallery/edit', ['itemId' => $this->getItemId()]);
+        $result['imagePadding'] = $this->isEmpty();
+        return $result;
+    }
+
     public static function findLatest(ContentContainerActiveRecord $contentContainer)
     {
-        return self::find()->contentContainer($contentContainer)->one();
+        return self::find()->contentContainer($contentContainer)->orderBy('id DESC')->one();
     }
 
     public function getMediaList($max = null)

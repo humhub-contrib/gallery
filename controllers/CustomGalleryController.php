@@ -9,10 +9,12 @@
 namespace humhub\modules\gallery\controllers;
 
 use \humhub\modules\content\models\Content;
+use humhub\modules\file\libs\FileHelper;
+use humhub\modules\gallery\models\BaseGallery;
 use \humhub\modules\gallery\models\CustomGallery;
+use humhub\modules\gallery\models\forms\GalleryEditForm;
 use \humhub\modules\gallery\models\Media;
 use \Yii;
-use \yii\base\NotSupportedException;
 use \yii\web\HttpException;
 use \yii\web\UploadedFile;
 
@@ -27,7 +29,6 @@ class CustomGalleryController extends ListController
 {
 
     /**
-     *
      * @return redirect to /view.
      */
     public function actionIndex()
@@ -36,8 +37,8 @@ class CustomGalleryController extends ListController
     }
 
     /**
-     * Action to render the custom gallery view specified by open-gallery-id.
-     * @url-param 'open-gallery-id' id of the open gallery.
+     * Action to render the custom gallery view specified by openGalleryId.
+     * @url-param 'openGalleryId' id of the open gallery.
      *
      * @return The rendered view.
      */
@@ -47,99 +48,74 @@ class CustomGalleryController extends ListController
     }
 
     /**
-     * Action to sort the media files.
-     *
-     * @return string the rendered view.
-     */
-    public function actionSort()
-    {
-        throw new NotSupportedException("Not yet implemented.");
-    }
-
-    /**
      * Action to edit a gallery.
-     * @url-param 'item-id' the gallery's id.
-     * @url-param 'open-gallery-id' id of the open gallery. Used for redirecting.
+     * @url-param 'itemId' the gallery's id.
+     * @url-param 'openGalleryId' id of the open gallery. Used for redirecting.
      *
-     * @throws HttpException if insufficient permission.
-     * @return string the redered html.
+     * @param null $itemId
+     * @param int $visibility
+     * @param null $instance
+     * @return string if insufficient permission.
      */
-    public function actionEdit()
+    public function actionEdit($itemId = null, $visibility = Content::VISIBILITY_PRIVATE)
     {
         $this->canWrite(true);
 
-        $itemId = Yii::$app->request->get('item-id');
-        $openGalleryId = Yii::$app->request->get('open-gallery-id');
-        $visibility = Yii::$app->request->get('visibility');
-        // default visibility is private
-        $visibility = $visibility !== Content::VISIBILITY_PUBLIC ? Content::VISIBILITY_PRIVATE : Content::VISIBILITY_PUBLIC;
-        // check if a gallery with the given id exists.
-        $gallery = $this->module->getItemById($itemId);
-
-        // if no gallery is found with the given id, a new one has to be created
-        if (!($gallery instanceof CustomGallery)) {
-            // create a new gallery
-            $gallery = new CustomGallery();
-            $gallery->type = CustomGallery::TYPE_CUSTOM_GALLERY;
-            $gallery->content->container = $this->contentContainer;
+        if($itemId) {
+            $instance = $this->module->getItemById($itemId);
+        } else {
+            $instance = null;
         }
 
-        $gallery_form_data = Yii::$app->request->post('CustomGallery');
-        $content_form_data = Yii::$app->request->post('Content');
-        // format visibility
-        $content_form_data['visibility'] = $content_form_data['visibility'] != Content::VISIBILITY_PUBLIC ? Content::VISIBILITY_PRIVATE : Content::VISIBILITY_PUBLIC;
+        $gallery = new GalleryEditForm(['contentContainer' => $this->contentContainer, 'instance' => $instance]);
 
-        if ($gallery_form_data !== null && $gallery->load(Yii::$app->request->post()) && $gallery->validate()) {
-            if ($gallery->content->visibility != $content_form_data['visibility']) {
-                // visibility has changed, this will also be changed for all contained objects
-                $gallery->content->visibility = $content_form_data['visibility'];
-                foreach($gallery->mediaList as $media) {
-                    $media->content->visibility = $content_form_data['visibility'];
-                    $media->save();
-                }
-            }
-            $gallery->save();
+        if ($gallery->load(Yii::$app->request->post()) && $gallery->save()) {
             $this->view->saved();
-            return $this->htmlRedirect($this->contentContainer->createUrl('/gallery/custom-gallery/view', ['open-gallery-id' => $openGalleryId]));
-            // TODO: only load the changed element
+            return $this->htmlRedirect($this->contentContainer->createUrl('/gallery/custom-gallery/view', ['openGalleryId' => $gallery->instance->id]));
         }
 
-        // render modal
-        return $this->renderPartial('/custom-gallery/modal_gallery_edit', [
-                    'openGalleryId' => $openGalleryId,
-                    'gallery' => $gallery,
+        return $this->renderPartial('modal_gallery_edit', [
+                    'galleryForm' => $gallery,
                     'contentContainer' => $this->contentContainer,
         ]);
     }
 
     /**
-     * Handles the file upload for are particular UploadedFile
+     * Action to upload multiple files.
+     * @url-param 'openGalleryId' id of the open gallery the files should be stored in.
+     *
+     * @throws HttpException if insufficient permission.
+     * @return multitype:string
      */
-    protected function handleMediaUpload(\humhub\modules\gallery\models\BaseGallery $parentGallery, yii\web\UploadedFile $cfile)
+    public function actionUpload()
     {
-        $media = new Media();
-        // Save humhubfile
-        $mediaUpload = new \humhub\modules\gallery\models\MediaUpload();
-        $mediaUpload->setUploadedFile($cfile);
-        $valid = $mediaUpload->validate();
-        if ($valid) {
-            $media->title = $mediaUpload->file_name;
-            $media->content->container = $this->contentContainer;
-            $media->gallery_id = $parentGallery->id;
-            $media->content->visibility = $parentGallery->isPublic() ? Content::VISIBILITY_PUBLIC : Content::VISIBILITY_PRIVATE; 
-            $valid = $media->validate();
-            // connect media and file
-            if ($valid) {
-                $media->save();
-                $mediaUpload->object_model = $media->className();
-                $mediaUpload->object_id = $media->id;
-                $mediaUpload->show_in_stream = false;
-                $mediaUpload->save();
-            }
+        $parentGallery = $this->getOpenGallery();
+
+        if(!$parentGallery->content->canEdit()) {
+            throw new HttpException(404);
         }
-        $result = $mediaUpload->getInfoArray();
-        // TODO: there is probably a better way to do so as upper method call is deprecated
-        $result['error'] = !$valid;
+
+        $errors = false;
+        $files = [];
+        foreach (UploadedFile::getInstancesByName('files') as $cFile) {
+            $result = $this->handleMediaUpload($parentGallery, $cFile);
+            $errors = $errors | $result['error'];
+            $files[] = $result;
+        }
+
+        return $this->asJson(['files' => $files]);
+    }
+
+    /**
+     * Handles the file upload for a particular UploadedFile
+     */
+    protected function handleMediaUpload(BaseGallery $parentGallery, UploadedFile $cfile)
+    {
+        $media = new Media(['gallery' => $parentGallery]);
+        $mediaUpload = $media->handleUpload($cfile);
+
+        $result = FileHelper::getFileInfos($mediaUpload);
+        $result['error'] = $mediaUpload->hasErrors();
         $result['errors'] = '';
         foreach ($mediaUpload->getErrors() as $error) {
             $result['errors'] .= $result['name'] . ' - ' . implode(', ', $error) . '\n';
@@ -149,63 +125,41 @@ class CustomGalleryController extends ListController
     }
 
     /**
-     * Action to upload multiple files.
-     * @url-param 'open-gallery-id' id of the open gallery the files should be stored in.
-     *
-     * @throws HttpException if insufficient permission.
-     * @return multitype:string
-     */
-    public function actionUpload()
-    {
-        Yii::$app->response->format = 'json';
-        $this->canWrite(true);
-        $parentGallery = $this->getOpenGallery();
-
-        $errors = false;
-        $files = array();
-        foreach (UploadedFile::getInstancesByName('files') as $cFile) {
-            $result = $this->handleMediaUpload($parentGallery, $cFile);
-            $errors = $errors | $result['error'];
-            $files[] = $result;
-        }
-
-        if (!$errors) {
-            $this->view->success('Upload complete');
-        }
-
-        return ['files' => $files];
-    }
-
-    /**
      * Render a specified custom gallery or the gallery list.
-     * @url-param 'open-gallery-id' id of the open gallery. The gallery list is rendered if no gallery with this id is found.
+     * @url-param 'openGalleryId' id of the open gallery. The gallery list is rendered if no gallery with this id is found.
      *
-     * @param string $ajax
-     *            render as ajax. default: false
-     * @param string $openGalleryId
-     *            the custom gallery to render.
+     * @param string $ajax render as ajax. default: false
+     * @param string $openGalleryId the custom gallery to render.
      */
     protected function renderGallery($ajax = false, $openGalleryId = null)
     {
         $gallery = $this->getOpenGallery($openGalleryId);
-        if ($gallery != null) {
-            return $ajax ? $this->renderPartial("/custom-gallery/gallery_view", [
-                        'gallery' => $gallery
-                    ]) : $this->render("/custom-gallery/gallery_view", [
-                        'gallery' => $gallery
-            ]);
+
+        if ($gallery) {
+            if(!$gallery->content->canView()) {
+                throw new HttpException(404);
+            }
+
+            return $ajax ? $this->renderPartial("gallery_view", ['gallery' => $gallery])
+                : $this->render("gallery_view", ['gallery' => $gallery]);
         } else {
             return parent::renderGallery($ajax);
         }
     }
 
+    /**
+     * @param null $openGalleryId
+     * @return CustomGallery
+     */
     protected function getOpenGallery($openGalleryId = null)
     {
-        $id = $openGalleryId == null ? Yii::$app->request->get('open-gallery-id') : $openGalleryId;
-        return CustomGallery::findOne([
-                    'id' => $id,
-                    'type' => CustomGallery::TYPE_CUSTOM_GALLERY
-        ]);
+        $id = $openGalleryId == null ? Yii::$app->request->get('openGalleryId') : $openGalleryId;
+
+        if(!$id) {
+            throw new HttpException(404);
+        }
+
+        return CustomGallery::findOne(['id' => $id]);
     }
 
 }

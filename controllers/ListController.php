@@ -10,8 +10,10 @@ namespace humhub\modules\gallery\controllers;
 
 use \humhub\modules\gallery\models\CustomGallery;
 use \humhub\modules\gallery\models\StreamGallery;
+use humhub\widgets\ModalClose;
 use \Yii;
 use \yii\base\NotSupportedException;
+use yii\web\HttpException;
 
 /**
  * Description of ListController for the gallery module.
@@ -35,51 +37,32 @@ class ListController extends BaseController
     }
 
     /**
-     * Action to delete multiple files.
+     * Action to delete an item.
      * 
      * @return string the rendered view.
      */
-    public function actionDeleteMultiple()
+    public function actionDeleteMultiple($itemId, $openGalleryId = null)
     {
+        $this->forcePostRequest();
         $this->canWrite(true);
 
-        $confirmed = Yii::$app->request->get('confirm');
-        $itemId = Yii::$app->request->get('item-id');
-        $openGalleryId = Yii::$app->request->get('open-gallery-id');
-        $selectedItems = Yii::$app->request->post('selected');
+        $item = $this->module->getItemById($itemId);
 
-        if ($confirmed) {
-            if (is_array($selectedItems)) {
-                $notDeleted = [];
-                foreach ($selectedItems as $itemId) {
-                    if (!$this->deleteItem($itemId)) {
-                        $notDeleted[] = $itemId;
-                    }
-                }
-                if (!empty($notDeleted)) {
-                    $this->view->error(Yii::t('GalleryModule.base', 'Some items could not be deleted. Ids :%ids%', [
-                        '%ids%' => implode(', ', $notDeleted)
-                    ]));
-                }
-                $this->view->success(Yii::t('GalleryModule.base', 'Deleted'));
-                return $this->htmlRedirect($this->contentContainer->createUrl('/gallery/custom-gallery/view', ['open-gallery-id' => $openGalleryId]));
-            }
-        } else {
-            return $this->renderPartial('/shared/modal_delete', [
-                        'openGalleryId' => $openGalleryId,
-                        'selectedItems' => array_merge($selectedItems == null ? [] : $selectedItems, $itemId == null ? [] : [$itemId])
-            ]);
+        if($item instanceof ContentActiveRecord && !$item->content->canEdit()) {
+            throw new HttpException(403);
         }
-    }
 
-    /**
-     * Action to sort the galleries.
-     *
-     * @return string the rendered view.
-     */
-    public function actionSort()
-    {
-        throw new NotSupportedException("Not yet implemented.");
+        if($item->delete()) {
+            $this->view->success(Yii::t('GalleryModule.base', 'Deleted'));
+        } else {
+            $this->view->error(Yii::t('GalleryModule.base', 'Item could not be deleted!'));
+        }
+
+        if($item instanceof CustomGallery) {
+            return $this->htmlRedirect($this->contentContainer->createUrl('/gallery/list'));
+        }
+
+        return $this->htmlRedirect($this->contentContainer->createUrl('/gallery/custom-gallery/view', ['openGalleryId' => $openGalleryId]));
     }
 
     /**
@@ -94,7 +77,8 @@ class ListController extends BaseController
     {
         $params = [
             'stream_galleries' => $this->getStreamGalleries(),
-            'custom_galleries' => $this->getCustomGalleries()
+            'custom_galleries' => $this->getCustomGalleries(),
+            'canWrite' => $this->module->canWrite($this->contentContainer)
         ];
         return $ajax ? $this->renderPartial("/list/gallery_list", $params) : $this->render("/list/gallery_list", $params);
     }

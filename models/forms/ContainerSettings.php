@@ -84,7 +84,7 @@ class ContainerSettings extends Model
     {
         return [
             'snippetGallery' => Yii::t('GalleryModule.base', 'Choose snippet gallery'),
-            'hideSnippet' => Yii::t('GalleryModule.base', 'Hide the gallery snippet in this space?')
+            'hideSnippet' => Yii::t('GalleryModule.base', 'Don\'t show the gallery snippet in this space.')
         ];
     }
 

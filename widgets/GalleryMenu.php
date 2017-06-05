@@ -33,28 +33,24 @@ class GalleryMenu extends \yii\base\Widget
      * @var integer FileList item count.
      */
     public $itemCount;
-    
-    /**
-     *
-     * @var boolean Render dropdown or buttons row. 
-     */
-    public $dropdown = false;
 
     /**
      * @inheritdoc
      */
     public function run()
     {
+        if(!$this->canWrite) {
+            return;
+        }
+
         $fileHandlerImport = FileHandlerCollection::getByType(FileHandlerCollection::TYPE_IMPORT);
         $fileHandlerCreate = FileHandlerCollection::getByType(FileHandlerCollection::TYPE_CREATE);
 
-        $deleteUrl = $this->contentContainer->createUrl('/gallery/list/delete-multiple', ['item-id' => $this->gallery->getItemId()]);
-        $editUrl = $this->contentContainer->createUrl('edit', ['open-gallery-id' => $this->gallery->id, 'item-id' => $this->gallery->getItemId()]);
-        $uploadUrl = $this->contentContainer->createUrl('upload', ['open-gallery-id' => $this->gallery->id]);
+        $deleteUrl = $this->contentContainer->createUrl('/gallery/list/delete-multiple', ['itemId' => $this->gallery->getItemId()]);
+        $editUrl = $this->contentContainer->createUrl('edit', ['openGalleryId' => $this->gallery->id, 'itemId' => $this->gallery->getItemId()]);
+        $uploadUrl = $this->contentContainer->createUrl('upload', ['openGalleryId' => $this->gallery->id]);
 
-        return $this->render($this->dropdown ? 'galleryMenuDropdown' :'galleryMenu', [
-                    'canWrite' => $this->canWrite,
-                    'fileHandlers' => array_merge($fileHandlerCreate, $fileHandlerImport),
+        return $this->render('galleryMenuDropdown', [
                     'deleteUrl' => $deleteUrl,
                     'editUrl' => $editUrl,
                     'uploadUrl' => $uploadUrl,

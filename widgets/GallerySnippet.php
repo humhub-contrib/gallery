@@ -38,6 +38,10 @@ class GallerySnippet extends Widget
     {
         $settings = new ContainerSettings(['contentContainer' => $this->contentContainer]);
 
+        if($settings->hideSnippet) {
+            return;
+        }
+
         $gallery = $settings->getSnippetGallery();
 
         if(!$gallery) {

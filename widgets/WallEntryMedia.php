@@ -40,8 +40,10 @@ class WallEntryMedia extends \humhub\modules\content\widgets\WallEntry
         $media = $this->contentObject;
 
         $galleryUrl = '#';
+        $galleryName = null;
         if ($media->parentGallery !== null) {
             $galleryUrl = $media->parentGallery->getUrl();
+            $galleryName = $media->parentGallery->title;
         }
 
         return $this->render('wallEntryMedia', [
@@ -51,6 +53,7 @@ class WallEntryMedia extends \humhub\modules\content\widgets\WallEntry
                     'file' => $media->baseFile,
                     'previewImage' => new PreviewImage(),
                     'galleryUrl' => $galleryUrl,
+                    'galleryName' => $galleryName,
                     'mimeIconClass' => MimeHelper::getMimeIconClassByExtension($media->baseFile)
         ]);
     }
@@ -66,7 +69,7 @@ class WallEntryMedia extends \humhub\modules\content\widgets\WallEntry
             return "";
         }
         if ($this->contentObject instanceof Media) {
-            return $this->contentObject->content->container->createUrl($this->editRoute, ['item-id' => $this->contentObject->getItemId(), 'fromWall' => true]);
+            return $this->contentObject->content->container->createUrl($this->editRoute, ['itemId' => $this->contentObject->getItemId(), 'fromWall' => true]);
         }
         return "";
     }

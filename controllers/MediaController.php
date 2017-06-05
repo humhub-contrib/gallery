@@ -24,41 +24,34 @@ class MediaController extends CustomGalleryController
 
     /**
      * Action to edit a media object.
-     * @url-param 'item-id' the gallery's id.
-     * @url-param 'open-gallery-id' id of the open gallery. Used for redirecting.
+     * @url-param 'itemId' the gallery's id.
+     * @url-param 'openGalleryId' id of the open gallery. Used for redirecting.
      *
      * @throws HttpException if insufficient permission.
      * @return string the redered html.
      */
-    public function actionEdit()
+    public function actionEdit($itemId, $openGalleryId = null, $fromWall = false)
     {
         $this->canWrite(true);
 
-        $fromWall = Yii::$app->request->get('fromWall');
-        $itemId = Yii::$app->request->get('item-id');
-        $openGalleryId = Yii::$app->request->get('open-gallery-id');
         $media = $this->module->getItemById($itemId);
 
-        // no media file with given item id exists
         if (empty($media) || !($media instanceof Media)) {
-            $this->view->error(Yii::t('GalleryModule.base', 'Not found'));
+            throw new HttpException(404);
         }
 
         $data = Yii::$app->request->post('Media');
 
-        if ($data !== null && $media->load(Yii::$app->request->post()) && $media->validate()) {
-            $media->save();
+        if ($data !== null && $media->load(Yii::$app->request->post()) && $media->save()) {
             if ($fromWall) {
                 return $this->asJson(['success' => true]);
             } else {
                 $this->view->saved();
-                return $this->htmlRedirect($this->contentContainer->createUrl('/gallery/custom-gallery/view', ['open-gallery-id' => $openGalleryId]));
-                // TODO: only load the changed element for better performance
+                return $this->htmlRedirect($this->contentContainer->createUrl('/gallery/custom-gallery/view', ['openGalleryId' => $openGalleryId]));
             }
         }
 
-        // render modal
-        return $this->renderPartial('/media/modal_media_edit', [
+        return $this->renderPartial('modal_media_edit', [
                     'openGalleryId' => $openGalleryId,
                     'media' => $media,
                     'contentContainer' => $this->contentContainer,

@@ -13,15 +13,25 @@
 <?php
 
 use \humhub\modules\gallery\assets\Assets;
+use humhub\modules\gallery\widgets\GalleryListEntry;
+use humhub\modules\gallery\widgets\GalleryListEntryAdd;
 
 $bundle = Assets::register($this);
 ?>
 
+<script>
+    window.galleryModuleFadeIn = window.galleryModuleFadeIn || function(img) {
+        $(img).fadeIn('slow');
+    }
+</script>
+
 <div id="gallery-list" class="col">
     <div class="row">
-        <?php echo \humhub\modules\gallery\widgets\GalleryListEntryAdd::widget(['parentGallery' => $parentGallery]) ?>
+        <?= GalleryListEntryAdd::widget(['parentGallery' => $parentGallery]) ?>
         <?php foreach ($entryList as $entry): ?>
-            <?php echo \humhub\modules\gallery\widgets\GalleryListEntry::widget(['entryObject' => $entry, 'parentGallery' => $parentGallery]) ?>
+            <?= GalleryListEntry::widget(['entryObject' => $entry, 'parentGallery' => $parentGallery]) ?>
         <?php endforeach; ?>
     </div>
 </div>
+
+

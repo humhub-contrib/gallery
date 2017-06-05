@@ -26,7 +26,7 @@ class StreamGallery extends BaseGallery
 
     public function getUrl()
     {
-        return $this->content->container->createUrl('/gallery/stream-gallery/view', ['open-gallery-id' => $this->id]);
+        return $this->content->container->createUrl('/gallery/stream-gallery/view', ['openGalleryId' => $this->id]);
     }
 
     public function getPreviewImageUrl()
@@ -69,6 +69,7 @@ class StreamGallery extends BaseGallery
             ['=', 'comment.object_model', Post::className()],
             ['=', 'file.object_model', Post::className()]
         ]);
+
         // only get gallery suitable content types
         $query->andWhere(['like', 'file.mime_type', 'image/']);
         return $query;
@@ -76,15 +77,22 @@ class StreamGallery extends BaseGallery
 
     public function getFileList()
     {
-        $files = $this->fileListQuery()
-                ->orderBy([
-                    'updated_at' => SORT_DESC
-                ])
-                ->all();
+        $files = $this->fileListQuery()->orderBy(['updated_at' => SORT_DESC])->all();
         //TODO: This is ugly and probably slow. Would be much nicer to already filter in the query.
         return array_filter($files, function ($file) {
             return $file->canRead();
         });
+    }
+
+    public function getMetaData()
+    {
+        $result = parent::getMetaData();
+        $result['footerOverwrite'] = ' ';
+        return $result;
+    }
+
+    public function getTitle() {
+        return Yii::t('GalleryModule.base', 'Posted Media Files');
     }
 
     public function isEmpty()
