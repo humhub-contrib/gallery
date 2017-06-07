@@ -24,7 +24,7 @@ class Events extends Object
 
     public static function onSpaceMenuInit($event)
     {
-        if ($event->sender->space !== null && $event->sender->space->isModuleEnabled('gallery') && $event->sender->space->isMember()) {
+        if ($event->sender->space !== null && $event->sender->space->isModuleEnabled('gallery')) {
             $event->sender->addItem([
                 'label' => Yii::t('GalleryModule.base', 'Gallery'),
                 'group' => 'modules',
