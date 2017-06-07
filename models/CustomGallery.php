@@ -4,6 +4,8 @@ namespace humhub\modules\gallery\models;
 
 use humhub\modules\content\components\ContentContainerActiveRecord;
 use humhub\modules\content\models\Content;
+use humhub\modules\space\models\Space;
+use Yii;
 use \yii\helpers\Url;
 
 /**
@@ -97,7 +99,13 @@ class CustomGallery extends BaseGallery
 
     public function getMediaList($max = null)
     {
-        return $this->mediaListQuery()->contentContainer($this->content->container)->readable()->limit($max)->all();
+        if (Yii::$app->user->isGuest && version_compare(Yii::$app->version, '1.2.1', 'lt')) {
+            $query = $this->mediaListQuery()->contentContainer($this->content->container);
+            $query->leftJoin('space', 'contentcontainer.pk=space.id AND contentcontainer.class=:spaceClass', [':spaceClass' => Space::className()]);
+            return $query->readable()->limit($max)->all();
+        } else {
+            return $this->mediaListQuery()->contentContainer($this->content->container)->readable()->limit($max)->all();
+        }
     }
 
     public function isEmpty()
