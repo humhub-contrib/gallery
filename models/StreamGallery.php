@@ -4,7 +4,6 @@ namespace humhub\modules\gallery\models;
 
 use \humhub\modules\comment\models\Comment;
 use \humhub\modules\file\models\File;
-use \humhub\modules\gallery\libs\FileUtils;
 use \humhub\modules\post\models\Post;
 use \Yii;
 
@@ -37,9 +36,11 @@ class StreamGallery extends BaseGallery
             return $path;
         }
         // get first image from the complete filelist as fallback
-        $file = $this->fileListQuery()
-                ->orderBy(['updated_at' => SORT_ASC])
+        $fileArray = $this->fileListQuery()
+                ->orderBy(['content.updated_at' => SORT_DESC])
+                ->asArray()
                 ->one();
+        $file = File::findOne($fileArray['id']);
         if ($file !== null && !empty(SquarePreviewImage::getSquarePreviewImageUrlFromFile($file))) {
             return SquarePreviewImage::getSquarePreviewImageUrlFromFile($file);
         }
@@ -54,21 +55,9 @@ class StreamGallery extends BaseGallery
 
     private function fileListQuery()
     {
-        $query = File::find();
-
-        // join comments to the file if available
-        $query->join('LEFT JOIN', 'comment', '(file.object_id=comment.id AND file.object_model=' . Yii::$app->db->quoteValue(Comment::className()) . ')');
-        // join parent post of comment or file
-        $query->join('LEFT JOIN', 'content', '(comment.object_model=content.object_model AND comment.object_id=content.object_id) OR (file.object_model=content.object_model AND file.object_id=content.object_id)');
-
-        // select only the one for the given content container for Yii version >= 1.1
-        $query->andWhere(['content.contentcontainer_id' => $this->content->contentcontainer_id]);
-        // only accept Posts as the base content, so stuff from submodules like files itsself or gallery will be excluded
-        $query->andWhere([
-            'or',
-            ['=', 'comment.object_model', Post::className()],
-            ['=', 'file.object_model', Post::className()]
-        ]);
+        $query = Post::find()->select('file.id')->contentContainer($this->content->container)->readable();
+        $query->join('LEFT JOIN', 'comment', '(post.id=comment.object_id AND comment.object_model=' . Yii::$app->db->quoteValue(Comment::className()) . ')');
+        $query->join('RIGHT JOIN', 'file', '((post.id=file.object_id AND file.object_model=' . Yii::$app->db->quoteValue(Post::className()) . ') OR (comment.id=file.object_id AND file.object_model=' . Yii::$app->db->quoteValue(Comment::className()) . '))');
 
         // only get gallery suitable content types
         $query->andWhere(['like', 'file.mime_type', 'image/']);
@@ -77,11 +66,12 @@ class StreamGallery extends BaseGallery
 
     public function getFileList()
     {
-        $files = $this->fileListQuery()->orderBy(['updated_at' => SORT_DESC])->all();
-        //TODO: This is ugly and probably slow. Would be much nicer to already filter in the query.
-        return array_filter($files, function ($file) {
-            return $file->canRead();
-        });
+        $fileQuery = $this->fileListQuery();
+//        echo '<pre>';
+//        var_dump($fileQuery->createCommand()->getRawSql());
+//        echo '</pre>';
+        $files = $fileQuery->limit(50)->orderBy(['content.updated_at' => SORT_DESC])->asArray()->all();
+        return $files;
     }
 
     public function getMetaData()
@@ -91,7 +81,8 @@ class StreamGallery extends BaseGallery
         return $result;
     }
 
-    public function getTitle() {
+    public function getTitle()
+    {
         return Yii::t('GalleryModule.base', 'Posted Media Files');
     }
 

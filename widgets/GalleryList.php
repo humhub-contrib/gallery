@@ -8,11 +8,7 @@
 
 namespace humhub\modules\gallery\widgets;
 
-use \humhub\modules\gallery\models\CustomGallery;
-use \humhub\modules\gallery\models\StreamGallery;
-use \Yii;
 use \yii\base\Widget;
-use \yii\helpers\Html;
 
 /**
  * Widget that renders a list of entries in the gallery module.

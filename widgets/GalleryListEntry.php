@@ -33,7 +33,7 @@ class GalleryListEntry extends Widget
     {
         if ($this->entryObject instanceof Media) {
             $metaData = $this->getMediaMetaData($this->entryObject);
-        } elseif ($this->entryObject instanceof File) {
+        } elseif (is_array ($this->entryObject)) { // Stream gallery entries are returned as arrays and not as objects
             $metaData = $this->getFileMetaData($this->entryObject);
         } elseif ($this->entryObject instanceof BaseGallery) {
             $metaData = $this->entryObject->getMetaData();
@@ -69,8 +69,9 @@ class GalleryListEntry extends Widget
         ];
     }
 
-    private function getFileMetaData(File $file)
+    private function getFileMetaData($fileIdArray)
     {
+        $file = File::findOne($fileIdArray['id']);
         $contentObject = FileUtils::getBaseObject($file);
         $content = $contentObject->content;
 
