@@ -28,8 +28,8 @@ $bundle = Assets::register($this);
                    data-type="image" 
                    data-toggle="lightbox" 
                    data-parent="#gallery-content"
-                   data-description="<?= $title ?>"
-                   title="<?= $title ?>"
+                   data-description="<?= Html::encode($title) ?>"
+                   title="<?= Html::encode($title) ?>"
                    data-ui-gallery="<?= $uiGalleryId ?>"
                <?php endif; ?>>
                 <img class="<?= $imagePadding ? 'padding15perc' : '' ?>" src="<?= $thumbnailUrl ?>" alt="<?= Html::encode($title)?>" style="display:none" onload="galleryModuleFadeIn(this)" />
@@ -46,7 +46,7 @@ $bundle = Assets::register($this);
             </div>
         </div>
         <div class="panel-heading background-none <?=$alwaysShowHeading ? '' : 'overlay'?>">
-            <div class="footnotesize pull-left truncate tt" data-toggle="tooltip" data-placement="top" title="" data-original-title="<?= Html::encode($title) ?>">
+            <div class="footnotesize pull-left truncate tt" data-toggle="tooltip" data-placement="top" title="" data-original-title="<?= $showTooltip ? Html::encode($title) : '' ?>">
                 <?= Html::encode($title); ?>
             </div>
             <?php if ($creatorUrl || $creatorThumbnailUrl): ?>

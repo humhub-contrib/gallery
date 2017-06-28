@@ -25,7 +25,7 @@ use \Yii;
  */
 class GalleryListEntry extends Widget
 {
-
+    
     public $entryObject;
     public $parentGallery;
 
@@ -33,10 +33,13 @@ class GalleryListEntry extends Widget
     {
         if ($this->entryObject instanceof Media) {
             $metaData = $this->getMediaMetaData($this->entryObject);
+            $metaData['showTooltip'] = true;
         } elseif (is_array ($this->entryObject)) { // Stream gallery entries are returned as arrays and not as objects
             $metaData = $this->getFileMetaData($this->entryObject);
+            $metaData['showTooltip'] = false;
         } elseif ($this->entryObject instanceof BaseGallery) {
             $metaData = $this->entryObject->getMetaData();
+            $metaData['showTooltip'] = true;
         } else {
             return;
         }
