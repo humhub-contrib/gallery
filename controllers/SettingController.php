@@ -16,18 +16,26 @@
 namespace humhub\modules\gallery\controllers;
 
 use Yii;
-use humhub\modules\content\components\ContentContainerController;
 use humhub\modules\gallery\models\forms\ContainerSettings;
 use humhub\modules\space\modules\manage\components\Controller;
 
 class SettingController extends Controller
-{
+{   
+    public function beforeAction($action)
+    {
+        // A user doesn't need the settings for his profile, as the gallery snippet is not shown.
+        if($this->contentContainer instanceof \humhub\modules\user\models\User) {
+            return $this->redirect('list');
+        }
+        return parent::beforeAction($action);
+    }
+    
     public function actionIndex()
     {
         $settings = new ContainerSettings([
             'contentContainer' => $this->contentContainer
         ]);
-
+        
         if($settings->load(Yii::$app->request->post()) && $settings->save()) {
             $this->view->saved();
         }

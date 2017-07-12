@@ -32,11 +32,13 @@ $bundle = Assets::register($this);
                         </a>
                         <ul class="dropdown-menu pull-right">
                             <?php if ($this->context->canWrite(false)): ?>
+                                <?php if(!(Yii::$app->controller->contentContainer instanceof \humhub\modules\user\models\User)): ?>
                                 <li>
                                     <a href="<?= $this->context->contentContainer->createUrl('/gallery/setting'); ?>">
                                         <i class="fa fa-cogs"></i> <?= Yii::t('GalleryModule.base', 'Settings') ?>
                                     </a>
                                 </li>
+                                <?php endif; ?>
                                 <li>
                                     <a data-target="#globalModal" href="<?= $this->context->contentContainer->createUrl('/gallery/custom-gallery/edit'); ?>">
                                         <i class="glyphicon glyphicon-plus"></i> <?= Yii::t('GalleryModule.base', 'Add Gallery') ?>
