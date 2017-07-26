@@ -105,9 +105,13 @@ class Media extends ContentActiveRecord
         return $this->baseFile->size;
     }
 
-    public function getUrl($download = false)
+    public function getFileUrl($download = false) {
+        return \humhub\modules\file\handler\DownloadFileHandler::getUrl($this->baseFile, $download);   
+    }
+    
+    public function getUrl()
     {
-        return $this->baseFile->getUrl(['download' => $download]);
+        return $this->getWallUrl();
     }
 
     public function getCreator()

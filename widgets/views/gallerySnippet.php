@@ -28,7 +28,7 @@ $extraMenus .= '<li><a href="'.$galleryUrl.'"><i class="fa fa-arrow-circle-right
         <div id="gallery-snippet-links" style="display:none;">
             <?php foreach ($images as $media) : ?>
                 <?php /* @var $media \humhub\modules\gallery\models\Media */ ?>
-                <a href="<?= $media->getUrl() ?>#jpg" data-pjax-prevent data-type="image">
+                <a href="<?= $media->getFileUrl() ?>#jpg" data-pjax-prevent data-type="image">
                     <img src="<?= $media->getSquarePreviewImageUrl() ?>" alt="<?= Html::encode($media->description) ?>">
                 </a>
             <?php endforeach; ?>
