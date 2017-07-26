@@ -57,7 +57,7 @@ class CustomGalleryController extends ListController
      * @param null $instance
      * @return string if insufficient permission.
      */
-    public function actionEdit($itemId = null, $visibility = Content::VISIBILITY_PRIVATE)
+    public function actionEdit($itemId = null, $openGalleryId = null, $fromWall = false, $visibility = Content::VISIBILITY_PRIVATE)
     {
         $this->canWrite(true);
 

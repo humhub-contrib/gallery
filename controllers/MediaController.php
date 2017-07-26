@@ -8,6 +8,7 @@
 
 namespace humhub\modules\gallery\controllers;
 
+use \humhub\modules\content\models\Content;
 use \humhub\modules\gallery\models\Media;
 use \Yii;
 use \yii\web\HttpException;
@@ -30,7 +31,7 @@ class MediaController extends CustomGalleryController
      * @throws HttpException if insufficient permission.
      * @return string the redered html.
      */
-    public function actionEdit($itemId, $openGalleryId = null, $fromWall = false)
+    public function actionEdit($itemId = null, $openGalleryId = null, $fromWall = false, $visibility = Content::VISIBILITY_PRIVATE)
     {
         $this->canWrite(true);
 
