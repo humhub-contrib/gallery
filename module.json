@@ -3,7 +3,7 @@
     "name": "Gallery",
     "description": "Gallery for space/profile.",
     "keywords": ["gallery"],
-    "version": "1.0.4",
+    "version": "1.0.5",
     "humhub": {
         "minVersion": "1.2"
     }
