@@ -57,13 +57,13 @@ class CustomGallery extends BaseGallery
         return $this->getDefaultPreviewImageUrl();
     }
 
-    public function beforeDelete()
+    public function afterDelete()
     {
         foreach ($this->getMediaList() as $media) {
             $media->delete();
         }
 
-        return parent::beforeDelete();
+        return parent::afterDelete();
     }
 
     public function getItemId()

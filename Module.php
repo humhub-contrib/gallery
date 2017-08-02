@@ -78,10 +78,19 @@ class Module extends ContentContainerModule
     
     public function disable()
     {
-        foreach (CustomGallery::find()->all() as $key => $gallery) {
+        
+        $customGalleries = CustomGallery::findAll([]);
+        foreach ($customGalleries as $gallery) {
             $gallery->delete();
         }
-        foreach (Media::find()->all() as $key => $media) {
+        
+        $streamGalleries = StreamGallery::findAll([]);
+        foreach ($streamGalleries as $gallery) {
+            $gallery->delete();
+        }
+
+        $mediaList = Media::findAll([]);
+        foreach ($mediaList as $media) {
             $media->delete();
         }
 
@@ -101,13 +110,13 @@ class Module extends ContentContainerModule
 
     public function disableContentContainer(ContentContainerActiveRecord $container)
     {
-        $galleries = StreamGallery::find()->contentContainer($container)->all();
-        foreach ($galleries as $gallery) {
+        $streamGalleries = StreamGallery::find()->contentContainer($container)->where(['type' => StreamGallery::class])->all();
+        foreach ($streamGalleries as $gallery) {
             $gallery->delete();
         }
 
-        $galleries = CustomGallery::find()->contentContainer($container)->all();
-        foreach ($galleries as $gallery) {
+        $customGalleries = CustomGallery::find()->contentContainer($container)->where(['type' => CustomGallery::class])->all();
+        foreach ($customGalleries as $gallery) {
             $gallery->delete();
         }
 
@@ -115,6 +124,8 @@ class Module extends ContentContainerModule
         foreach ($mediaList as $media) {
             $media->delete();
         }
+        
+        parent::disableContentContainer($container);
     }
 
     /**

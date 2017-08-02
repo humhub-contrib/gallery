@@ -203,5 +203,13 @@ class Media extends ContentActiveRecord
 
         return $mediaUpload;
     }
+    
+    public function afterDelete()
+    {
+        if($this->baseFile !== NULL) {
+            $this->baseFile->delete();
+        }
+        parent::afterDelete();
+    }
 
 }

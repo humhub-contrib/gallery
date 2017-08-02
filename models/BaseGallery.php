@@ -132,6 +132,17 @@ class BaseGallery extends ContentActiveRecord
 
         return parent::findOne($condition);
     }
+    
+    public static function findAll($condition)
+    {
+        if(static::class !== BaseGallery::class) {
+            $condition = $condition ? $condition : [];
+            $condition['type'] = isset($condition['type']) ? $condition['type'] : static::class;
+            return parent::findAll($condition);
+        }
+
+        return parent::findAll($condition);
+    }
 
     /**
      * @inheritdoc
