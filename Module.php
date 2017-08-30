@@ -105,6 +105,9 @@ class Module extends ContentContainerModule
 
         $streamGallery->content->container = $container;
         $streamGallery->content->visibility = Content::VISIBILITY_PUBLIC;
+        if(property_exists($streamGallery->content, 'muteDefaultSocialActivities')) {
+            $streamGallery->content->muteDefaultSocialActivities = true;
+        }
         $streamGallery->save();
     }
 
