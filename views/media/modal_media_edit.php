@@ -8,15 +8,19 @@
  * @since 1.0
  * @author Sebastian Stumpf
  */
+
+use humhub\widgets\ModalDialog;
+use yii\bootstrap\ActiveForm;
+
 ?>
 
 <?php
-\humhub\widgets\ModalDialog::begin([
-    'header' => Yii::t('CfilesModule.base', '<strong>Edit</strong> media'),
+ModalDialog::begin([
+    'header' => Yii::t('GalleryModule.base', '<strong>Edit</strong> media'),
     'animation' => 'fadeIn',
     'size' => 'small']);
 ?>
-<?php $form = \yii\bootstrap\ActiveForm::begin(); ?>
+<?php $form = ActiveForm::begin(); ?>
 
 <div class="modal-body">
     <?= $form->field($media, 'description')->textArea(); ?>
@@ -31,5 +35,5 @@
         <?= \Yii::t('GalleryModule.base', 'Close'); ?>
     </button>
 </div>
-<?php \yii\bootstrap\ActiveForm::end(); ?>
-<?php \humhub\widgets\ModalDialog::end(); ?>
+<?php ActiveForm::end(); ?>
+<?php ModalDialog::end(); ?>

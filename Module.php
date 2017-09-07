@@ -68,13 +68,6 @@ class Module extends ContentContainerModule
 
         return null;
     }
-
-    public static function getUserById($id)
-    {
-        return User::findOne([
-            'id' => $id
-            ]);
-    }
     
     public function disable()
     {
