@@ -1,4 +1,5 @@
 <?php
+
 namespace humhub\modules\gallery;
 
 use \humhub\modules\content\components\ContentContainerActiveRecord;
@@ -20,7 +21,6 @@ class Module extends ContentContainerModule
 {
 
     public $snippetMaxImages = 20;
-
     public $debug = false;
 
     /**
@@ -44,18 +44,18 @@ class Module extends ContentContainerModule
                 new WriteAccess()
             ];
         }
-        
+
         return [];
     }
 
     public function getItemById($itemId)
     {
-        if (! is_string($itemId) || $itemId === '') {
+        if (!is_string($itemId) || $itemId === '') {
             return null;
         }
-        
+
         list ($type, $id) = explode('_', $itemId);
-        
+
         if ($type == 'media') {
             return Media::findOne(['id' => $id]);
         } elseif ($type == 'stream-gallery') {
@@ -68,15 +68,15 @@ class Module extends ContentContainerModule
 
         return null;
     }
-    
+
     public function disable()
     {
-        
+
         $customGalleries = CustomGallery::findAll([]);
         foreach ($customGalleries as $gallery) {
             $gallery->delete();
         }
-        
+
         $streamGalleries = StreamGallery::findAll([]);
         foreach ($streamGalleries as $gallery) {
             $gallery->delete();
@@ -89,8 +89,9 @@ class Module extends ContentContainerModule
 
         parent::disable();
     }
-    
-    public function enableContentContainer(ContentContainerActiveRecord $container) {
+
+    public function enableContentContainer(ContentContainerActiveRecord $container)
+    {
         $streamGallery = new StreamGallery([
             'title' => Yii::t('GalleryModule.base', 'Posted pictures'),
             'description' => Yii::t('GalleryModule.base', 'This gallery contains all posted pictures.')
@@ -98,7 +99,7 @@ class Module extends ContentContainerModule
 
         $streamGallery->content->container = $container;
         $streamGallery->content->visibility = Content::VISIBILITY_PUBLIC;
-        if(property_exists($streamGallery->content, 'muteDefaultSocialActivities')) {
+        if (property_exists($streamGallery->content, 'muteDefaultSocialActivities')) {
             $streamGallery->content->muteDefaultSocialActivities = true;
         }
         $streamGallery->save();
@@ -120,7 +121,7 @@ class Module extends ContentContainerModule
         foreach ($mediaList as $media) {
             $media->delete();
         }
-        
+
         parent::disableContentContainer($container);
     }
 
@@ -142,14 +143,15 @@ class Module extends ContentContainerModule
      * @param ContentContainer $contentContainer the current content container.
      * @return boolean
      */
-    public static function canWrite(ContentContainerActiveRecord $contentContainer) {
+    public static function canWrite(ContentContainerActiveRecord $contentContainer)
+    {
         // check if user is on his own profile
-        if ($contentContainer instanceof User) {
+        if ($contentContainer instanceof User && !Yii::$app->user->isGuest) {
             if ($contentContainer->id === Yii::$app->user->getIdentity()->id) {
                 return true;
             }
         }
         return $contentContainer->permissionManager->can(new WriteAccess());
-    
     }
+
 }
