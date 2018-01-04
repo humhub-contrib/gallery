@@ -21,8 +21,8 @@
     <?php $form = \yii\bootstrap\ActiveForm::begin(['id' => 'Gallery', 'class' => 'form-horizontal']); ?>
 
         <div class="modal-body">
-            <?= $form->field($galleryForm->instance, 'title'); ?>
-            <?= $form->field($galleryForm->instance, 'description')->textArea(); ?>
+            <?= $form->field($galleryForm->instance, Yii::t('GalleryModule.base', 'title') ); ?>
+            <?= $form->field($galleryForm->instance, Yii::t('GalleryModule.base', 'description'))->textArea(); ?>
             <?= $form->field($galleryForm, 'visibility')->checkbox(['label' => Yii::t('GalleryModule.base', 'Make this gallery public')])?>
         </div>
 
