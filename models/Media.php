@@ -25,6 +25,7 @@ use yii\web\UploadedFile;
  */
 class Media extends ContentActiveRecord
 {
+
     /**
      * @var BaseGallery used for instantiation
      */
@@ -54,8 +55,8 @@ class Media extends ContentActiveRecord
     public function init()
     {
         parent::init();
-        if($this->gallery) {
-            $this->gallery_id =  $this->gallery->id;
+        if ($this->gallery) {
+            $this->gallery_id = $this->gallery->id;
             $this->content->visibility = $this->gallery->content->visibility;
             $this->content->container = $this->gallery->content->container;
         }
@@ -105,8 +106,13 @@ class Media extends ContentActiveRecord
         return $this->baseFile->size;
     }
 
-    public function getFileUrl($download = false) {
-        return \humhub\modules\file\handler\DownloadFileHandler::getUrl($this->baseFile, $download);   
+    public function getFileUrl($download = false)
+    {
+        if ($this->baseFile === null) {
+            return;
+        }
+
+        return \humhub\modules\file\handler\DownloadFileHandler::getUrl($this->baseFile, $download);
     }
 
     public function getCreator()
@@ -192,7 +198,7 @@ class Media extends ContentActiveRecord
             $valid = $this->validate();
 
             if ($valid) {
-                if($this->save()) {
+                if ($this->save()) {
                     $mediaUpload->object_model = self::class;
                     $mediaUpload->object_id = $this->id;
                     $mediaUpload->show_in_stream = false;
@@ -203,10 +209,10 @@ class Media extends ContentActiveRecord
 
         return $mediaUpload;
     }
-    
+
     public function afterDelete()
     {
-        if($this->baseFile !== NULL) {
+        if ($this->baseFile !== NULL) {
             $this->baseFile->delete();
         }
         parent::afterDelete();
