@@ -24,6 +24,7 @@ ModalDialog::begin([
 
 <div class="modal-body">
     <?= $form->field($media, 'description')->textArea(); ?>
+    <?= $form->field($media, 'href')->textInput(); ?>
 </div>
 
 <div class="modal-footer">
