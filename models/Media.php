@@ -76,6 +76,7 @@ class Media extends ContentActiveRecord
             ['gallery_id','sort_order', 'integer'],
             ['title', 'string', 'max' => 255],
             ['description', 'string', 'max' => 1000],
+            ['href', 'url'],
         ];
     }
 
@@ -168,6 +169,11 @@ class Media extends ContentActiveRecord
     public function getTitle()
     {
         return $this->title;
+    }
+
+    public function getHref()
+    {
+        return $this->href;
     }
 
     public function getParentGallery()
