@@ -25,7 +25,7 @@ ModalDialog::begin([
 <div class="modal-body">
     <?= $form->field($media, 'description')->textArea(); ?>
     <?= $form->field($media, 'href')->textInput(); ?>
-    <?= $form->field($media, 'sort_order')->textField(); ?>
+    <?= $form->field($media, 'sort_order')->textInput(); ?>
 </div>
 
 <div class="modal-footer">
