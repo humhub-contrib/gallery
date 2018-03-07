@@ -102,7 +102,7 @@ class CustomGallery extends BaseGallery
         if (Yii::$app->user->isGuest && version_compare(Yii::$app->version, '1.2.1', 'lt')) {
             $query = $this->mediaListQuery()->contentContainer($this->content->container);
             $query->leftJoin('space', 'contentcontainer.pk=space.id AND contentcontainer.class=:spaceClass', [':spaceClass' => Space::className()]);
-            $query->orderBy(['sort_order' => SORT_ASC]));
+            $query->orderBy(['`gallery_media`.`sort_order`' => SORT_ASC]);
             return $query->readable()->limit($max)->all();
         } else {
             return $this->mediaListQuery()->contentContainer($this->content->container)->readable()->limit($max)->all();
