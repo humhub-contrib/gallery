@@ -45,11 +45,7 @@ class CustomGallery extends BaseGallery
             return $path;
         }
         // get preview image from the file list
-        $media = $this->mediaListQuery()
-                ->orderBy([
-                    'sort_order' => SORT_ASC
-                ])
-                ->one();
+        $media = $this->mediaListQuery()->one();
         if ($media != null && !empty($media->getSquarePreviewImageUrl())) {
             return $media->getSquarePreviewImageUrl();
         } 
@@ -79,7 +75,7 @@ class CustomGallery extends BaseGallery
     {
         $query = Media::find()->where([
             'gallery_id' => $this->id
-        ]);
+        ])->orderBy(['`gallery_media`.`sort_order`' => SORT_ASC]);
         return $query;
     }
 
@@ -102,7 +98,6 @@ class CustomGallery extends BaseGallery
         if (Yii::$app->user->isGuest && version_compare(Yii::$app->version, '1.2.1', 'lt')) {
             $query = $this->mediaListQuery()->contentContainer($this->content->container);
             $query->leftJoin('space', 'contentcontainer.pk=space.id AND contentcontainer.class=:spaceClass', [':spaceClass' => Space::className()]);
-            $query->orderBy(['`gallery_media`.`sort_order`' => SORT_ASC]);
             return $query->readable()->limit($max)->all();
         } else {
             return $this->mediaListQuery()->contentContainer($this->content->container)->readable()->limit($max)->all();
