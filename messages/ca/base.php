@@ -21,6 +21,7 @@ return [
     '<strong>Confirm</strong> delete gallery' => '',
     '<strong>Confirm</strong> delete item' => '',
     '<strong>Edit</strong> gallery' => '',
+    '<strong>Edit</strong> media' => '',
     '<strong>Gallery</strong> ' => '',
     '<strong>Gallery</strong> settings' => '',
     '<strong>List</strong> of galleries' => '',
