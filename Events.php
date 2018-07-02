@@ -9,8 +9,7 @@
 namespace humhub\modules\gallery;
 
 use humhub\modules\gallery\widgets\GallerySnippet;
-use \Yii;
-use \yii\base\Object;
+use Yii;
 
 /**
  * The event handler for the gallery module.
@@ -19,7 +18,7 @@ use \yii\base\Object;
  * @since 1.0
  * @author Sebastian Stumpf
  */
-class Events extends Object
+class Events
 {
 
     public static function onSpaceMenuInit($event)
