@@ -5,6 +5,6 @@
     "keywords": ["gallery"],
     "version": "1.0.10",
     "humhub": {
-        "minVersion": "1.2"
+        "minVersion": "1.2.1"
     }
 }
