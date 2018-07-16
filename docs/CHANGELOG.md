@@ -1,6 +1,12 @@
 Changelog
 =========
 
+1.0.10  (July 16, 2018)
+---------------------
+- Fix: added 'jpeg' to allowed extensions
+- Enh: Added media icon
+
+
 1.0.9  (July 2, 2018)
 ---------------------
 - Fix: Error when baseFile not exists

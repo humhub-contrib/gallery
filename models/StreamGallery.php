@@ -23,6 +23,12 @@ class StreamGallery extends BaseGallery
      */
     public $autoAddToWall = false;
 
+    /**
+     * @inheritdoc
+     */
+    public $silentContentCreation = true;
+
+
     public function getUrl()
     {
         return $this->content->container->createUrl('/gallery/stream-gallery/view', ['openGalleryId' => $this->id]);
@@ -67,9 +73,6 @@ class StreamGallery extends BaseGallery
     public function getFileList()
     {
         $fileQuery = $this->fileListQuery();
-//        echo '<pre>';
-//        var_dump($fileQuery->createCommand()->getRawSql());
-//        echo '</pre>';
         $files = $fileQuery->limit(50)->orderBy(['content.updated_at' => SORT_DESC])->asArray()->all();
         return $files;
     }

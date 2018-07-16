@@ -3,6 +3,7 @@
 namespace humhub\modules\gallery\models;
 
 use \humhub\modules\content\components\ContentActiveRecord;
+use humhub\modules\file\handler\DownloadFileHandler;
 use \humhub\modules\file\models\File;
 use \humhub\modules\gallery\libs\FileUtils;
 use \humhub\modules\user\models\User;
@@ -18,6 +19,7 @@ use yii\web\UploadedFile;
  * @property string $description
  * @property string $title
  * @property integer $sort_order
+ * @property File $baseFile
  *
  * @package humhub.modules.gallery.models
  * @since 1.0
@@ -106,13 +108,17 @@ class Media extends ContentActiveRecord
         return $this->baseFile->size;
     }
 
+    /**
+     * @param bool $download
+     * @return string|null
+     */
     public function getFileUrl($download = false)
     {
         if ($this->baseFile === null) {
-            return;
+            return null;
         }
 
-        return \humhub\modules\file\handler\DownloadFileHandler::getUrl($this->baseFile, $download);
+        return DownloadFileHandler::getUrl($this->baseFile, $download);
     }
 
     public function getCreator()
@@ -143,7 +149,7 @@ class Media extends ContentActiveRecord
     {
         try {
             $previewImage = SquarePreviewImage::getSquarePreviewImageUrlFromFile($this->baseFile);
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             
         }
         return empty($previewImage) ? $this->getFallbackPreviewImageUrl() : $previewImage;
@@ -180,11 +186,17 @@ class Media extends ContentActiveRecord
         return $this->content->container->createUrl('/gallery/media/edit', ['id' => $this->getItemId()]);
     }
 
+    public function getIcon()
+    {
+        return 'fa-picture-o';
+    }
+
     /**
      * Saves the given uploaded file.
      *
-     * @param UploadedFile $cfile
+     * @param UploadedFile $file
      * @return MediaUpload
+     * @internal param UploadedFile $cfile
      */
     public function handleUpload(UploadedFile $file)
     {

@@ -92,16 +92,11 @@ class Module extends ContentContainerModule
 
     public function enableContentContainer(ContentContainerActiveRecord $container)
     {
-        $streamGallery = new StreamGallery([
+        $streamGallery = new StreamGallery($container, Content::VISIBILITY_PUBLIC, [
             'title' => Yii::t('GalleryModule.base', 'Posted pictures'),
             'description' => Yii::t('GalleryModule.base', 'This gallery contains all posted pictures.')
         ]);
 
-        $streamGallery->content->container = $container;
-        $streamGallery->content->visibility = Content::VISIBILITY_PUBLIC;
-        if (property_exists($streamGallery->content, 'muteDefaultSocialActivities')) {
-            $streamGallery->content->muteDefaultSocialActivities = true;
-        }
         $streamGallery->save();
     }
 
