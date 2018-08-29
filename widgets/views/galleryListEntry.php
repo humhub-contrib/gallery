@@ -3,7 +3,7 @@
  * @link https://www.humhub.org/
  * @copyright Copyright (c) 2015 HumHub GmbH & Co. KG
  * @license https://www.humhub.com/licences
- * 
+ *
  * @package humhub.modules.gallery.views
  * @since 1.0
  * @author Sebastian Stumpf
@@ -20,19 +20,21 @@ use \yii\helpers\Html;
 $bundle = Assets::register($this);
 ?>
 
+
 <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2 col-xl-2 gallery-list-entry">
     <div class="panel panel-default">
         <div class="panel-body">
-            <a href="<?= $fileUrl ?>#.jpeg" 
-            <?php if ($uiGalleryId): ?>
-                   data-type="image" 
-                   data-toggle="lightbox" 
-                   data-parent="#gallery-content"
-                   data-description="<?= Html::encode($title) ?>"
-                   title="<?= Html::encode($title) ?>"
-                   data-ui-gallery="<?= $uiGalleryId ?>"
-               <?php endif; ?>>
-                <img class="<?= $imagePadding ? 'padding15perc' : '' ?>" src="<?= $thumbnailUrl ?>" alt="<?= Html::encode($title)?>" style="display:none" onload="galleryModuleFadeIn(this)" />
+            <a href="<?= $fileUrl ?>#.jpeg"
+                <?php if ($uiGalleryId): ?>
+                    data-type="image"
+                    data-toggle="lightbox"
+                    data-parent="#gallery-content"
+                    data-description="<?= Html::encode($title) ?>"
+                    title="<?= Html::encode($title) ?>"
+                    data-ui-gallery="<?= $uiGalleryId ?>"
+                <?php endif; ?>>
+                <img class="<?= $imagePadding ? 'padding15perc' : '' ?>" src="<?= $thumbnailUrl ?>"
+                     alt="<?= Html::encode($title) ?>" style="display:none" onload="$(this).fadeIn('slow')"/>
                 <span class="overlay"><i class="glyphicon glyphicon-fullscreen"></i></span>
             </a>
         </div>
@@ -45,8 +47,9 @@ $bundle = Assets::register($this);
                 <?php endif; ?>
             </div>
         </div>
-        <div class="panel-heading background-none <?=$alwaysShowHeading ? '' : 'overlay'?>">
-            <div class="footnotesize pull-left truncate tt" data-toggle="tooltip" data-placement="top" title="" data-original-title="<?= $showTooltip ? Html::encode($title) : '' ?>">
+        <div class="panel-heading background-none <?= $alwaysShowHeading ? '' : 'overlay' ?>">
+            <div class="footnotesize pull-left truncate tt" data-toggle="tooltip" data-placement="top" title=""
+                 data-original-title="<?= $showTooltip ? Html::encode($title) : '' ?>">
                 <?= Html::encode($title); ?>
             </div>
             <?php if ($creatorUrl || $creatorThumbnailUrl): ?>
@@ -69,7 +72,9 @@ $bundle = Assets::register($this);
                         <ul class="dropdown-menu pull-right">
                             <?php if ($wallUrl): ?>
                                 <li>
-                                    <a href="<?= $wallUrl ?>"><i class="fa fa-link"></i> <?= Yii::t('GalleryModule.base', 'Show connected post') ?></a>
+                                    <a href="<?= $wallUrl ?>"><i
+                                                class="fa fa-link"></i> <?= Yii::t('GalleryModule.base', 'Show connected post') ?>
+                                    </a>
                                 </li>
                             <?php endif; ?>
                             <?php if ($writeAccess): ?>
@@ -84,19 +89,23 @@ $bundle = Assets::register($this);
                                 <?php endif; ?>
                                 <?php if ($editUrl): ?>
                                     <li>
-                                        <a data-target="#globalModal" href="<?= $editUrl ?>"><i class="fa fa-edit"></i> <?= Yii::t('GalleryModule.base', 'Edit') ?></a>
+                                        <a data-target="#globalModal" href="<?= $editUrl ?>"><i
+                                                    class="fa fa-edit"></i> <?= Yii::t('GalleryModule.base', 'Edit') ?>
+                                        </a>
                                     </li>
                                 <?php endif; ?>
                             <?php endif; ?>
                             <?php if ($downloadUrl): ?>
                                 <li>
-                                    <a data-pjax-prevent="1" href="<?= $downloadUrl ?>"><i class="fa fa-download"></i> <?= Yii::t('GalleryModule.base', 'Download') ?></a>
+                                    <a data-pjax-prevent="1" href="<?= $downloadUrl ?>"><i
+                                                class="fa fa-download"></i> <?= Yii::t('GalleryModule.base', 'Download') ?>
+                                    </a>
                                 </li>
                             <?php endif; ?>
                         </ul>
                     </li>
                 </ul>
             <?php endif; ?>
-        </div> 
+        </div>
     </div>
 </div>

@@ -1,6 +1,10 @@
 Changelog
 =========
 
+1.0.11  (August 29, 2018)
+---------------------
+- Fix: Gallery setting menu item visible for non space admins
+
 1.0.10  (July 16, 2018)
 ---------------------
 - Fix: added 'jpeg' to allowed extensions

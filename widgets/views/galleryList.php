@@ -19,12 +19,6 @@ use humhub\modules\gallery\widgets\GalleryListEntryAdd;
 $bundle = Assets::register($this);
 ?>
 
-<script>
-    window.galleryModuleFadeIn = window.galleryModuleFadeIn || function(img) {
-        $(img).fadeIn('slow');
-    }
-</script>
-
 <div id="gallery-list" class="col">
     <div class="row">
         <?= GalleryListEntryAdd::widget(['parentGallery' => $parentGallery]) ?>

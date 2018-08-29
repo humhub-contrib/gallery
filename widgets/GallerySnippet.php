@@ -58,6 +58,7 @@ class GallerySnippet extends Widget
             'images' => $images,
             'settingsUrl' => $this->contentContainer->createUrl('/gallery/setting'),
             'galleryUrl' => $gallery->getUrl(),
+            'isAdmin' => $this->contentContainer instanceof Space ? $this->contentContainer->isAdmin() : $this->contentContainer->isCurrentUser(),
             'canWrite' => $this->contentContainer->permissionManager->can(new WriteAccess())
         ]);
     }

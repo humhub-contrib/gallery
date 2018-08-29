@@ -14,9 +14,13 @@
 
 use \humhub\modules\gallery\assets\Assets;
 use \humhub\modules\gallery\widgets\GalleryList;
+use humhub\modules\space\models\Space;
 use \yii\helpers\Html;
 
 $bundle = Assets::register($this);
+
+$contentContainer = Yii::$app->controller->contentContainer;
+$isAdmin = $contentContainer instanceof Space && $contentContainer->isAdmin();
 ?>
 
 <div id="gallery-container" class="panel panel-default">
@@ -32,7 +36,7 @@ $bundle = Assets::register($this);
                         </a>
                         <ul class="dropdown-menu pull-right">
                             <?php if ($this->context->canWrite(false)): ?>
-                                <?php if(!(Yii::$app->controller->contentContainer instanceof \humhub\modules\user\models\User)): ?>
+                                <?php if($isAdmin): ?>
                                 <li>
                                     <a href="<?= $this->context->contentContainer->createUrl('/gallery/setting'); ?>">
                                         <i class="fa fa-cogs"></i> <?= Yii::t('GalleryModule.base', 'Settings') ?>

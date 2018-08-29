@@ -134,9 +134,9 @@ class Module extends ContentContainerModule
 
     /**
      * Check if the current User has write permission for the gallery module and its content.
-     * 
-     * @param ContentContainer $contentContainer the current content container.
-     * @return boolean
+     *
+     * @param ContentContainerActiveRecord $contentContainer the current content container.
+     * @return bool
      */
     public static function canWrite(ContentContainerActiveRecord $contentContainer)
     {

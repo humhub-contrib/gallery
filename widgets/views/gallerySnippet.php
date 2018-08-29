@@ -3,13 +3,17 @@
 /* @var $snippetId string */
 /* @var $galleryUrl string */
 /* @var $canWrite boolean */
+/* @var $isAdmin boolean */
 /* @var $images \humhub\modules\gallery\models\Media[] */
+
 use humhub\libs\Html;
 
-$extraMenus = ($canWrite) ? '<li><a href="'.$settingsUrl.'"><i class="fa fa-cogs"></i> '. Yii::t('GalleryModule.base', 'Settings') .'</a></li>' : '';
+$extraMenus = ($isAdmin) ? '<li><a href="'.$settingsUrl.'"><i class="fa fa-cogs"></i> '. Yii::t('GalleryModule.base', 'Settings') .'</a></li>' : '';
 $extraMenus .= '<li><a href="'.$galleryUrl.'"><i class="fa fa-arrow-circle-right"></i> '. Yii::t('GalleryModule.base', 'Open Gallery') .'</a></li>';
 
+
 ?>
+
 <div class="panel panel-default" id="space-gallery-snippet">
     <div class="panel-heading">
         <i class="fa fa-picture-o"></i> <strong><?= Yii::t('GalleryModule.base', 'Gallery') ?></strong>
@@ -34,6 +38,7 @@ $extraMenus .= '<li><a href="'.$galleryUrl.'"><i class="fa fa-arrow-circle-right
             <?php endforeach; ?>
         </div>
     </div>
+
 </div>
 
 
