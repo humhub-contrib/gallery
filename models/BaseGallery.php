@@ -4,6 +4,7 @@ namespace humhub\modules\gallery\models;
 
 use \humhub\modules\content\components\ContentActiveRecord;
 use \humhub\modules\file\models\File;
+use humhub\modules\gallery\permissions\WriteAccess;
 use \humhub\modules\user\models\User;
 use humhub\modules\gallery\Module;
 use \Yii;
@@ -27,7 +28,9 @@ class BaseGallery extends ContentActiveRecord
 {
 
     public $streamChannel = null;
-    
+
+    public $managePermission = WriteAccess::class;
+
     /**
      * @inheritdoc
      */

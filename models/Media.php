@@ -6,6 +6,7 @@ use \humhub\modules\content\components\ContentActiveRecord;
 use humhub\modules\file\handler\DownloadFileHandler;
 use \humhub\modules\file\models\File;
 use \humhub\modules\gallery\libs\FileUtils;
+use humhub\modules\gallery\permissions\WriteAccess;
 use \humhub\modules\user\models\User;
 use \Yii;
 use \yii\helpers\Url;
@@ -37,6 +38,11 @@ class Media extends ContentActiveRecord
      * @inheritdoc
      */
     public $autoAddToWall = true;
+
+    /**
+     * @inheritdoc
+     */
+    public $managePermission = WriteAccess::class;
 
     /**
      * @inheritdoc

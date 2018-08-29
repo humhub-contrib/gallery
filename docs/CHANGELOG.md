@@ -1,5 +1,8 @@
 Changelog
 =========
+1.0.12  (August 29, 2018)
+---------------------
+- Fix: WriteAccess not used as ManagePermission
 
 1.0.11  (August 29, 2018)
 ---------------------
