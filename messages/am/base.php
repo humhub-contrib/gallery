@@ -9,6 +9,7 @@ return [
     '<strong>Gallery</strong> ' => '',
     '<strong>Gallery</strong> settings' => '',
     '<strong>List</strong> of galleries' => '',
+    'Gallery write access' => '',
     'Add Gallery' => '',
     'Adds gallery module to this space.' => '',
     'Adds gallery module to your profile.' => '',
