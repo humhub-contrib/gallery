@@ -140,7 +140,7 @@ class Media extends ContentActiveRecord
     public function getBaseFile()
     {
         $query = $this->hasOne(File::className(), ['object_id' => 'id']);
-        $query->andWhere(['file.object_model' => self::className()]);
+        $query->andWhere(['file.object_model' => self::class]);
         return $query;
     }
 
@@ -184,7 +184,7 @@ class Media extends ContentActiveRecord
 
     public function getParentGallery()
     {
-        return $this->hasOne(CustomGallery::className(), ['id' => 'gallery_id']);
+        return $this->hasOne(CustomGallery::class, ['id' => 'gallery_id']);
     }
 
     public function getEditUrl()
