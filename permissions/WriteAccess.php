@@ -8,6 +8,7 @@
 
 namespace humhub\modules\gallery\permissions;
 
+use Yii;
 use \humhub\libs\BasePermission;
 use \humhub\modules\space\models\Space;
 
@@ -42,12 +43,12 @@ class WriteAccess extends BasePermission
     /**
      * @inheritdoc
      */
-    protected $title = "Gallery write access";
+    protected $title = Yii::t('GalleryModule.base', 'Gallery write access');
 
     /**
      * @inheritdoc
      */
-    protected $description = "Allows the user to add, modify images and galleries.";
+    protected $description = Yii::t('GalleryModule.base', 'Allows the user to add, modify images and galleries.');
 
     /**
      * @inheritdoc
