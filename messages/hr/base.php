@@ -25,6 +25,8 @@ return [
     '<strong>Gallery</strong> ' => '<strong>Galerija</strong> ',
     '<strong>Gallery</strong> settings' => '<strong>Galerija</strong> -postavke',
     '<strong>List</strong> of galleries' => '<strong>Lista</strong> galerija',
+    'Gallery write access' => '',
+    'Allows the user to add, modify images and galleries.' => '',
     'Add Gallery' => 'Dodaj galeriju',
     'Adds gallery module to this space.' => 'Dodaje modul galerije ovom prostoru.',
     'Adds gallery module to your profile.' => 'Dodaje modul galerije vašem profilu.',
