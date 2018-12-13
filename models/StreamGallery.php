@@ -62,8 +62,8 @@ class StreamGallery extends BaseGallery
     private function fileListQuery()
     {
         $query = Post::find()->select('file.id')->contentContainer($this->content->container)->readable();
-        $query->join('LEFT JOIN', 'comment', '(post.id=comment.object_id AND comment.object_model=' . Yii::$app->db->quoteValue(Comment::className()) . ')');
-        $query->join('RIGHT JOIN', 'file', '((post.id=file.object_id AND file.object_model=' . Yii::$app->db->quoteValue(Post::className()) . ') OR (comment.id=file.object_id AND file.object_model=' . Yii::$app->db->quoteValue(Comment::className()) . '))');
+        $query->join('LEFT JOIN', 'comment', '(post.id=comment.object_id AND comment.object_model=' . Yii::$app->db->quoteValue(Comment::class) . ')');
+        $query->join('RIGHT JOIN', 'file', '((post.id=file.object_id AND file.object_model=' . Yii::$app->db->quoteValue(Post::class) . ') OR (comment.id=file.object_id AND file.object_model=' . Yii::$app->db->quoteValue(Comment::class) . '))');
 
         // only get gallery suitable content types
         $query->andWhere(['like', 'file.mime_type', 'image/']);
