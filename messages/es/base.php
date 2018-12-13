@@ -67,4 +67,4 @@ return [
   'Upload' => 'Subir',
   'added by ' => '',
   'of posted media files' => '',
-);
+];
