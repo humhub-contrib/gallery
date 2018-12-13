@@ -26,6 +26,7 @@ return [
     '<strong>Gallery</strong> settings' => '',
     '<strong>List</strong> of galleries' => '',
     'Gallery write access' => '',
+    'Allows the user to add, modify images and galleries.' => '',
     'Add Gallery' => '',
     'Adds gallery module to this space.' => '',
     'Adds gallery module to your profile.' => '',
