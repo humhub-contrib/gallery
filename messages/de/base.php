@@ -33,7 +33,7 @@ return [
   'Back to overview' => 'Zurück zur Übersicht',
   'Choose snippet gallery' => 'Galerie-Schnipsel auswählen',
   'Click here to add new Gallery' => 'Hier klicken, um eine neue Galerie hinzuzufügen',
-  'Click or drop files here' => 'Hier klicken oder Dateien per Drag &amp; Drop platzieren',
+  'Click or drop files here' => 'Hier klicken oder Dateien ablegen',
   'Close' => 'Schließen',
   'Delete' => 'Löschen',
   'Delete Gallery' => 'Galerie löschen',
