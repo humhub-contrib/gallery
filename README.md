@@ -1,23 +1,14 @@
-Module Gallery 
-=================
-Module for managing galleries inside spaces and on profiles.
+# Gallery 
 
-##Description
-If the module is activated for a space or profile you can add multiple galleries and upload images to them.
-There is also one default gallery displaying all media uploaded to the stream of the space.
+Enhance your Spaces and profiles with galleries. Collect and categorize all important images and never lose track of them again.
 
-##Setup Instructions:
-Download from marketplac, install and activate module inside your humhub instance and activate it for a space.
+## Overview
 
-<br />
-<img src="https://www.diva-e.com/images/Logo_Homepage.svg" alt="Drawing" style="width: 100px;"/>
-
-__Author:__       
-Sebastian Stumpf @diva-e / Lukas Bartholemy @HumHub
-  
-__Author description:__       
-In a world where the boundaries between digital and real life are dissolving all the time, diva-e supports enterprises in a holistic manner along the entire digital value-added chain.
-Merging e-commerce, content generation, retail expertise and digital marketing services - diva-e brings all essential e-business disciplines together under one roof.
-    
-__Author website:__      
-[https://www.diva-e.com](https://www.diva-e.com)    
+- Create as many subgalleries as you need
+- Upload images with drag & drop
+- Include descriptions
+- Open galleries directly from the stream or jump from a single picture to the original post
+- Include your favorite images in an animated widget
+- Define who is allowed to manage them (add, delete, modify)
+- Add personal galleries to your own profile
+- And, of course, discuss and show your appreciation
