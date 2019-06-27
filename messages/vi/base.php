@@ -25,6 +25,8 @@ return [
     '<strong>Gallery</strong> ' => '<strong>Bộ sưu tập ảnh</strong>',
     '<strong>Gallery</strong> settings' => 'Cấu hình <strong>Bộ sựu tập</strong>',
     '<strong>List</strong> of galleries' => '<strong>Danh sách</strong> bộ sưu tập',
+    'Gallery write access' => '',
+    'Allows the user to add, modify images and galleries.' => '',
     'Add Gallery' => 'Thêm bộ sưu tập',
     'Adds gallery module to this space.' => 'Thêm module bộ sưu tập ảnh vào phòng làm việc',
     'Adds gallery module to your profile.' => 'Thêm module bộ sưu tập ảnh vào trang cá nhân',

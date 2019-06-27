@@ -26,7 +26,7 @@ class FileUtils
         }
         $searchItem = $file;
         // if the item is connected to a Comment, we have to search for the corresponding Post
-        if ($file->object_model === Comment::className()) {
+        if ($file->object_model === Comment::class) {
             $searchItem = Comment::findOne([
                         'id' => $file->object_id
             ]);
