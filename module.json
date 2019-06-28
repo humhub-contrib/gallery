@@ -7,7 +7,7 @@
     "humhub": {
         "minVersion": "1.2.1"
     },
-    "homepage": "https://github.com/humhub/humhub-modules-gallery",
+    "homepage": "https://github.com/humhub-contrib/gallery",
     "authors": [
         {
             "name": "Sebastian Stumpf"
