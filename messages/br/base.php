@@ -37,7 +37,7 @@ return array (
   'Posted Media Files' => 'Posted Media Files',
   'Posted pictures' => '',
   'Save' => '',
-  'Settings' => '',
+  'Settings' => 'Reolamantoù',
   'Show connected post' => '',
   'Size:' => '',
   'There are no galleries available for this space. In order to configure the gallery snippet, please <a href="{createLink}">create</a> a new gallery' => '',
