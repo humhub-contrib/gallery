@@ -42,7 +42,7 @@ $extraMenus .= '<li><a href="'.$galleryUrl.'"><i class="fa fa-arrow-circle-right
 </div>
 
 
-<script>
+<?= Html::script(<<<JS
     $(document).on('humhub:ready', function() {
 
        $('#gallery-snippet-links a').on('click', function(evt) {
@@ -56,7 +56,9 @@ $extraMenus .= '<li><a href="'.$galleryUrl.'"><i class="fa fa-arrow-circle-right
            });
        });
         var test = $('[data-gallery-test]').first();
-        setTimeout(function() {$('#gallery-snippet-links a').first().trigger('click')}, 200)
+        setTimeout(function() {
+            $('#gallery-snippet-links a').first().trigger('click')
+        }, 200)
     });
-
-</script>
+JS
+); ?>
