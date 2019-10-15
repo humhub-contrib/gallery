@@ -40,15 +40,15 @@ class WriteAccess extends BasePermission
         Space::USERGROUP_GUEST
     ];
 
-    /**
-     * @inheritdoc
-     */
-    protected $title = Yii::t('GalleryModule.base', 'Gallery write access');
+    public function getTitle()
+    {
+        return Yii::t('GalleryModule.base', 'Gallery write access');
+    }
 
-    /**
-     * @inheritdoc
-     */
-    protected $description = Yii::t('GalleryModule.base', 'Allows the user to add, modify images and galleries.');
+    public function getDescription()
+    {
+        return Yii::t('GalleryModule.base', 'Allows the user to add, modify images and galleries.');
+    }
 
     /**
      * @inheritdoc

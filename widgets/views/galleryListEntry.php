@@ -8,14 +8,23 @@
  * @since 1.0
  * @author Sebastian Stumpf
  */
-?>
-
-<?php
 
 use \humhub\modules\comment\widgets\CommentLink;
 use \humhub\modules\gallery\assets\Assets;
 use \humhub\modules\like\widgets\LikeLink;
 use \yii\helpers\Html;
+
+/* @var $fileUrl string */
+/* @var $uiGalleryId string */
+/* @var $imagePadding string */
+/* @var $thumbnailUrl string */
+/* @var $footerOverwrite string */
+/* @var $contentObject \humhub\modules\gallery\models\Media */
+/* @var $alwaysShowHeading boolean */
+/* @var $showTooltip boolean */
+/* @var $creatorUrl string */
+/* @var $creatorThumbnailUrl string */
+/* @var $creatorName string */
 
 $bundle = Assets::register($this);
 ?>
@@ -33,8 +42,8 @@ $bundle = Assets::register($this);
                     title="<?= Html::encode($title) ?>"
                     data-ui-gallery="<?= $uiGalleryId ?>"
                 <?php endif; ?>>
-                <img class="<?= $imagePadding ? 'padding15perc' : '' ?>" src="<?= $thumbnailUrl ?>"
-                     alt="<?= Html::encode($title) ?>" style="display:none" onload="$(this).fadeIn('slow')"/>
+                <img class="gallery-img <?= $imagePadding ? 'padding15perc' : '' ?>" src="<?= $thumbnailUrl ?>"
+                     alt="<?= Html::encode($title) ?>" style="display:none"/>
                 <span class="overlay"><i class="glyphicon glyphicon-fullscreen"></i></span>
             </a>
         </div>
@@ -59,7 +68,7 @@ $bundle = Assets::register($this);
                              src="<?= $creatorThumbnailUrl ?>"
                              width="21" height="21" alt="21x21" data-src="holder.js/21x21"
                              style="width: 21px; height: 21px;"
-                             data-original-title="<?php echo Yii::t('GalleryModule.base', 'added by ') . $creatorName ?>"
+                             data-original-title="<?= Yii::t('GalleryModule.base', 'added by ') . $creatorName ?>"
                              data-placement="top" title="" data-toggle="tooltip">
                     </a>
                 </div>

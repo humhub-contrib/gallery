@@ -12,6 +12,18 @@ humhub.module('gallery', function (module, require, $) {
                $.pjax.reload({container: '#layout-content', timeout : 5000});
            });
         }
+
+        var $root = $('#gallery-container');
+
+        if($root.length) {
+            $root.find('.gallery-img').one("load", function() {
+                $(this).fadeIn();
+            }).each(function() {
+                if(this.complete) {
+                    $(this).trigger('load');
+                }
+            });
+        }
     };
 
     module.export({
