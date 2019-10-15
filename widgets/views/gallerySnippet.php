@@ -55,7 +55,6 @@ $extraMenus .= '<li><a href="'.$galleryUrl.'"><i class="fa fa-arrow-circle-right
                stretchImages: true
            });
        });
-        var test = $('[data-gallery-test]').first();
         setTimeout(function() {
             $('#gallery-snippet-links a').first().trigger('click')
         }, 200)
