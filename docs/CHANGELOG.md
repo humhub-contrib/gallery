@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.0.14
+1.0.14 - Octrober, 16, 2019
 ---------------------
 - Enh: 1.4 nonce compatibility
 - Fix: WriteAccess Permission invalid constant usage
