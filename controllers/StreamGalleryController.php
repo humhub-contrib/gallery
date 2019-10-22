@@ -34,7 +34,7 @@ class StreamGalleryController extends ListController
      * Action to render the custom gallery view specified by openGalleryId.
      * @url-param 'openGalleryId' id of the open gallery.
      *
-     * @return The rendered view.
+     * @return string The rendered view.
      */
     public function actionView()
     {
@@ -49,6 +49,7 @@ class StreamGalleryController extends ListController
      *            render as ajax. default: false
      * @param string $openGalleryId
      *            the stream gallery to render.
+     * @return string
      */
     protected function renderGallery($ajax = false, $openGalleryId = null)
     {

@@ -46,7 +46,8 @@ class StreamGallery extends BaseGallery
                 ->orderBy(['content.updated_at' => SORT_DESC])
                 ->asArray()
                 ->one();
-        $file = File::findOne($fileArray['id']);
+
+        $file = !empty($fileArray) ? File::findOne($fileArray['id']) : null;
         if ($file !== null && !empty(SquarePreviewImage::getSquarePreviewImageUrlFromFile($file))) {
             return SquarePreviewImage::getSquarePreviewImageUrlFromFile($file);
         }
@@ -92,7 +93,7 @@ class StreamGallery extends BaseGallery
     public function isEmpty()
     {
         // TODO: This also seems very slow. Would be much nicer to already filter in the query and use getFileListQuery->one().
-        return sizeof($this->getFileList()) == 0;
+        return empty($this->getFileList());
     }
 
     public function getCreator()
