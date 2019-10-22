@@ -58,9 +58,8 @@ class BaseGallery extends ContentActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
-            'title' => 'Title',
-            'description' => 'Description'
+            'title' => Yii::t('GalleryModule.base', 'Title'),
+            'description' => Yii::t('GalleryModule.base', 'Description')
         ];
     }
 
