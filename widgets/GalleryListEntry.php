@@ -8,6 +8,7 @@
 
 namespace humhub\modules\gallery\widgets;
 
+use humhub\modules\content\widgets\richtext\RichText;
 use humhub\modules\file\models\File;
 use humhub\modules\gallery\libs\FileUtils;
 use humhub\modules\gallery\models\BaseGallery;
@@ -80,7 +81,7 @@ class GalleryListEntry extends Widget
 
         return [
             'creator' => '', // not in use
-            'title' => $contentObject->message,
+            'title' => RichText::preview($contentObject->message, 40),
             'wallUrl' => $content->getUrl(),
             'deleteUrl' => '',
             'editUrl' => '',

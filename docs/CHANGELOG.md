@@ -1,7 +1,11 @@
 Changelog
 =========
 
-1.0.14 - Octrober, 16, 2019
+1.0.15 - October, 22, 2019
+---------------------
+- Fix: Stream gallery uses full post message as image description
+
+1.0.14 - October, 16, 2019
 ---------------------
 - Enh: 1.4 nonce compatibility
 - Fix: WriteAccess Permission invalid constant usage
