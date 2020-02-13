@@ -7,6 +7,7 @@ use humhub\modules\file\handler\DownloadFileHandler;
 use \humhub\modules\file\models\File;
 use \humhub\modules\gallery\libs\FileUtils;
 use humhub\modules\gallery\permissions\WriteAccess;
+use humhub\modules\search\interfaces\Searchable;
 use \humhub\modules\user\models\User;
 use \Yii;
 use \yii\helpers\Url;
@@ -26,7 +27,7 @@ use yii\web\UploadedFile;
  * @since 1.0
  * @author Sebastian Stumpf
  */
-class Media extends ContentActiveRecord
+class Media extends ContentActiveRecord implements Searchable
 {
 
     /**
@@ -156,7 +157,7 @@ class Media extends ContentActiveRecord
         try {
             $previewImage = SquarePreviewImage::getSquarePreviewImageUrlFromFile($this->baseFile);
         } catch (\Exception $e) {
-            
+
         }
         return empty($previewImage) ? $this->getFallbackPreviewImageUrl() : $previewImage;
     }
@@ -228,6 +229,9 @@ class Media extends ContentActiveRecord
         return $mediaUpload;
     }
 
+    /**
+     * @inheritdoc
+     */
     public function afterDelete()
     {
         if ($this->baseFile !== NULL) {
@@ -236,4 +240,14 @@ class Media extends ContentActiveRecord
         parent::afterDelete();
     }
 
+    /**
+     * @inheritdoc
+     */
+    public function getSearchAttributes()
+    {
+        return [
+            'title' => $this->title,
+            'description' => $this->description,
+        ];
+    }
 }

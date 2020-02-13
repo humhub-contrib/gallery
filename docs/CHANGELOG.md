@@ -1,15 +1,23 @@
 Changelog
 =========
 
+1.0.16 - February 13, 2020
+---------------------
+- Enh: Make sure gallery media is searchable
+- Fix #25: Gallery do not support 'jpeg' format (@Buliwyfa)
+
+
 1.0.15 - October, 22, 2019
 ---------------------
 - Fix: Stream gallery uses full post message as image description
 - Fix #20: Missing translation in gallery edit form
 
+
 1.0.14 - October, 16, 2019
 ---------------------
 - Enh: 1.4 nonce compatibility
 - Fix: WriteAccess Permission invalid constant usage
+
 
 1.0.13 - June 15, 2019
 ---------------------
