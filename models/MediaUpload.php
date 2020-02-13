@@ -27,3 +27,4 @@ class MediaUpload extends \humhub\modules\file\models\FileUpload
     }
 
 }
+    
