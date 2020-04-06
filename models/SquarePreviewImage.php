@@ -52,7 +52,7 @@ class SquarePreviewImage extends PreviewImage
 
             // Create squared version
             $image->thumbnail(new Box($newWidth, $newWidth), ManipulatorInterface::THUMBNAIL_OUTBOUND)
-                ->save($this->file->store->get($fileName));
+                ->save($this->file->store->get($fileName), ['format' => 'png']);
         }
 
         if (property_exists($this, 'image')) {
