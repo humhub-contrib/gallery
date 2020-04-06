@@ -9,7 +9,10 @@
 namespace humhub\modules\gallery\models;
 
 use \humhub\modules\file\converter\PreviewImage;
+use Imagine\Image\Box;
+use Imagine\Image\ManipulatorInterface;
 use \Yii;
+use yii\imagine\Image;
 
 /**
  * SquareImageConverter
@@ -22,20 +25,45 @@ class SquarePreviewImage extends PreviewImage
 
     const DEFAULT_GALLERY_PREVIEW_IMAGE_MAX_DIM = 400;
 
-    public function applyFile(\humhub\modules\file\models\File $file)
+
+    /**
+     * @inheritDoc
+     */
+    public function init()
     {
-        if (parent::applyFile($file)) {
-            $this->options['mode'] = 'force';
-            $galleryPreviewImageMaxDim = Yii::$app->getModule('gallery')->settings->get('galleryPreviewImageMaxDim') ? Yii::$app->getModule('gallery')->settings->get('galleryPreviewImageMaxDim') : SquarePreviewImage::DEFAULT_GALLERY_PREVIEW_IMAGE_MAX_DIM;
-            $imageInfo = @getimagesize($file->store->get());
-            $dim = min($imageInfo[0], $imageInfo[1], $galleryPreviewImageMaxDim);
-            $this->options['width'] = $dim;
-            $this->options['height'] = $dim;
-            return true;
+        // Add value for unique file variant
+        $this->options['squared-version'] = 1;
+        $this->options['maxWidth'] = Yii::$app->getModule('gallery')->settings->get('galleryPreviewImageMaxDim') ?
+            Yii::$app->getModule('gallery')->settings->get('galleryPreviewImageMaxDim') : SquarePreviewImage::DEFAULT_GALLERY_PREVIEW_IMAGE_MAX_DIM;
+
+
+        parent::init();
+    }
+
+
+    /**
+     * @inheritdoc
+     */
+    protected function convert($fileName)
+    {
+        if (!is_file($this->file->store->get($fileName))) {
+            $image = Image::getImagine()->open($this->file->store->get());
+            $newWidth = min([$image->getSize()->getHeight(), $image->getSize()->getWidth(), $this->options['maxWidth']]);
+
+            // Create squared version
+            $image->thumbnail(new Box($newWidth, $newWidth), ManipulatorInterface::THUMBNAIL_OUTBOUND)
+                ->save($this->file->store->get($fileName));
+        }
+
+        if (property_exists($this, 'image')) {
+            // 1.5+
+            $this->image = Image::getImagine()->open($this->file->store->get($fileName));
         } else {
-            return false;
+            // older versions
+            $this->imageInfo = @getimagesize($this->file->store->get($fileName));
         }
     }
+
 
     /**
      * Crop an image file to a square thumbnail.
@@ -53,5 +81,5 @@ class SquarePreviewImage extends PreviewImage
             return "";
         }
     }
-    
+
 }
