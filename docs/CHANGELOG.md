@@ -6,6 +6,7 @@ Changelog
 - Chg: Added 1.5 defer compatibility
 - Enh: Enhanced exception handling in event handlers
 - Fix: Gallery permissions displayed on container without gallery module installed (https://github.com/humhub/humhub/issues/3828)
+- Chg: Update HumHub min version to 1.3
 
 1.0.16 - February 13, 2020
 ---------------------
