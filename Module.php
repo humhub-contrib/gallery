@@ -39,7 +39,7 @@ class Module extends ContentContainerModule
      */
     public function getPermissions($contentContainer = null)
     {
-        if ($contentContainer instanceof Space || $contentContainer instanceof Profile) {
+        if ($contentContainer && $contentContainer->moduleManager->isEnabled($this->id)) {
             return [
                 new WriteAccess()
             ];

@@ -23,33 +23,45 @@ class Events
 
     public static function onSpaceMenuInit($event)
     {
-        if ($event->sender->space !== null && $event->sender->space->isModuleEnabled('gallery')) {
-            $event->sender->addItem([
-                'label' => Yii::t('GalleryModule.base', 'Gallery'),
-                'group' => 'modules',
-                'url' => $event->sender->space->createUrl('/gallery/list'),
-                'icon' => '<i class="fa fa-picture-o"></i>',
-                'isActive' => (Yii::$app->controller->module && Yii::$app->controller->module->id == 'gallery')
-            ]);
+        try {
+            if ($event->sender->space !== null && $event->sender->space->isModuleEnabled('gallery')) {
+                $event->sender->addItem([
+                    'label' => Yii::t('GalleryModule.base', 'Gallery'),
+                    'group' => 'modules',
+                    'url' => $event->sender->space->createUrl('/gallery/list'),
+                    'icon' => '<i class="fa fa-picture-o"></i>',
+                    'isActive' => (Yii::$app->controller->module && Yii::$app->controller->module->id == 'gallery')
+                ]);
+            }
+        } catch (\Throwable $e) {
+            Yii::error($e);
         }
     }
 
     public static function onProfileMenuInit($event)
     {
-        if ($event->sender->user !== null && $event->sender->user->isModuleEnabled('gallery')) {
-            $event->sender->addItem([
-                'label' => Yii::t('GalleryModule.base', 'Gallery'),
-                'url' => $event->sender->user->createUrl('/gallery/list'),
-                'icon' => '<i class="fa fa-picture-o"></i>',
-                'isActive' => (Yii::$app->controller->module && Yii::$app->controller->module->id == 'gallery')
-            ]);
+        try {
+            if ($event->sender->user !== null && $event->sender->user->isModuleEnabled('gallery')) {
+                $event->sender->addItem([
+                    'label' => Yii::t('GalleryModule.base', 'Gallery'),
+                    'url' => $event->sender->user->createUrl('/gallery/list'),
+                    'icon' => '<i class="fa fa-picture-o"></i>',
+                    'isActive' => (Yii::$app->controller->module && Yii::$app->controller->module->id == 'gallery')
+                ]);
+            }
+        } catch (\Throwable $e) {
+            Yii::error($e);
         }
     }
 
     public static function onSpaceSidebarInit($event)
     {
-        if ($event->sender->space !== null && $event->sender->space->isModuleEnabled('gallery')) {
-            $event->sender->addWidget(GallerySnippet::class, ['contentContainer' => $event->sender->space], ['sortOrder' => 0]);
+        try {
+            if ($event->sender->space !== null && $event->sender->space->isModuleEnabled('gallery')) {
+                $event->sender->addWidget(GallerySnippet::class, ['contentContainer' => $event->sender->space], ['sortOrder' => 0]);
+            }
+        } catch (\Throwable $e) {
+            Yii::error($e);
         }
     }
 }

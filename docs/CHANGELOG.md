@@ -1,6 +1,12 @@
 Changelog
 =========
 
+1.0.17 (April, 06, 2020)
+--------------------
+- Chg: Added 1.5 defer compatibility
+- Enh: Enhanced exception handling in event handlers
+- Fix: Gallery permissions displayed on container without gallery module installed (https://github.com/humhub/humhub/issues/3828)
+
 1.0.16 - February 13, 2020
 ---------------------
 - Enh: Make sure gallery media is searchable
