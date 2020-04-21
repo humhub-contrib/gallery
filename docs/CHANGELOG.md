@@ -1,12 +1,18 @@
 Changelog
 =========
 
-1.0.17 (April, 06, 2020)
+1.0.18 (April 21, 2020)
+-----------------------
+- Fix: Added 1.5 PreviewImage compatibility
+
+
+1.0.17 (April 06, 2020)
 --------------------
 - Chg: Added 1.5 defer compatibility
 - Enh: Enhanced exception handling in event handlers
 - Fix: Gallery permissions displayed on container without gallery module installed (https://github.com/humhub/humhub/issues/3828)
 - Chg: Update HumHub min version to 1.3
+
 
 1.0.16 - February 13, 2020
 ---------------------

@@ -55,11 +55,7 @@ class SquarePreviewImage extends PreviewImage
                 ->save($this->file->store->get($fileName), ['format' => 'png']);
         }
 
-        if (property_exists($this, 'image')) {
-            // 1.5+
-            $this->image = Image::getImagine()->open($this->file->store->get($fileName));
-        } else {
-            // older versions
+        if (version_compare(Yii::$app->version, '1.5', '<')) {
             $this->imageInfo = @getimagesize($this->file->store->get($fileName));
         }
     }
