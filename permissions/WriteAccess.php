@@ -8,6 +8,7 @@
 
 namespace humhub\modules\gallery\permissions;
 
+use humhub\modules\user\models\User;
 use Yii;
 use \humhub\libs\BasePermission;
 use \humhub\modules\space\models\Space;
@@ -26,6 +27,7 @@ class WriteAccess extends BasePermission
      * @inheritdoc
      */
     public $defaultAllowedGroups = [
+        User::USERGROUP_SELF,
         Space::USERGROUP_OWNER,
         Space::USERGROUP_ADMIN,
         Space::USERGROUP_MODERATOR,
@@ -36,6 +38,8 @@ class WriteAccess extends BasePermission
      * @inheritdoc
      */
     protected $fixedGroups = [
+        User::USERGROUP_SELF,
+        User::USERGROUP_GUEST,
         Space::USERGROUP_USER,
         Space::USERGROUP_GUEST
     ];
