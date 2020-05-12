@@ -16,8 +16,6 @@ class GalleryCest
     private function enableSpaceModule(AcceptanceTester $I)
     {
         $I->amAdmin();
-        $I->wantToTest('the creation of a task list');
-        $I->amGoingTo('install the calendar module for space 1');
         $I->enableModule(1, 'gallery');
         $I->wait(5);
         $I->jsClick('[data-menu-id="account-logout"]');
@@ -28,9 +26,8 @@ class GalleryCest
 
     private function seeGalleryInCotnainerNav(AcceptanceTester $I)
     {
-        $I->expectTo('see task entry in the nav');
+        $I->expectTo('see gallery entry in the nav');
         $I->waitForText('Gallery', null, '.layout-nav-container');
-        $I->amGoingTo('create a new task list');
     }
 
     private function accessGallery(AcceptanceTester $I)
@@ -66,6 +63,8 @@ class GalleryCest
         $I->attachFile('#gallery-media-upload', $file);
         if(!$shouldFail) {
             $I->waitForElementVisible(Locator::elementAt('.gallery-list-entry', 2));
+        } else {
+            $I->seeError();
         }
     }
 
@@ -102,7 +101,7 @@ class GalleryCest
 
     private function clickGalleryItemDropDown(AcceptanceTester $I, $item)
     {
-       // $I->waitForElementVisible('.gallery-list-entry .dropdown-toggle');
+        $I->wait(2);
         $I->click('.gallery-list-entry .dropdown-toggle');
         $I->wait(1);
         $I->click($item, '.gallery-list-entry .dropdown');
