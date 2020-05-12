@@ -40,6 +40,7 @@ class WriteAccess extends BasePermission
     protected $fixedGroups = [
         User::USERGROUP_SELF,
         User::USERGROUP_GUEST,
+        User::USERGROUP_USER,
         Space::USERGROUP_USER,
         Space::USERGROUP_GUEST
     ];
