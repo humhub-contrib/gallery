@@ -142,8 +142,7 @@ class GalleryCest
         $this->createGallery($I);
         $this->uploadMedia($I);
         $this->clickGalleryItemDropDown($I,'Show connected post');
-        //$I->wait(5);
-        $I->waitForElementVisible('.wall-entry');
+        $I->wait(2);
         $I->waitForText('logo.jpg', null, '#wallStream');
     }
 

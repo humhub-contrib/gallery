@@ -117,9 +117,6 @@ abstract class BaseController extends ContentContainerController
         ]);
     }
 
-
-
-
     protected function isLastPage($page = 0)
     {
         if(!$this->dataProvider || !$this->dataProvider->getPagination()) {
