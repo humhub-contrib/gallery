@@ -63,8 +63,6 @@ class GalleryCest
         $I->attachFile('#gallery-media-upload', $file);
         if(!$shouldFail) {
             $I->waitForElementVisible(Locator::elementAt('.gallery-list-entry', 2));
-        } else {
-            $I->seeError();
         }
     }
 
