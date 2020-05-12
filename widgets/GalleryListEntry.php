@@ -8,8 +8,10 @@
 
 namespace humhub\modules\gallery\widgets;
 
+use humhub\libs\Html;
 use humhub\modules\content\widgets\richtext\RichText;
 use humhub\modules\file\models\File;
+use humhub\modules\gallery\helpers\Url;
 use humhub\modules\gallery\libs\FileUtils;
 use humhub\modules\gallery\models\BaseGallery;
 use humhub\modules\gallery\models\Media;
@@ -35,7 +37,7 @@ class GalleryListEntry extends Widget
         if ($this->entryObject instanceof Media) {
             $metaData = $this->getMediaMetaData($this->entryObject);
             $metaData['showTooltip'] = true;
-        } elseif (is_array ($this->entryObject)) { // Stream gallery entries are returned as arrays and not as objects
+        } elseif ($this->entryObject instanceof File || is_array($this->entryObject)) { // Stream gallery entries are returned as arrays and not as objects
             $metaData = $this->getFileMetaData($this->entryObject);
             $metaData['showTooltip'] = false;
         } elseif ($this->entryObject instanceof BaseGallery) {
@@ -60,8 +62,8 @@ class GalleryListEntry extends Widget
             'creator' => '', // not in use
             'title' => $media->description,
             'wallUrl' => $media->getWallUrl(),
-            'deleteUrl' => $contentContainer->createUrl('/gallery/custom-gallery/delete-multiple', ['openGalleryId' => $this->parentGallery->id, 'itemId' => $media->getItemId()]),
-            'editUrl' => $contentContainer->createUrl('/gallery/media/edit', ['openGalleryId' => $this->parentGallery->id, 'itemId' => $media->getItemId()]),
+            'deleteUrl' => Url::toDeleteMedia($contentContainer, $media->id),
+            'editUrl' => Url::toEditMedia($contentContainer, $media),
             'downloadUrl' =>$media->getFileUrl(true),
             'fileUrl' => $media->getFileUrl(),
             'thumbnailUrl' => $media->getSquarePreviewImageUrl(),
@@ -73,15 +75,15 @@ class GalleryListEntry extends Widget
         ];
     }
 
-    private function getFileMetaData($fileIdArray)
+    private function getFileMetaData($model)
     {
-        $file = File::findOne($fileIdArray['id']);
+        $file = $model instanceof File ? $model : File::findOne($model['id']);
         $contentObject = FileUtils::getBaseObject($file);
         $content = $contentObject->content;
 
         return [
             'creator' => '', // not in use
-            'title' => RichText::preview($contentObject->message, 40),
+            'title' => $file->file_name,
             'wallUrl' => $content->getUrl(),
             'deleteUrl' => '',
             'editUrl' => '',

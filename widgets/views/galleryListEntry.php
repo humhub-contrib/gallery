@@ -12,6 +12,8 @@
 use \humhub\modules\comment\widgets\CommentLink;
 use \humhub\modules\gallery\assets\Assets;
 use \humhub\modules\like\widgets\LikeLink;
+use humhub\widgets\Link;
+use humhub\widgets\ModalButton;
 use \yii\helpers\Html;
 
 /* @var $fileUrl string */
@@ -81,34 +83,29 @@ $bundle = Assets::register($this);
                         <ul class="dropdown-menu pull-right">
                             <?php if ($wallUrl): ?>
                                 <li>
-                                    <a href="<?= $wallUrl ?>"><i
-                                                class="fa fa-link"></i> <?= Yii::t('GalleryModule.base', 'Show connected post') ?>
-                                    </a>
+                                    <?= Link::to(Yii::t('GalleryModule.base', 'Show connected post'), $wallUrl)
+                                        ->icon('link') ?>
                                 </li>
                             <?php endif; ?>
                             <?php if ($writeAccess): ?>
                                 <?php if ($deleteUrl): ?>
                                     <li>
-                                        <a data-action-click="ui.modal.post" data-action-url="<?= $deleteUrl ?>"
-                                           data-action-confirm-header="<?= Yii::t('GalleryModule.base', '<strong>Confirm</strong> delete item') ?>"
-                                           data-action-confirm="<?= Yii::t('GalleryModule.base', 'Do you really want to delete this item with all related content?') ?>">
-                                            <i class="fa fa-trash"></i> <?= Yii::t('GalleryModule.base', 'Delete') ?>
-                                        </a>
+                                        <?= ModalButton::asLink(Yii::t('GalleryModule.base', 'Delete'))
+                                            ->post($deleteUrl)->confirm(
+                                                Yii::t('GalleryModule.base', '<strong>Confirm</strong> delete item'),
+                                                Yii::t('GalleryModule.base', 'Do you really want to delete this item with all related content?')
+                                            )->icon('trash')?>
                                     </li>
                                 <?php endif; ?>
                                 <?php if ($editUrl): ?>
                                     <li>
-                                        <a data-target="#globalModal" href="<?= $editUrl ?>"><i
-                                                    class="fa fa-edit"></i> <?= Yii::t('GalleryModule.base', 'Edit') ?>
-                                        </a>
+                                        <?= ModalButton::asLink(Yii::t('GalleryModule.base', 'Edit'))->load($editUrl)->icon('edit') ?>
                                     </li>
                                 <?php endif; ?>
                             <?php endif; ?>
                             <?php if ($downloadUrl): ?>
                                 <li>
-                                    <a data-pjax-prevent="1" href="<?= $downloadUrl ?>"><i
-                                                class="fa fa-download"></i> <?= Yii::t('GalleryModule.base', 'Download') ?>
-                                    </a>
+                                    <?= Link::to(Yii::t('GalleryModule.base', 'Download'),  $downloadUrl)->pjax(false)->icon('download') ?>
                                 </li>
                             <?php endif; ?>
                         </ul>

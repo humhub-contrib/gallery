@@ -8,6 +8,9 @@
 
 namespace humhub\modules\gallery\assets;
 
+use humhub\modules\gallery\models\Media;
+use humhub\modules\ui\view\components\View;
+use Yii;
 use yii\web\AssetBundle;
 
 /**
@@ -49,4 +52,20 @@ class Assets extends AssetBundle
      * @inheritdoc
      */
     public $sourcePath = '@gallery/resources';
+
+    /**
+     * @param View $view
+     * @return AssetBundle
+     */
+    public static function register($view)
+    {
+        $view->registerJsConfig('gallery', [
+            'fallbackImageUrl' => Media::getFallbackPreviewImageUrl(),
+            'text' => [
+                'error.loadImageError' => Yii::t('GalleryModule.base', 'Image could not be loaded')
+            ]
+        ]);
+
+        return parent::register($view);
+    }
 }

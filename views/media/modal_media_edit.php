@@ -9,9 +9,16 @@
  * @author Sebastian Stumpf
  */
 
+use humhub\modules\content\components\ContentContainerActiveRecord;
+use humhub\modules\gallery\helpers\Url;
+use humhub\modules\gallery\models\Media;
+use humhub\widgets\ModalButton;
 use humhub\widgets\ModalDialog;
 use yii\bootstrap\ActiveForm;
 
+/* @var boolean $fromWall */
+/* @var Media $media */
+/* @var ContentContainerActiveRecord $contentContainer */
 ?>
 
 <?php
@@ -20,20 +27,17 @@ ModalDialog::begin([
     'animation' => 'fadeIn',
     'size' => 'small']);
 ?>
-<?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin(); ?>
 
-<div class="modal-body">
-    <?= $form->field($media, 'description')->textArea(); ?>
-</div>
+        <div class="modal-body">
+            <?= $form->field($media, 'description')->textArea(); ?>
+        </div>
 
-<div class="modal-footer">
-    <button href="#" class="btn btn-primary" data-action-click="ui.modal.submit" data-ui-loader type="submit"
-            data-action-url="<?= $contentContainer->createUrl('/gallery/media/edit', ['itemId' => $media->getItemId(), 'openGalleryId' => $openGalleryId, 'fromWall' => $fromWall]) ?>">
-                <?= \Yii::t('GalleryModule.base', 'Save'); ?>
-    </button>
-    <button type="button" class="btn btn-primary" data-dismiss="modal">
-        <?= \Yii::t('GalleryModule.base', 'Close'); ?>
-    </button>
-</div>
-<?php ActiveForm::end(); ?>
+        <div class="modal-footer">
+            <?= ModalButton::submitModal(Url::toEditMedia($contentContainer, $media, $fromWall)) ?>
+            <?= ModalButton::cancel() ?>
+        </div>
+
+    <?php ActiveForm::end(); ?>
+
 <?php ModalDialog::end(); ?>

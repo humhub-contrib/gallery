@@ -9,77 +9,67 @@
 namespace humhub\modules\gallery\controllers;
 
 use \humhub\modules\gallery\models\StreamGallery;
+use humhub\modules\stream\actions\Stream;
 use \Yii;
 use \yii\web\HttpException;
+use yii\web\NotFoundHttpException;
+use yii\web\Response;
 
 /**
- * Description of a Stream Gallery Controller for the gallery module.
+ * Posted Media Files gallery (Images from stream)
  *
  * @package humhub.modules.gallery.controllers
  * @since 1.0
  * @author Sebastian Stumpf
  */
-class StreamGalleryController extends ListController
+class StreamGalleryController extends BaseController
 {
     /**
-     *
-     * @return redirect to /view.
+     * @var StreamGallery
      */
-    public function actionIndex()
+    public $streamGallery;
+
+    /**
+     * @inheritDoc
+     */
+    public function beforeAction($action)
     {
-        return $this->redirect('/gallery/stream-gallery/view');
+        if (!parent::beforeAction($action)) {
+            return false;
+        }
+
+        $this->streamGallery = StreamGallery::findForContainer($this->contentContainer);
+        if(!$this->streamGallery) {
+            throw new NotFoundHttpException();
+        }
+
+        return true;
     }
 
     /**
-     * Action to render the custom gallery view specified by openGalleryId.
-     * @url-param 'openGalleryId' id of the open gallery.
-     *
-     * @return string The rendered view.
+     * @inheritDoc
      */
-    public function actionView()
+    protected function getPaginationQuery()
     {
-        return $this->renderGallery();
+        return $this->streamGallery->fileListQuery();
     }
 
     /**
-     * Render a specified stream gallery or the gallery list.
-     * @url-param 'openGalleryId' id of the open gallery. The gallery list is rendered if no gallery with this id is found.
-     *
-     * @param string $ajax
-     *            render as ajax. default: false
-     * @param string $openGalleryId
-     *            the stream gallery to render.
+     * @param $items
      * @return string
      */
-    protected function renderGallery($ajax = false, $openGalleryId = null)
+    protected function renderGallery($items)
     {
-        $gallery = $this->getOpenGallery($openGalleryId);
-        if ($gallery != null) {
-            return $ajax ? $this->renderAjax("/stream-gallery/gallery_view", [
-                        'gallery' => $gallery
-                    ]) : $this->render("/stream-gallery/gallery_view", [
-                        'gallery' => $gallery
-            ]);
-        } else {
-            return parent::renderGallery($ajax);
-        }
+        return $this->render("gallery_view", [
+            'files' => $items,
+            'gallery' => $this->streamGallery,
+            'container' => $this->contentContainer,
+            'showMore' => !$this->isLastPage()
+        ]);
     }
 
-    protected function getOpenGallery($openGalleryId = null)
+    protected function getGallery()
     {
-        $id = ($openGalleryId == null) ? Yii::$app->request->get('openGalleryId') : $openGalleryId;
-        return StreamGallery::findOne(['id' => $id]);
-    }
-
-    /**
-     * 
-     * @overwrite
-     */
-    public function canWrite($throw = true)
-    {
-        if ($throw) {
-            throw new HttpException(401, Yii::t('GalleryModule.base', 'Insufficient rights to execute this action.'));
-        }
-        return false;
+        return $this->streamGallery;
     }
 }

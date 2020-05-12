@@ -1,6 +1,18 @@
 Changelog
 =========
 
+1.1.0 (May 12, 2020)
+-----------------------
+- Fix #51: SELECT would examine more thant MAX_JOIN_SIZE triggered in stream gallery
+- Enh: Include images of other content types with file flag  `show_in_stream` in posted files gallery
+- Chg: Do not include images of comments in posted files gallery
+- Enh: Improved behavior for images which could not be loaded
+- Chg: Major refactoring
+- Enh: Added travis tests
+- Chg: Added Grunt based asset build
+- Enh: Added gallery load more pagination
+- Chg: Raised HumHub min version to 1.1.0
+
 1.0.18 (April 21, 2020)
 -----------------------
 - Fix: Added 1.5 PreviewImage compatibility

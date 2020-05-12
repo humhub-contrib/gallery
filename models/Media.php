@@ -5,12 +5,11 @@ namespace humhub\modules\gallery\models;
 use \humhub\modules\content\components\ContentActiveRecord;
 use humhub\modules\file\handler\DownloadFileHandler;
 use \humhub\modules\file\models\File;
-use \humhub\modules\gallery\libs\FileUtils;
+use humhub\modules\gallery\helpers\Url;
 use humhub\modules\gallery\permissions\WriteAccess;
 use humhub\modules\search\interfaces\Searchable;
 use \humhub\modules\user\models\User;
 use \Yii;
-use \yii\helpers\Url;
 use yii\web\UploadedFile;
 
 /**
@@ -145,10 +144,10 @@ class Media extends ContentActiveRecord implements Searchable
         return $query;
     }
 
-    protected function getFallbackPreviewImageUrl()
+    public static function getFallbackPreviewImageUrl()
     {
         $path = Yii::$app->getModule('gallery')->getAssetsUrl();
-        $path = $path . '/file-picture-o.svg';
+        $path .= '/file-picture-o.svg';
         return $path;
     }
 
@@ -159,7 +158,7 @@ class Media extends ContentActiveRecord implements Searchable
         } catch (\Exception $e) {
 
         }
-        return empty($previewImage) ? $this->getFallbackPreviewImageUrl() : $previewImage;
+        return empty($previewImage) ? static::getFallbackPreviewImageUrl() : $previewImage;
     }
 
     /**
@@ -188,9 +187,9 @@ class Media extends ContentActiveRecord implements Searchable
         return $this->hasOne(CustomGallery::class, ['id' => 'gallery_id']);
     }
 
-    public function getEditUrl()
+    public function getEditUrl($fromWall = false)
     {
-        return $this->content->container->createUrl('/gallery/media/edit', ['id' => $this->getItemId()]);
+        return Url::toEditMedia($this->content->container, $this, $fromWall);
     }
 
     public function getIcon()
@@ -234,7 +233,7 @@ class Media extends ContentActiveRecord implements Searchable
      */
     public function afterDelete()
     {
-        if ($this->baseFile !== NULL) {
+        if ($this->baseFile) {
             $this->baseFile->delete();
         }
         parent::afterDelete();

@@ -22,12 +22,16 @@ class GalleryList extends Widget
 
     public $entryList;
     public $parentGallery;
+    public $entriesOnly = false;
+    public $showMore = true;
 
     public function run()
     {
         return $this->render('galleryList', [
-                    'entryList' => $this->entryList,
-                    'parentGallery' => $this->parentGallery
+            'entryList' => $this->entryList,
+            'entriesOnly' => $this->entriesOnly,
+            'parentGallery' => $this->parentGallery,
+            'showMore' => $this->showMore
         ]);
     }
 }

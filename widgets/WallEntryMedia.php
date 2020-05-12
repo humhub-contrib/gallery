@@ -69,7 +69,7 @@ class WallEntryMedia extends \humhub\modules\content\widgets\WallEntry
             return "";
         }
         if ($this->contentObject instanceof Media) {
-            return $this->contentObject->content->container->createUrl($this->editRoute, ['itemId' => $this->contentObject->getItemId(), 'fromWall' => true]);
+            return $this->contentObject->getEditUrl(true);
         }
         return "";
     }

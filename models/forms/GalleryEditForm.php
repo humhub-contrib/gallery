@@ -102,6 +102,7 @@ class GalleryEditForm extends Model
     /**
      * Saves the gallery data and updates it's visibility settings.
      * @return bool
+     * @throws \Throwable
      */
     public function save()
     {
@@ -109,8 +110,10 @@ class GalleryEditForm extends Model
             return false;
         }
 
-        $this->updateVisibility();
-        return $this->instance->save();
+        return CustomGallery::getDb()->transaction(function() {
+            $this->updateVisibility();
+            return $this->instance->save();
+        });
     }
 
     /**
@@ -119,6 +122,10 @@ class GalleryEditForm extends Model
      */
     protected function updateVisibility()
     {
+        if($this->visibility === null) {
+            return;
+        }
+
         if ($this->instance->content->visibility != $this->visibility) {
             $this->instance->content->visibility = $this->visibility;
 

@@ -1,47 +1,57 @@
 <?php
 
-/**
- * @link https://www.humhub.org/
- * @copyright Copyright (c) 2015 HumHub GmbH & Co. KG
- * @license https://www.humhub.com/licences
- */
-
 namespace humhub\modules\gallery\controllers;
 
+use humhub\modules\gallery\helpers\Url;
 use \humhub\modules\gallery\models\CustomGallery;
 use \humhub\modules\gallery\models\StreamGallery;
-use humhub\widgets\ModalClose;
+use humhub\modules\gallery\permissions\WriteAccess;
 use \Yii;
-use \yii\base\NotSupportedException;
 use yii\web\HttpException;
 
 /**
- * Description of ListController for the gallery module.
+ * Controller responsible for listing all available galleries including stream gallery and custom galleries of a container.
  *
  * @package humhub.modules.gallery.controllers
  * @since 1.0
  * @author Sebastian Stumpf
- *        
+ *
  */
 class ListController extends BaseController
 {
+    protected function renderGallery($items)
+    {
+        return $this->render("gallery_list", [
+            'galleries' => $items,
+            'canWrite' => $this->contentContainer->can(WriteAccess::class),
+            'isAdmin' => $this->isAdmin(),
+            'showMore' => !$this->isLastPage()
+        ]);
+    }
 
     /**
-     * Action to view the gallery list.
-     *
-     * @return string the rendered view.
+     * @inheritDoc
      */
-    public function actionIndex()
+    protected function prepareInitialItems($items)
     {
-        return $this->renderGallery();
+        return array_merge([StreamGallery::findForContainer($this->contentContainer)], $items);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    protected function getPaginationQuery()
+    {
+        return CustomGallery::find()->contentContainer($this->contentContainer)->readable();
     }
 
     /**
      * Action to delete an item.
-     * 
+     *
      * @return string the rendered view.
+     * @throws HttpException
      */
-    public function actionDeleteMultiple($itemId, $openGalleryId = null)
+    public function actionDeleteMultiple($itemId, $gid = null)
     {
         $this->forcePostRequest();
         $this->canWrite(true);
@@ -62,53 +72,14 @@ class ListController extends BaseController
             return $this->htmlRedirect($this->contentContainer->createUrl('/gallery/list'));
         }
 
-        return $this->htmlRedirect($this->contentContainer->createUrl('/gallery/custom-gallery/view', ['openGalleryId' => $openGalleryId]));
+        return $this->htmlRedirect(Url::toCustomGallery($this->contentContainer, $gid));
     }
 
     /**
-     * Renders the the gallery list.
-     *
-     * @param string $ajax
-     *            render as ajax. default: false
-     * @param string $openGalleryId
-     *            the gallery to render, if null the gallery list will be rendered.
+     * @inheritDoc
      */
-    protected function renderGallery($ajax = false, $openGalleryId = null)
+    protected function getGallery()
     {
-        $params = [
-            'stream_galleries' => $this->getStreamGalleries(),
-            'custom_galleries' => $this->getCustomGalleries(),
-            'canWrite' => $this->module->canWrite($this->contentContainer)
-        ];
-        return $ajax ? $this->renderPartial("/list/gallery_list", $params) : $this->render("/list/gallery_list", $params);
-    }
-
-    /**
-     * Get this content container's stream galleries.
-     *
-     * @return null | array&lt;models\StreamGallery&gt;
-     */
-    protected function getStreamGalleries()
-    {
-        $query = StreamGallery::find()->contentContainer($this->contentContainer)->readable();
-        return $query->all();
-    }
-
-    /**
-     * Get this content container's custom galleries.
-     *
-     * @return null | array&lt;models\CustomGallery&gt;
-     */
-    protected function getCustomGalleries()
-    {
-        $query = CustomGallery::find()->contentContainer($this->contentContainer)->readable();
-        return $query->all();
-    }
-
-    protected function getOpenGallery($openGalleryId = null)
-    {
-        // no gallery is open at the list level
         return null;
     }
-
 }

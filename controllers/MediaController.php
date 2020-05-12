@@ -8,10 +8,12 @@
 
 namespace humhub\modules\gallery\controllers;
 
-use \humhub\modules\content\models\Content;
+use humhub\modules\gallery\helpers\Url;
 use \humhub\modules\gallery\models\Media;
 use \Yii;
+use yii\web\ForbiddenHttpException;
 use \yii\web\HttpException;
+use yii\web\NotFoundHttpException;
 
 /**
  * Description of a Media Controller for the gallery module.
@@ -22,42 +24,58 @@ use \yii\web\HttpException;
  */
 class MediaController extends CustomGalleryController
 {
-
-    /**
-     * Action to edit a media object.
-     * @url-param 'itemId' the gallery's id.
-     * @url-param 'openGalleryId' id of the open gallery. Used for redirecting.
-     *
-     * @throws HttpException if insufficient permission.
-     * @return string the redered html.
-     */
-    public function actionEdit($itemId = null, $openGalleryId = null, $fromWall = false, $visibility = Content::VISIBILITY_PRIVATE)
+    public function actionEdit($id = null, $fromWall = false)
     {
-        $this->canWrite(true);
+        $media = Media::find()->contentContainer($this->contentContainer)->where(['gallery_media.id' => $id])->one();
 
-        $media = $this->module->getItemById($itemId);
-
-        if (empty($media) || !($media instanceof Media)) {
+        if (!$media) {
             throw new HttpException(404);
         }
 
-        $data = Yii::$app->request->post('Media');
+        if(!$media->content->canEdit()) {
+            throw new ForbiddenHttpException();
+        }
 
-        if ($data !== null && $media->load(Yii::$app->request->post()) && $media->save()) {
+        if ($media->load(Yii::$app->request->post()) && $media->save()) {
             if ($fromWall) {
                 return $this->asJson(['success' => true]);
-            } else {
-                $this->view->saved();
-                return $this->htmlRedirect($this->contentContainer->createUrl('/gallery/custom-gallery/view', ['openGalleryId' => $openGalleryId]));
             }
+
+            $this->view->saved();
+            return $this->htmlRedirect(Url::toCustomGallery($this->contentContainer, $media->gallery_id));
         }
 
         return $this->renderPartial('modal_media_edit', [
-                    'openGalleryId' => $openGalleryId,
-                    'media' => $media,
-                    'contentContainer' => $this->contentContainer,
-                    'fromWall' => $fromWall
+            'gid' => $media->gallery_id,
+            'media' => $media,
+            'contentContainer' => $this->contentContainer,
+            'fromWall' => $fromWall
         ]);
+    }
+
+    public function actionDelete($id = null, $fromWall = false)
+    {
+        $media = Media::findOne(['id' => $id]);
+
+        if(!$media) {
+            throw new NotFoundHttpException();
+        }
+
+        if(!$media->content->canEdit()) {
+            throw new ForbiddenHttpException();
+        }
+
+        if($media->delete()) {
+            $this->view->success(Yii::t('GalleryModule.base', 'Deleted'));
+        } else {
+            $this->view->error(Yii::t('GalleryModule.base', 'Item could not be deleted!'));
+        }
+
+        return !$fromWall
+            ? $this->htmlRedirect(Url::toCustomGallery($this->contentContainer, $media->gallery_id))
+            : $this->asJson([
+                'success' => false
+            ]);
     }
 
 }

@@ -3,9 +3,18 @@
 namespace humhub\modules\gallery\models;
 
 use \humhub\modules\comment\models\Comment;
+use humhub\modules\content\components\ContentContainerActiveRecord;
+use humhub\modules\content\models\Content;
+use humhub\modules\content\widgets\Stream;
 use \humhub\modules\file\models\File;
+use humhub\modules\gallery\helpers\Url;
 use \humhub\modules\post\models\Post;
+use humhub\modules\stream\actions\ContentContainerStream;
+use humhub\modules\stream\models\StreamQuery;
+use humhub\modules\stream\models\WallStreamQuery;
 use \Yii;
+use yii\data\Pagination;
+use yii\db\ActiveQuery;
 
 /**
  * This is the model class for a stream gallery.
@@ -17,21 +26,36 @@ use \Yii;
  */
 class StreamGallery extends BaseGallery
 {
-
-    /**
-     * @inheritdoc
-     */
-    public $autoAddToWall = false;
-
     /**
      * @inheritdoc
      */
     public $silentContentCreation = true;
 
 
+    /**
+     * @param ContentContainerActiveRecord $container
+     * @param bool $init
+     * @throws \yii\base\Exception
+     * @return static
+     */
+    public static function findForContainer(ContentContainerActiveRecord $container, $init = false)
+    {
+        $result = static::find()->contentContainer($container)->where(['type' => StreamGallery::class])->one();
+
+        if(!$result && $init) {
+            $result = new StreamGallery($container, Content::VISIBILITY_PUBLIC, [
+                'title' => Yii::t('GalleryModule.base', 'Posted pictures'),
+                'description' => Yii::t('GalleryModule.base', 'This gallery contains all posted pictures.')
+            ]);
+            $result->save();
+        }
+
+        return $result;
+    }
+
     public function getUrl()
     {
-        return $this->content->container->createUrl('/gallery/stream-gallery/view', ['openGalleryId' => $this->id]);
+        return Url::toStreamGallery($this->content->container);
     }
 
     public function getPreviewImageUrl()
@@ -42,17 +66,15 @@ class StreamGallery extends BaseGallery
             return $path;
         }
         // get first image from the complete filelist as fallback
-        $fileArray = $this->fileListQuery()
-                ->orderBy(['content.updated_at' => SORT_DESC])
-                ->asArray()
-                ->one();
+        $file = $this->fileListQuery()->one();
 
-        $file = !empty($fileArray) ? File::findOne($fileArray['id']) : null;
-        if ($file !== null && !empty(SquarePreviewImage::getSquarePreviewImageUrlFromFile($file))) {
-            return SquarePreviewImage::getSquarePreviewImageUrlFromFile($file);
+        if(!$file) {
+            return $this->getDefaultPreviewImageUrl();
         }
-        // return default image if gallery is empty
-        return $this->getDefaultPreviewImageUrl();
+
+        $preview = SquarePreviewImage::getSquarePreviewImageUrlFromFile($file);
+
+        return $preview ?: $this->getDefaultPreviewImageUrl();
     }
 
     public function getItemId()
@@ -60,21 +82,40 @@ class StreamGallery extends BaseGallery
         return 'stream-gallery_' . $this->id;
     }
 
-    private function fileListQuery()
+    /**
+     * @return ActiveQuery
+     */
+    public function fileListQuery()
     {
-        $query = Post::find()->select('file.id')->contentContainer($this->content->container)->readable();
-        $query->join('LEFT JOIN', 'comment', '(post.id=comment.object_id AND comment.object_model=' . Yii::$app->db->quoteValue(Comment::class) . ')');
-        $query->join('RIGHT JOIN', 'file', '((post.id=file.object_id AND file.object_model=' . Yii::$app->db->quoteValue(Post::class) . ') OR (comment.id=file.object_id AND file.object_model=' . Yii::$app->db->quoteValue(Comment::class) . '))');
+        $container = $this->content->container;
+        $joinCondition = 'content.contentcontainer_id = :containerId AND content.object_id = file.object_id and content.object_model = file.object_model';
 
-        // only get gallery suitable content types
-        $query->andWhere(['like', 'file.mime_type', 'image/']);
+        $query = File::find()
+            ->innerJoin('content', $joinCondition, ['containerId' => $this->content->container->contentcontainer_id])
+           // ->where('content.visibility = :visibility', [':visibility' => Content::VISIBILITY_PUBLIC])
+            ->andWhere(['like', 'file.mime_type', 'image/'])
+            ->andWhere('content.object_model != :media', ['media' => Media::class])
+            ->andWhere('show_in_stream = 1')
+            ->orderBy(['file.updated_at' => SORT_DESC]);
+
+        if(!$container->canAccessPrivateContent()) {
+            $query->andWhere('content.visibility = :visibility', [':visibility' => Content::VISIBILITY_PUBLIC]);
+        }
+
         return $query;
     }
 
-    public function getFileList()
+    public function getFileList($page = 0)
     {
         $fileQuery = $this->fileListQuery();
-        $files = $fileQuery->limit(50)->orderBy(['content.updated_at' => SORT_DESC])->asArray()->all();
+        $countQuery = clone $fileQuery;
+
+        $pages = new Pagination([
+            'page' => $page,
+            'pageSize' => $this->getPageSize(),
+            'totalCount' => $countQuery->count()]);
+
+        $files = $fileQuery->limit($pages->pageSize)->offset($pages->offset)->orderBy(['file.updated_at' => SORT_DESC])->all();
         return $files;
     }
 
@@ -92,8 +133,7 @@ class StreamGallery extends BaseGallery
 
     public function isEmpty()
     {
-        // TODO: This also seems very slow. Would be much nicer to already filter in the query and use getFileListQuery->one().
-        return empty($this->getFileList());
+        return empty($this->fileListQuery()->count());
     }
 
     public function getCreator()

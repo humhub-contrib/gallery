@@ -2,12 +2,14 @@
 
 namespace humhub\modules\gallery\models;
 
+use humhub\modules\file\models\FileUpload;
+
 /**
  * MediaUpload
  * 
  * @author Sebastian Stumpf
  */
-class MediaUpload extends \humhub\modules\file\models\FileUpload
+class MediaUpload extends FileUpload
 {
 
     /**
@@ -20,10 +22,9 @@ class MediaUpload extends \humhub\modules\file\models\FileUpload
      */
     public function rules()
     {
-        $rules = [
+        return array_merge(parent::rules(),  [
             ['uploadedFile', 'file', 'extensions' => $this->validExtensions],
-        ];
-        return array_merge(parent::rules(), $rules);
+        ]);
     }
 
 }

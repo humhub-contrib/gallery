@@ -3,6 +3,7 @@
 namespace humhub\modules\gallery\widgets;
 
 use humhub\modules\file\handler\FileHandlerCollection;
+use humhub\modules\gallery\helpers\Url;
 
 /**
  * Widget for rendering the menue buttons for the gallery module.
@@ -43,17 +44,10 @@ class GalleryMenu extends \yii\base\Widget
             return;
         }
 
-        $fileHandlerImport = FileHandlerCollection::getByType(FileHandlerCollection::TYPE_IMPORT);
-        $fileHandlerCreate = FileHandlerCollection::getByType(FileHandlerCollection::TYPE_CREATE);
-
-        $deleteUrl = $this->contentContainer->createUrl('/gallery/list/delete-multiple', ['itemId' => $this->gallery->getItemId()]);
-        $editUrl = $this->contentContainer->createUrl('edit', ['openGalleryId' => $this->gallery->id, 'itemId' => $this->gallery->getItemId()]);
-        $uploadUrl = $this->contentContainer->createUrl('upload', ['openGalleryId' => $this->gallery->id]);
-
         return $this->render('galleryMenuDropdown', [
-                    'deleteUrl' => $deleteUrl,
-                    'editUrl' => $editUrl,
-                    'uploadUrl' => $uploadUrl,
+                    'deleteUrl' =>  Url::toDeleteCustomGallery($this->contentContainer, $this->gallery->id),
+                    'editUrl' => Url::toEditCustomGallery($this->contentContainer, $this->gallery->id),
+                    'uploadUrl' => Url::toUploadMedia($this->contentContainer, $this->gallery->id),
         ]);
     }
 

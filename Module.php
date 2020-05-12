@@ -5,9 +5,7 @@ namespace humhub\modules\gallery;
 use \humhub\modules\content\components\ContentContainerActiveRecord;
 use \humhub\modules\content\components\ContentContainerModule;
 use \humhub\modules\content\models\Content;
-use \humhub\modules\content\models\ContentContainer;
 use \humhub\modules\file\models\File;
-use humhub\modules\gallery\models\BaseGallery;
 use \humhub\modules\gallery\models\CustomGallery;
 use \humhub\modules\gallery\models\Media;
 use \humhub\modules\gallery\models\StreamGallery;
@@ -15,11 +13,11 @@ use \humhub\modules\gallery\permissions\WriteAccess;
 use \humhub\modules\space\models\Space;
 use \humhub\modules\user\models\User;
 use \Yii;
-use \yii\debug\models\search\Profile;
 
 class Module extends ContentContainerModule
 {
 
+    public $galleryMaxImages = 50;
     public $snippetMaxImages = 20;
     public $debug = false;
 

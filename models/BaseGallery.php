@@ -17,7 +17,6 @@ use \Yii;
  * @property string $description
  * @property integer $sort_order
  * @property integer $thumb_file_id
- * @property integer $editable_by
  * @property integer $type
  *
  * @package humhub.modules.gallery.models
@@ -26,9 +25,14 @@ use \Yii;
  */
 class BaseGallery extends ContentActiveRecord
 {
-
+    /**
+     * @inheritdoc
+     */
     public $streamChannel = null;
 
+    /**
+     * @inheritdoc
+     */
     public $managePermission = WriteAccess::class;
 
     /**
@@ -48,7 +52,7 @@ class BaseGallery extends ContentActiveRecord
             ['title', 'required'],
             ['title', 'string', 'max' => 255],
             ['description', 'string', 'max' => 1000],
-            [['sort_order', 'thumb_file_id', 'editable_by', 'type',], 'safe']
+            [['sort_order', 'thumb_file_id', 'type',], 'safe']
         ];
     }
 
@@ -177,6 +181,11 @@ class BaseGallery extends ContentActiveRecord
             }
         }
         return null;
+    }
+
+    public function getPageSize()
+    {
+        return Yii::$app->getModule('gallery')->galleryMaxImages;
     }
 
 }

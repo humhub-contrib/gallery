@@ -2,11 +2,12 @@
 
 namespace humhub\modules\gallery\models;
 
+use humhub\modules\content\components\ActiveQueryContent;
 use humhub\modules\content\components\ContentContainerActiveRecord;
 use humhub\modules\content\models\Content;
 use humhub\modules\space\models\Space;
 use Yii;
-use \yii\helpers\Url;
+use humhub\modules\gallery\helpers\Url;
 
 /**
  * This is the model class for a custom gallery.
@@ -18,11 +19,6 @@ use \yii\helpers\Url;
 class CustomGallery extends BaseGallery
 {
 
-    /**
-     * @inheritdoc
-     */
-    public $wallEntryClass = "humhub\modules\gallery\widgets\WallEntryGallery";
-
     public function getWallUrl()
     {
         return Url::to(['/content/perma', 'id' => $this->content->id], true);
@@ -30,7 +26,7 @@ class CustomGallery extends BaseGallery
 
     public function getUrl()
     {
-        return $this->content->container->createUrl('/gallery/custom-gallery/view', ['openGalleryId' => $this->id]);
+        return Url::toCustomGallery($this->content->container, $this->id);
     }
 
     public function isPublic() {
@@ -75,12 +71,12 @@ class CustomGallery extends BaseGallery
         return null;
     }
 
+    /**
+     * @return ActiveQueryContent
+     */
     public function mediaListQuery()
     {
-        $query = Media::find()->where([
-            'gallery_id' => $this->id
-        ]);
-        return $query;
+        return Media::find()->where(['gallery_id' => $this->id])->orderBy('id DESC');
     }
 
     public function getMetaData()
@@ -99,13 +95,7 @@ class CustomGallery extends BaseGallery
 
     public function getMediaList($max = null)
     {
-        if (Yii::$app->user->isGuest && version_compare(Yii::$app->version, '1.2.1', 'lt')) {
-            $query = $this->mediaListQuery()->contentContainer($this->content->container);
-            $query->leftJoin('space', 'contentcontainer.pk=space.id AND contentcontainer.class=:spaceClass', [':spaceClass' => Space::class]);
-            return $query->readable()->limit($max)->all();
-        } else {
-            return $this->mediaListQuery()->contentContainer($this->content->container)->readable()->limit($max)->all();
-        }
+        return $this->mediaListQuery()->contentContainer($this->content->container)->readable()->limit($max)->all();
     }
 
     public function isEmpty()
