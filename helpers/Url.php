@@ -25,7 +25,7 @@ class Url extends \yii\helpers\Url
 
     public static function toDeleteCustomGallery(ContentContainerActiveRecord $container, $gid)
     {
-        return $container->createUrl('/gallery/custom-gallery/delete-multiple', ['gid' => $gid]);
+        return $container->createUrl('/gallery/custom-gallery/delete', ['gid' => $gid]);
     }
 
     public static function toDeleteMedia(ContentContainerActiveRecord $container, $id)

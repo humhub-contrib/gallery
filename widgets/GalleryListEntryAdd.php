@@ -11,7 +11,9 @@ namespace humhub\modules\gallery\widgets;
 use \humhub\modules\file\handler\FileHandlerCollection;
 use \humhub\modules\file\widgets\FileHandlerButtonDropdown;
 use \humhub\modules\file\widgets\UploadButton;
+use humhub\modules\gallery\helpers\Url;
 use \humhub\modules\gallery\models\StreamGallery;
+use humhub\modules\gallery\permissions\WriteAccess;
 use \Yii;
 use \yii\base\Widget;
 
@@ -31,8 +33,8 @@ class GalleryListEntryAdd extends Widget
     {
         $contentContainer = Yii::$app->controller->contentContainer;
 
-        if(!Yii::$app->getModule('gallery')->canWrite($contentContainer)) {
-            return;
+        if(!$contentContainer->can(WriteAccess::class)) {
+            return '';
         }
 
         // we do not want to render the add icon in stream galleries
@@ -54,7 +56,7 @@ class GalleryListEntryAdd extends Widget
         } else {
             return $this->render('galleryListEntryAdd', [
                         'title' => Yii::t('GalleryModule.base', 'Click here to add new Gallery'),
-                        'addActionUrl' => $contentContainer->createUrl('/gallery/custom-gallery/edit'),
+                        'addActionUrl' => Url::toCreateCustomGallery($contentContainer),
                         'htmlOptions' => [
                             'data' => [
                                 'target' => "#globalModal",

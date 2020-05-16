@@ -32,39 +32,11 @@ class Module extends ContentContainerModule
         ];
     }
 
-    /**
-     * @inheritdoc
-     */
-    public function getPermissions($contentContainer = null)
+    public function getContainerPermissions($contentContainer = null)
     {
-        if ($contentContainer && $contentContainer->moduleManager->isEnabled($this->id)) {
-            return [
-                new WriteAccess()
-            ];
-        }
-
-        return [];
-    }
-
-    public function getItemById($itemId)
-    {
-        if (!is_string($itemId) || $itemId === '') {
-            return null;
-        }
-
-        list ($type, $id) = explode('_', $itemId);
-
-        if ($type == 'media') {
-            return Media::findOne(['id' => $id]);
-        } elseif ($type == 'stream-gallery') {
-            return StreamGallery::findOne(['id' => $id]);
-        } elseif ($type == 'custom-gallery') {
-            return CustomGallery::findOne(['id' => $id]);
-        } elseif ($type == 'file') {
-            return File::findOne(['id' => $id]);
-        }
-
-        return null;
+         return [
+            new WriteAccess()
+        ];
     }
 
     public function disable()
@@ -129,22 +101,4 @@ class Module extends ContentContainerModule
             return Yii::t('GalleryModule.base', 'Adds gallery module to your profile.');
         }
     }
-
-    /**
-     * Check if the current User has write permission for the gallery module and its content.
-     *
-     * @param ContentContainerActiveRecord $contentContainer the current content container.
-     * @return bool
-     */
-    public static function canWrite(ContentContainerActiveRecord $contentContainer)
-    {
-        // check if user is on his own profile
-        if ($contentContainer instanceof User && !Yii::$app->user->isGuest) {
-            if ($contentContainer->id === Yii::$app->user->getIdentity()->id) {
-                return true;
-            }
-        }
-        return $contentContainer->permissionManager->can(new WriteAccess());
-    }
-
 }

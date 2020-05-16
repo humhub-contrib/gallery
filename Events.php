@@ -8,6 +8,7 @@
 
 namespace humhub\modules\gallery;
 
+use humhub\modules\gallery\helpers\Url;
 use humhub\modules\gallery\widgets\GallerySnippet;
 use Yii;
 
@@ -28,7 +29,7 @@ class Events
                 $event->sender->addItem([
                     'label' => Yii::t('GalleryModule.base', 'Gallery'),
                     'group' => 'modules',
-                    'url' => $event->sender->space->createUrl('/gallery/list'),
+                    'url' => Url::toGalleryOverview($event->sender->space),
                     'icon' => '<i class="fa fa-picture-o"></i>',
                     'isActive' => (Yii::$app->controller->module && Yii::$app->controller->module->id == 'gallery')
                 ]);
@@ -44,7 +45,7 @@ class Events
             if ($event->sender->user !== null && $event->sender->user->isModuleEnabled('gallery')) {
                 $event->sender->addItem([
                     'label' => Yii::t('GalleryModule.base', 'Gallery'),
-                    'url' => $event->sender->user->createUrl('/gallery/list'),
+                    'url' => Url::toGalleryOverview($event->sender->user),
                     'icon' => '<i class="fa fa-picture-o"></i>',
                     'isActive' => (Yii::$app->controller->module && Yii::$app->controller->module->id == 'gallery')
                 ]);

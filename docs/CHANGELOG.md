@@ -1,6 +1,11 @@
 Changelog
 =========
 
+1.1.1 (May 16, 2020)
+-----------------------
+- Fix #55: Edit gallery opens create gallery modal
+- Enh: Reordered gallery item context menu
+
 1.1.0 (May 12, 2020)
 -----------------------
 - Fix #51: SELECT would examine more thant MAX_JOIN_SIZE triggered in stream gallery

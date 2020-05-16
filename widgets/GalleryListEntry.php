@@ -67,7 +67,7 @@ class GalleryListEntry extends Widget
             'downloadUrl' =>$media->getFileUrl(true),
             'fileUrl' => $media->getFileUrl(),
             'thumbnailUrl' => $media->getSquarePreviewImageUrl(),
-            'writeAccess' => Yii::$app->controller->canWrite(false),
+            'writeAccess' => $media->content->canEdit(),
             'contentObject' => $media,
             'footerOverwrite' => false,
             'alwaysShowHeading' => false,

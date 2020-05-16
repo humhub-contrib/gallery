@@ -120,7 +120,7 @@ class BaseGallery extends ContentActiveRecord
             'fileUrl' => $this->getUrl(),
             'thumbnailUrl' => $this->getPreviewImageUrl(),
             'contentContainer' => '',
-            'writeAccess' => Module::canWrite($this->content->getContainer()),
+            'writeAccess' => $this->content->container->can(WriteAccess::class),
             'contentObject' => $this,
             'footerOverwrite' => false,
             'alwaysShowHeading' => true,

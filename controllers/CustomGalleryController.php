@@ -126,6 +126,35 @@ class CustomGalleryController extends BaseController
         ]);
     }
 
+    /**
+     * Action to delete an item.
+     *
+     * @return string the rendered view.
+     * @throws HttpException
+     */
+    public function actionDelete($gid)
+    {
+        $this->forcePostRequest();
+
+        $gallery = CustomGallery::findOne(['id' => $gid]);
+
+        if(!$gallery) {
+            throw new NotFoundHttpException();
+        }
+
+        if(!$gallery->content->canEdit()) {
+            throw new ForbiddenHttpException();
+        }
+
+        if($gallery->delete()) {
+            $this->view->success(Yii::t('GalleryModule.base', 'Deleted'));
+        } else {
+            $this->view->error(Yii::t('GalleryModule.base', 'Item could not be deleted!'));
+        }
+
+        return $this->htmlRedirect(Url::toGalleryOverview($this->contentContainer));
+    }
+
     public function actionUpload()
     {
         $gallery = $this->getGallery();

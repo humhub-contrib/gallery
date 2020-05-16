@@ -87,25 +87,25 @@ $bundle = Assets::register($this);
                                         ->icon('link') ?>
                                 </li>
                             <?php endif; ?>
-                            <?php if ($writeAccess): ?>
-                                <?php if ($deleteUrl): ?>
-                                    <li>
-                                        <?= ModalButton::asLink(Yii::t('GalleryModule.base', 'Delete'))
-                                            ->post($deleteUrl)->confirm(
-                                                Yii::t('GalleryModule.base', '<strong>Confirm</strong> delete item'),
-                                                Yii::t('GalleryModule.base', 'Do you really want to delete this item with all related content?')
-                                            )->icon('trash')?>
-                                    </li>
-                                <?php endif; ?>
-                                <?php if ($editUrl): ?>
-                                    <li>
-                                        <?= ModalButton::asLink(Yii::t('GalleryModule.base', 'Edit'))->load($editUrl)->icon('edit') ?>
-                                    </li>
-                                <?php endif; ?>
+                            <?php if ($writeAccess && $editUrl): ?>
+                                <li>
+                                    <?= ModalButton::asLink(Yii::t('GalleryModule.base', 'Edit'))->load($editUrl)->icon('edit') ?>
+                                </li>
                             <?php endif; ?>
+
                             <?php if ($downloadUrl): ?>
                                 <li>
                                     <?= Link::to(Yii::t('GalleryModule.base', 'Download'),  $downloadUrl)->pjax(false)->icon('download') ?>
+                                </li>
+                            <?php endif; ?>
+
+                            <?php if ($writeAccess && $deleteUrl): ?>
+                                <li>
+                                    <?= ModalButton::asLink(Yii::t('GalleryModule.base', 'Delete'))
+                                        ->post($deleteUrl)->confirm(
+                                            Yii::t('GalleryModule.base', '<strong>Confirm</strong> delete item'),
+                                            Yii::t('GalleryModule.base', 'Do you really want to delete this item with all related content?')
+                                        )->icon('trash')?>
                                 </li>
                             <?php endif; ?>
                         </ul>

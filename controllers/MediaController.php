@@ -55,6 +55,8 @@ class MediaController extends CustomGalleryController
 
     public function actionDelete($id = null, $fromWall = false)
     {
+        $this->forcePostRequest();
+
         $media = Media::findOne(['id' => $id]);
 
         if(!$media) {

@@ -1,7 +1,15 @@
 <?php
+
+use humhub\modules\content\components\ContentContainerActiveRecord;
+use humhub\modules\gallery\helpers\Url;
+use humhub\modules\gallery\models\forms\ContainerSettings;
+use humhub\widgets\Button;
 use yii\bootstrap\ActiveForm;
-/* @var $settings \humhub\modules\gallery\models\forms\ContainerSettings */
-/* @var $contentContainer \humhub\modules\content\components\ContentContainerActiveRecord */
+
+/* @var $settings ContainerSettings */
+/* @var $contentContainer ContentContainerActiveRecord */
+
+$overviewUrl = Url::toGalleryOverview($this->context->contentContainer);
 ?>
 
 <div class="panel panel-default">
@@ -9,21 +17,19 @@ use yii\bootstrap\ActiveForm;
         <?= Yii::t('GalleryModule.base', '<strong>Gallery</strong> settings')?>
     </div>
     <div class="panel-body">
-            <a class="btn btn-default btn-sm pull-right" data-ui-loader href="<?= $this->context->contentContainer->createUrl('/gallery/list') ?>">
-                <i class="glyphicon glyphicon-arrow-left"></i> <?= Yii::t('GalleryModule.base', 'Back to overview') ?>
-            </a>
+        <?= Button::back($overviewUrl, Yii::t('GalleryModule.base', 'Back to overview'))->sm() ?>
         <br />
         <?php if($settings->hasGallery()) : ?>
             <?php $form = ActiveForm::begin() ?>
                 <?= $form->field($settings, 'snippetGallery')->dropDownList($settings->getGallerySelection())?>
                 <?= $form->field($settings, 'hideSnippet')->checkbox() ?>
                 <br />
-                <button type="submit" class="btn btn-primary" data-ui-loader><?= Yii::t('base', 'Save');?></button>
+                <?= Button::save()->submit() ?>
             <?php ActiveForm::end() ?>
         <?php else : ?>
             <?= Yii::t('GalleryModule.base', 'There are no galleries available for this space. In order to configure the gallery snippet, please <a href="{createLink}">create</a> a new gallery', [
-                'createLink' => $contentContainer->createUrl('/gallery/list')
-            ]);?>
+                'createLink' => $overviewUrl
+            ]) ?>
         <?php endif ?>
     </div>
 </div>

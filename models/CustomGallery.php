@@ -82,8 +82,8 @@ class CustomGallery extends BaseGallery
     public function getMetaData()
     {
         $result = parent::getMetaData();
-        $result['deleteUrl'] = $this->content->getContainer()->createUrl('/gallery/list/delete-multiple', ['itemId' => $this->getItemId()]);
-        $result['editUrl'] = $this->content->getContainer()->createUrl('/gallery/custom-gallery/edit', ['itemId' => $this->getItemId()]);
+        $result['deleteUrl'] = Url::toDeleteCustomGallery($this->content->container, $this->id);
+        $result['editUrl'] = Url::toEditCustomGallery( $this->content->container, $this->id);
         $result['imagePadding'] = $this->isEmpty();
         return $result;
     }

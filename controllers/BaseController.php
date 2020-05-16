@@ -126,29 +126,6 @@ abstract class BaseController extends ContentContainerController
         return $this->dataProvider->getPagination()->getPageCount() <= $page + 1;
     }
 
-    /**
-     * Checks if user can write
-     *
-     * TODO: Use $managePermission after 1.2.1 !!
-     *
-     * @param $throw boolean default true throws exception if permission failure.
-     * @return boolean current user has write acces.
-     * @throws HttpException
-     */
-    public function canWrite($throw = true)
-    {
-        $permission = Module::canWrite($this->contentContainer);
-
-        if ($permission) {
-            return true;
-        } elseif ($throw) {
-            throw new HttpException(401, Yii::t('GalleryModule.base', 'Insufficient rights to execute this action.'));
-        }
-        return false;
-    }
-
-
-
     protected function getPageSize()
     {
         return $this->module->galleryMaxImages;

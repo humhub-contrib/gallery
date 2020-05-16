@@ -46,36 +46,6 @@ class ListController extends BaseController
     }
 
     /**
-     * Action to delete an item.
-     *
-     * @return string the rendered view.
-     * @throws HttpException
-     */
-    public function actionDeleteMultiple($itemId, $gid = null)
-    {
-        $this->forcePostRequest();
-        $this->canWrite(true);
-
-        $item = $this->module->getItemById($itemId);
-
-        if($item instanceof ContentActiveRecord && !$item->content->canEdit()) {
-            throw new HttpException(403);
-        }
-
-        if($item->delete()) {
-            $this->view->success(Yii::t('GalleryModule.base', 'Deleted'));
-        } else {
-            $this->view->error(Yii::t('GalleryModule.base', 'Item could not be deleted!'));
-        }
-
-        if($item instanceof CustomGallery) {
-            return $this->htmlRedirect($this->contentContainer->createUrl('/gallery/list'));
-        }
-
-        return $this->htmlRedirect(Url::toCustomGallery($this->contentContainer, $gid));
-    }
-
-    /**
      * @inheritDoc
      */
     protected function getGallery()

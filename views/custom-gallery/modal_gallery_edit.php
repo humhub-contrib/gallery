@@ -9,31 +9,40 @@
  * @author Sebastian Stumpf
  */
 
-/* @var $galleryForm \humhub\modules\gallery\models\forms\GalleryEditForm */
-?>
+use humhub\modules\content\components\ContentContainerActiveRecord;
+use humhub\modules\gallery\helpers\Url;
+use humhub\modules\gallery\models\forms\GalleryEditForm;
+use humhub\widgets\ModalButton;
+use humhub\widgets\ModalDialog;
+use yii\bootstrap\ActiveForm; ?>
 
 <?php
-\humhub\widgets\ModalDialog::begin([
-    'header' => $galleryForm->instance->isNewRecord ? Yii::t('GalleryModule.base', '<strong>Add</strong> new gallery') : Yii::t('GalleryModule.base', '<strong>Edit</strong> gallery'),
+
+/* @var $galleryForm GalleryEditForm */
+/* @var $contentContainer ContentContainerActiveRecord */
+
+$gallery = $galleryForm->instance;
+
+$title = $gallery->isNewRecord
+    ? Yii::t('GalleryModule.base', '<strong>Add</strong> new gallery')
+    : Yii::t('GalleryModule.base', '<strong>Edit</strong> gallery');
+
+ModalDialog::begin([
+    'header' => $title,
     'animation' => 'fadeIn',
     'size' => 'small']);
 ?>
-    <?php $form = \yii\bootstrap\ActiveForm::begin(['id' => 'Gallery', 'class' => 'form-horizontal']); ?>
+    <?php $form = ActiveForm::begin(['id' => 'Gallery', 'class' => 'form-horizontal']); ?>
 
         <div class="modal-body">
-            <?= $form->field($galleryForm->instance, 'title' )->label(Yii::t('GalleryModule.base', 'title')); ?>
-            <?= $form->field($galleryForm->instance, 'description' )->textArea()->label(Yii::t('GalleryModule.base', 'description')); ?>
+            <?= $form->field($gallery, 'title' )->label(Yii::t('GalleryModule.base', 'title')); ?>
+            <?= $form->field($gallery, 'description' )->textArea()->label(Yii::t('GalleryModule.base', 'description')); ?>
             <?= $form->field($galleryForm, 'visibility')->checkbox(['label' => Yii::t('GalleryModule.base', 'Make this gallery public')])?>
         </div>
 
         <div class="modal-footer">
-            <button class="btn btn-primary" data-action-click="ui.modal.submit" data-ui-loader type="submit"
-                    data-action-url="<?= $contentContainer->createUrl('/gallery/custom-gallery/edit', ['itemId' => $galleryForm->instance->getItemId()]) ?>">
-                        <?= \Yii::t('GalleryModule.base', 'Save'); ?>
-            </button>
-            <button type="button" class="btn btn-primary" data-modal-close>
-                <?= \Yii::t('GalleryModule.base', 'Close'); ?>
-            </button>
+            <?= ModalButton::submitModal(Url::toEditCustomGallery($contentContainer, $gallery->id)) ?>
+            <?= ModalButton::cancel() ?>
         </div>
-    <?php \yii\bootstrap\ActiveForm::end(); ?>
-<?php \humhub\widgets\ModalDialog::end(); ?>
+    <?php ActiveForm::end(); ?>
+<?php ModalDialog::end(); ?>
