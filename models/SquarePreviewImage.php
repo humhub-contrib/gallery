@@ -48,6 +48,26 @@ class SquarePreviewImage extends PreviewImage
     {
         if (!is_file($this->file->store->get($fileName))) {
             $image = Image::getImagine()->open($this->file->store->get());
+
+            // Also handle orientation of resized images
+            // https://github.com/yiisoft/yii2-imagine/issues/44
+            if ($this->file->mime_type === 'image/jpeg' && function_exists('exif_read_data')) {
+                $exif = exif_read_data($this->file->store->get());
+                if (!empty($exif['Orientation'])) {
+                    switch ($exif['Orientation']) {
+                        case 3:
+                            $image->rotate(180);
+                            break;
+                        case 6:
+                            $image->rotate(90);
+                            break;
+                        case 8:
+                            $image->rotate(-90);
+                            break;
+                    }
+                }
+            }
+
             $newWidth = min([$image->getSize()->getHeight(), $image->getSize()->getWidth(), $this->options['maxWidth']]);
 
             // Create squared version
