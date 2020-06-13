@@ -9,7 +9,6 @@
 namespace humhub\modules\gallery\models\forms;
 
 use humhub\components\SettingsManager;
-use humhub\debug\RDebug;
 use humhub\modules\content\components\ContentContainerActiveRecord;
 use humhub\modules\content\models\Content;
 use humhub\modules\gallery\models\CustomGallery;
@@ -54,7 +53,6 @@ class ContainerSettings extends Model
     {
         $this->hideSnippet = $this->hideSnippet();
         $this->snippetGallery = $this->getSnippetId();
-//        RDebug::Dump($this->settings, 1);
     }
 
     /**
@@ -171,5 +169,4 @@ class ContainerSettings extends Model
     {
 
     }
-
 }

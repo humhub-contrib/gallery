@@ -50,7 +50,6 @@ class Module extends ContentContainerModule
     {
         return Url::toConfig();
     }
-
     public function disable()
     {
 

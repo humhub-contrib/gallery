@@ -23,7 +23,6 @@ use \yii\web\HttpException;
 use yii\web\NotFoundHttpException;
 use yii\web\Response;
 use \yii\web\UploadedFile;
-use humhub\debug\RDebug;
 /**
  * Description of a Custom Gallery Controller for the gallery module.
  *

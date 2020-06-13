@@ -57,5 +57,4 @@ class SettingController extends ContentContainerController
             'contentContainer' => $this->contentContainer
         ]);
     }
-
 }

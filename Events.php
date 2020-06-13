@@ -8,7 +8,6 @@
 
 namespace humhub\modules\gallery;
 
-use humhub\debug\RDebug;
 use humhub\modules\gallery\helpers\Url;
 use humhub\modules\gallery\widgets\GallerySnippet;
 use Yii;
@@ -25,7 +24,6 @@ class Events
 
     public static function onSpaceMenuInit($event)
     {
-//        RDebug::Dump(Yii::$app->controller->module->module,1);
         try {
             if ($event->sender->space !== null && $event->sender->space->isModuleEnabled('gallery')) {
                 $event->sender->addItem([
@@ -62,7 +60,7 @@ class Events
     {
         try {
             if ($event->sender->space !== null && $event->sender->space->isModuleEnabled('gallery')) {
-                $event->sender->addWidget(GallerySnippet::class, ['contentContainer' => $event->sender->space], ['sortOrder' => 300]);
+                $event->sender->addWidget(GallerySnippet::class, ['contentContainer' => $event->sender->space], ['sortOrder' => 0]);
             }
         } catch (\Throwable $e) {
             Yii::error($e);
