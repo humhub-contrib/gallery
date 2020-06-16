@@ -9,6 +9,7 @@
 namespace humhub\modules\gallery;
 
 use humhub\modules\gallery\helpers\Url;
+use humhub\modules\gallery\models\DefaultSettings;
 use humhub\modules\gallery\widgets\GallerySnippet;
 use Yii;
 
@@ -26,12 +27,19 @@ class Events
     {
         try {
             if ($event->sender->space !== null && $event->sender->space->isModuleEnabled('gallery')) {
+
+                /** @var Module $module */
+                $module = Yii::$app->getModule('gallery');
+
                 $event->sender->addItem([
                     'label' => Yii::t('GalleryModule.base', 'Gallery'),
                     'group' => 'modules',
                     'url' => Url::toGalleryOverview($event->sender->space),
                     'icon' => '<i class="fa fa-picture-o"></i>',
-                    'isActive' => (Yii::$app->controller->module && Yii::$app->controller->module->id == 'gallery')
+                    'isActive' => (Yii::$app->controller->module && Yii::$app->controller->module->id == 'gallery'),
+                    'sortOrder' => (int)$module->settings
+                        ->contentContainer($event->sender->space)
+                        ->get(DefaultSettings::SETTING_MODULE_SORT_PRIORITY)
                 ]);
             }
         } catch (\Throwable $e) {

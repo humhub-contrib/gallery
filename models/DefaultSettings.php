@@ -15,7 +15,6 @@
 namespace humhub\modules\gallery\models;
 
 use humhub\components\SettingsManager;
-use humhub\debug\RDebug;
 use humhub\modules\content\components\ContentContainerActiveRecord;
 use Yii;
 use yii\base\Model;
@@ -48,10 +47,6 @@ class DefaultSettings extends Model
     {
         $this->module = Yii::$app->getModule('gallery');
 
-//        RDebug::Dump($this->module_label = $this->getSettings()->get(
-//            self::SETTING_MODULE_SORT_PRIORITY,
-//            Yii::t('GalleryModule.base', '0')
-//        ),1);
         $this->module_label = $this->getSettings()->get(
             self::SETTING_MODULE_LABEL,
             Yii::t('GalleryModule.base', 'Gallery')
