@@ -41,7 +41,7 @@ class Module extends ContentContainerModule
 
     public function getContentContainerConfigUrl(ContentContainerActiveRecord $container)
     {
-        return $container->createUrl('/gallery/container-config'); // custom page
+        return $container->createUrl('/gallery/setting');
     }
 
     public function getConfigUrl()
