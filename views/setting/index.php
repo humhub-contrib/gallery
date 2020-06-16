@@ -22,6 +22,8 @@ $overviewUrl = Url::toGalleryOverview($this->context->contentContainer);
         <?php if($settings->hasGallery()) : ?>
             <?php $form = ActiveForm::begin() ?>
                 <?= $form->field($settings, 'snippetGallery')->dropDownList($settings->getGallerySelection())?>
+                <?= $form->field($settings, 'sortOrder')->textInput(['type' => 'number']) ?>
+<!--        'min' =>  $settings::SORT_MIN, 'max' => $settings::SORT_MAX, 'placeholder' => Yii::t('GalleryModule.base', 'from ' . $settings::SORT_MIN . ' to ' . $settings::SORT_MAX . ' in increments of 100'), 'maxLength' => 4]-->
                 <?= $form->field($settings, 'hideSnippet')->checkbox() ?>
                 <br />
                 <?= Button::save()->submit() ?>
