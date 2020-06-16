@@ -26,6 +26,9 @@ class ContainerSettings extends Model
 {
     const SETTING_HIDE_SNIPPET = 'hideSnippet';
     const SETTING_GALLERY_ID = 'galleryId';
+    const SETTING_SORT_ORDER= 'sortOrder';
+    const SORT_MIN = 0;
+    const SORT_MAX = 5000;
     /**
      * @var ContentContainerActiveRecord $contentContainer of this snippet
      */
@@ -42,6 +45,11 @@ class ContainerSettings extends Model
     public $hideSnippet;
 
     /**
+     * @var integer defines the sorting priority of the gallery; It accepts in range [0, 100, 200, 300]
+     */
+    public $sortOrder;
+
+    /**
      * @var SettingsManager module setting manager instance
      */
     private $settings;
@@ -53,6 +61,7 @@ class ContainerSettings extends Model
     {
         $this->hideSnippet = $this->hideSnippet();
         $this->snippetGallery = $this->getSnippetId();
+        $this->sortOrder = $this->getSnippetSortOrder();
     }
 
     /**
@@ -62,18 +71,40 @@ class ContainerSettings extends Model
     {
         return [
             [['snippetGallery', 'hideSnippet'], 'integer'],
-            [['snippetGallery'], 'containerGallery']
+            [['snippetGallery'], 'containerGallery'],
+            [['sortOrder'], 'validateSortOrder'], //'in', 'range' => [0,100], 'message'=>'Please enter a value from 0 to 300 in increments of 100'
         ];
     }
 
-    public function containerGallery($model, $attribute) {
+    public function validateSortOrder($attribute, $params)
+    {
+        if(!is_numeric((int)$this->$attribute)) {
+            $this->addError($attribute, 'It must be an integer');
+            return false;
+        }
+        if($this->$attribute % 100 != 0 && $this->$attribute != 0) {
+            $this->addError($attribute, 'Please enter an even number to the number 100');
+            return  false;
+        }
+        if ($this->$attribute < self::SORT_MIN) {
+            $this->addError($attribute, 'Please enter a value greater or equal to ' . self::SORT_MIN);
+            return false;
+        }
+        if($this->$attribute > self::SORT_MAX) {
+            $this->addError($attribute, 'Please enter a value less or equal to ' . self::SORT_MAX);
+            return false;
+        }
+        return true;
+    }
+
+    public function containerGallery($attribute, $params) {
         if(!$this->snippetGallery) {
             return;
         }
 
         $gallery = CustomGallery::findOne(['id' => $this->snippetGallery]);
         if(!$gallery->content->contentcontainer_id === $this->contentContainer->contentContainerRecord->id) {
-            $this->addError($model, $attribute, 'Invalid gallery selection.');
+            $this->addError($attribute, 'Invalid gallery selection.');
         }
     }
 
@@ -84,7 +115,8 @@ class ContainerSettings extends Model
     {
         return [
             'snippetGallery' => Yii::t('GalleryModule.base', 'Choose snippet gallery'),
-            'hideSnippet' => Yii::t('GalleryModule.base', 'Don\'t show the gallery snippet in this space.')
+            'hideSnippet' => Yii::t('GalleryModule.base', 'Don\'t show the gallery snippet in this space.'),
+            'sortOrder' => Yii::t('GalleryModule.config', 'Sort order'),
         ];
     }
 
@@ -105,12 +137,12 @@ class ContainerSettings extends Model
             'title' => Html::encode($latest->title),
             'visibility' => $visibility
         ])];
-        
+
         foreach ($galleries as $gallery) {
             $visibility = $gallery->content->isPublic() ? Yii::t('base', 'Public') : Yii::t('base', 'Private');
             $result[$gallery->id] = Html::encode($gallery->title).' ('.$visibility.')';
         }
-        
+
         return $result;
     }
 
@@ -122,6 +154,8 @@ class ContainerSettings extends Model
 
         $this->getSettings()->set(self::SETTING_GALLERY_ID, $this->snippetGallery);
         $this->getSettings()->set(self::SETTING_HIDE_SNIPPET, $this->hideSnippet);
+        $this->getSettings()->set(self::SETTING_SORT_ORDER, $this->sortOrder);
+
         return true;
     }
 
@@ -141,6 +175,11 @@ class ContainerSettings extends Model
     public function getSnippetId()
     {
         return $this->getSettings()->get(self::SETTING_GALLERY_ID, 0);
+    }
+
+    public function getSnippetSortOrder()
+    {
+        return $this->getSettings()->get(self::SETTING_SORT_ORDER, 0);
     }
 
     public function hasGallery()

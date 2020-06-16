@@ -9,7 +9,7 @@
 namespace humhub\modules\gallery;
 
 use humhub\modules\gallery\helpers\Url;
-use humhub\modules\gallery\models\DefaultSettings;
+use humhub\modules\gallery\models\forms\ContainerSettings;
 use humhub\modules\gallery\widgets\GallerySnippet;
 use Yii;
 
@@ -37,9 +37,9 @@ class Events
                     'url' => Url::toGalleryOverview($event->sender->space),
                     'icon' => '<i class="fa fa-picture-o"></i>',
                     'isActive' => (Yii::$app->controller->module && Yii::$app->controller->module->id == 'gallery'),
-                    'sortOrder' => (int)$module->settings
+                    'sortOrder' => (int) $module->settings
                         ->contentContainer($event->sender->space)
-                        ->get(DefaultSettings::SETTING_MODULE_SORT_PRIORITY)
+                        ->get(ContainerSettings::SETTING_SORT_ORDER)
                 ]);
             }
         } catch (\Throwable $e) {
