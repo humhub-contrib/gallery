@@ -39,6 +39,17 @@ class Module extends ContentContainerModule
         ];
     }
 
+    public function getContentContainerConfigUrl(ContentContainerActiveRecord $container)
+    {
+        return $container->createUrl('/gallery/container-config'); // custom page
+    }
+
+    public function getConfigUrl()
+    {
+        return Url::toConfig();
+    }
+
+
     public function disable()
     {
 
@@ -88,6 +99,14 @@ class Module extends ContentContainerModule
         }
 
         parent::disableContentContainer($container);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getContentContainerName(ContentContainerActiveRecord $container)
+    {
+        return Yii::t('GalleryModule.base', 'Gallery');
     }
 
     /**
