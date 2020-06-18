@@ -13,6 +13,7 @@ use \humhub\modules\gallery\permissions\WriteAccess;
 use \humhub\modules\space\models\Space;
 use \humhub\modules\user\models\User;
 use \Yii;
+use yii\helpers\Url;
 
 class Module extends ContentContainerModule
 {
@@ -46,7 +47,7 @@ class Module extends ContentContainerModule
 
     public function getConfigUrl()
     {
-        return Url::toConfig();
+        return Url::to(['/gallery/config']);
     }
 
 
