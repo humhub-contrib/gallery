@@ -72,7 +72,7 @@ class ContainerSettings extends Model
         return [
             [['snippetGallery', 'hideSnippet'], 'integer'],
             [['snippetGallery'], 'containerGallery'],
-            [['sortOrder'], 'validateSortOrder'], //'in', 'range' => [0,100], 'message'=>'Please enter a value from 0 to 300 in increments of 100'
+            [['sortOrder'], 'validateSortOrder'],
         ];
     }
 

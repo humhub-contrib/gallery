@@ -13,7 +13,6 @@ return [
     'events' => [
         ['class' => Menu::class,'event' => Menu::EVENT_INIT, 'callback' => [Events::class, 'onSpaceMenuInit']],
         ['class' => ProfileMenu::class,'event' => ProfileMenu::EVENT_INIT, 'callback' => [Events::class,'onProfileMenuInit']],
-//        ['class' => SpaceSidebar::class,'event' =>  BaseMenu::EVENT_INIT, 'callback' => [Events::class,'onSpaceSidebarInit']],
         ['class' => SpaceSidebar::class, 'event' => SpaceSidebar::EVENT_INIT, 'callback' => [Events::class, 'onSpaceSidebarInit']],
     ]
 ];
