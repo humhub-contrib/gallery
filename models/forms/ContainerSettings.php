@@ -26,9 +26,9 @@ class ContainerSettings extends Model
 {
     const SETTING_HIDE_SNIPPET = 'hideSnippet';
     const SETTING_GALLERY_ID = 'galleryId';
-    const SETTING_SORT_ORDER= 'sortOrder';
+    const SETTING_SORT_ORDER= 'snippetSortOrder';
     const SORT_MIN = 0;
-    const SORT_MAX = 5000;
+    const SORT_MAX = 32000;
     /**
      * @var ContentContainerActiveRecord $contentContainer of this snippet
      */
@@ -45,9 +45,9 @@ class ContainerSettings extends Model
     public $hideSnippet;
 
     /**
-     * @var integer defines the sorting priority of the gallery; It accepts in range [0, 100, 200, 300]
+     * @var integer defines the sort order snippet for the gallery;
      */
-    public $sortOrder;
+    public $snippetSortOrder;
 
     /**
      * @var SettingsManager module setting manager instance
@@ -61,7 +61,7 @@ class ContainerSettings extends Model
     {
         $this->hideSnippet = $this->hideSnippet();
         $this->snippetGallery = $this->getSnippetId();
-        $this->sortOrder = $this->getSnippetSortOrder();
+        $this->snippetSortOrder = $this->getSnippetSortOrder();
     }
 
     /**
@@ -72,29 +72,8 @@ class ContainerSettings extends Model
         return [
             [['snippetGallery', 'hideSnippet'], 'integer'],
             [['snippetGallery'], 'containerGallery'],
-            [['sortOrder'], 'validateSortOrder'],
+            [['snippetSortOrder'], 'number', 'min' => static::SORT_MIN, 'max' => static::SORT_MAX],
         ];
-    }
-
-    public function validateSortOrder($attribute, $params)
-    {
-        if(!is_numeric((int)$this->$attribute)) {
-            $this->addError($attribute, 'It must be an integer');
-            return false;
-        }
-        if($this->$attribute % 100 != 0 && $this->$attribute != 0) {
-            $this->addError($attribute, 'Please enter an even number to the number 100');
-            return  false;
-        }
-        if ($this->$attribute < self::SORT_MIN) {
-            $this->addError($attribute, 'Please enter a value greater or equal to ' . self::SORT_MIN);
-            return false;
-        }
-        if($this->$attribute > self::SORT_MAX) {
-            $this->addError($attribute, 'Please enter a value less or equal to ' . self::SORT_MAX);
-            return false;
-        }
-        return true;
     }
 
     public function containerGallery($attribute, $params) {
@@ -116,7 +95,7 @@ class ContainerSettings extends Model
         return [
             'snippetGallery' => Yii::t('GalleryModule.base', 'Choose snippet gallery'),
             'hideSnippet' => Yii::t('GalleryModule.base', 'Don\'t show the gallery snippet in this space.'),
-            'sortOrder' => Yii::t('GalleryModule.config', 'Sort order'),
+            'snippetSortOrder' => Yii::t('GalleryModule.config', 'Sort order'),
         ];
     }
 
@@ -152,9 +131,11 @@ class ContainerSettings extends Model
             return false;
         }
 
+        $this->snippetSortOrder = $this->snippetSortOrder ? $this->snippetSortOrder : self::SORT_MIN;
+
         $this->getSettings()->set(self::SETTING_GALLERY_ID, $this->snippetGallery);
         $this->getSettings()->set(self::SETTING_HIDE_SNIPPET, $this->hideSnippet);
-        $this->getSettings()->set(self::SETTING_SORT_ORDER, $this->sortOrder);
+        $this->getSettings()->set(self::SETTING_SORT_ORDER, $this->snippetSortOrder);
 
         return true;
     }
