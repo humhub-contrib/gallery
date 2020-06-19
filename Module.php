@@ -47,7 +47,7 @@ class Module extends ContentContainerModule
 
     public function getConfigUrl()
     {
-        return Url::to(['/gallery/config']);
+        return "";
     }
 
 
