@@ -3,7 +3,6 @@
 use humhub\modules\gallery\Events;
 use \humhub\modules\space\widgets\Menu;
 use humhub\modules\space\widgets\Sidebar as SpaceSidebar;
-use humhub\widgets\BaseMenu;
 use \humhub\modules\user\widgets\ProfileMenu;
 
 return [

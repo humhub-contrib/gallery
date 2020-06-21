@@ -3,7 +3,7 @@
  * @link https://www.humhub.org/
  * @copyright Copyright (c) 2015 HumHub GmbH & Co. KG
  * @license https://www.humhub.com/licences
- * 
+ *
  * @package humhub.modules.gallery.views
  * @since 1.0
  * @author Sebastian Stumpf
@@ -20,7 +20,7 @@ $bundle = Assets::register($this);
     <div class="panel panel-default">
         <div class="panel-body">
             <a class="backgroundSuccess" <?= yii\bootstrap\Html::renderTagAttributes($htmlOptions) ?> href="<?= $addActionUrl ?>">
-                <img class="padding15perc" src="<?= Yii::$app->getModule('gallery')->getAssetsUrl() . '/plus.svg' ?>" />
+                <img class="padding15perc" src="<?= Yii::$app->getModule('gallery')->getAssetsUrl() . '/plus.svg' ?>" alt="add gallery image" />
                 <span class="overlay"></span>
             </a>
         </div>
