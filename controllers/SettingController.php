@@ -35,17 +35,17 @@ class SettingController extends ContentContainerController
     {
         // A user doesn't need the settings for his profile, as the gallery snippet is not shown.
         if($this->contentContainer instanceof User) {
-            return $this->redirect('list');
+            return $this->contentContainer->createUrl('/gallery/list');
         }
         return parent::beforeAction($action);
     }
-    
+
     public function actionIndex()
     {
         $settings = new ContainerSettings([
             'contentContainer' => $this->contentContainer
         ]);
-        
+
         if($settings->load(Yii::$app->request->post()) && $settings->save()) {
             $this->view->saved();
         }
