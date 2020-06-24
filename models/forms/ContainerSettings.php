@@ -95,7 +95,7 @@ class ContainerSettings extends Model
         return [
             'snippetGallery' => Yii::t('GalleryModule.base', 'Choose snippet gallery'),
             'hideSnippet' => Yii::t('GalleryModule.base', 'Don\'t show the gallery snippet in this space.'),
-            'snippetSortOrder' => Yii::t('GalleryModule.config', 'Sort order'),
+            'snippetSortOrder' => Yii::t('GalleryModule.base', 'Sort order'),
         ];
     }
 
