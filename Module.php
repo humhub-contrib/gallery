@@ -13,6 +13,7 @@ use \humhub\modules\gallery\permissions\WriteAccess;
 use \humhub\modules\space\models\Space;
 use \humhub\modules\user\models\User;
 use \Yii;
+use yii\helpers\Url;
 
 class Module extends ContentContainerModule
 {
@@ -38,6 +39,17 @@ class Module extends ContentContainerModule
             new WriteAccess()
         ];
     }
+
+    public function getContentContainerConfigUrl(ContentContainerActiveRecord $container)
+    {
+        return $container->createUrl('/gallery/setting');
+    }
+
+    public function getConfigUrl()
+    {
+        return "";
+    }
+
 
     public function disable()
     {
@@ -88,6 +100,14 @@ class Module extends ContentContainerModule
         }
 
         parent::disableContentContainer($container);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getContentContainerName(ContentContainerActiveRecord $container)
+    {
+        return Yii::t('GalleryModule.base', 'Gallery');
     }
 
     /**
