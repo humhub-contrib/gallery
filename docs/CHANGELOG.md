@@ -1,10 +1,14 @@
 Changelog
 =========
 
+1.1.3 (Unreleased)
+------------------
+- Enh: Added sort order option for gallery snippet (@MasterMindNET) 
+
+
 1.1.2 (May 20, 2020)
 -----------------------
 - Fix: Preview image rotations
-
 
 
 1.1.1 (May 16, 2020)
