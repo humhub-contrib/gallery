@@ -41,6 +41,20 @@ class Events
         }
     }
 
+    public static function onSpaceSidebarInit($event)
+    {
+        try {
+            /** @var Module $module */
+            $module = Yii::$app->getModule('gallery');
+
+            if ($event->sender->space !== null && $event->sender->space->isModuleEnabled('gallery')) {
+                $event->sender->addWidget(GallerySnippet::class, ['contentContainer' => $event->sender->space], ['sortOrder' => (int) $module->settings->contentContainer($event->sender->space)->get(ContainerSettings::SETTING_SORT_ORDER)]);
+            }
+        } catch (\Throwable $e) {
+            Yii::error($e);
+        }
+    }
+
     public static function onProfileMenuInit($event)
     {
         try {
@@ -57,14 +71,14 @@ class Events
         }
     }
 
-    public static function onSpaceSidebarInit($event)
+    public static function onProfileSidebarInit($event)
     {
         try {
             /** @var Module $module */
             $module = Yii::$app->getModule('gallery');
 
-            if ($event->sender->space !== null && $event->sender->space->isModuleEnabled('gallery')) {
-                $event->sender->addWidget(GallerySnippet::class, ['contentContainer' => $event->sender->space], ['sortOrder' => (int) $module->settings->contentContainer($event->sender->space)->get(ContainerSettings::SETTING_SORT_ORDER)]);
+            if ($event->sender->user !== null && $event->sender->user->isModuleEnabled('gallery')) {
+                $event->sender->addWidget(GallerySnippet::class, ['contentContainer' => $event->sender->user], ['sortOrder' => (int) $module->settings->contentContainer($event->sender->user)->get(ContainerSettings::SETTING_SORT_ORDER)]);
             }
         } catch (\Throwable $e) {
             Yii::error($e);
