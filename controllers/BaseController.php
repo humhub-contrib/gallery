@@ -79,7 +79,13 @@ abstract class BaseController extends ContentContainerController
             'pagination' => [
                 'page' => $page,
                 'pageSize' => $this->getPageSize()
-            ]
+            ],
+            'sort' => [
+                'defaultOrder' => [
+                    'sort_order' => SORT_DESC,
+                    'title' => SORT_ASC,
+                ]
+            ],
         ]);
     }
 
