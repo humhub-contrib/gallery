@@ -8,6 +8,7 @@
 
 namespace humhub\modules\gallery\controllers;
 
+use humhub\debug\RDebug;
 use humhub\modules\file\libs\FileHelper;
 use humhub\modules\gallery\helpers\Url;
 use humhub\modules\gallery\models\BaseGallery;
@@ -114,7 +115,6 @@ class CustomGalleryController extends BaseController
         }
 
         $form = new GalleryEditForm(['contentContainer' => $this->contentContainer, 'instance' => $gallery]);
-
         if ($form->load(Yii::$app->request->post()) && $form->save()) {
             $this->view->saved();
             return $this->htmlRedirect(Url::toCustomGallery($this->contentContainer, $form->instance->id));
