@@ -1,6 +1,6 @@
 <?php
 
-namespace humhub\modules\calendar\tests\codeception\unit\reminder;
+namespace humhub\modules\gallery\tests\codeception\unit;
 
 use humhub\modules\gallery\models\CustomGallery;
 use humhub\modules\gallery\models\Media;
