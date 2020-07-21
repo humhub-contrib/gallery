@@ -139,7 +139,7 @@ class Media extends ContentActiveRecord implements Searchable
 
     public function getBaseFile()
     {
-        $query = $this->hasOne(File::className(), ['object_id' => 'id']);
+        $query = $this->hasOne(File::class, ['object_id' => 'id']);
         $query->andWhere(['file.object_model' => self::class]);
         return $query;
     }

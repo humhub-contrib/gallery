@@ -26,6 +26,9 @@ class ContainerSettings extends Model
 {
     const SETTING_HIDE_SNIPPET = 'hideSnippet';
     const SETTING_GALLERY_ID = 'galleryId';
+    const SETTING_SORT_ORDER= 'snippetSortOrder';
+    const SORT_MIN = 0;
+    const SORT_MAX = 32000;
     /**
      * @var ContentContainerActiveRecord $contentContainer of this snippet
      */
@@ -42,6 +45,11 @@ class ContainerSettings extends Model
     public $hideSnippet;
 
     /**
+     * @var integer defines the sort order snippet for the gallery;
+     */
+    public $snippetSortOrder;
+
+    /**
      * @var SettingsManager module setting manager instance
      */
     private $settings;
@@ -53,6 +61,7 @@ class ContainerSettings extends Model
     {
         $this->hideSnippet = $this->hideSnippet();
         $this->snippetGallery = $this->getSnippetId();
+        $this->snippetSortOrder = $this->getSnippetSortOrder();
     }
 
     /**
@@ -62,18 +71,19 @@ class ContainerSettings extends Model
     {
         return [
             [['snippetGallery', 'hideSnippet'], 'integer'],
-            [['snippetGallery'], 'containerGallery']
+            [['snippetGallery'], 'containerGallery'],
+            [['snippetSortOrder'], 'number', 'min' => static::SORT_MIN, 'max' => static::SORT_MAX],
         ];
     }
 
-    public function containerGallery($model, $attribute) {
+    public function containerGallery($attribute, $params) {
         if(!$this->snippetGallery) {
             return;
         }
 
         $gallery = CustomGallery::findOne(['id' => $this->snippetGallery]);
         if(!$gallery->content->contentcontainer_id === $this->contentContainer->contentContainerRecord->id) {
-            $this->addError($model, $attribute, 'Invalid gallery selection.');
+            $this->addError($attribute, 'Invalid gallery selection.');
         }
     }
 
@@ -84,7 +94,8 @@ class ContainerSettings extends Model
     {
         return [
             'snippetGallery' => Yii::t('GalleryModule.base', 'Choose snippet gallery'),
-            'hideSnippet' => Yii::t('GalleryModule.base', 'Don\'t show the gallery snippet in this space.')
+            'hideSnippet' => Yii::t('GalleryModule.base', 'Don\'t show the gallery snippet in this space.'),
+            'snippetSortOrder' => Yii::t('GalleryModule.base', 'Sort order'),
         ];
     }
 
@@ -105,12 +116,12 @@ class ContainerSettings extends Model
             'title' => Html::encode($latest->title),
             'visibility' => $visibility
         ])];
-        
+
         foreach ($galleries as $gallery) {
             $visibility = $gallery->content->isPublic() ? Yii::t('base', 'Public') : Yii::t('base', 'Private');
             $result[$gallery->id] = Html::encode($gallery->title).' ('.$visibility.')';
         }
-        
+
         return $result;
     }
 
@@ -120,8 +131,12 @@ class ContainerSettings extends Model
             return false;
         }
 
+        $this->snippetSortOrder = $this->snippetSortOrder ? $this->snippetSortOrder : self::SORT_MIN;
+
         $this->getSettings()->set(self::SETTING_GALLERY_ID, $this->snippetGallery);
         $this->getSettings()->set(self::SETTING_HIDE_SNIPPET, $this->hideSnippet);
+        $this->getSettings()->set(self::SETTING_SORT_ORDER, $this->snippetSortOrder);
+
         return true;
     }
 
@@ -141,6 +156,11 @@ class ContainerSettings extends Model
     public function getSnippetId()
     {
         return $this->getSettings()->get(self::SETTING_GALLERY_ID, 0);
+    }
+
+    public function getSnippetSortOrder()
+    {
+        return $this->getSettings()->get(self::SETTING_SORT_ORDER, 0);
     }
 
     public function hasGallery()
