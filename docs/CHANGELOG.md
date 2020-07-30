@@ -4,6 +4,7 @@ Changelog
 1.1.3 (Unreleased)
 ------------------
 - Enh: Added sort order option for gallery snippet (@MasterMindNET) 
+- Enh: Gallery snippet is displayed on the user profile's page with sortOrder option and gallery settings
 
 
 1.1.2 (May 20, 2020)
