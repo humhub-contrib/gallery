@@ -33,10 +33,6 @@ class SettingController extends ContentContainerController
 
     public function beforeAction($action)
     {
-        // A user doesn't need the settings for his profile, as the gallery snippet is not shown.
-        if($this->contentContainer instanceof User) {
-            return $this->contentContainer->createUrl('/gallery/list');
-        }
         return parent::beforeAction($action);
     }
 
