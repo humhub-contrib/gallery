@@ -4,6 +4,7 @@ Changelog
 1.1.3 (Unreleased)
 ------------------
 - Enh: Added sort order option for gallery snippet (@MasterMindNET) 
+- Enh: Gallery snippet is displayed on the user profile's page with sortOrder option and gallery settings
 
 
 1.1.2 (May 20, 2020)
@@ -19,7 +20,7 @@ Changelog
 
 1.1.0 (May 12, 2020)
 -----------------------
-- Fix #51: SELECT would examine more thant MAX_JOIN_SIZE triggered in stream gallery
+- Fix #51: SELECT would examine more than MAX_JOIN_SIZE triggered in-stream gallery
 - Enh: Include images of other content types with file flag  `show_in_stream` in posted files gallery
 - Chg: Do not include images of comments in posted files gallery
 - Enh: Improved behavior for images which could not be loaded
@@ -38,7 +39,7 @@ Changelog
 --------------------
 - Chg: Added 1.5 defer compatibility
 - Enh: Enhanced exception handling in event handlers
-- Fix: Gallery permissions displayed on container without gallery module installed (https://github.com/humhub/humhub/issues/3828)
+- Fix: Gallery permissions displayed on the container without gallery module installed (https://github.com/humhub/humhub/issues/3828)
 - Chg: Update HumHub min version to 1.3
 
 
@@ -48,13 +49,13 @@ Changelog
 - Fix #25: Gallery do not support 'jpeg' format (@Buliwyfa)
 
 
-1.0.15 - October, 22, 2019
+1.0.15 - October 22, 2019
 ---------------------
 - Fix: Stream gallery uses full post message as image description
-- Fix #20: Missing translation in gallery edit form
+- Fix #20: Missing translation in the gallery edit form
 
 
-1.0.14 - October, 16, 2019
+1.0.14 - October 16, 2019
 ---------------------
 - Enh: 1.4 nonce compatibility
 - Fix: WriteAccess Permission invalid constant usage
@@ -73,7 +74,7 @@ Changelog
 
 1.0.11 - August 29, 2018
 ---------------------
-- Fix: Gallery setting menu item visible for non space admins
+- Fix: Gallery setting menu item visible for non-space admins
 
 
 1.0.10 - July 16, 2018
