@@ -81,9 +81,9 @@ class Media extends ContentActiveRecord implements Searchable
     public function rules()
     {
         return [
-            ['gallery_id', 'integer'],
+            [['gallery_id', 'sort_order'], 'integer'],
             ['title', 'string', 'max' => 255],
-            ['description', 'string', 'max' => 1000],
+            ['description', 'string', 'max' => 1000]
         ];
     }
 
@@ -95,7 +95,8 @@ class Media extends ContentActiveRecord implements Searchable
         return [
             'id' => 'ID',
             'gallery_id' => 'Gallery ID',
-            'description' => 'Description'
+            'description' => 'Description',
+            'sort_order' => 'Sort Order'
         ];
     }
 

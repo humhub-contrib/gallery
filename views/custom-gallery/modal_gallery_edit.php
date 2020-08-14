@@ -3,7 +3,7 @@
  * @link https://www.humhub.org/
  * @copyright Copyright (c) 2015 HumHub GmbH & Co. KG
  * @license https://www.humhub.com/licences
- * 
+ *
  * @package humhub.modules.gallery.views
  * @since 1.0
  * @author Sebastian Stumpf
@@ -37,6 +37,7 @@ ModalDialog::begin([
         <div class="modal-body">
             <?= $form->field($gallery, 'title' )->label(Yii::t('GalleryModule.base', 'title')); ?>
             <?= $form->field($gallery, 'description' )->textArea()->label(Yii::t('GalleryModule.base', 'description')); ?>
+            <?= $form->field($gallery, 'sort_order' )->input('number')->label(Yii::t('GalleryModule.base', 'sort order')); ?>
             <?= $form->field($galleryForm, 'visibility')->checkbox(['label' => Yii::t('GalleryModule.base', 'Make this gallery public')])?>
         </div>
 

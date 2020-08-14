@@ -52,7 +52,9 @@ class BaseGallery extends ContentActiveRecord
             ['title', 'required'],
             ['title', 'string', 'max' => 255],
             ['description', 'string', 'max' => 1000],
-            [['sort_order', 'thumb_file_id', 'type',], 'safe']
+            [['thumb_file_id', 'type'], 'safe'],
+            [['sort_order'], 'integer'],
+            [['sort_order'], 'default', 'value' => 0]
         ];
     }
 
@@ -138,7 +140,7 @@ class BaseGallery extends ContentActiveRecord
 
         return parent::findOne($condition);
     }
-    
+
     public static function findAll($condition)
     {
         if(static::class !== BaseGallery::class) {
