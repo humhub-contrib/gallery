@@ -57,6 +57,13 @@ humhub.module('gallery', function (module, require, $) {
         });
     };
 
+    $('#gallery-media-container .panel-body').one('click', function() {
+        var $slides = $('.blueimp-gallery .slides');
+        $slides.css({'opacity': 0.1});
+        $slides.fadeTo(2450, 1);
+        $('#gallery-media-container .panel-body').off();
+    });
+
     module.export({
         init: init,
         initOnPjaxLoad: true,

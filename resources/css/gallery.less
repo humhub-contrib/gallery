@@ -260,6 +260,25 @@ body{
     margin-top:5px;
 }
 
+@-webkit-keyframes fadein{
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+.blueimp-gallery > .slides > .slide-loading {
+    background-image: none;
+    // this class with a loader is a bit strange
+}
+
+.blueimp-gallery .blueimp-gallery-display, .blueimp-gallery > .slides > .slide  {
+    animation: fadein 0.57s linear 1 normal forwards;
+    -webkit-animation: fadein 0.57s linear 1 normal forwards;
+}
+
 @media (max-width: 319px) {
     #gallery-container {
         #gallery-list {
