@@ -39,7 +39,7 @@ humhub.module('gallery', function (module, require, $) {
             var firstAnimationTime = 2450;
             $slides.css({'opacity': 0.1});
             $slides.fadeTo(firstAnimationTime, 1);
-            $('#gallery-media-container').off(); // TODO change it to definition
+            $('#gallery-media-container').off();
         });
     };
 
