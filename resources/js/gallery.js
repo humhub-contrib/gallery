@@ -33,6 +33,14 @@ humhub.module('gallery', function (module, require, $) {
         }
 
        fadeIn();
+
+        $('#gallery-media-container').one('click', '.panel-body', function() {
+            var $slides = $('#blueimp-gallery .slides');
+            var firstAnimationTime = 2450;
+            $slides.css({'opacity': 0.1});
+            $slides.fadeTo(firstAnimationTime, 1);
+            $('#gallery-media-container').off(); // TODO change it to definition
+        });
     };
 
     var fadeIn = function() {
@@ -56,13 +64,6 @@ humhub.module('gallery', function (module, require, $) {
             }
         });
     };
-
-    $('#gallery-media-container .panel-body').one('click', function() {
-        var $slides = $('.blueimp-gallery .slides');
-        $slides.css({'opacity': 0.1});
-        $slides.fadeTo(2450, 1);
-        $('#gallery-media-container .panel-body').off();
-    });
 
     module.export({
         init: init,
