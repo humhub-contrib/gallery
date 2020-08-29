@@ -33,14 +33,6 @@ humhub.module('gallery', function (module, require, $) {
         }
 
        fadeIn();
-
-        $('#gallery-media-container').one('click', '.panel-body', function() {
-            var $slides = $('#blueimp-gallery .slides');
-            var firstAnimationTime = 2450;
-            $slides.css({'opacity': 0.1});
-            $slides.fadeTo(firstAnimationTime, 1);
-            $('#gallery-media-container').off();
-        });
     };
 
     var fadeIn = function() {
