@@ -5,6 +5,7 @@ Changelog
 ------------------
 - Enh: Added sort order option for gallery snippet (@MasterMindNET) 
 - Enh: Gallery snippet is displayed on the user profile's page with sortOrder option and gallery settings
+- Enh: When the gallery image opens the first time a slow transition takes place
 
 
 1.1.2 (May 20, 2020)
