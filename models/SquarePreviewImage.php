@@ -52,7 +52,7 @@ class SquarePreviewImage extends PreviewImage
             // Also handle orientation of resized images
             // https://github.com/yiisoft/yii2-imagine/issues/44
             if ($this->file->mime_type === 'image/jpeg' && function_exists('exif_read_data')) {
-                $exif = exif_read_data($this->file->store->get());
+                $exif = @exif_read_data($this->file->store->get());
                 if (!empty($exif['Orientation'])) {
                     switch ($exif['Orientation']) {
                         case 3:
