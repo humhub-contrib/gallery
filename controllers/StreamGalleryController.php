@@ -32,6 +32,13 @@ class StreamGalleryController extends BaseController
     /**
      * @inheritDoc
      */
+    protected $queryOrder = [
+        'title' => SORT_ASC,
+    ];
+
+    /**
+     * @inheritDoc
+     */
     public function beforeAction($action)
     {
         if (!parent::beforeAction($action)) {

@@ -1,6 +1,11 @@
 Changelog
 =========
 
+1.1.4 (October 26 2020)
+------------------------
+- Fix #67: Use of invalid query order in stream file gallery
+
+
 1.1.3 (October 21, 2020)
 ------------------------
 - Enh: Added sort order option for gallery snippet (@MasterMindNET) 

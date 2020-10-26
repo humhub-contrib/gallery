@@ -44,6 +44,14 @@ abstract class BaseController extends ContentContainerController
      */
     protected $page = 0;
 
+    /**
+     * @var array|string sort order used for the ActiveDataProvider
+     */
+    protected $queryOrder = [
+        'sort_order' => SORT_DESC,
+        'title' => SORT_ASC,
+    ];
+
     public function actionIndex()
     {
         $this->dataProvider = $this->loadPage();
@@ -81,10 +89,7 @@ abstract class BaseController extends ContentContainerController
                 'pageSize' => $this->getPageSize()
             ],
             'sort' => [
-                'defaultOrder' => [
-                    'sort_order' => SORT_DESC,
-                    'title' => SORT_ASC,
-                ]
+                'defaultOrder' => $this->queryOrder
             ],
         ]);
     }
