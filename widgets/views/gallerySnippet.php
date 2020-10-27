@@ -52,7 +52,18 @@ $extraMenus .= '<li><a href="'.$galleryUrl.'"><i class="fa fa-arrow-circle-right
                index:links[0],
                container: '#sidebar-gallery-carousel',
                carousel: true,
-               stretchImages: true
+               stretchImages: true,
+               onopen: function () {
+                   // Fix for small screens where sidebar is hidden,
+                   // prevent slide animation when NaN is passed in `index` param,
+                   // NOTE: on switching back to large screen with visible slider it can be started only manually.
+                   this.originalOnslide = this.onslide;
+                   this.onslide = function(index) {
+                       if (Number.isInteger(index)) {
+                           this.originalOnslide(index);
+                       }
+                   }
+               },
            });
        });
         setTimeout(function() {

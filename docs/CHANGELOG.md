@@ -1,6 +1,10 @@
 Changelog
 =========
 
+1.1.5 (Unreleased)
+------------------------
+- Fix #57: Fix gallery snippet on mobile small screens
+
 1.1.4 (October 26 2020)
 ------------------------
 - Fix #67: Use of invalid query order in stream file gallery
