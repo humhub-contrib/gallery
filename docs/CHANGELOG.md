@@ -1,6 +1,10 @@
 Changelog
 =========
 
+1.2.0 (Unreleased)
+------------------------
+- Enh #69: Wall Stream Layout Migration for HumHub 1.7+
+
 1.1.4 (October 26 2020)
 ------------------------
 - Fix #67: Use of invalid query order in stream file gallery
