@@ -1,9 +1,10 @@
 Changelog
 =========
 
-1.2.0 (Unreleased)
+1.2.0 (November 4, 2020)
 ------------------------
 - Enh #69: Wall Stream Layout Migration for HumHub 1.7+
+
 
 1.1.4 (October 26 2020)
 ------------------------
