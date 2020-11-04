@@ -48,11 +48,34 @@ $extraMenus .= '<li><a href="'.$galleryUrl.'"><i class="fa fa-arrow-circle-right
        $('#gallery-snippet-links a').on('click', function(evt) {
            evt.preventDefault();
            var links = $('#gallery-snippet-links a').get();
-           blueimp.Gallery(links, {
+           const gallerySnippet = blueimp.Gallery;
+           // Fix: Initialization can start properly only when gallery is visible
+           gallerySnippet.prototype.originalInitialize = gallerySnippet.prototype.initialize;
+           gallerySnippet.prototype.initialize = function() {
+               if ($('#sidebar-gallery-carousel').parent().is(':visible')) {
+                   // Run original initialization only when gallery is visible
+                   this.originalInitialize();
+               } else {
+                   // Wait until gallery will becomes visible
+                   setTimeout(() => this.initialize(), 2000);
+               }
+           }
+           gallerySnippet(links, {
                index:links[0],
                container: '#sidebar-gallery-carousel',
                carousel: true,
-               stretchImages: true
+               stretchImages: true,
+               onopen: function () {
+                   // Fix for small screens where sidebar is hidden,
+                   // prevent slide animation when NaN is passed in `index` param,
+                   // NOTE: on switching back to large screen with visible slider it can be started only manually.
+                   this.originalOnslide = this.onslide;
+                   this.onslide = function(index) {
+                       if (Number.isInteger(index)) {
+                           this.originalOnslide(index);
+                       }
+                   }
+               },
            });
        });
         setTimeout(function() {

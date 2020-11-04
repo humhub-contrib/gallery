@@ -1,8 +1,10 @@
 Changelog
 =========
 
+
 1.2.0 (November 4, 2020)
 ------------------------
+- Fix #57: Fix gallery snippet on mobile small screens
 - Enh #69: Wall Stream Layout Migration for HumHub 1.7+
 
 
