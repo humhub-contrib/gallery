@@ -21,7 +21,7 @@ env:
   matrix:
     - HUMHUB_VERSION=master
     - HUMHUB_VERSION=develop
-    - HUMHUB_VERSION=v1.5.3
+    - HUMHUB_VERSION=v1.7.0
 
 matrix:
   fast_finish: true

@@ -8,6 +8,7 @@
 
 namespace humhub\modules\gallery\widgets;
 
+use humhub\modules\content\widgets\stream\WallStreamModuleEntryWidget;
 use humhub\modules\file\converter\PreviewImage;
 use humhub\modules\gallery\models\Media;
 use humhub\libs\MimeHelper;
@@ -19,7 +20,7 @@ use humhub\libs\MimeHelper;
  * @since 1.0
  * @author Sebastian Stumpf
  */
-class WallEntryMedia extends \humhub\modules\content\widgets\WallEntry
+class WallEntryMedia extends WallStreamModuleEntryWidget
 {
 
     /**
@@ -33,11 +34,16 @@ class WallEntryMedia extends \humhub\modules\content\widgets\WallEntry
     public $editMode = self::EDIT_MODE_MODAL;
 
     /**
+     * @var Media
+     */
+    public $model;
+
+    /**
      * @inheritdoc
      */
-    public function run()
+    public function renderContent()
     {
-        $media = $this->contentObject;
+        $media = $this->model;
 
         $galleryUrl = '#';
         $galleryName = null;
@@ -68,10 +74,18 @@ class WallEntryMedia extends \humhub\modules\content\widgets\WallEntry
         if (parent::getEditUrl() === "") {
             return "";
         }
-        if ($this->contentObject instanceof Media) {
-            return $this->contentObject->getEditUrl(true);
+        if ($this->model instanceof Media) {
+            return $this->model->getEditUrl(true);
         }
         return "";
+    }
+
+    /**
+     * @return string a non encoded plain text title (no html allowed) used in the header of the widget
+     */
+    protected function getTitle()
+    {
+        return $this->model->title;
     }
 
 }
