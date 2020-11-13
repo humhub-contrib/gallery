@@ -20,6 +20,7 @@ use humhub\modules\content\components\ContentContainerActiveRecord;
 use humhub\modules\content\models\Content;
 use humhub\modules\gallery\models\CustomGallery;
 use humhub\modules\space\models\Space;
+use Yii;
 use yii\base\Model;
 use yii\web\HttpException;
 
@@ -66,6 +67,15 @@ class GalleryEditForm extends Model
         } else {
             $this->visibility = $this->instance->content->visibility;
         }
+    }
+
+    public function attributeLabels()
+    {
+        return [
+            'title' => Yii::t('GalleryModule.base', 'Title'),
+            'description' => Yii::t('GalleryModule.base', 'Description'),
+            'sort_order' => Yii::t('GalleryModule.base', 'Sort Order'),
+        ];
     }
 
     /**
