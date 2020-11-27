@@ -1,10 +1,16 @@
 Changelog
 =========
 
+1.2.2 (November 27, 2020)
+-----------------------
+- Fix #73: Fixed preview image dimensions
+
+
 1.2.1 (November 13, 2020)
 -----------------------
 - Fix #72: RangeError: Maximum call stack size exceeded when initializing the gallery snippet
 - Fix: GalleryEditForm form labels not translatable
+
 
 1.2.0 (November 4, 2020)
 ------------------------

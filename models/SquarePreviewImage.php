@@ -25,6 +25,13 @@ class SquarePreviewImage extends PreviewImage
 
     const DEFAULT_GALLERY_PREVIEW_IMAGE_MAX_DIM = 400;
 
+    /**
+     * @inheritdoc
+     */
+    public function getId()
+    {
+        return 'gallery-preview';
+    }
 
     /**
      * @inheritDoc
