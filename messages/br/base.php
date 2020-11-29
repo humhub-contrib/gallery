@@ -44,6 +44,7 @@ return [
     'Show connected post' => '',
     'Show more' => '',
     'Size:' => '',
+    'Sort Order' => '',
     'Sort order' => '',
     'There are no galleries available for this space. In order to configure the gallery snippet, please <a href="{createLink}">create</a> a new gallery' => '',
     'This gallery contains all posted media files from the profile.' => '',
