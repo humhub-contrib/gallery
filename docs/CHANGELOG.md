@@ -1,6 +1,10 @@
 Changelog
 =========
 
+1.3.0 (Unreleased)
+-----------------------
+- Enh #4751: Hide separator between content links
+
 1.2.2 (November 27, 2020)
 -----------------------
 - Fix #73: Fixed preview image dimensions

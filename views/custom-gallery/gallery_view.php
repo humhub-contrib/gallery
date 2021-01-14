@@ -1,15 +1,14 @@
 <?php
 
-use \humhub\modules\comment\widgets\CommentLink;
 use \humhub\modules\comment\widgets\Comments;
 use humhub\modules\content\components\ContentActiveRecord;
+use humhub\modules\content\widgets\ContentObjectLinks;
 use \humhub\modules\gallery\assets\Assets;
 use humhub\modules\gallery\helpers\Url;
 use humhub\modules\gallery\models\CustomGallery;
 use humhub\modules\gallery\models\Media;
 use humhub\modules\gallery\permissions\WriteAccess;
 use humhub\modules\gallery\widgets\GalleryMenu;
-use \humhub\modules\like\widgets\LikeLink;
 use humhub\widgets\Button;
 use humhub\widgets\TimeAgo;
 use humhub\libs\Html;
@@ -80,9 +79,7 @@ $bundle = Assets::register($this);
 
         <div class="row">
             <div class="col-sm-12 social-activities-gallery colorFont5">
-                <?= LikeLink::widget(['object' => $gallery]) ?>
-                |
-                <?= CommentLink::widget(['object' => $gallery]) ?>
+                <?= ContentObjectLinks::widget(['object' => $gallery]); ?>
             </div>
             <div class="col-sm-12 comments">
                 <?= Comments::widget(['object' => $gallery]) ?>

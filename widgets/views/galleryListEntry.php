@@ -10,8 +10,8 @@
  */
 
 use \humhub\modules\comment\widgets\CommentLink;
+use humhub\modules\content\widgets\ContentObjectLinks;
 use \humhub\modules\gallery\assets\Assets;
-use \humhub\modules\like\widgets\LikeLink;
 use humhub\widgets\Link;
 use humhub\widgets\ModalButton;
 use \yii\helpers\Html;
@@ -54,7 +54,10 @@ $bundle = Assets::register($this);
                 <?php if ($footerOverwrite): ?>
                     <?= $footerOverwrite ?>
                 <?php else: ?>
-                    <?= LikeLink::widget(['object' => $contentObject]) ?> | <?= CommentLink::widget(['object' => $contentObject, 'mode' => CommentLink::MODE_POPUP]) ?>
+                    <?= ContentObjectLinks::widget([
+                        'object' => $contentObject,
+                        'widgetParams' => [CommentLink::class => ['mode' => CommentLink::MODE_POPUP]],
+                    ]); ?>
                 <?php endif; ?>
             </div>
         </div>
