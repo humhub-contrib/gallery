@@ -1,4 +1,4 @@
-[![Test Status](https://github.com/humhub-contrib/humhub-modules-gallery/workflows/PHP%20Codeception%20Tests/badge.svg)](https://github.com/humhub-contrib/humhub-modules-gallery/actions)
+[![Test Status](https://github.com/humhub-contrib/gallery/workflows/PHP%20Codeception%20Tests/badge.svg)](https://github.com/humhub-contrib/gallery/actions)
 
 
 # Gallery 
