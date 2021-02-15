@@ -13,7 +13,7 @@ return array (
   'Adds gallery module to this space.' => '',
   'Adds gallery module to your profile.' => 'Adiciona módulo de galeria ao teu perfil.',
   'Allows the user to add, modify images and galleries.' => 'Permite à pessoa adicionar,modificar imagens e galerias.',
-  'Back to overview' => '',
+  'Back to overview' => 'Voltar à vista geral',
   'Choose snippet gallery' => '',
   'Click here to add new Gallery' => 'Clica aqui para adicionar nova galeria',
   'Click or drop files here' => '',
