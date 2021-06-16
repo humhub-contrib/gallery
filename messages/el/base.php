@@ -42,7 +42,7 @@ return array (
   'Settings' => 'Ρυθμίσεις',
   'Show connected post' => '',
   'Show more' => 'Δείτε περισσότερα',
-  'Size:' => '',
+  'Size:' => 'Μέγεθος:',
   'Sort Order' => 'Σειρά ταξινόμησης',
   'Sort order' => 'Σειρά ταξινόμησης',
   'There are no galleries available for this space. In order to configure the gallery snippet, please <a href="{createLink}">create</a> a new gallery' => '',

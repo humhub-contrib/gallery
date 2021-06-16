@@ -49,7 +49,7 @@ return array (
   'This gallery contains all posted media files from the profile.' => '',
   'This gallery contains all posted media files from the space.' => '',
   'This gallery contains all posted pictures.' => '',
-  'Title' => '',
+  'Title' => 'Titulli',
   'Upload' => '',
   'added by ' => '',
   'description' => '',
