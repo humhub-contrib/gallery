@@ -26,7 +26,7 @@ class Events
     public static function onSpaceMenuInit($event)
     {
         try {
-            if ($event->sender->space !== null && $event->sender->space->isModuleEnabled('gallery')) {
+            if ($event->sender->space !== null && $event->sender->space->moduleManager->isEnabled('gallery')) {
 
                 $event->sender->addItem([
                     'label' => Yii::t('GalleryModule.base', 'Gallery'),
@@ -47,7 +47,7 @@ class Events
             /** @var Module $module */
             $module = Yii::$app->getModule('gallery');
 
-            if ($event->sender->space !== null && $event->sender->space->isModuleEnabled('gallery')) {
+            if ($event->sender->space !== null && $event->sender->space->moduleManager->isEnabled('gallery')) {
                 $event->sender->addWidget(GallerySnippet::class, ['contentContainer' => $event->sender->space], ['sortOrder' => (int) $module->settings->contentContainer($event->sender->space)->get(ContainerSettings::SETTING_SORT_ORDER)]);
             }
         } catch (\Throwable $e) {
@@ -58,7 +58,7 @@ class Events
     public static function onProfileMenuInit($event)
     {
         try {
-            if ($event->sender->user !== null && $event->sender->user->isModuleEnabled('gallery')) {
+            if ($event->sender->user !== null && $event->sender->user->moduleManager->isEnabled('gallery')) {
                 $event->sender->addItem([
                     'label' => Yii::t('GalleryModule.base', 'Gallery'),
                     'url' => Url::toGalleryOverview($event->sender->user),
@@ -77,7 +77,7 @@ class Events
             /** @var Module $module */
             $module = Yii::$app->getModule('gallery');
 
-            if ($event->sender->user !== null && $event->sender->user->isModuleEnabled('gallery')) {
+            if ($event->sender->user !== null && $event->sender->user->moduleManager->isEnabled('gallery')) {
                 $event->sender->addWidget(GallerySnippet::class, ['contentContainer' => $event->sender->user], ['sortOrder' => (int) $module->settings->contentContainer($event->sender->user)->get(ContainerSettings::SETTING_SORT_ORDER)]);
             }
         } catch (\Throwable $e) {

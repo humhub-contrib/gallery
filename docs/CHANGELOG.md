@@ -4,6 +4,7 @@ Changelog
 1.2.2 (November 27, 2020)
 -----------------------
 - Fix #73: Fixed preview image dimensions
+- Enh #5274: Deprecate CompatModuleManager
 
 
 1.2.1 (November 13, 2020)
