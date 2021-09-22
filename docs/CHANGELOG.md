@@ -1,6 +1,11 @@
 Changelog
 =========
 
+1.3.0 (Unreleased)
+---------------------
+- Enh #140: Use widget ContentVisibiltySelect
+
+
 1.2.2 (November 27, 2020)
 -----------------------
 - Fix #73: Fixed preview image dimensions
