@@ -80,7 +80,8 @@ class GalleryCest
         $I->click('Stream', '.layout-nav-container');
         $I->waitForText('My new media!', null, '.wall-entry');
         $I->click('Open Gallery', '.wall-entry');
-        $I->waitForText('Gallery Test gallery', 10, '#gallery-container .panel-heading');
+        $I->waitForElement('#gallery-container .panel-heading');
+        $I->waitForText('Gallery Test gallery');
     }
 
     private function dontseeMediaInStream(AcceptanceTester $I)
