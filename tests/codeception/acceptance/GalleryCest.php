@@ -40,7 +40,8 @@ class GalleryCest
     private function createGallery(AcceptanceTester $I, $title = 'Test gallery', $description = 'My test gallery', $public = true)
     {
         $I->click('.add-entry');
-        $I->waitForText('Add new gallery', null, '#globalModal');
+        $I->waitForElementVisible('#globalModal');
+        $I->waitForText('Add new gallery');
         $I->fillField('#customgallery-title', $title);
         $I->fillField('#customgallery-description', $description);
 
