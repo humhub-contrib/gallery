@@ -39,7 +39,7 @@ class GalleryCest
 
     private function createGallery(AcceptanceTester $I, $title = 'Test gallery', $description = 'My test gallery', $public = true)
     {
-        $I->click('.add-entry');
+        $I->click('Click here to add new Gallery');
         $I->waitForText('Add new gallery', null, '#globalModal');
         $I->fillField('#customgallery-title', $title);
         $I->fillField('#customgallery-description', $description);
@@ -79,8 +79,9 @@ class GalleryCest
     {
         $I->click('Stream', '.layout-nav-container');
         $I->waitForText('My new media!', null, '.wall-entry');
-        $I->click('Open Gallery', null, '.wall-entry');
-        $I->waitForText('Gallery Test gallery', null, '#gallery-container .panel-heading');
+        $I->click('Open Gallery', '.wall-entry');
+        $I->waitForElement('#gallery-container .panel-heading');
+        $I->waitForText('Gallery Test gallery');
     }
 
     private function dontseeMediaInStream(AcceptanceTester $I)
