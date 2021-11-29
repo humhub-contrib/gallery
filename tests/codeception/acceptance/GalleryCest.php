@@ -79,7 +79,7 @@ class GalleryCest
     {
         $I->click('Stream', '.layout-nav-container');
         $I->waitForText('My new media!', null, '.wall-entry');
-        $I->click('Open Gallery', null, '.wall-entry');
+        $I->click('Open Gallery', '.wall-entry');
         $I->waitForText('Gallery Test gallery', null, '#gallery-container .panel-heading');
     }
 
