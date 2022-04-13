@@ -9,7 +9,7 @@ return array (
   '<strong>Gallery</strong> settings' => 'Paramètres de la <strong>galerie</strong>',
   '<strong>List</strong> of galleries' => '<strong>Liste</strong> des galeries',
   'Add Gallery' => 'Ajouter une galerie',
-  'Add gallery image button' => '',
+  'Add gallery image button' => 'Ajouter un bouton pour la gallerie d’images.',
   'Adds gallery module to this space.' => 'Ce module permet d\'ajouter une galerie à cet espace.',
   'Adds gallery module to your profile.' => 'Ce module permet d\'ajouter une galerie à votre profil.',
   'Allows the user to add, modify images and galleries.' => 'Autoriser l\'utilisateur à ajouter, modifier des images et galeries.',
