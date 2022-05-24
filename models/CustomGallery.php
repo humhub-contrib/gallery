@@ -5,7 +5,7 @@ namespace humhub\modules\gallery\models;
 use humhub\modules\content\components\ActiveQueryContent;
 use humhub\modules\content\components\ContentContainerActiveRecord;
 use humhub\modules\gallery\helpers\Url;
-use humhub\modules\gallery\notifications\MediaUploaded;
+use humhub\modules\user\models\User;
 use Yii;
 
 /**
@@ -107,9 +107,17 @@ class CustomGallery extends BaseGallery
      */
     public function notify()
     {
-        MediaUploaded::instance()
-            ->from(Yii::$app->user->getIdentity())
+        /* @var User $user */
+        $user = Yii::$app->user->getIdentity();
+
+        \humhub\modules\gallery\notifications\MediaUploaded::instance()
+            ->from($user)
             ->about($this)
             ->sendBulk($this->getFollowersWithNotificationQuery());
+
+        \humhub\modules\gallery\activities\MediaUploaded::instance()
+            ->from($user)
+            ->about($this)
+            ->save();
     }
 }

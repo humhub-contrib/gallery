@@ -1,30 +1,38 @@
 <?php
 
-/* @var $this yii\web\View */
-/* @var $viewable humhub\modules\content\notifications\ContentCreated */
+use humhub\modules\gallery\notifications\MediaUploaded;
+use humhub\modules\notification\models\Notification;
+use humhub\modules\space\models\Space;
+use humhub\modules\user\models\User;
+use humhub\widgets\mails\MailButton;
+use humhub\widgets\mails\MailButtonList;
+use humhub\widgets\mails\MailContentEntry;
+use yii\web\View;
+
+/* @var $this View */
+/* @var $viewable MediaUploaded */
 /* @var $url string */
 /* @var $date string */
-/* @var $isNew boolean */
-/* @var $originator \humhub\modules\user\models\User */
-/* @var $source yii\db\ActiveRecord */
-/* @var $contentContainer \humhub\modules\content\components\ContentContainerActiveRecord */
-/* @var $space humhub\modules\space\models\Space */
-/* @var $record \humhub\modules\notification\models\Notification */
+/* @var $originator User */
+/* @var $space Space */
+/* @var $record Notification */
 /* @var $_params_ array */
 ?>
 <?php $this->beginContent('@notification/views/layouts/mail.php', $_params_); ?>
 
-    <?= humhub\widgets\mails\MailContentEntry::widget([
+    <?= MailContentEntry::widget([
         'originator' => $originator,
         'receiver' => $record->user,
-        'content' => $viewable->source,
+        'content' => Yii::t('GalleryModule.base', 'New files have been uploaded into the gallery "{galleryName}".', [
+            'galleryName' => $viewable->source->title
+        ]),
         'date' => $date,
         'space' => $space
     ]) ?>
 
-    <?= \humhub\widgets\mails\MailButtonList::widget([
+    <?= MailButtonList::widget([
         'buttons' => [
-            humhub\widgets\mails\MailButton::widget(['url' => $url, 'text' => Yii::t('ContentModule.notifications', 'View Online')])
+            MailButton::widget(['url' => $url, 'text' => Yii::t('GalleryModule.base', 'View Online')])
         ]
     ]) ?>
 
