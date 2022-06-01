@@ -18,6 +18,7 @@ use \Yii;
  * @property integer $sort_order
  * @property integer $thumb_file_id
  * @property integer $type
+ * @property-read string $url
  *
  * @package humhub.modules.gallery.models
  * @since 1.0

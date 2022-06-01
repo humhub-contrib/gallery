@@ -4,10 +4,9 @@ namespace humhub\modules\gallery\models;
 
 use humhub\modules\content\components\ActiveQueryContent;
 use humhub\modules\content\components\ContentContainerActiveRecord;
-use humhub\modules\content\models\Content;
-use humhub\modules\space\models\Space;
-use Yii;
 use humhub\modules\gallery\helpers\Url;
+use humhub\modules\user\models\User;
+use Yii;
 
 /**
  * This is the model class for a custom gallery.
@@ -103,4 +102,22 @@ class CustomGallery extends BaseGallery
         return $this->mediaListQuery()->one() === null;
     }
 
+    /**
+     * Notify users about new uploaded media files
+     */
+    public function notify()
+    {
+        /* @var User $user */
+        $user = Yii::$app->user->getIdentity();
+
+        \humhub\modules\gallery\notifications\MediaUploaded::instance()
+            ->from($user)
+            ->about($this)
+            ->sendBulk($this->getFollowersWithNotificationQuery());
+
+        \humhub\modules\gallery\activities\MediaUploaded::instance()
+            ->from($user)
+            ->about($this)
+            ->save();
+    }
 }

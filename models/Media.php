@@ -53,6 +53,11 @@ class Media extends ContentActiveRecord implements Searchable
     /**
      * @inheritdoc
      */
+    public $silentContentCreation = true;
+
+    /**
+     * @inheritdoc
+     */
     public static function tableName()
     {
         return 'gallery_media';
@@ -210,20 +215,13 @@ class Media extends ContentActiveRecord implements Searchable
     {
         $mediaUpload = new MediaUpload();
         $mediaUpload->setUploadedFile($file);
-        $valid = $mediaUpload->validate();
-
-        if ($valid) {
+        if ($mediaUpload->validate()) {
             $this->title = $mediaUpload->file_name;
-
-            $valid = $this->validate();
-
-            if ($valid) {
-                if ($this->save()) {
-                    $mediaUpload->object_model = self::class;
-                    $mediaUpload->object_id = $this->id;
-                    $mediaUpload->show_in_stream = false;
-                    $mediaUpload->save();
-                }
+            if ($this->validate() && $this->save()) {
+                $mediaUpload->object_model = self::class;
+                $mediaUpload->object_id = $this->id;
+                $mediaUpload->show_in_stream = false;
+                $mediaUpload->save();
             }
         }
 

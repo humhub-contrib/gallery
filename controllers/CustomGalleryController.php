@@ -8,7 +8,6 @@
 
 namespace humhub\modules\gallery\controllers;
 
-use humhub\debug\RDebug;
 use humhub\modules\file\libs\FileHelper;
 use humhub\modules\gallery\helpers\Url;
 use humhub\modules\gallery\models\BaseGallery;
@@ -165,10 +164,18 @@ class CustomGalleryController extends BaseController
 
         $errors = false;
         $files = [];
+        $isNewFileUploaded = false;
         foreach (UploadedFile::getInstancesByName('files') as $cFile) {
             $result = $this->handleMediaUpload($gallery, $cFile);
             $errors |= $result['error'];
             $files[] = $result;
+            if (!$result['error']) {
+                $isNewFileUploaded = true;
+            }
+        }
+
+        if ($isNewFileUploaded) {
+            $gallery->notify();
         }
 
         return $this->asJson(['files' => $files]);

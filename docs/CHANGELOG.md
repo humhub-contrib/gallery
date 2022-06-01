@@ -5,6 +5,7 @@ Changelog
 -----------------------
 - Fix #89: Fix tests
 - Fix #71: Improve wall entry styles for small screens
+- Enh #36: Notification for Gallery instead of single Media file
 
 
 1.2.2 (November 27, 2020)
