@@ -7,6 +7,9 @@
     "doc": "docs",
     "test": "tests"
   },
+  "scripts": {
+    "build": "grunt build"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/humhub-contrib/humhub-modules-gallery.git"
@@ -23,5 +26,8 @@
     "grunt-contrib-less": "^2.0.0",
     "grunt-contrib-uglify": "^4.0.1",
     "grunt-contrib-cssmin": "^3.0.0"
+  },
+  "engines": {
+    "node": "^16"
   }
 }
