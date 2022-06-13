@@ -58,7 +58,7 @@ $bundle = Assets::register($this);
                 <?php endif; ?>
             </div>
         </div>
-        <div class="panel-heading background-none <?= $alwaysShowHeading ? '' : 'overlay' ?>">
+        <div class="panel-heading <?= $alwaysShowHeading ? '' : 'overlay' ?>">
             <div class="footnotesize pull-left truncate tt" data-toggle="tooltip" data-placement="top" title=""
                  data-original-title="<?= $showTooltip ? Html::encode($title) : '' ?>">
                 <?= Html::encode($title); ?>
