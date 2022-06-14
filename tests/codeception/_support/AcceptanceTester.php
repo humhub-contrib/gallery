@@ -62,7 +62,7 @@ class AcceptanceTester extends \AcceptanceTester
         $this->fillField('#customgallery-description', $description);
 
         if ($public) {
-            $this->click('[for="galleryeditform-visibility"]', '#globalModal');
+            $this->click('label', '#globalModal .field-galleryeditform-visibility');
         }
 
         $this->click('Save', '#globalModal');
