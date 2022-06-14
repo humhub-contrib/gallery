@@ -22,6 +22,15 @@ class AcceptanceTester extends \AcceptanceTester
 {
     use _generated\AcceptanceTesterActions;
 
+    public function enableModule($guid, $moduleId)
+    {
+        $this->amOnSpace($guid, '/space/manage/module');
+        $this->seeElement('.enable-module-'.$moduleId);
+        $this->jsClick('.enable-module-'.$moduleId);
+        $this->waitForElement('.disable-module-'.$moduleId);
+        $this->amOnSpace($guid);
+    }
+
     public function enableSpaceModule()
     {
         $this->amAdmin();
