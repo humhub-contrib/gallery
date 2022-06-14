@@ -24,7 +24,7 @@ return array (
   'Do you really want to delete this gallery with all related content?' => '',
   'Do you really want to delete this item with all related content?' => '',
   'Don\'t show the gallery snippet in this space.' => '',
-  'Download' => '',
+  'Download' => 'ダウンロード',
   'Edit' => '編集',
   'Edit Gallery' => '',
   'Gallery' => '',

@@ -15,7 +15,7 @@ class MediaUpload extends FileUpload
     /**
      * The supported extensions
      */
-    public $validExtensions = ['jpg', 'jpeg', 'gif', 'bmp', 'svg', 'tiff', 'png'];
+    public $validExtensions = ['jpg', 'jpeg', 'gif', 'bmp', 'svg', 'tiff', 'png', 'webp'];
 
     /**
      * @inheritdoc

@@ -1,10 +1,12 @@
 Changelog
 =========
 
-1.3.0 (Unreleased)
+1.3.0 (June 14, 2022)
 ---------------------
 - Enh #140: Use widget ContentVisibiltySelect
-
+- Fix #89: Fix tests
+- Fix #71: Improve wall entry styles for small screens
+- Enh #85: Improved the visibility gallery labels
 
 1.2.2 (November 27, 2020)
 -----------------------

@@ -11,7 +11,6 @@ namespace humhub\modules\gallery\widgets;
 use humhub\modules\content\widgets\stream\WallStreamModuleEntryWidget;
 use humhub\modules\file\converter\PreviewImage;
 use humhub\modules\gallery\models\Media;
-use humhub\libs\MimeHelper;
 
 /**
  * Widget that renders the Wallentry for a Media file.
@@ -43,24 +42,13 @@ class WallEntryMedia extends WallStreamModuleEntryWidget
      */
     public function renderContent()
     {
-        $media = $this->model;
-
-        $galleryUrl = '#';
-        $galleryName = null;
-        if ($media->parentGallery !== null) {
-            $galleryUrl = $media->parentGallery->getUrl();
-            $galleryName = $media->parentGallery->title;
-        }
+        $gallery = $this->model->parentGallery;
 
         return $this->render('wallEntryMedia', [
-                    'media' => $media,
-                    'title' => $media->getTitle(),
-                    'fileSize' => $media->getSize(),
-                    'file' => $media->baseFile,
-                    'previewImage' => new PreviewImage(),
-                    'galleryUrl' => $galleryUrl,
-                    'galleryName' => $galleryName,
-                    'mimeIconClass' => MimeHelper::getMimeIconClassByExtension($media->baseFile)
+            'media' => $this->model,
+            'previewImage' => new PreviewImage(),
+            'galleryUrl' => $gallery ? $gallery->getUrl() : '#',
+            'galleryName' => $gallery ? $gallery->title : null,
         ]);
     }
 
