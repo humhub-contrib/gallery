@@ -13,17 +13,6 @@ use gallery\AcceptanceTester;
 
 class GalleryCest
 {
-    private function enableSpaceModule(AcceptanceTester $I)
-    {
-        $I->amAdmin();
-        $I->enableModule(1, 'gallery');
-        $I->wait(5);
-        $I->jsClick('[data-menu-id="account-logout"]');
-        $I->wait(5);
-        $I->amUser2();
-        $I->amOnSpace1();
-    }
-
     private function seeGalleryInCotnainerNav(AcceptanceTester $I)
     {
         $I->expectTo('see gallery entry in the nav');
@@ -122,7 +111,7 @@ class GalleryCest
 
     public function testCreateAndDeleteMediaOnSpace(AcceptanceTester $I)
     {
-        $this->enableSpaceModule($I);
+        $I->enableSpaceModule();
         $this->seeGalleryInCotnainerNav($I);
         $this->accessGallery($I);
         $this->createGallery($I);
@@ -137,7 +126,7 @@ class GalleryCest
 
     public function testShowRelatedPostOnMedia(AcceptanceTester $I)
     {
-        $this->enableSpaceModule($I);
+        $I->enableSpaceModule();
         $this->seeGalleryInCotnainerNav($I);
         $this->accessGallery($I);
         $this->createGallery($I);
@@ -149,7 +138,7 @@ class GalleryCest
 
     public function testUploadInvalidFile(AcceptanceTester $I)
     {
-        $this->enableSpaceModule($I);
+        $I->enableSpaceModule();
         $this->seeGalleryInCotnainerNav($I);
         $this->accessGallery($I);
         $this->createGallery($I);

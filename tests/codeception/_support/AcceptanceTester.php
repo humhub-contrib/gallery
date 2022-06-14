@@ -20,15 +20,13 @@ class AcceptanceTester extends \AcceptanceTester
 {
     use _generated\AcceptanceTesterActions;
 
-   /**
-    * Define custom actions here
-    */
-    private function enableSpaceModule(AcceptanceTester $I)
+    public function enableSpaceModule()
     {
-        $I->amAdmin();
-        $I->wantToTest('the creation of a task list');
-        $I->amGoingTo('install the calendar module for space 1');
-        $I->enableModule(1, 'gallery');
-        $I->amOnSpace1();
+        $this->amAdmin();
+        $this->wantToTest('the creation of a task list');
+        $this->amGoingTo('install the calendar module for space 1');
+        $this->enableModule(1, 'gallery');
+        $this->amUser2(true);
+        $this->amOnSpace1();
     }
 }
