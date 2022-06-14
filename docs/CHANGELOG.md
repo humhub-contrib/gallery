@@ -1,8 +1,8 @@
 Changelog
 =========
 
-1.2.3 (Unreleased)
------------------------
+1.2.3 (June 14, 2022)
+---------------------
 - Fix #89: Fix tests
 - Fix #71: Improve wall entry styles for small screens
 - Enh #85: Improved the visibility gallery labels
