@@ -13,6 +13,7 @@ use humhub\modules\content\components\ContentContainerActiveRecord;
 use humhub\modules\gallery\helpers\Url;
 use humhub\modules\gallery\models\forms\GalleryEditForm;
 use humhub\modules\ui\form\widgets\ContentVisibilitySelect;
+use humhub\modules\ui\form\widgets\SortOrderField;
 use humhub\widgets\ModalButton;
 use humhub\widgets\ModalDialog;
 use yii\bootstrap\ActiveForm; ?>
@@ -38,7 +39,7 @@ ModalDialog::begin([
         <div class="modal-body">
             <?= $form->field($gallery, 'title' )->label(Yii::t('GalleryModule.base', 'title')); ?>
             <?= $form->field($gallery, 'description' )->textArea()->label(Yii::t('GalleryModule.base', 'description')); ?>
-            <?= $form->field($gallery, 'sort_order' )->input('number')->label(Yii::t('GalleryModule.base', 'sort order')); ?>
+            <?= $form->field($gallery, 'sort_order')->widget(SortOrderField::class, []); ?>
             <?= $form->field($galleryForm, 'visibility')->widget(ContentVisibilitySelect::class, ['contentOwner' => 'instance']); ?>
         </div>
 
