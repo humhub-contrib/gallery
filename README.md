@@ -1,3 +1,6 @@
+[![Test Status](https://github.com/humhub-contrib/gallery/workflows/PHP%20Codeception%20Tests/badge.svg)](https://github.com/humhub-contrib/gallery/actions)
+
+
 # Gallery 
 
 Enhance your Spaces and profiles with galleries. Collect and categorize all important images and never lose track of them again.

@@ -2,14 +2,14 @@
 
 namespace humhub\modules\gallery\models;
 
-use \humhub\modules\content\components\ContentActiveRecord;
+use humhub\modules\content\components\ContentActiveRecord;
 use humhub\modules\file\handler\DownloadFileHandler;
-use \humhub\modules\file\models\File;
+use humhub\modules\file\models\File;
 use humhub\modules\gallery\helpers\Url;
 use humhub\modules\gallery\permissions\WriteAccess;
 use humhub\modules\search\interfaces\Searchable;
-use \humhub\modules\user\models\User;
-use \Yii;
+use humhub\modules\user\models\User;
+use Yii;
 use yii\web\UploadedFile;
 
 /**
@@ -21,6 +21,7 @@ use yii\web\UploadedFile;
  * @property string $title
  * @property integer $sort_order
  * @property File $baseFile
+ * @property CustomGallery $parentGallery
  *
  * @package humhub.modules.gallery.models
  * @since 1.0

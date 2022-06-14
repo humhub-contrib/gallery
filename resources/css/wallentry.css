@@ -1,0 +1,9 @@
+.gallery-wall-entry {
+    margin-bottom: 20px;
+}
+@media (min-width: 1200px) {
+    .gallery-wall-entry {
+        float: left;
+        margin-bottom: 0;
+    }
+}
