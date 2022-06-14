@@ -8,6 +8,7 @@ Changelog
 - Fix #71: Improve wall entry styles for small screens
 - Enh #85: Improved the visibility gallery labels
 - Enh #4751: Hide separator between content links
+- Enh: Use new `SortOrderField` from core 
 
 1.2.2 (November 27, 2020)
 -----------------------
