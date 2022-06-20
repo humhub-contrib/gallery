@@ -30,7 +30,6 @@ return [
     'In case the gallery is not visible for the current user, the snippet will use the latest accessible gallery instead.' => 'In case the gallery is not visible for the current user, the snippet will use the latest accessible gallery instead.',
     'Item could not be deleted!' => 'Item could not be deleted!',
     'Latest Gallery - {title} ({visibility})' => 'Dastumad skeudennoù nevesañ - {title} ({visibility})',
-    'Make this gallery public' => 'Make this gallery public',
     'Media' => 'Media',
     'Open Gallery' => 'Open Gallery',
     'Posted Media Files' => 'Posted Media Files',
@@ -55,6 +54,5 @@ return [
     'added by ' => '',
     'description' => '',
     'of posted media files' => '',
-    'sort order' => '',
     'title' => '',
 ];

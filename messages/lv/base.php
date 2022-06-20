@@ -39,7 +39,6 @@ return [
     'In case the gallery is not visible for the current user, the snippet will use the latest accessible gallery instead.' => '',
     'Item could not be deleted!' => '',
     'Latest Gallery - {title} ({visibility})' => '',
-    'Make this gallery public' => '',
     'Media' => '',
     'Open Gallery' => '',
     'Posted Media Files' => '',
@@ -55,6 +54,5 @@ return [
     'added by ' => '',
     'description' => '',
     'of posted media files' => '',
-    'sort order' => '',
     'title' => '',
 ];
