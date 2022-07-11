@@ -48,8 +48,8 @@ abstract class BaseController extends ContentContainerController
      * @var array|string sort order used for the ActiveDataProvider
      */
     protected $queryOrder = [
-        'sort_order' => SORT_DESC,
-        'title' => SORT_ASC,
+        // 'sort_order' => SORT_DESC,
+        'title' => SORT_DESC,
     ];
 
     public function actionIndex()
