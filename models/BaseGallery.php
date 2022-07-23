@@ -95,6 +95,10 @@ class BaseGallery extends ContentActiveRecord
         return null;
     }
 
+    public function getCreatedAt() {
+        return $this->content->created_at;
+    }
+
     /**
      * @inheritdoc
      */

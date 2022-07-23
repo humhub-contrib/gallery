@@ -8,6 +8,7 @@
 
 namespace humhub\modules\gallery\controllers;
 
+use DateTimeInterface;
 use humhub\modules\content\components\ActiveQueryContent;
 use humhub\modules\content\components\ContentActiveRecord;
 use \humhub\modules\content\components\ContentContainerController;
@@ -48,8 +49,8 @@ abstract class BaseController extends ContentContainerController
      * @var array|string sort order used for the ActiveDataProvider
      */
     protected $queryOrder = [
-        // 'sort_order' => SORT_DESC,
-        'title' => SORT_DESC,
+        'sort_order' => SORT_DESC,
+        'title' => SORT_ASC,
     ];
 
     public function actionIndex()
@@ -87,10 +88,11 @@ abstract class BaseController extends ContentContainerController
             'pagination' => [
                 'page' => $page,
                 'pageSize' => $this->getPageSize()
-            ],
-            'sort' => [
-                'defaultOrder' => $this->queryOrder
-            ],
+            ]
+            // TODO restore this option before going public
+//            'sort' => [
+//                'defaultOrder' => $this->queryOrder
+//            ],
         ]);
     }
 

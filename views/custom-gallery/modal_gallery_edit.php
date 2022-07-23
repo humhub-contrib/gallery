@@ -21,6 +21,7 @@ use yii\bootstrap\ActiveForm; ?>
 <?php
 
 /* @var $galleryForm GalleryEditForm */
+/* @var $createdAt string */
 /* @var $contentContainer ContentContainerActiveRecord */
 
 $gallery = $galleryForm->instance;
@@ -37,10 +38,14 @@ ModalDialog::begin([
     <?php $form = ActiveForm::begin(['id' => 'Gallery', 'class' => 'form-horizontal']); ?>
 
         <div class="modal-body">
-            <?= $form->field($gallery, 'title' )->label(Yii::t('GalleryModule.base', 'title')); ?>
-            <?= $form->field($gallery, 'description' )->textArea()->label(Yii::t('GalleryModule.base', 'description')); ?>
-            <?= $form->field($gallery, 'sort_order')->widget(SortOrderField::class, []); ?>
-            <?= $form->field($galleryForm, 'visibility')->widget(ContentVisibilitySelect::class, ['contentOwner' => 'instance']); ?>
+            <?= $form->field($gallery, 'title' )->label(Yii::t('GalleryModule.base', 'Title')); ?>
+            <?= $form->field($gallery, 'description' )->textArea()->label(Yii::t('GalleryModule.base', 'Description')); ?>
+            <?php if (false) {?>
+                <?= $form->field($gallery, 'sort_order')->widget(SortOrderField::class, []); ?>
+                <?= $form->field($galleryForm, 'visibility')->widget(ContentVisibilitySelect::class, ['contentOwner' => 'instance']); ?>
+            <?php } ?>
+
+            <p><?= Yii::t('GalleryModule.base', 'Created') . ' ' . $createdAt ?> </p>
         </div>
 
         <div class="modal-footer">

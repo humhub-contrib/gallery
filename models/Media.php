@@ -43,6 +43,11 @@ class Media extends ContentActiveRecord implements Searchable
     /**
      * @inheritdoc
      */
+    public $silentContentCreation = true;
+
+    /**
+     * @inheritdoc
+     */
     public $managePermission = WriteAccess::class;
 
     /**

@@ -32,7 +32,7 @@ class CustomGallery extends BaseGallery
     public function isPublic() {
         return $this->content->isPublic();
     }
-    
+
     public function getPreviewImageUrl()
     {
         // get preview image from a set thumbfile
@@ -42,13 +42,15 @@ class CustomGallery extends BaseGallery
         }
         // get preview image from the file list
         $media = $this->mediaListQuery()
+                // TODO Make this optional based on the setting
+                ->joinWith(['content'])
                 ->orderBy([
-                    'sort_order' => SORT_ASC
+                    '`content`.`created_at`' => SORT_DESC
                 ])
                 ->one();
         if ($media != null && !empty($media->getSquarePreviewImageUrl())) {
             return $media->getSquarePreviewImageUrl();
-        } 
+        }
         // return default image if gallery is empty
         return $this->getDefaultPreviewImageUrl();
     }

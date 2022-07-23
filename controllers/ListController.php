@@ -42,7 +42,12 @@ class ListController extends BaseController
      */
     protected function getPaginationQuery()
     {
-        return CustomGallery::find()->contentContainer($this->contentContainer)->readable();
+        return CustomGallery::find()
+            // TODO Make this optional based on the settings
+            ->orderBy([
+                '`content`.`created_at`' => SORT_DESC
+            ])
+            ->contentContainer($this->contentContainer)->readable();
     }
 
     /**
