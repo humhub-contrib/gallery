@@ -42,8 +42,8 @@ ModalDialog::begin([
             <?= $form->field($gallery, 'description' )->textArea()->label(Yii::t('GalleryModule.base', 'Description')); ?>
             <?php if (false) {?>
                 <?= $form->field($gallery, 'sort_order')->widget(SortOrderField::class, []); ?>
-                <?= $form->field($galleryForm, 'visibility')->widget(ContentVisibilitySelect::class, ['contentOwner' => 'instance']); ?>
             <?php } ?>
+            <?= $form->field($galleryForm, 'visibility')->widget(ContentVisibilitySelect::class, ['contentOwner' => 'instance']); ?>
 
             <?php if ($createdAt) {?>
                 <p><?= Yii::t('GalleryModule.base', 'Created') . ' ' . $createdAt ?> </p>
