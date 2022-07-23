@@ -45,7 +45,9 @@ ModalDialog::begin([
                 <?= $form->field($galleryForm, 'visibility')->widget(ContentVisibilitySelect::class, ['contentOwner' => 'instance']); ?>
             <?php } ?>
 
-            <p><?= Yii::t('GalleryModule.base', 'Created') . ' ' . $createdAt ?> </p>
+            <?php if ($createdAt) {?>
+                <p><?= Yii::t('GalleryModule.base', 'Created') . ' ' . $createdAt ?> </p>
+            <?php } ?>
         </div>
 
         <div class="modal-footer">
