@@ -1,6 +1,10 @@
 Changelog
 =========
 
+1.4.0 (July 29, 2022)
+---------------------
+- Enh #105: Allow users to have galleries sorted by creation date
+
 1.3.0 (June 14, 2022)
 ---------------------
 - Enh #140: Use widget ContentVisibiltySelect
