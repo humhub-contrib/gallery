@@ -20,7 +20,7 @@ class GalleryCest
         $I->createGallery();
         $I->uploadMedia();
         $I->editMedia();
-        $I->seeMediaInStream();
+        $I->seeMediaFromStream();
         $I->deleteMedia();
         $I->dontseeMediaInStream();
         $I->accessGallery();
