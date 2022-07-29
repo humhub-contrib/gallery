@@ -25,7 +25,8 @@ class ListController extends BaseController
             'galleries' => $items,
             'canWrite' => $this->contentContainer->can(WriteAccess::class),
             'isAdmin' => $this->isAdmin(),
-            'showMore' => !$this->isLastPage()
+            'showMore' => !$this->isLastPage(),
+            'sortByCreated' => $this->getSettings()->sortByCreated
         ]);
     }
 
@@ -42,12 +43,23 @@ class ListController extends BaseController
      */
     protected function getPaginationQuery()
     {
-        return CustomGallery::find()
-            // TODO Make this optional based on the settings
-            ->orderBy([
-                '`content`.`created_at`' => SORT_DESC
-            ])
-            ->contentContainer($this->contentContainer)->readable();
+        $pageQuery = CustomGallery::find();
+
+        if ($this->getSettings()->sortByCreated) {
+            // Using sortByCreated we add this additional orderBy
+            $pageQuery = $pageQuery
+                ->orderBy([
+                    '`content`.`created_at`' => SORT_DESC
+                ]);
+        } else {
+            $pageQuery = $pageQuery
+                ->orderBy([
+                    'sort_order' => SORT_DESC,
+                    'title' => SORT_ASC,
+                ]);
+        }
+
+        return $pageQuery->contentContainer($this->contentContainer)->readable();
     }
 
     /**

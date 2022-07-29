@@ -13,6 +13,7 @@ use humhub\modules\content\components\ActiveQueryContent;
 use humhub\modules\content\components\ContentActiveRecord;
 use \humhub\modules\content\components\ContentContainerController;
 use humhub\modules\gallery\models\BaseGallery;
+use humhub\modules\gallery\models\forms\ContainerSettings;
 use humhub\modules\gallery\models\Media;
 use \humhub\modules\gallery\Module;
 use humhub\modules\gallery\widgets\GalleryList;
@@ -45,14 +46,6 @@ abstract class BaseController extends ContentContainerController
      */
     protected $page = 0;
 
-    /**
-     * @var array|string sort order used for the ActiveDataProvider
-     */
-    protected $queryOrder = [
-        'sort_order' => SORT_DESC,
-        'title' => SORT_ASC,
-    ];
-
     public function actionIndex()
     {
         $this->dataProvider = $this->loadPage();
@@ -83,17 +76,15 @@ abstract class BaseController extends ContentContainerController
             throw new NotFoundHttpException();
         }
 
-        return new ActiveDataProvider([
+        $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'pagination' => [
                 'page' => $page,
                 'pageSize' => $this->getPageSize()
             ]
-            // TODO restore this option before going public
-//            'sort' => [
-//                'defaultOrder' => $this->queryOrder
-//            ],
         ]);
+
+        return $dataProvider;
     }
 
     abstract protected function getPaginationQuery();
@@ -142,5 +133,12 @@ abstract class BaseController extends ContentContainerController
     protected function getPageSize()
     {
         return $this->module->galleryMaxImages;
+    }
+
+    protected function getSettings()
+    {
+        return new ContainerSettings([
+            'contentContainer' => $this->contentContainer
+        ]);
     }
 }

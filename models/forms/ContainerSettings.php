@@ -27,7 +27,7 @@ class ContainerSettings extends Model
     const SETTING_HIDE_SNIPPET = 'hideSnippet';
     const SETTING_GALLERY_ID = 'galleryId';
     const SETTING_SORT_ORDER= 'snippetSortOrder';
-    const SETTING_SORT_BY_CREATED = false;
+    const SETTING_SORT_BY_CREATED = 'sortByCreated';
     const SORT_MIN = 0;
     const SORT_MAX = 32000;
     /**
@@ -51,7 +51,7 @@ class ContainerSettings extends Model
     public $snippetSortOrder;
 
     /**
-     * @var boolean should sort by the gallery created date
+     * @var int should sort by the gallery created date
      */
     public $sortByCreated;
 
@@ -80,7 +80,7 @@ class ContainerSettings extends Model
             [['snippetGallery', 'hideSnippet'], 'integer'],
             [['snippetGallery'], 'containerGallery'],
             [['snippetSortOrder'], 'number', 'min' => static::SORT_MIN, 'max' => static::SORT_MAX],
-            ['sortByCreated', 'boolean']
+            ['sortByCreated', 'integer']
         ];
     }
 
@@ -175,7 +175,7 @@ class ContainerSettings extends Model
 
     public function getSortByCreated()
     {
-        return $this->getSettings()->get(self::SETTING_SORT_BY_CREATED, false);
+        return $this->getSettings()->get(self::SETTING_SORT_BY_CREATED, 0);
     }
 
     public function hasGallery()
