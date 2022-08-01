@@ -42,12 +42,10 @@ class CustomGallery extends BaseGallery
         }
         // get preview image from the file list
         $media = $this->mediaListQuery()
-                // TODO Make this optional based on the setting
-                ->joinWith(['content'])
-                ->orderBy([
-                    '`content`.`created_at`' => SORT_DESC
-                ])
-                ->one();
+            ->orderBy([
+                'sort_order' => SORT_ASC
+            ])
+            ->one();
         if ($media != null && !empty($media->getSquarePreviewImageUrl())) {
             return $media->getSquarePreviewImageUrl();
         }
