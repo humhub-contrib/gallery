@@ -76,15 +76,13 @@ abstract class BaseController extends ContentContainerController
             throw new NotFoundHttpException();
         }
 
-        $dataProvider = new ActiveDataProvider([
+        return new ActiveDataProvider([
             'query' => $query,
             'pagination' => [
                 'page' => $page,
                 'pageSize' => $this->getPageSize()
             ]
         ]);
-
-        return $dataProvider;
     }
 
     abstract protected function getPaginationQuery();

@@ -97,7 +97,6 @@ class AcceptanceTester extends \AcceptanceTester
         $this->click('Stream', '.layout-nav-container');
         $this->waitForText('My new media!', null, '.wall-entry');
         $this->click('Open Gallery', '.wall-entry');
-//        $this->waitForElement('#gallery-container .panel-heading');
         $this->waitForText('Gallery Test gallery');
     }
 

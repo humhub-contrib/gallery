@@ -42,10 +42,10 @@ class CustomGallery extends BaseGallery
         }
         // get preview image from the file list
         $media = $this->mediaListQuery()
-            ->orderBy([
-                'sort_order' => SORT_ASC
-            ])
-            ->one();
+                ->orderBy([
+                    'sort_order' => SORT_ASC
+                ])
+                ->one();
         if ($media != null && !empty($media->getSquarePreviewImageUrl())) {
             return $media->getSquarePreviewImageUrl();
         }
