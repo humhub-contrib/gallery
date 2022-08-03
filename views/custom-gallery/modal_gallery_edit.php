@@ -41,14 +41,14 @@ ModalDialog::begin([
         <div class="modal-body">
             <?= $form->field($gallery, 'title' )->label(Yii::t('GalleryModule.base', 'Title')); ?>
             <?= $form->field($gallery, 'description' )->textArea()->label(Yii::t('GalleryModule.base', 'Description')); ?>
-            <?php if (!$sortByCreated) {?>
+            <?php if (!$sortByCreated) :?>
                 <?= $form->field($gallery, 'sort_order')->widget(SortOrderField::class, []); ?>
-            <?php } ?>
+            <?php endif ?>
             <?= $form->field($galleryForm, 'visibility')->widget(ContentVisibilitySelect::class, ['contentOwner' => 'instance']); ?>
 
-            <?php if ($createdAt) {?>
+            <?php if ($createdAt) :?>
                 <p><?= Yii::t('GalleryModule.base', 'Gallery created on') . ' ' . $createdAt ?> </p>
-            <?php } ?>
+            <?php endif ?>
         </div>
 
         <div class="modal-footer">

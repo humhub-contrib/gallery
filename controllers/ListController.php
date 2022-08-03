@@ -25,8 +25,7 @@ class ListController extends BaseController
             'galleries' => $items,
             'canWrite' => $this->contentContainer->can(WriteAccess::class),
             'isAdmin' => $this->isAdmin(),
-            'showMore' => !$this->isLastPage(),
-            'sortByCreated' => $this->getSettings()->sortByCreated
+            'showMore' => !$this->isLastPage()
         ]);
     }
 
@@ -47,12 +46,12 @@ class ListController extends BaseController
 
         if ($this->getSettings()->sortByCreated) {
             // Using sortByCreated we add this additional orderBy
-            $pageQuery = $pageQuery
+            $pageQuery
                 ->orderBy([
-                    '`content`.`created_at`' => SORT_DESC
+                    'content.created_at' => SORT_DESC
                 ]);
         } else {
-            $pageQuery = $pageQuery
+            $pageQuery
                 ->orderBy([
                     'sort_order' => SORT_DESC,
                     'title' => SORT_ASC,

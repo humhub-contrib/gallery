@@ -8,7 +8,6 @@
 
 namespace humhub\modules\gallery\controllers;
 
-use DateTimeInterface;
 use humhub\modules\content\components\ActiveQueryContent;
 use humhub\modules\content\components\ContentActiveRecord;
 use \humhub\modules\content\components\ContentContainerController;
