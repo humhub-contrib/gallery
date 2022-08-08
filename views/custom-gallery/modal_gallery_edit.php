@@ -41,7 +41,7 @@ ModalDialog::begin([
         <div class="modal-body">
             <?= $form->field($gallery, 'title' )->label(Yii::t('GalleryModule.base', 'Title')); ?>
             <?= $form->field($gallery, 'description' )->textArea()->label(Yii::t('GalleryModule.base', 'Description')); ?>
-            <?php if (!$sortByCreated) :?>
+            <?php if (!$sortByCreated): ?>
                 <?= $form->field($gallery, 'sort_order')->widget(SortOrderField::class, []); ?>
             <?php endif ?>
             <?= $form->field($galleryForm, 'visibility')->widget(ContentVisibilitySelect::class, ['contentOwner' => 'instance']); ?>
