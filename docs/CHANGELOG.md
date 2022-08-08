@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.4.0 (July 29, 2022)
+1.4.0 (August 8, 2022)
 ---------------------
 - Enh #105: Allow users to have galleries sorted by creation date
 
