@@ -46,8 +46,8 @@ ModalDialog::begin([
             <?php endif ?>
             <?= $form->field($galleryForm, 'visibility')->widget(ContentVisibilitySelect::class, ['contentOwner' => 'instance']); ?>
 
-            <?php if ($createdAt) :?>
-                <p><?= Yii::t('GalleryModule.base', 'Gallery created on') . ' ' . $createdAt ?> </p>
+            <?php if ($createdAt): ?>
+                <p><?= Yii::t('GalleryModule.base', 'Gallery created at:') . ' ' . $createdAt ?> </p>
             <?php endif ?>
         </div>
 
