@@ -34,8 +34,8 @@ class AcceptanceTester extends \AcceptanceTester
     public function enableSpaceModule()
     {
         $this->amAdmin();
-        $this->wantToTest('the creation of a task list');
-        $this->amGoingTo('install the calendar module for space 1');
+        $this->wantToTest('the enabling of the gallery module');
+        $this->amGoingTo('install the gallery module for space 1');
         $this->enableModule(1, 'gallery');
         $this->amUser2(true);
         $this->amOnSpace1();
@@ -92,12 +92,11 @@ class AcceptanceTester extends \AcceptanceTester
         $this->seeSuccess('Saved');
     }
 
-    public function seeMediaInStream()
+    public function seeMediaFromStream()
     {
         $this->click('Stream', '.layout-nav-container');
         $this->waitForText('My new media!', null, '.wall-entry');
         $this->click('Open Gallery', '.wall-entry');
-        $this->waitForElement('#gallery-container .panel-heading');
         $this->waitForText('Gallery Test gallery');
     }
 

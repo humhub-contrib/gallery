@@ -24,6 +24,7 @@ $overviewUrl = Url::toGalleryOverview($this->context->contentContainer);
                 <?= $form->field($settings, 'snippetGallery')->dropDownList($settings->getGallerySelection())?>
                 <?= $form->field($settings, 'snippetSortOrder')->textInput(['type' => 'number']) ?>
                 <?= $form->field($settings, 'hideSnippet')->checkbox() ?>
+                <?= $form->field($settings, 'sortByCreated')->checkbox() ?>
                 <br />
                 <?= Button::save()->submit() ?>
             <?php ActiveForm::end() ?>

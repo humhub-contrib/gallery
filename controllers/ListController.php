@@ -42,7 +42,23 @@ class ListController extends BaseController
      */
     protected function getPaginationQuery()
     {
-        return CustomGallery::find()->contentContainer($this->contentContainer)->readable();
+        $pageQuery = CustomGallery::find();
+
+        if ($this->getSettings()->sortByCreated) {
+            // Using sortByCreated we add this additional orderBy
+            $pageQuery
+                ->orderBy([
+                    'content.created_at' => SORT_DESC
+                ]);
+        } else {
+            $pageQuery
+                ->orderBy([
+                    'sort_order' => SORT_DESC,
+                    'title' => SORT_ASC,
+                ]);
+        }
+
+        return $pageQuery->contentContainer($this->contentContainer)->readable();
     }
 
     /**

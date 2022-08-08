@@ -31,7 +31,7 @@ $bundle = Assets::register($this);
 
         <?= GalleryMenu::widget(['gallery' => $gallery,
             'canWrite' => $container->can(WriteAccess::class),
-            'contentContainer' =>$container]) ?>
+            'contentContainer' => $container]) ?>
 
         <div class="row clearfix">
             <div class="col-sm-12 media">

@@ -28,7 +28,7 @@ use \Yii;
  */
 class GalleryListEntry extends Widget
 {
-    
+
     public $entryObject;
     public $parentGallery;
 

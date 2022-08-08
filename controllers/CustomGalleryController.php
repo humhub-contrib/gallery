@@ -123,6 +123,8 @@ class CustomGalleryController extends BaseController
         return $this->renderPartial('modal_gallery_edit', [
                     'galleryForm' => $form,
                     'contentContainer' => $this->contentContainer,
+                    'sortByCreated' => $this->getSettings()->sortByCreated,
+                    'createdAt' => isset($this->gallery) ? $this->gallery->getCreatedAt() : null
         ]);
     }
 

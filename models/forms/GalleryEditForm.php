@@ -15,7 +15,6 @@
 
 namespace humhub\modules\gallery\models\forms;
 
-
 use humhub\modules\content\components\ContentContainerActiveRecord;
 use humhub\modules\content\models\Content;
 use humhub\modules\gallery\models\CustomGallery;
@@ -57,7 +56,7 @@ class GalleryEditForm extends Model
             $this->visibility = $this->getDefaultVisibility();
             $this->instance = new CustomGallery();
             $this->instance->content->container = $this->contentContainer;
-            $this->instance->content->visibility =  $this->visibility;
+            $this->instance->content->visibility = $this->visibility;
         } else if(!($this->instance instanceof CustomGallery)) {
             throw new HttpException(404);
         } else if($this->instance->content->container->id != $this->contentContainer->id) {

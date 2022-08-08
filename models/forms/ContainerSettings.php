@@ -27,6 +27,7 @@ class ContainerSettings extends Model
     const SETTING_HIDE_SNIPPET = 'hideSnippet';
     const SETTING_GALLERY_ID = 'galleryId';
     const SETTING_SORT_ORDER= 'snippetSortOrder';
+    const SETTING_SORT_BY_CREATED = 'sortByCreated';
     const SORT_MIN = 0;
     const SORT_MAX = 32000;
     /**
@@ -50,6 +51,11 @@ class ContainerSettings extends Model
     public $snippetSortOrder;
 
     /**
+     * @var int should sort by the gallery created date
+     */
+    public $sortByCreated;
+
+    /**
      * @var SettingsManager module setting manager instance
      */
     private $settings;
@@ -62,6 +68,7 @@ class ContainerSettings extends Model
         $this->hideSnippet = $this->hideSnippet();
         $this->snippetGallery = $this->getSnippetId();
         $this->snippetSortOrder = $this->getSnippetSortOrder();
+        $this->sortByCreated = $this->getSortByCreated();
     }
 
     /**
@@ -73,6 +80,7 @@ class ContainerSettings extends Model
             [['snippetGallery', 'hideSnippet'], 'integer'],
             [['snippetGallery'], 'containerGallery'],
             [['snippetSortOrder'], 'number', 'min' => static::SORT_MIN, 'max' => static::SORT_MAX],
+            ['sortByCreated', 'integer']
         ];
     }
 
@@ -96,6 +104,7 @@ class ContainerSettings extends Model
             'snippetGallery' => Yii::t('GalleryModule.base', 'Choose snippet gallery'),
             'hideSnippet' => Yii::t('GalleryModule.base', 'Don\'t show the gallery snippet in this space.'),
             'snippetSortOrder' => Yii::t('GalleryModule.base', 'Sort order'),
+            'sortByCreated' => Yii::t('GalleryModule.base', 'Sort Galleries by Created Date'),
         ];
     }
 
@@ -136,6 +145,7 @@ class ContainerSettings extends Model
         $this->getSettings()->set(self::SETTING_GALLERY_ID, $this->snippetGallery);
         $this->getSettings()->set(self::SETTING_HIDE_SNIPPET, $this->hideSnippet);
         $this->getSettings()->set(self::SETTING_SORT_ORDER, $this->snippetSortOrder);
+        $this->getSettings()->set(self::SETTING_SORT_BY_CREATED, $this->sortByCreated);
 
         return true;
     }
@@ -161,6 +171,11 @@ class ContainerSettings extends Model
     public function getSnippetSortOrder()
     {
         return $this->getSettings()->get(self::SETTING_SORT_ORDER, 0);
+    }
+
+    public function getSortByCreated()
+    {
+        return $this->getSettings()->get(self::SETTING_SORT_BY_CREATED, 0);
     }
 
     public function hasGallery()
