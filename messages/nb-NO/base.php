@@ -52,7 +52,7 @@ return [
     'added by ' => 'lagt til av',
     'of posted media files' => 'av mediafiler',
     'Add gallery image button' => '',
+    'Gallery created at:' => '',
     'Image could not be loaded' => '',
-    'description' => '',
-    'title' => '',
+    'Sort Galleries by Created Date' => '',
 ];

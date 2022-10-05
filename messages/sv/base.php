@@ -52,7 +52,7 @@ return [
     'Title' => 'Titel',
     'Upload' => 'Ladda upp',
     'added by ' => 'tillagd av',
-    'description' => 'beskrivning',
     'of posted media files' => 'av publicerade mediafiler',
-    'title' => 'titel',
+    'Gallery created at:' => '',
+    'Sort Galleries by Created Date' => '',
 ];

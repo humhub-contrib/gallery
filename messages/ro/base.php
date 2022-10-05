@@ -34,6 +34,7 @@ return [
     'Don\'t show the gallery snippet in this space.' => '',
     'Edit Gallery' => '',
     'Gallery' => '',
+    'Gallery created at:' => '',
     'Gallery write access' => '',
     'Gallery:' => '',
     'Image could not be loaded' => '',
@@ -45,6 +46,7 @@ return [
     'Posted Media Files' => '',
     'Posted pictures' => '',
     'Show connected post' => '',
+    'Sort Galleries by Created Date' => '',
     'Sort Order' => '',
     'Sort order' => '',
     'There are no galleries available for this space. In order to configure the gallery snippet, please <a href="{createLink}">create</a> a new gallery' => '',
@@ -52,7 +54,5 @@ return [
     'This gallery contains all posted media files from the space.' => '',
     'This gallery contains all posted pictures.' => '',
     'added by ' => '',
-    'description' => '',
     'of posted media files' => '',
-    'title' => '',
 ];

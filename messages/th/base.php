@@ -52,7 +52,7 @@ return [
     'Title' => 'หัวข้อ',
     'Upload' => 'ที่อัพโหลด',
     'added by ' => 'เพิ่มโดย',
-    'description' => 'คำอธิบาย',
     'of posted media files' => 'ของไฟล์สื่อที่โพสต์',
-    'title' => 'หัวข้อ',
+    'Gallery created at:' => '',
+    'Sort Galleries by Created Date' => '',
 ];

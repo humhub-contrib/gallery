@@ -52,7 +52,7 @@ return [
     'Title' => 'Cím',
     'Upload' => 'Feltöltés',
     'added by ' => 'hozzáadta',
-    'description' => 'leírás',
     'of posted media files' => 'közzétett médiafájlok',
-    'title' => 'cím',
+    'Gallery created at:' => '',
+    'Sort Galleries by Created Date' => '',
 ];

@@ -52,7 +52,7 @@ return [
     'Title' => 'Заглавие',
     'Upload' => 'Качване',
     'added by ' => 'добавена от',
-    'description' => 'описание',
     'of posted media files' => 'на публикувани медийни файлове',
-    'title' => 'заглавие',
+    'Gallery created at:' => '',
+    'Sort Galleries by Created Date' => '',
 ];

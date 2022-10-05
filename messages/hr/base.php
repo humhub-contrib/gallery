@@ -52,7 +52,7 @@ return [
     'Title' => 'Naziv',
     'Upload' => 'Učitaj',
     'added by ' => 'dodano od',
-    'description' => 'opis',
     'of posted media files' => 'objavljenih medijskih datoteka',
-    'title' => 'naslov',
+    'Gallery created at:' => '',
+    'Sort Galleries by Created Date' => '',
 ];

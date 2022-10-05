@@ -52,7 +52,7 @@ return [
     'added by ' => 'được thêm bởi',
     'of posted media files' => 'của những file phương tiện đã đăng',
     'Add gallery image button' => '',
+    'Gallery created at:' => '',
     'Image could not be loaded' => '',
-    'description' => '',
-    'title' => '',
+    'Sort Galleries by Created Date' => '',
 ];

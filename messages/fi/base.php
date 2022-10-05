@@ -52,7 +52,7 @@ return [
     'added by ' => 'lisännyt',
     'of posted media files' => 'julkaistuista kuvista',
     'Add gallery image button' => '',
+    'Gallery created at:' => '',
     'Image could not be loaded' => '',
-    'description' => '',
-    'title' => '',
+    'Sort Galleries by Created Date' => '',
 ];

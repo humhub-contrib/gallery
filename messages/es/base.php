@@ -52,7 +52,7 @@ return [
     'Title' => 'Título',
     'Upload' => 'Subir',
     'added by ' => 'agregado por',
-    'description' => 'descripción',
     'of posted media files' => 'de archivos multimedia publicados',
-    'title' => 'título',
+    'Gallery created at:' => '',
+    'Sort Galleries by Created Date' => '',
 ];
