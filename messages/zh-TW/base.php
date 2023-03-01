@@ -20,7 +20,7 @@ return array (
   'Delete' => '刪除帳戶',
   'Delete Gallery' => '',
   'Deleted' => '',
-  'Description' => '',
+  'Description' => '描述',
   'Do you really want to delete this gallery with all related content?' => '',
   'Do you really want to delete this item with all related content?' => '',
   'Don\'t show the gallery snippet in this space.' => '',
