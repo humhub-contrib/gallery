@@ -1,6 +1,10 @@
 Changelog
 =========
 
+1.5.0 (Unreleased)
+---------------------
+- Fix #118: Adapt gallery deletion for soft/hard deletion of v1.14
+
 1.4.0 (August 8, 2022)
 ---------------------
 - Enh #105: Allow users to have galleries sorted by creation date
