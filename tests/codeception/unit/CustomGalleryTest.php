@@ -57,6 +57,6 @@ class CustomGalleryTest extends HumHubDbTestCase
         $gallery->refresh();
         $this->assertEquals(1, $gallery->delete());
 
-        $this->assertCount(0, Media::find()->all());
+        $this->assertCount(0, Media::find()->readable()->all());
     }
 }

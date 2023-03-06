@@ -53,13 +53,29 @@ class CustomGallery extends BaseGallery
         return $this->getDefaultPreviewImageUrl();
     }
 
+    /**
+     * @inheritdoc
+     */
+    public function delete()
+    {
+        if (parent::delete()) {
+            // Media should be deleted softly after soft deletion of this Gallery
+            foreach ($this->getMediaList() as $media) {
+                $media->delete();
+            }
+            return true;
+        }
+
+        return false;
+    }
+
     public function afterDelete()
     {
         foreach ($this->getMediaList() as $media) {
-            $media->delete();
+            $media->hardDelete();
         }
 
-        return parent::afterDelete();
+        parent::afterDelete();
     }
 
     public function getItemId()
@@ -93,6 +109,10 @@ class CustomGallery extends BaseGallery
         return self::find()->contentContainer($contentContainer)->orderBy('id DESC')->one();
     }
 
+    /**
+     * @param int|null $max
+     * @return Media[]
+     */
     public function getMediaList($max = null)
     {
         return $this->mediaListQuery()->contentContainer($this->content->container)->readable()->limit($max)->all();
