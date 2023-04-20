@@ -5,6 +5,7 @@ namespace humhub\modules\gallery\tests\codeception\unit;
 use humhub\modules\gallery\models\CustomGallery;
 use humhub\modules\gallery\models\Media;
 use humhub\modules\space\models\Space;
+use humhub\modules\user\models\User;
 use tests\codeception\_support\HumHubDbTestCase;
 
 class CustomGalleryTest extends HumHubDbTestCase
@@ -55,8 +56,8 @@ class CustomGalleryTest extends HumHubDbTestCase
         $this->assertTrue($media->save());
 
         $gallery->refresh();
-        $this->assertEquals(1, $gallery->delete());
+        $this->assertTrue($gallery->delete());
 
-        $this->assertCount(0, Media::find()->all());
+        $this->assertCount(0, Media::find()->readable(User::findOne(['username' => 'User1']))->all());
     }
 }

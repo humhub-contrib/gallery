@@ -1,6 +1,10 @@
 Changelog
 =========
 
+1.5.0 (April 20, 2023)
+---------------------
+- Enh: Support for `1.14` soft delete
+
 1.4.0 (August 8, 2022)
 ---------------------
 - Enh #105: Allow users to have galleries sorted by creation date
