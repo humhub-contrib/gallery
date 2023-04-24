@@ -3,6 +3,7 @@
 namespace humhub\modules\gallery\models;
 
 use humhub\modules\content\components\ContentActiveRecord;
+use humhub\modules\content\models\Content;
 use humhub\modules\file\handler\DownloadFileHandler;
 use humhub\modules\file\models\File;
 use humhub\modules\gallery\helpers\Url;
@@ -228,6 +229,23 @@ class Media extends ContentActiveRecord implements Searchable
         }
 
         return $mediaUpload;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function afterStateChange(?int $newState, ?int $previousState): void
+    {
+        // Parent gallery should be restored after at least one child media file was restored
+        if ($previousState === Content::STATE_DELETED && $newState === Content::STATE_PUBLISHED) {
+            $parentGallery = $this->parentGallery;
+            if ($parentGallery instanceof CustomGallery) {
+                $parentGallery->content->setState(Content::STATE_PUBLISHED);
+                $parentGallery->content->save();
+            }
+        }
+
+        parent::afterStateChange($newState, $previousState);
     }
 
     /**
