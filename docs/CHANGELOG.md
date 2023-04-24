@@ -1,6 +1,10 @@
 Changelog
 =========
 
+1.5.1 (Unreleased)
+---------------------
+- Enh #119: Restore parent gallery when child media file was restored
+
 1.5.0 (April 20, 2023)
 ---------------------
 - Enh: Support for `1.14` soft delete
