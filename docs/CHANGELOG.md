@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.5.2 (Unreleased)
+1.5.2 (April 28, 2023)
 ----------------------
 - Enh #120: Added support for hidden media files in stream
 
