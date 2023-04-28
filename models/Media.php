@@ -7,6 +7,7 @@ use humhub\modules\content\models\Content;
 use humhub\modules\file\handler\DownloadFileHandler;
 use humhub\modules\file\models\File;
 use humhub\modules\gallery\helpers\Url;
+use humhub\modules\gallery\Module;
 use humhub\modules\gallery\permissions\WriteAccess;
 use humhub\modules\search\interfaces\Searchable;
 use humhub\modules\user\models\User;
@@ -52,6 +53,11 @@ class Media extends ContentActiveRecord implements Searchable
     public $wallEntryClass = "humhub\modules\gallery\widgets\WallEntryMedia";
 
     /**
+     * @var ?int used for edit form
+     */
+    public $hidden = null;
+
+    /**
      * @inheritdoc
      */
     public static function tableName()
@@ -85,7 +91,8 @@ class Media extends ContentActiveRecord implements Searchable
         return [
             [['gallery_id', 'sort_order'], 'integer'],
             ['title', 'string', 'max' => 255],
-            ['description', 'string', 'max' => 1000]
+            ['description', 'string', 'max' => 1000],
+            ['hidden', 'boolean']
         ];
     }
 
@@ -229,6 +236,38 @@ class Media extends ContentActiveRecord implements Searchable
         }
 
         return $mediaUpload;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function afterFind()
+    {
+        $this->hidden = $this->content->hidden;
+        parent::afterFind();
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function beforeSave($insert)
+    {
+        if ($insert && $this->hidden === null) {
+            /* @var Module $module */
+            $module = Yii::$app->getModule('gallery');
+            $this->hidden = $module->getContentHiddenDefault($this->content->container);
+        }
+
+        return parent::beforeSave($insert);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function afterSave($insert, $changedAttributes)
+    {
+        $this->content->hidden = $this->hidden;
+        parent::afterSave($insert, $changedAttributes);
     }
 
     /**

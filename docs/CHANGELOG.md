@@ -1,6 +1,10 @@
 Changelog
 =========
 
+1.5.2 (Unreleased)
+----------------------
+- Enh #120: Added support for hidden media files in stream
+
 1.5.1 (April 24, 2023)
 ----------------------
 - Enh #119: Restore parent gallery when child media file was restored

@@ -10,8 +10,8 @@ namespace humhub\modules\gallery\models\forms;
 
 use humhub\components\SettingsManager;
 use humhub\modules\content\components\ContentContainerActiveRecord;
-use humhub\modules\content\models\Content;
 use humhub\modules\gallery\models\CustomGallery;
+use humhub\modules\gallery\Module;
 use Yii;
 use yii\base\Model;
 use yii\helpers\Html;
@@ -28,6 +28,7 @@ class ContainerSettings extends Model
     const SETTING_GALLERY_ID = 'galleryId';
     const SETTING_SORT_ORDER= 'snippetSortOrder';
     const SETTING_SORT_BY_CREATED = 'sortByCreated';
+    const SETTING_CONTENT_HIDDEN_DEFAULT = 'contentHiddenDefault';
     const SORT_MIN = 0;
     const SORT_MAX = 32000;
     /**
@@ -61,6 +62,12 @@ class ContainerSettings extends Model
     private $settings;
 
     /**
+     * @var bool Default setting to hide media files on stream
+     */
+    public $contentHiddenDefault;
+
+
+    /**
      * @inheritdoc
      */
     public function init()
@@ -69,6 +76,7 @@ class ContainerSettings extends Model
         $this->snippetGallery = $this->getSnippetId();
         $this->snippetSortOrder = $this->getSnippetSortOrder();
         $this->sortByCreated = $this->getSortByCreated();
+        $this->contentHiddenDefault = $this->getContentHiddenDefault();
     }
 
     /**
@@ -80,7 +88,8 @@ class ContainerSettings extends Model
             [['snippetGallery', 'hideSnippet'], 'integer'],
             [['snippetGallery'], 'containerGallery'],
             [['snippetSortOrder'], 'number', 'min' => static::SORT_MIN, 'max' => static::SORT_MAX],
-            ['sortByCreated', 'integer']
+            ['sortByCreated', 'integer'],
+            [['contentHiddenDefault'], 'boolean']
         ];
     }
 
@@ -146,6 +155,7 @@ class ContainerSettings extends Model
         $this->getSettings()->set(self::SETTING_HIDE_SNIPPET, $this->hideSnippet);
         $this->getSettings()->set(self::SETTING_SORT_ORDER, $this->snippetSortOrder);
         $this->getSettings()->set(self::SETTING_SORT_BY_CREATED, $this->sortByCreated);
+        $this->getSettings()->set(self::SETTING_CONTENT_HIDDEN_DEFAULT, $this->contentHiddenDefault);
 
         return true;
     }
@@ -178,6 +188,13 @@ class ContainerSettings extends Model
         return $this->getSettings()->get(self::SETTING_SORT_BY_CREATED, 0);
     }
 
+    public function getContentHiddenDefault(): bool
+    {
+        /* @var Module $module */
+        $module = Yii::$app->getModule('gallery');
+        return (bool) $this->getSettings()->get(self::SETTING_CONTENT_HIDDEN_DEFAULT, $module->getContentHiddenGlobalDefault());
+    }
+
     public function hasGallery()
     {
         return CustomGallery::find()->contentContainer($this->contentContainer)->count() > 0;
@@ -198,11 +215,6 @@ class ContainerSettings extends Model
         }
 
         return $gallery;
-    }
-
-    public function getLatest()
-    {
-
     }
 
 }

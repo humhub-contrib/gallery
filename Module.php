@@ -2,18 +2,18 @@
 
 namespace humhub\modules\gallery;
 
-use \humhub\modules\content\components\ContentContainerActiveRecord;
-use \humhub\modules\content\components\ContentContainerModule;
-use \humhub\modules\content\models\Content;
-use \humhub\modules\file\models\File;
-use \humhub\modules\gallery\models\CustomGallery;
-use \humhub\modules\gallery\models\Media;
-use \humhub\modules\gallery\models\StreamGallery;
-use \humhub\modules\gallery\permissions\WriteAccess;
-use \humhub\modules\space\models\Space;
-use \humhub\modules\user\models\User;
-use \Yii;
-use yii\helpers\Url;
+use humhub\modules\content\components\ContentContainerActiveRecord;
+use humhub\modules\content\components\ContentContainerModule;
+use humhub\modules\content\models\Content;
+use humhub\modules\gallery\helpers\Url;
+use humhub\modules\gallery\models\CustomGallery;
+use humhub\modules\gallery\models\forms\ContainerSettings;
+use humhub\modules\gallery\models\Media;
+use humhub\modules\gallery\models\StreamGallery;
+use humhub\modules\gallery\permissions\WriteAccess;
+use humhub\modules\space\models\Space;
+use humhub\modules\user\models\User;
+use Yii;
 
 class Module extends ContentContainerModule
 {
@@ -47,13 +47,11 @@ class Module extends ContentContainerModule
 
     public function getConfigUrl()
     {
-        return "";
+        return Url::to(['/gallery/config']);
     }
-
 
     public function disable()
     {
-
         $customGalleries = CustomGallery::findAll([]);
         foreach ($customGalleries as $gallery) {
             $gallery->delete();
@@ -120,5 +118,15 @@ class Module extends ContentContainerModule
         } elseif ($container instanceof User) {
             return Yii::t('GalleryModule.base', 'Adds gallery module to your profile.');
         }
+    }
+
+    public function getContentHiddenGlobalDefault(): bool
+    {
+        return (bool) $this->settings->get('contentHiddenGlobalDefault', false);
+    }
+
+    public function getContentHiddenDefault(ContentContainerActiveRecord $contentContainer): bool
+    {
+        return (new ContainerSettings(['contentContainer' => $contentContainer]))->getContentHiddenDefault();
     }
 }

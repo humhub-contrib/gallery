@@ -3,6 +3,7 @@
 use humhub\modules\content\components\ContentContainerActiveRecord;
 use humhub\modules\gallery\helpers\Url;
 use humhub\modules\gallery\models\forms\ContainerSettings;
+use humhub\modules\ui\form\widgets\ContentHiddenCheckbox;
 use humhub\widgets\Button;
 use yii\bootstrap\ActiveForm;
 
@@ -25,6 +26,9 @@ $overviewUrl = Url::toGalleryOverview($this->context->contentContainer);
                 <?= $form->field($settings, 'snippetSortOrder')->textInput(['type' => 'number']) ?>
                 <?= $form->field($settings, 'hideSnippet')->checkbox() ?>
                 <?= $form->field($settings, 'sortByCreated')->checkbox() ?>
+                <?= $form->field($settings, 'contentHiddenDefault')->widget(ContentHiddenCheckbox::class, [
+                    'type' => ContentHiddenCheckbox::TYPE_CONTENTCONTAINER,
+                ]) ?>
                 <br />
                 <?= Button::save()->submit() ?>
             <?php ActiveForm::end() ?>
