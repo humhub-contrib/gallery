@@ -12,7 +12,7 @@ return array (
   'Add gallery image button' => 'ギャラリー画像ボタンを追加',
   'Adds gallery module to this space.' => 'このスペースにギャラリーモジュールを追加します。',
   'Adds gallery module to your profile.' => 'プロフィールにギャラリーモジュールを追加します。',
-  'Allows the user to add, modify images and galleries.' => 'ユーザーが画像とギャラリーを追加、変更出来るようにします。',
+  'Allows the user to add, modify images and galleries.' => '画像とギャラリーを追加、変更出来るようにします。',
   'Back to overview' => '概要に戻る',
   'Choose snippet gallery' => 'スニペット ギャラリーを選択',
   'Click here to add new Gallery' => 'ここをクリックして新しいギャラリーを追加',
