@@ -1,8 +1,8 @@
 Changelog
 =========
 
-1.5.3 (Unreleased)
-----------------------
+1.5.3 (May 1, 2023)
+-------------------
 - Fix #121: Hard delete records on disable module
 
 1.5.2 (April 28, 2023)
