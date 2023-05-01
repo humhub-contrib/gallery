@@ -54,17 +54,17 @@ class Module extends ContentContainerModule
     {
         $customGalleries = CustomGallery::findAll([]);
         foreach ($customGalleries as $gallery) {
-            $gallery->delete();
+            $gallery->hardDelete();
         }
 
         $streamGalleries = StreamGallery::findAll([]);
         foreach ($streamGalleries as $gallery) {
-            $gallery->delete();
+            $gallery->hardDelete();
         }
 
         $mediaList = Media::findAll([]);
         foreach ($mediaList as $media) {
-            $media->delete();
+            $media->hardDelete();
         }
 
         parent::disable();
@@ -84,17 +84,17 @@ class Module extends ContentContainerModule
     {
         $streamGalleries = StreamGallery::find()->contentContainer($container)->where(['type' => StreamGallery::class])->all();
         foreach ($streamGalleries as $gallery) {
-            $gallery->delete();
+            $gallery->hardDelete();
         }
 
         $customGalleries = CustomGallery::find()->contentContainer($container)->where(['type' => CustomGallery::class])->all();
         foreach ($customGalleries as $gallery) {
-            $gallery->delete();
+            $gallery->hardDelete();
         }
 
         $mediaList = Media::find()->contentContainer($container)->all();
         foreach ($mediaList as $media) {
-            $media->delete();
+            $media->hardDelete();
         }
 
         parent::disableContentContainer($container);

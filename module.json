@@ -3,7 +3,7 @@
     "name": "Gallery",
     "description": "Adds galleries to Spaces and profiles.",
     "keywords": ["gallery", "photo", "organisation"],
-    "version": "1.5.2",
+    "version": "1.5.3",
     "humhub": {
         "minVersion": "1.14"
     },
