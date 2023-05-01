@@ -1,6 +1,10 @@
 Changelog
 =========
 
+1.5.3 (Unreleased)
+----------------------
+- Fix #121: Hard delete records on disable module
+
 1.5.2 (April 28, 2023)
 ----------------------
 - Enh #120: Added support for hidden media files in stream
