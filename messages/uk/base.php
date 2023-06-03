@@ -20,7 +20,7 @@ return array (
   'Delete' => 'Видалити',
   'Delete Gallery' => '',
   'Deleted' => '',
-  'Description' => '',
+  'Description' => 'Опис',
   'Do you really want to delete this gallery with all related content?' => '',
   'Do you really want to delete this item with all related content?' => '',
   'Don\'t show the gallery snippet in this space.' => '',
