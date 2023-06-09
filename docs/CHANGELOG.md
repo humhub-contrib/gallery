@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.5.4 (Unreleased)
+1.5.4 (June 9, 2023)
 -------------------
 - Fix #126: Fix category of a translatable string
 
