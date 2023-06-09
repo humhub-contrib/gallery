@@ -14,7 +14,7 @@ use yii\bootstrap\ActiveForm;
 ?>
 <div class="panel panel-default">
 
-    <div class="panel-heading"><?= Yii::t('CfilesModule.base', '<strong>Gallery</strong> module configuration') ?></div>
+    <div class="panel-heading"><?= Yii::t('GalleryModule.base', '<strong>Gallery</strong> module configuration') ?></div>
 
     <div class="panel-body">
         <?php $form = ActiveForm::begin(['id' => 'configure-form']) ?>
