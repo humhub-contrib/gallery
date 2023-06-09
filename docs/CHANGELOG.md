@@ -1,6 +1,10 @@
 Changelog
 =========
 
+1.5.4 (Unreleased)
+-------------------
+- Fix #126: Fix category of a translatable string
+
 1.5.3 (May 1, 2023)
 -------------------
 - Fix #121: Hard delete records on disable module
@@ -146,4 +150,3 @@ Changelog
 ---------------------
 - Fix: Guest access write check
 - Enh: Updated translations
-
