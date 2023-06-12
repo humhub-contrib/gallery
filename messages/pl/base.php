@@ -53,6 +53,7 @@ return [
     'Upload' => 'Wczytaj',
     'added by ' => 'dodano przez',
     'of posted media files' => 'dodanych plików mediowych',
+    '<strong>Gallery</strong> module configuration' => '',
     'Gallery created at:' => '',
     'Sort Galleries by Created Date' => '',
 ];

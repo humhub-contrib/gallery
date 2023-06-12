@@ -53,6 +53,7 @@ return [
     'Upload' => 'Качване',
     'added by ' => 'добавена от',
     'of posted media files' => 'на публикувани медийни файлове',
+    '<strong>Gallery</strong> module configuration' => '',
     'Gallery created at:' => '',
     'Sort Galleries by Created Date' => '',
 ];

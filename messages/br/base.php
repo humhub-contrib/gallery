@@ -34,6 +34,7 @@ return [
     'Open Gallery' => 'Open Gallery',
     'Posted Media Files' => 'Posted Media Files',
     'Settings' => 'Reolamantoù',
+    '<strong>Gallery</strong> module configuration' => '',
     'Add gallery image button' => '',
     'Allows the user to add, modify images and galleries.' => '',
     'Description' => '',

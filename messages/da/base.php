@@ -21,6 +21,7 @@ return [
     'Sort Order' => 'Sorteringsrækkefølge',
     'Sort order' => 'Sorteringrækkefølge',
     'Title' => 'Titel',
+    '<strong>Gallery</strong> module configuration' => '',
     'Add gallery image button' => '',
     'Choose snippet gallery' => '',
     'Click here to add new Gallery' => '',

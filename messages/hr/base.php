@@ -53,6 +53,7 @@ return [
     'Upload' => 'Učitaj',
     'added by ' => 'dodano od',
     'of posted media files' => 'objavljenih medijskih datoteka',
+    '<strong>Gallery</strong> module configuration' => '',
     'Gallery created at:' => '',
     'Sort Galleries by Created Date' => '',
 ];

@@ -53,6 +53,7 @@ return [
     'Upload' => 'ที่อัพโหลด',
     'added by ' => 'เพิ่มโดย',
     'of posted media files' => 'ของไฟล์สื่อที่โพสต์',
+    '<strong>Gallery</strong> module configuration' => '',
     'Gallery created at:' => '',
     'Sort Galleries by Created Date' => '',
 ];

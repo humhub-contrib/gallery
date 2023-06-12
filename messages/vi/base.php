@@ -51,6 +51,7 @@ return [
     'Upload' => 'Upload',
     'added by ' => 'được thêm bởi',
     'of posted media files' => 'của những file phương tiện đã đăng',
+    '<strong>Gallery</strong> module configuration' => '',
     'Add gallery image button' => '',
     'Gallery created at:' => '',
     'Image could not be loaded' => '',

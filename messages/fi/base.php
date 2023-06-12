@@ -51,6 +51,7 @@ return [
     'Upload' => 'Lataa',
     'added by ' => 'lisännyt',
     'of posted media files' => 'julkaistuista kuvista',
+    '<strong>Gallery</strong> module configuration' => '',
     'Add gallery image button' => '',
     'Gallery created at:' => '',
     'Image could not be loaded' => '',

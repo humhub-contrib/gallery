@@ -51,6 +51,7 @@ return [
     'Upload' => 'Last opp',
     'added by ' => 'lagt til av',
     'of posted media files' => 'av mediafiler',
+    '<strong>Gallery</strong> module configuration' => '',
     'Add gallery image button' => '',
     'Gallery created at:' => '',
     'Image could not be loaded' => '',

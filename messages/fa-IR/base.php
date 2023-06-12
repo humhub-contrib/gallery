@@ -19,6 +19,7 @@ return [
     '<strong>Edit</strong> gallery' => '',
     '<strong>Edit</strong> media' => '',
     '<strong>Gallery</strong> ' => '',
+    '<strong>Gallery</strong> module configuration' => '',
     '<strong>Gallery</strong> settings' => '',
     '<strong>List</strong> of galleries' => '',
     'Add Gallery' => '',

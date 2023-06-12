@@ -53,6 +53,7 @@ return [
     'Upload' => 'Enviar',
     'added by ' => 'Adicionado por',
     'of posted media files' => 'de mídias publicadas',
+    '<strong>Gallery</strong> module configuration' => '',
     'Gallery created at:' => '',
     'Sort Galleries by Created Date' => '',
 ];
