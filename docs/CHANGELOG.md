@@ -1,6 +1,10 @@
 Changelog
 =========
 
+1.5.5 (Unreleased)
+-------------------
+- Fix #129: Initialize module content class
+
 1.5.4 (June 9, 2023)
 -------------------
 - Fix #126: Fix category of a translatable string
