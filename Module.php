@@ -33,6 +33,14 @@ class Module extends ContentContainerModule
         ];
     }
 
+    /**
+     * @inheritdoc
+     */
+    public function getContentClasses(): array
+    {
+        return [Media::class];
+    }
+
     public function getContainerPermissions($contentContainer = null)
     {
          return [
