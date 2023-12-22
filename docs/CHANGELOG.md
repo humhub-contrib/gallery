@@ -5,6 +5,7 @@ Changelog
 -------------------
 - Fix #129: Initialize module content class
 - Enh #130: Tests for `next` version
+- Fix #132: Fix uploading a file with wrong extension
 
 1.5.4 (June 9, 2023)
 -------------------

@@ -184,12 +184,16 @@ class CustomGalleryController extends BaseController
         $media = new Media(['gallery' => $gallery]);
         $mediaUpload = $media->handleUpload($cfile);
 
-        $result = FileHelper::getFileInfos($mediaUpload);
-        $result['error'] = $mediaUpload->hasErrors();
-        $result['errors'] = '';
-        foreach ($mediaUpload->getErrors() as $error) {
-            $result['errors'] .= implode(', ', $error);
+        if ($mediaUpload->hasErrors()) {
+            return [
+                'name' => $mediaUpload->file_name,
+                'error' => true,
+                'errors' => implode(', ', $mediaUpload->getErrorSummary(true))
+            ];
         }
+
+        $result = FileHelper::getFileInfos($mediaUpload);
+        $result['error'] = false;
 
         return $result;
     }
