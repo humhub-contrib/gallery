@@ -1,8 +1,8 @@
 Changelog
 =========
 
-1.5.5 (Unreleased)
--------------------
+1.5.5 (December 22, 2023)
+-------------------------
 - Fix #129: Initialize module content class
 - Enh #130: Tests for `next` version
 - Fix #132: Fix uploading a file with wrong extension
