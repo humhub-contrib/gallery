@@ -15,25 +15,20 @@
 
 namespace humhub\modules\gallery\controllers;
 
-use humhub\modules\user\models\User;
-use Yii;
 use humhub\modules\content\components\ContentContainerController;
 use humhub\modules\content\components\ContentContainerControllerAccess;
-use humhub\modules\space\models\Space;
 use humhub\modules\gallery\models\forms\ContainerSettings;
+use humhub\modules\space\models\Space;
+use humhub\modules\user\models\User;
+use Yii;
 
 class SettingController extends ContentContainerController
 {
-    protected function getAccessRules() {
-        return [
-            ['login'],
-            [ContentContainerControllerAccess::RULE_USER_GROUP_ONLY => [Space::USERGROUP_ADMIN]]
-        ];
-    }
-
-    public function beforeAction($action)
+    protected function getAccessRules()
     {
-        return parent::beforeAction($action);
+        return [
+            [ContentContainerControllerAccess::RULE_USER_GROUP_ONLY => [Space::USERGROUP_ADMIN, User::USERGROUP_SELF]]
+        ];
     }
 
     public function actionIndex()
@@ -45,7 +40,6 @@ class SettingController extends ContentContainerController
         if($settings->load(Yii::$app->request->post()) && $settings->save()) {
             $this->view->saved();
         }
-
 
         return $this->render('index', [
             'settings' => $settings,
