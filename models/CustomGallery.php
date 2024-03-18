@@ -18,7 +18,6 @@ use humhub\modules\gallery\helpers\Url;
  */
 class CustomGallery extends BaseGallery
 {
-
     public function getWallUrl()
     {
         return Url::to(['/content/perma', 'id' => $this->content->id], true);
@@ -29,7 +28,19 @@ class CustomGallery extends BaseGallery
         return Url::toCustomGallery($this->content->container, $this->id);
     }
 
-    public function isPublic() {
+    /**
+     * Return a page with comments because it is not displayed on stream
+     *
+     * @param int $id
+     * @return string
+     */
+    public function getCommentUrl(int $id): string
+    {
+        return Url::toCustomGallery($this->content->container, $this->id, $id);
+    }
+
+    public function isPublic()
+    {
         return $this->content->isPublic();
     }
 
@@ -83,7 +94,7 @@ class CustomGallery extends BaseGallery
     {
         $result = parent::getMetaData();
         $result['deleteUrl'] = Url::toDeleteCustomGallery($this->content->container, $this->id);
-        $result['editUrl'] = Url::toEditCustomGallery( $this->content->container, $this->id);
+        $result['editUrl'] = Url::toEditCustomGallery($this->content->container, $this->id);
         $result['imagePadding'] = $this->isEmpty();
         return $result;
     }

@@ -13,9 +13,15 @@ class Url extends \yii\helpers\Url
         return $container->createUrl('/gallery/list');
     }
 
-    public static function toCustomGallery(ContentContainerActiveRecord $container, $gid)
+    public static function toCustomGallery(ContentContainerActiveRecord $container, $gid, $commentId = null): string
     {
-        return $container->createUrl('/gallery/custom-gallery', ['gid' => $gid]);
+        $params = ['gid' => $gid];
+
+        if ($commentId !== null) {
+            $params['StreamQuery[commentId]'] = $commentId;
+        }
+
+        return $container->createUrl('/gallery/custom-gallery', $params);
     }
 
     public static function toCreateCustomGallery(ContentContainerActiveRecord $container)

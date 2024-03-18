@@ -1,6 +1,10 @@
 Changelog
 =========
 
+1.5.6 (Unreleased)
+-------------------------
+- Fix #135: Fix gallery comment URL from notifications
+
 1.5.5 (December 22, 2023)
 -------------------------
 - Fix #129: Initialize module content class
