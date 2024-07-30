@@ -4,6 +4,7 @@ Changelog
 1.5.6 (Unreleased)
 -------------------------
 - Fix #135: Fix gallery comment URL from notifications
+- Fix: Add autofocus on edit (for HumHub 1.17 - see https://github.com/humhub/humhub/issues/7136)
 
 1.5.5 (December 22, 2023)
 -------------------------

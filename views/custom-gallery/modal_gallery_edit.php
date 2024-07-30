@@ -16,7 +16,9 @@ use humhub\modules\ui\form\widgets\ContentVisibilitySelect;
 use humhub\modules\ui\form\widgets\SortOrderField;
 use humhub\widgets\ModalButton;
 use humhub\widgets\ModalDialog;
-use yii\bootstrap\ActiveForm; ?>
+use yii\bootstrap\ActiveForm;
+
+?>
 
 <?php
 
@@ -39,7 +41,7 @@ ModalDialog::begin([
     <?php $form = ActiveForm::begin(['id' => 'Gallery', 'class' => 'form-horizontal']); ?>
 
         <div class="modal-body">
-            <?= $form->field($gallery, 'title' )->label(Yii::t('GalleryModule.base', 'Title')); ?>
+            <?= $form->field($gallery, 'title' )->textInput(['autofocus' => ''])->label(Yii::t('GalleryModule.base', 'Title')); ?>
             <?= $form->field($gallery, 'description' )->textArea()->label(Yii::t('GalleryModule.base', 'Description')); ?>
             <?php if (!$sortByCreated): ?>
                 <?= $form->field($gallery, 'sort_order')->widget(SortOrderField::class, []); ?>
