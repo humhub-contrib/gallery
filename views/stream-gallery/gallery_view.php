@@ -3,14 +3,11 @@
  * @link https://www.humhub.org/
  * @copyright Copyright (c) 2015 HumHub GmbH & Co. KG
  * @license https://www.humhub.com/licences
- * 
+ *
  * @package humhub.modules.gallery.views
  * @since 1.0
  * @author Sebastian Stumpf
  */
-?>
-
-<?php
 
 use humhub\modules\content\components\ContentActiveRecord;
 use humhub\modules\file\models\File;
@@ -30,13 +27,13 @@ use humhub\modules\gallery\widgets\GalleryList;
 $bundle = Assets::register($this);
 
 $description = ($container instanceof Space)
-    ?  Yii::t('GalleryModule.base', 'This gallery contains all posted media files from the space.')
+    ? Yii::t('GalleryModule.base', 'This gallery contains all posted media files from the space.')
     : Yii::t('GalleryModule.base', 'This gallery contains all posted media files from the profile.');
 ?>
 
 <div id="gallery-container" class="panel panel-default">
 
-    <div class="panel-heading" style="background-color: <?= $this->theme->variable('background-color-secondary') ?>"><?= Yii::t('GalleryModule.base', '<strong>Gallery</strong> ') . Yii::t('GalleryModule.base', 'of posted media files') ?></div>
+    <div class="panel-heading" style="background-color: var(--background-color-secondary)"><?= Yii::t('GalleryModule.base', '<strong>Gallery</strong> of posted media files') ?></div>
 
     <div class="panel-body">
         <div class="row">
@@ -51,7 +48,7 @@ $description = ($container instanceof Space)
             <?= GalleryList::widget([
                 'entryList' => $files,
                 'parentGallery' => $gallery,
-                'showMore' => $showMore
+                'showMore' => $showMore,
             ]) ?>
         </div>
     </div>
