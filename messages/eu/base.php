@@ -46,7 +46,7 @@ return array (
   'Size:' => 'Tamaina:',
   'Sort Galleries by Created Date' => '',
   'Sort Order' => 'Sailkapen hurrenkera',
-  'Sort order' => '',
+  'Sort order' => 'Honen arabera ordenatu',
   'There are no galleries available for this space. In order to configure the gallery snippet, please <a href="{createLink}">create</a> a new gallery' => '',
   'This gallery contains all posted media files from the profile.' => '',
   'This gallery contains all posted media files from the space.' => '',
