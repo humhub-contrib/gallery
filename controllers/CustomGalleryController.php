@@ -12,18 +12,18 @@ use humhub\debug\RDebug;
 use humhub\modules\file\libs\FileHelper;
 use humhub\modules\gallery\helpers\Url;
 use humhub\modules\gallery\models\BaseGallery;
-use \humhub\modules\gallery\models\CustomGallery;
+use humhub\modules\gallery\models\CustomGallery;
 use humhub\modules\gallery\models\forms\GalleryEditForm;
-use \humhub\modules\gallery\models\Media;
+use humhub\modules\gallery\models\Media;
 use humhub\modules\gallery\permissions\WriteAccess;
-use \Yii;
+use Yii;
 use yii\base\Exception;
 use yii\web\BadRequestHttpException;
 use yii\web\ForbiddenHttpException;
-use \yii\web\HttpException;
+use yii\web\HttpException;
 use yii\web\NotFoundHttpException;
 use yii\web\Response;
-use \yii\web\UploadedFile;
+use yii\web\UploadedFile;
 
 /**
  * Description of a Custom Gallery Controller for the gallery module.
@@ -34,7 +34,6 @@ use \yii\web\UploadedFile;
  */
 class CustomGalleryController extends BaseController
 {
-
     /**
      * @var CustomGallery
      */
@@ -55,15 +54,15 @@ class CustomGalleryController extends BaseController
     {
         $gallery = $this->getGallery();
 
-        if(!$gallery->content->canView()) {
+        if (!$gallery->content->canView()) {
             throw new ForbiddenHttpException();
         }
 
         return $this->render("gallery_view", [
-            'gallery'=> $gallery,
+            'gallery' => $gallery,
             'media' => $items,
             'container' => $this->contentContainer,
-            'showMore' => !$this->isLastPage() ? Url::toShowMoreMedia($this->contentContainer, $gallery->id) : false
+            'showMore' => !$this->isLastPage() ? Url::toShowMoreMedia($this->contentContainer, $gallery->id) : false,
         ]);
     }
 
@@ -76,19 +75,19 @@ class CustomGalleryController extends BaseController
      */
     protected function getGallery()
     {
-        if($this->gallery) {
+        if ($this->gallery) {
             return $this->gallery;
         }
 
         $gid = Yii::$app->request->get('gid');
 
-        if(!$gid) {
+        if (!$gid) {
             throw new BadRequestHttpException();
         }
 
         $this->gallery = CustomGallery::find()->contentContainer($this->contentContainer)->where(['gallery_gallery.id' => $gid])->one();
 
-        if(!$this->gallery) {
+        if (!$this->gallery) {
             throw new NotFoundHttpException();
         }
 
@@ -104,13 +103,13 @@ class CustomGalleryController extends BaseController
      */
     public function actionEdit($gid = null)
     {
-        if(!$gid && !$this->contentContainer->can(WriteAccess::class)) {
+        if (!$gid && !$this->contentContainer->can(WriteAccess::class)) {
             throw new ForbiddenHttpException();
         }
 
         $gallery = $gid ? $this->getGallery($gid) : null;
 
-        if($gallery && !$gallery->content->canEdit()) {
+        if ($gallery && !$gallery->content->canEdit()) {
             throw new ForbiddenHttpException();
         }
 
@@ -121,10 +120,10 @@ class CustomGalleryController extends BaseController
         }
 
         return $this->renderPartial('modal_gallery_edit', [
-                    'galleryForm' => $form,
-                    'contentContainer' => $this->contentContainer,
-                    'sortByCreated' => $this->getSettings()->sortByCreated,
-                    'createdAt' => isset($this->gallery) ? $this->gallery->getCreatedAt() : null
+            'galleryForm' => $form,
+            'contentContainer' => $this->contentContainer,
+            'sortByCreated' => $this->getSettings()->sortByCreated,
+            'createdAt' => isset($this->gallery) ? $this->gallery->getCreatedAt() : null,
         ]);
     }
 
@@ -140,15 +139,15 @@ class CustomGalleryController extends BaseController
 
         $gallery = CustomGallery::findOne(['id' => $gid]);
 
-        if(!$gallery) {
+        if (!$gallery) {
             throw new NotFoundHttpException();
         }
 
-        if(!$gallery->content->canEdit()) {
+        if (!$gallery->content->canEdit()) {
             throw new ForbiddenHttpException();
         }
 
-        if($gallery->delete()) {
+        if ($gallery->delete()) {
             $this->view->success(Yii::t('GalleryModule.base', 'Deleted'));
         } else {
             $this->view->error(Yii::t('GalleryModule.base', 'Item could not be deleted!'));
@@ -161,7 +160,7 @@ class CustomGalleryController extends BaseController
     {
         $gallery = $this->getGallery();
 
-        if(!$gallery->content->canEdit()) {
+        if (!$gallery->content->canEdit()) {
             throw new HttpException(404);
         }
 
@@ -188,7 +187,7 @@ class CustomGalleryController extends BaseController
             return [
                 'name' => $mediaUpload->file_name,
                 'error' => true,
-                'errors' => implode(', ', $mediaUpload->getErrorSummary(true))
+                'errors' => implode(', ', $mediaUpload->getErrorSummary(true)),
             ];
         }
 
@@ -208,7 +207,7 @@ class CustomGalleryController extends BaseController
     {
         $id = $gid == null ? Yii::$app->request->get('gid') : $gid;
 
-        if(!$id) {
+        if (!$id) {
             throw new HttpException(404);
         }
 

@@ -17,11 +17,11 @@ use yii\web\UploadedFile;
 /**
  * This is the model class for table "gallery_media".
  *
- * @property integer $id
- * @property integer $gallery_id
+ * @property int $id
+ * @property int $gallery_id
  * @property string $description
  * @property string $title
- * @property integer $sort_order
+ * @property int $sort_order
  * @property File $baseFile
  * @property CustomGallery $parentGallery
  *
@@ -31,7 +31,6 @@ use yii\web\UploadedFile;
  */
 class Media extends ContentActiveRecord implements Searchable
 {
-
     /**
      * @var BaseGallery used for instantiation
      */
@@ -92,7 +91,7 @@ class Media extends ContentActiveRecord implements Searchable
             [['gallery_id', 'sort_order'], 'integer'],
             ['title', 'string', 'max' => 255],
             ['description', 'string', 'max' => 1000],
-            ['hidden', 'boolean']
+            ['hidden', 'boolean'],
         ];
     }
 
@@ -105,7 +104,7 @@ class Media extends ContentActiveRecord implements Searchable
             'id' => 'ID',
             'gallery_id' => 'Gallery ID',
             'description' => 'Description',
-            'sort_order' => 'Sort Order'
+            'sort_order' => 'Sort Order',
         ];
     }
 

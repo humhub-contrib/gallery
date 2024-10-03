@@ -22,7 +22,6 @@ use Yii;
  */
 class Events
 {
-
     public static function onSpaceMenuInit($event)
     {
         try {
@@ -63,7 +62,7 @@ class Events
                     'label' => Yii::t('GalleryModule.base', 'Gallery'),
                     'url' => Url::toGalleryOverview($event->sender->user),
                     'icon' => '<i class="fa fa-picture-o"></i>',
-                    'isActive' => (Yii::$app->controller->module && Yii::$app->controller->module->id == 'gallery')
+                    'isActive' => (Yii::$app->controller->module && Yii::$app->controller->module->id == 'gallery'),
                 ]);
             }
         } catch (\Throwable $e) {

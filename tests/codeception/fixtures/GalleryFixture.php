@@ -18,6 +18,6 @@ class GalleryFixture extends ActiveFixture
     public $dataFile = '@gallery/tests/codeception/fixtures/data/gallery.php';
 
     public $depends = [
-        MediaFixture::class
+        MediaFixture::class,
     ];
 }

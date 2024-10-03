@@ -1,10 +1,9 @@
 <?php
 
-use \yii\db\Migration;
+use yii\db\Migration;
 
 class m160321_163801_initial extends Migration
 {
-
     public function up()
     {
         $this->createTable('gallery_media', [
@@ -12,7 +11,7 @@ class m160321_163801_initial extends Migration
             'title' => $this->string(255),
             'gallery_id' => $this->integer(11),
             'description' => $this->string(1000),
-            'sort_order' => $this->integer(11)->defaultValue(0)
+            'sort_order' => $this->integer(11)->defaultValue(0),
         ], '');
 
         $this->createTable('gallery_gallery', [

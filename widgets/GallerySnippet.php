@@ -15,7 +15,6 @@
 
 namespace humhub\modules\gallery\widgets;
 
-
 use humhub\modules\gallery\permissions\WriteAccess;
 use Yii;
 use humhub\components\Widget;
@@ -38,19 +37,19 @@ class GallerySnippet extends Widget
     {
         $settings = new ContainerSettings(['contentContainer' => $this->contentContainer]);
 
-        if($settings->hideSnippet) {
+        if ($settings->hideSnippet) {
             return;
         }
 
         $gallery = $settings->getSnippetGallery();
 
-        if(!$gallery) {
+        if (!$gallery) {
             return;
         }
 
         $images = $gallery->getMediaList(Yii::$app->getModule('gallery')->snippetMaxImages);
 
-        if(!count($images)) {
+        if (!count($images)) {
             return;
         }
 
@@ -59,7 +58,7 @@ class GallerySnippet extends Widget
             'settingsUrl' => $this->contentContainer->createUrl('/gallery/setting'),
             'galleryUrl' => $gallery->getUrl(),
             'isAdmin' => $this->contentContainer instanceof Space ? $this->contentContainer->isAdmin() : $this->contentContainer->isCurrentUser(),
-            'canWrite' => $this->contentContainer->permissionManager->can(new WriteAccess())
+            'canWrite' => $this->contentContainer->permissionManager->can(new WriteAccess()),
         ]);
     }
 }

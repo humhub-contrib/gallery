@@ -21,7 +21,6 @@ use humhub\modules\gallery\models\Media;
  */
 class WallEntryMedia extends WallStreamModuleEntryWidget
 {
-
     /**
      * @inheritdoc
      */

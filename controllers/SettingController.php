@@ -27,23 +27,23 @@ class SettingController extends ContentContainerController
     protected function getAccessRules()
     {
         return [
-            [ContentContainerControllerAccess::RULE_USER_GROUP_ONLY => [Space::USERGROUP_ADMIN, User::USERGROUP_SELF]]
+            [ContentContainerControllerAccess::RULE_USER_GROUP_ONLY => [Space::USERGROUP_ADMIN, User::USERGROUP_SELF]],
         ];
     }
 
     public function actionIndex()
     {
         $settings = new ContainerSettings([
-            'contentContainer' => $this->contentContainer
+            'contentContainer' => $this->contentContainer,
         ]);
 
-        if($settings->load(Yii::$app->request->post()) && $settings->save()) {
+        if ($settings->load(Yii::$app->request->post()) && $settings->save()) {
             $this->view->saved();
         }
 
         return $this->render('index', [
             'settings' => $settings,
-            'contentContainer' => $this->contentContainer
+            'contentContainer' => $this->contentContainer,
         ]);
     }
 

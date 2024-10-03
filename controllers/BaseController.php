@@ -10,20 +10,20 @@ namespace humhub\modules\gallery\controllers;
 
 use humhub\modules\content\components\ActiveQueryContent;
 use humhub\modules\content\components\ContentActiveRecord;
-use \humhub\modules\content\components\ContentContainerController;
+use humhub\modules\content\components\ContentContainerController;
 use humhub\modules\gallery\models\BaseGallery;
 use humhub\modules\gallery\models\forms\ContainerSettings;
 use humhub\modules\gallery\models\Media;
-use \humhub\modules\gallery\Module;
+use humhub\modules\gallery\Module;
 use humhub\modules\gallery\widgets\GalleryList;
 use humhub\modules\space\models\Space;
-use \humhub\modules\user\models\User;
-use \Yii;
+use humhub\modules\user\models\User;
+use Yii;
 use yii\base\Exception;
-use \yii\base\Model;
+use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use yii\data\BaseDataProvider;
-use \yii\web\HttpException;
+use yii\web\HttpException;
 use yii\web\NotFoundHttpException;
 
 /**
@@ -71,7 +71,7 @@ abstract class BaseController extends ContentContainerController
     protected function loadPage($page = 0)
     {
         $query = $this->getPaginationQuery();
-        if(!$query) {
+        if (!$query) {
             throw new NotFoundHttpException();
         }
 
@@ -79,8 +79,8 @@ abstract class BaseController extends ContentContainerController
             'query' => $query,
             'pagination' => [
                 'page' => $page,
-                'pageSize' => $this->getPageSize()
-            ]
+                'pageSize' => $this->getPageSize(),
+            ],
         ]);
     }
 
@@ -95,11 +95,11 @@ abstract class BaseController extends ContentContainerController
 
     final protected function isAdmin()
     {
-        if(Yii::$app->user->isGuest) {
+        if (Yii::$app->user->isGuest) {
             return false;
         }
 
-        if($this->contentContainer instanceof Space) {
+        if ($this->contentContainer instanceof Space) {
             return $this->contentContainer->isAdmin();
         }
 
@@ -114,13 +114,13 @@ abstract class BaseController extends ContentContainerController
 
         return $this->asJson([
             'html' => GalleryList::widget(['entryList' => $models, 'entriesOnly' => true, 'parentGallery' => $this->getGallery()]),
-            'isLast' => $this->isLastPage($page)
+            'isLast' => $this->isLastPage($page),
         ]);
     }
 
     protected function isLastPage($page = 0)
     {
-        if(!$this->dataProvider || !$this->dataProvider->getPagination()) {
+        if (!$this->dataProvider || !$this->dataProvider->getPagination()) {
             return true;
         }
 
@@ -135,7 +135,7 @@ abstract class BaseController extends ContentContainerController
     protected function getSettings()
     {
         return new ContainerSettings([
-            'contentContainer' => $this->contentContainer
+            'contentContainer' => $this->contentContainer,
         ]);
     }
 }

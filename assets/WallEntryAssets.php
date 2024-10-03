@@ -14,7 +14,6 @@ use yii\web\AssetBundle;
  */
 class WallEntryAssets extends AssetBundle
 {
-
     /**
      * @inheritdoc
      */

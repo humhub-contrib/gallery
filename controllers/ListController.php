@@ -3,10 +3,10 @@
 namespace humhub\modules\gallery\controllers;
 
 use humhub\modules\gallery\helpers\Url;
-use \humhub\modules\gallery\models\CustomGallery;
-use \humhub\modules\gallery\models\StreamGallery;
+use humhub\modules\gallery\models\CustomGallery;
+use humhub\modules\gallery\models\StreamGallery;
 use humhub\modules\gallery\permissions\WriteAccess;
-use \Yii;
+use Yii;
 use yii\web\HttpException;
 
 /**
@@ -25,7 +25,7 @@ class ListController extends BaseController
             'galleries' => $items,
             'canWrite' => $this->contentContainer->can(WriteAccess::class),
             'isAdmin' => $this->isAdmin(),
-            'showMore' => !$this->isLastPage()
+            'showMore' => !$this->isLastPage(),
         ]);
     }
 
@@ -48,7 +48,7 @@ class ListController extends BaseController
             // Using sortByCreated we add this additional orderBy
             $pageQuery
                 ->orderBy([
-                    'content.created_at' => SORT_DESC
+                    'content.created_at' => SORT_DESC,
                 ]);
         } else {
             $pageQuery
