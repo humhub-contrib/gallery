@@ -22,7 +22,6 @@ use yii\web\AssetBundle;
  */
 class Assets extends AssetBundle
 {
-
     /**
      * v1.5 compatibility defer script loading
      *
@@ -33,7 +32,7 @@ class Assets extends AssetBundle
     public $defer = true;
 
     public $publishOptions = [
-        'forceCopy' => false
+        'forceCopy' => false,
     ];
 
     public $css = [
@@ -43,9 +42,9 @@ class Assets extends AssetBundle
     public $js = [
         'js/gallery.js',
     ];
-    
+
     public $jsOptions = [
-        'position' => \yii\web\View::POS_END
+        'position' => \yii\web\View::POS_END,
     ];
 
     /**
@@ -62,8 +61,8 @@ class Assets extends AssetBundle
         $view->registerJsConfig('gallery', [
             'fallbackImageUrl' => Media::getFallbackPreviewImageUrl(),
             'text' => [
-                'error.loadImageError' => Yii::t('GalleryModule.base', 'Image could not be loaded')
-            ]
+                'error.loadImageError' => Yii::t('GalleryModule.base', 'Image could not be loaded'),
+            ],
         ]);
 
         return parent::register($view);

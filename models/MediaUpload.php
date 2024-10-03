@@ -6,12 +6,11 @@ use humhub\modules\file\models\FileUpload;
 
 /**
  * MediaUpload
- * 
+ *
  * @author Sebastian Stumpf
  */
 class MediaUpload extends FileUpload
 {
-
     /**
      * The supported extensions
      */
@@ -22,10 +21,9 @@ class MediaUpload extends FileUpload
      */
     public function rules()
     {
-        return array_merge(parent::rules(),  [
+        return array_merge(parent::rules(), [
             ['uploadedFile', 'file', 'extensions' => $this->validExtensions],
         ]);
     }
 
 }
-    

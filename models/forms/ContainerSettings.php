@@ -24,13 +24,13 @@ use yii\helpers\Html;
  */
 class ContainerSettings extends Model
 {
-    const SETTING_HIDE_SNIPPET = 'hideSnippet';
-    const SETTING_GALLERY_ID = 'galleryId';
-    const SETTING_SORT_ORDER= 'snippetSortOrder';
-    const SETTING_SORT_BY_CREATED = 'sortByCreated';
-    const SETTING_CONTENT_HIDDEN_DEFAULT = 'contentHiddenDefault';
-    const SORT_MIN = 0;
-    const SORT_MAX = 32000;
+    public const SETTING_HIDE_SNIPPET = 'hideSnippet';
+    public const SETTING_GALLERY_ID = 'galleryId';
+    public const SETTING_SORT_ORDER = 'snippetSortOrder';
+    public const SETTING_SORT_BY_CREATED = 'sortByCreated';
+    public const SETTING_CONTENT_HIDDEN_DEFAULT = 'contentHiddenDefault';
+    public const SORT_MIN = 0;
+    public const SORT_MAX = 32000;
     /**
      * @var ContentContainerActiveRecord $contentContainer of this snippet
      */
@@ -47,7 +47,7 @@ class ContainerSettings extends Model
     public $hideSnippet;
 
     /**
-     * @var integer defines the sort order snippet for the gallery;
+     * @var int defines the sort order snippet for the gallery;
      */
     public $snippetSortOrder;
 
@@ -89,17 +89,18 @@ class ContainerSettings extends Model
             [['snippetGallery'], 'containerGallery'],
             [['snippetSortOrder'], 'number', 'min' => static::SORT_MIN, 'max' => static::SORT_MAX],
             ['sortByCreated', 'integer'],
-            [['contentHiddenDefault'], 'boolean']
+            [['contentHiddenDefault'], 'boolean'],
         ];
     }
 
-    public function containerGallery($attribute, $params) {
-        if(!$this->snippetGallery) {
+    public function containerGallery($attribute, $params)
+    {
+        if (!$this->snippetGallery) {
             return;
         }
 
         $gallery = CustomGallery::findOne(['id' => $this->snippetGallery]);
-        if(!$gallery->content->contentcontainer_id === $this->contentContainer->contentContainerRecord->id) {
+        if (!$gallery->content->contentcontainer_id === $this->contentContainer->contentContainerRecord->id) {
             $this->addError($attribute, 'Invalid gallery selection.');
         }
     }
@@ -120,7 +121,7 @@ class ContainerSettings extends Model
     public function attributeHints()
     {
         return [
-            'snippetGallery' => Yii::t('GalleryModule.base', 'In case the gallery is not visible for the current user, the snippet will use the latest accessible gallery instead.')
+            'snippetGallery' => Yii::t('GalleryModule.base', 'In case the gallery is not visible for the current user, the snippet will use the latest accessible gallery instead.'),
         ];
     }
 
@@ -132,12 +133,12 @@ class ContainerSettings extends Model
         $visibility = $latest->content->isPublic() ? Yii::t('base', 'Public') : Yii::t('base', 'Private');
         $result = ['0' => Yii::t('GalleryModule.base', 'Latest Gallery - {title} ({visibility})', [
             'title' => Html::encode($latest->title),
-            'visibility' => $visibility
+            'visibility' => $visibility,
         ])];
 
         foreach ($galleries as $gallery) {
             $visibility = $gallery->content->isPublic() ? Yii::t('base', 'Public') : Yii::t('base', 'Private');
-            $result[$gallery->id] = Html::encode($gallery->title).' ('.$visibility.')';
+            $result[$gallery->id] = Html::encode($gallery->title) . ' (' . $visibility . ')';
         }
 
         return $result;
@@ -145,7 +146,7 @@ class ContainerSettings extends Model
 
     public function save()
     {
-        if(!$this->validate()) {
+        if (!$this->validate()) {
             return false;
         }
 
@@ -204,13 +205,13 @@ class ContainerSettings extends Model
     {
         $galleryId = $this->getSnippetId();
 
-        if(!$galleryId) {
+        if (!$galleryId) {
             $gallery = CustomGallery::findLatest($this->contentContainer);
         } else {
             $gallery = CustomGallery::findOne(['id' => $galleryId]);
         }
 
-        if($gallery && !$gallery->content->canView()) {
+        if ($gallery && !$gallery->content->canView()) {
             $gallery = CustomGallery::find()->contentContainer($this->contentContainer)->readable()->one();
         }
 

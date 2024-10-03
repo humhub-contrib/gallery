@@ -2,22 +2,22 @@
 
 namespace humhub\modules\gallery\models;
 
-use \humhub\modules\content\components\ContentActiveRecord;
-use \humhub\modules\file\models\File;
+use humhub\modules\content\components\ContentActiveRecord;
+use humhub\modules\file\models\File;
 use humhub\modules\gallery\permissions\WriteAccess;
-use \humhub\modules\user\models\User;
+use humhub\modules\user\models\User;
 use humhub\modules\gallery\Module;
-use \Yii;
+use Yii;
 
 /**
  * This is the abstract model class for table "gallery_gallery".
  *
- * @property integer $id
+ * @property int $id
  * @property string $title
  * @property string $description
- * @property integer $sort_order
- * @property integer $thumb_file_id
- * @property integer $type
+ * @property int $sort_order
+ * @property int $thumb_file_id
+ * @property int $type
  *
  * @package humhub.modules.gallery.models
  * @since 1.0
@@ -54,7 +54,7 @@ class BaseGallery extends ContentActiveRecord
             ['description', 'string', 'max' => 1000],
             [['thumb_file_id', 'type'], 'safe'],
             [['sort_order'], 'integer'],
-            [['sort_order'], 'default', 'value' => 0]
+            [['sort_order'], 'default', 'value' => 0],
         ];
     }
 
@@ -65,7 +65,7 @@ class BaseGallery extends ContentActiveRecord
     {
         return [
             'title' => Yii::t('GalleryModule.base', 'Title'),
-            'description' => Yii::t('GalleryModule.base', 'Description')
+            'description' => Yii::t('GalleryModule.base', 'Description'),
         ];
     }
 
@@ -87,15 +87,18 @@ class BaseGallery extends ContentActiveRecord
         return Yii::t('GalleryModule.base', "Gallery");
     }
 
-    public function getTitle() {
+    public function getTitle()
+    {
         return $this->title;
     }
 
-    public function getUrl() {
+    public function getUrl()
+    {
         return null;
     }
 
-    public function getCreatedAt() {
+    public function getCreatedAt()
+    {
         return $this->content->created_at;
     }
 
@@ -130,13 +133,13 @@ class BaseGallery extends ContentActiveRecord
             'contentObject' => $this,
             'footerOverwrite' => false,
             'alwaysShowHeading' => true,
-            'imagePadding' => ''
+            'imagePadding' => '',
         ];
     }
 
     public static function findOne($condition)
     {
-        if(static::class !== BaseGallery::class) {
+        if (static::class !== BaseGallery::class) {
             $condition = $condition ? $condition : [];
             $condition['type'] = isset($condition['type']) ? $condition['type'] : static::class;
             return parent::findOne($condition);
@@ -147,7 +150,7 @@ class BaseGallery extends ContentActiveRecord
 
     public static function findAll($condition)
     {
-        if(static::class !== BaseGallery::class) {
+        if (static::class !== BaseGallery::class) {
             $condition = $condition ? $condition : [];
             $condition['type'] = isset($condition['type']) ? $condition['type'] : static::class;
             return parent::findAll($condition);
@@ -161,7 +164,7 @@ class BaseGallery extends ContentActiveRecord
      */
     public function beforeSave($insert)
     {
-        if($insert) {
+        if ($insert) {
             $this->type = static::class;
         }
         return parent::beforeSave($insert);

@@ -1,4 +1,5 @@
 <?php
+
 namespace gallery;
 
 use Codeception\Util\Locator;
@@ -25,9 +26,9 @@ class AcceptanceTester extends \AcceptanceTester
     public function enableModule($guid, $moduleId)
     {
         $this->amOnSpace($guid, '/space/manage/module');
-        $this->seeElement('.enable-module-'.$moduleId);
-        $this->jsClick('.enable-module-'.$moduleId);
-        $this->waitForElement('.disable-module-'.$moduleId);
+        $this->seeElement('.enable-module-' . $moduleId);
+        $this->jsClick('.enable-module-' . $moduleId);
+        $this->waitForElement('.disable-module-' . $moduleId);
         $this->amOnSpace($guid);
     }
 
@@ -66,7 +67,7 @@ class AcceptanceTester extends \AcceptanceTester
         }
 
         $this->click('Save', '#globalModal');
-        $this->waitForText('Gallery '.$title, null, '#gallery-container .panel-heading');
+        $this->waitForText('Gallery ' . $title, null, '#gallery-container .panel-heading');
 
         if ($public) {
             $this->see('Public');
