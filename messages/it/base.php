@@ -6,7 +6,6 @@ return [
     '<strong>Confirm</strong> delete item' => '<strong>Conferma</strong> cancellazione elemento',
     '<strong>Edit</strong> gallery' => '<strong>Modifica</strong> galleria',
     '<strong>Edit</strong> media' => '<strong>Modifica</strong> media',
-    '<strong>Gallery</strong> ' => '<strong>Galleria</strong>',
     '<strong>Gallery</strong> settings' => 'Impostazioni <strong>Galleria</strong>',
     '<strong>List</strong> of galleries' => '<strong>Elenco</strong> gallerie',
     'Add Gallery' => 'Aggiungi galleria',
@@ -54,6 +53,7 @@ return [
     'Title' => 'Titolo',
     'Upload' => 'Carica',
     'added by ' => 'aggiunto da',
-    'of posted media files' => 'di file postati',
     '<strong>Gallery</strong> module configuration' => '',
+    '<strong>Gallery</strong> of posted media files' => '',
+    '<strong>Gallery</strong> {title}' => '',
 ];

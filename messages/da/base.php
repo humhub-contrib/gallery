@@ -6,7 +6,6 @@ return [
     '<strong>Confirm</strong> delete item' => '<strong>Bekræft</strong> sletning af emne',
     '<strong>Edit</strong> gallery' => '<strong>Redigér</strong> galleri',
     '<strong>Edit</strong> media' => '<strong>Redigér</strong> medie',
-    '<strong>Gallery</strong> ' => '<strong>Galleri</strong>',
     '<strong>Gallery</strong> settings' => '<strong>Galleri</strong>indstillinger',
     '<strong>List</strong> of galleries' => '<strong>Liste</strong> over gallerier',
     'Add Gallery' => 'Tilføj Galleri',
@@ -22,6 +21,8 @@ return [
     'Sort order' => 'Sorteringrækkefølge',
     'Title' => 'Titel',
     '<strong>Gallery</strong> module configuration' => '',
+    '<strong>Gallery</strong> of posted media files' => '',
+    '<strong>Gallery</strong> {title}' => '',
     'Add gallery image button' => '',
     'Choose snippet gallery' => '',
     'Click here to add new Gallery' => '',
@@ -55,5 +56,4 @@ return [
     'This gallery contains all posted pictures.' => '',
     'Upload' => '',
     'added by ' => '',
-    'of posted media files' => '',
 ];

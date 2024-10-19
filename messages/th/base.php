@@ -6,7 +6,6 @@ return [
     '<strong>Confirm</strong> delete item' => '<strong>ยืนยัน</strong> ลบรายการ',
     '<strong>Edit</strong> gallery' => '<strong>แก้ไข</strong> แกลเลอรี่',
     '<strong>Edit</strong> media' => '<strong>แก้ไข</strong> สื่อ',
-    '<strong>Gallery</strong> ' => '<strong>แกลเลอรี่</strong>',
     '<strong>Gallery</strong> settings' => '<strong>แกลเลอรี</strong> การตั้งค่า',
     '<strong>List</strong> of galleries' => '<strong>รายชื่อ</strong> แกลเลอรี่',
     'Add Gallery' => 'เพิ่มแกลลอรี่',
@@ -52,8 +51,9 @@ return [
     'Title' => 'หัวข้อ',
     'Upload' => 'ที่อัพโหลด',
     'added by ' => 'เพิ่มโดย',
-    'of posted media files' => 'ของไฟล์สื่อที่โพสต์',
     '<strong>Gallery</strong> module configuration' => '',
+    '<strong>Gallery</strong> of posted media files' => '',
+    '<strong>Gallery</strong> {title}' => '',
     'Gallery created at:' => '',
     'Sort Galleries by Created Date' => '',
 ];

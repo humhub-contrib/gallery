@@ -6,7 +6,6 @@ return [
     '<strong>Confirm</strong> delete item' => '<strong>Potvrdi</strong> brisanje stavke',
     '<strong>Edit</strong> gallery' => '<strong>Uredi</strong> galeriju',
     '<strong>Edit</strong> media' => '<strong>Uredi</strong> medij',
-    '<strong>Gallery</strong> ' => '<strong>Galerija</strong>',
     '<strong>Gallery</strong> settings' => '<strong>Galerija</strong> -postavke',
     '<strong>List</strong> of galleries' => '<strong>Lista</strong> galerija',
     'Add Gallery' => 'Dodaj galeriju',
@@ -52,8 +51,9 @@ return [
     'Title' => 'Naziv',
     'Upload' => 'Učitaj',
     'added by ' => 'dodano od',
-    'of posted media files' => 'objavljenih medijskih datoteka',
     '<strong>Gallery</strong> module configuration' => '',
+    '<strong>Gallery</strong> of posted media files' => '',
+    '<strong>Gallery</strong> {title}' => '',
     'Gallery created at:' => '',
     'Sort Galleries by Created Date' => '',
 ];

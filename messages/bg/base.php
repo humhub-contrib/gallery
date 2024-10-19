@@ -6,7 +6,6 @@ return [
     '<strong>Confirm</strong> delete item' => '<strong>Потвърждение</strong> за изтриване на елемент',
     '<strong>Edit</strong> gallery' => '<strong>Редактиране</strong> на галерия',
     '<strong>Edit</strong> media' => '<strong>Редактиране</strong> на медия',
-    '<strong>Gallery</strong> ' => '<strong>Галерия</strong>',
     '<strong>Gallery</strong> settings' => 'Настройки на <strong>галерия</strong>',
     '<strong>List</strong> of galleries' => '<strong>Списък</strong> от галерии',
     'Add Gallery' => 'Добави галерия',
@@ -52,8 +51,9 @@ return [
     'Title' => 'Заглавие',
     'Upload' => 'Качване',
     'added by ' => 'добавена от',
-    'of posted media files' => 'на публикувани медийни файлове',
     '<strong>Gallery</strong> module configuration' => '',
+    '<strong>Gallery</strong> of posted media files' => '',
+    '<strong>Gallery</strong> {title}' => '',
     'Gallery created at:' => '',
     'Sort Galleries by Created Date' => '',
 ];
