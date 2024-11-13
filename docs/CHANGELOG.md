@@ -7,6 +7,7 @@ Changelog
 - Fix: Add autofocus on edit (for HumHub 1.17 - see https://github.com/humhub/humhub/issues/7136)
 - Enh #140: Replace theme variables with CSS variables
 - Enh #141: Use PHP CS Fixer
+- Fix #142: Resources path for HumHub v1.17
 
 1.5.5 (December 22, 2023)
 -------------------------
