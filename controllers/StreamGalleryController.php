@@ -8,10 +8,10 @@
 
 namespace humhub\modules\gallery\controllers;
 
-use \humhub\modules\gallery\models\StreamGallery;
+use humhub\modules\gallery\models\StreamGallery;
 use humhub\modules\stream\actions\Stream;
-use \Yii;
-use \yii\web\HttpException;
+use Yii;
+use yii\web\HttpException;
 use yii\web\NotFoundHttpException;
 use yii\web\Response;
 
@@ -46,7 +46,7 @@ class StreamGalleryController extends BaseController
         }
 
         $this->streamGallery = StreamGallery::findForContainer($this->contentContainer);
-        if(!$this->streamGallery) {
+        if (!$this->streamGallery) {
             throw new NotFoundHttpException();
         }
 
@@ -71,7 +71,7 @@ class StreamGalleryController extends BaseController
             'files' => $items,
             'gallery' => $this->streamGallery,
             'container' => $this->contentContainer,
-            'showMore' => !$this->isLastPage()
+            'showMore' => !$this->isLastPage(),
         ]);
     }
 

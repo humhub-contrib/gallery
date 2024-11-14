@@ -1,16 +1,17 @@
 <?php
-return array (
+return [
   '<strong>Add</strong> new gallery' => '<strong>Voeg</strong> nieuw fotoalbum toe',
   '<strong>Confirm</strong> delete gallery' => '<strong>Verwijder</strong> fotoalbum',
   '<strong>Confirm</strong> delete item' => '<strong>Bent u zeker?</strong> dat u dit item wil verwijderen?',
   '<strong>Edit</strong> gallery' => '<strong>Bewerk</strong> fotoalbum',
   '<strong>Edit</strong> media' => 'Media <strong> bewerken strong&gt;</strong>',
-  '<strong>Gallery</strong> ' => '<strong>Fotoalbum</strong>',
   '<strong>Gallery</strong> module configuration' => '<strong>Fotalbum</strong> module configuratie',
+  '<strong>Gallery</strong> of posted media files' => '<strong>Fotoalbum</strong> met de geplaatste mediabestanden',
   '<strong>Gallery</strong> settings' => '<strong>Fotoalbums</strong> instellingen',
+  '<strong>Gallery</strong> {title}' => '<strong>Fotoalbum</strong> {title}',
   '<strong>List</strong> of galleries' => '<strong>Overzicht</strong> van fotoalbums',
   'Add Gallery' => 'Voeg fotoalbum toe',
-  'Add gallery image button' => 'Knop voor galerijafbeelding toevoegen',
+  'Add gallery image button' => 'Knop voor fotoalbum toevoegen',
   'Adds gallery module to this space.' => 'Voegt de fotoalbum module aan deze ruimte toe.',
   'Adds gallery module to your profile.' => 'Voegt de fotoalbum module toe aan uw profiel.',
   'Allows the user to add, modify images and galleries.' => 'Sta de gebruiker afbeeldingen en albums toe te voegen en te wijzigen.',
@@ -54,5 +55,4 @@ return array (
   'Title' => 'Titel',
   'Upload' => 'Upload',
   'added by ' => 'toegevoegd door',
-  'of posted media files' => 'van geplaatste mediabestanden',
-);
+];

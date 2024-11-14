@@ -17,7 +17,6 @@ use Yii;
 
 class Module extends ContentContainerModule
 {
-
     public $galleryMaxImages = 50;
     public $snippetMaxImages = 20;
     public $debug = false;
@@ -29,7 +28,7 @@ class Module extends ContentContainerModule
     {
         return [
             Space::class,
-            User::class
+            User::class,
         ];
     }
 
@@ -43,8 +42,8 @@ class Module extends ContentContainerModule
 
     public function getContainerPermissions($contentContainer = null)
     {
-         return [
-            new WriteAccess()
+        return [
+            new WriteAccess(),
         ];
     }
 
@@ -82,7 +81,7 @@ class Module extends ContentContainerModule
     {
         $streamGallery = new StreamGallery($container, Content::VISIBILITY_PUBLIC, [
             'title' => Yii::t('GalleryModule.base', 'Posted pictures'),
-            'description' => Yii::t('GalleryModule.base', 'This gallery contains all posted pictures.')
+            'description' => Yii::t('GalleryModule.base', 'This gallery contains all posted pictures.'),
         ]);
 
         $streamGallery->save();

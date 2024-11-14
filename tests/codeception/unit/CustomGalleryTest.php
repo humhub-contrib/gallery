@@ -16,7 +16,7 @@ class CustomGalleryTest extends HumHubDbTestCase
         $this->becomeUser('User1');
         $gallery = new CustomGallery(Space::findOne(1), [
             'title' => 'Test Gallery',
-            'description' => 'Test Gallery Description'
+            'description' => 'Test Gallery Description',
         ]);
 
         $this->assertTrue($gallery->save());
@@ -24,7 +24,7 @@ class CustomGalleryTest extends HumHubDbTestCase
         $media = new Media($space, [
             'gallery' => $gallery,
             'title' => 'My media',
-            'description' => 'My test media'
+            'description' => 'My test media',
         ]);
 
         $this->assertTrue($media->save());
@@ -42,7 +42,7 @@ class CustomGalleryTest extends HumHubDbTestCase
         $this->becomeUser('User1');
         $gallery = new CustomGallery(Space::findOne(1), [
             'title' => 'Test Gallery',
-            'description' => 'Test Gallery Description'
+            'description' => 'Test Gallery Description',
         ]);
 
         $this->assertTrue($gallery->save());
@@ -50,7 +50,7 @@ class CustomGalleryTest extends HumHubDbTestCase
         $media = new Media($space, [
             'gallery' => $gallery,
             'title' => 'My media',
-            'description' => 'My test media'
+            'description' => 'My test media',
         ]);
 
         $this->assertTrue($media->save());

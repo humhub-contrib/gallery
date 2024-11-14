@@ -9,10 +9,10 @@
 namespace humhub\modules\gallery\controllers;
 
 use humhub\modules\gallery\helpers\Url;
-use \humhub\modules\gallery\models\Media;
-use \Yii;
+use humhub\modules\gallery\models\Media;
+use Yii;
 use yii\web\ForbiddenHttpException;
-use \yii\web\HttpException;
+use yii\web\HttpException;
 use yii\web\NotFoundHttpException;
 
 /**
@@ -32,7 +32,7 @@ class MediaController extends CustomGalleryController
             throw new HttpException(404);
         }
 
-        if(!$media->content->canEdit()) {
+        if (!$media->content->canEdit()) {
             throw new ForbiddenHttpException();
         }
 
@@ -49,7 +49,7 @@ class MediaController extends CustomGalleryController
             'gid' => $media->gallery_id,
             'media' => $media,
             'contentContainer' => $this->contentContainer,
-            'fromWall' => $fromWall
+            'fromWall' => $fromWall,
         ]);
     }
 
@@ -59,15 +59,15 @@ class MediaController extends CustomGalleryController
 
         $media = Media::findOne(['id' => $id]);
 
-        if(!$media) {
+        if (!$media) {
             throw new NotFoundHttpException();
         }
 
-        if(!$media->content->canEdit()) {
+        if (!$media->content->canEdit()) {
             throw new ForbiddenHttpException();
         }
 
-        if($media->delete()) {
+        if ($media->delete()) {
             $this->view->success(Yii::t('GalleryModule.base', 'Deleted'));
         } else {
             $this->view->error(Yii::t('GalleryModule.base', 'Item could not be deleted!'));
@@ -76,7 +76,7 @@ class MediaController extends CustomGalleryController
         return !$fromWall
             ? $this->htmlRedirect(Url::toCustomGallery($this->contentContainer, $media->gallery_id))
             : $this->asJson([
-                'success' => false
+                'success' => false,
             ]);
     }
 

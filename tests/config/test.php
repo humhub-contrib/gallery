@@ -10,9 +10,6 @@ return [
     'modules' => ['gallery'],
     'fixtures' => [
         'default',
-        'task' => \humhub\modules\gallery\tests\codeception\fixtures\GalleryFixture::class
-    ]
+        'task' => \humhub\modules\gallery\tests\codeception\fixtures\GalleryFixture::class,
+    ],
 ];
-
-
-

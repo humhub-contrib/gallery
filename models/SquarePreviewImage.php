@@ -8,10 +8,10 @@
 
 namespace humhub\modules\gallery\models;
 
-use \humhub\modules\file\converter\PreviewImage;
+use humhub\modules\file\converter\PreviewImage;
 use Imagine\Image\Box;
 use Imagine\Image\ManipulatorInterface;
-use \Yii;
+use Yii;
 use yii\imagine\Image;
 
 /**
@@ -22,8 +22,7 @@ use yii\imagine\Image;
  */
 class SquarePreviewImage extends PreviewImage
 {
-
-    const DEFAULT_GALLERY_PREVIEW_IMAGE_MAX_DIM = 400;
+    public const DEFAULT_GALLERY_PREVIEW_IMAGE_MAX_DIM = 400;
 
     /**
      * @inheritdoc

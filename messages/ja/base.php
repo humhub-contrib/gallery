@@ -1,13 +1,14 @@
 <?php
-return array (
+return [
   '<strong>Add</strong> new gallery' => '新しいギャラリーに<strong>追加</strong>',
   '<strong>Confirm</strong> delete gallery' => 'ギャラリー削除の<strong>確認</strong>',
   '<strong>Confirm</strong> delete item' => 'アイテム削除の<strong>確認</strong>',
   '<strong>Edit</strong> gallery' => 'ギャラリーの<strong>編集</strong>',
   '<strong>Edit</strong> media' => 'メディアの<strong>編集</strong>',
-  '<strong>Gallery</strong> ' => '<strong>ギャラリー</strong>',
   '<strong>Gallery</strong> module configuration' => '<strong>ギャラリー</strong>モジュールの構成',
+  '<strong>Gallery</strong> of posted media files' => '投稿されたメディアファイルの<strong>ギャラリー</strong>',
   '<strong>Gallery</strong> settings' => '<strong>ギャラリー</strong> の設定',
+  '<strong>Gallery</strong> {title}' => '<strong>ギャラリー</strong> {title}',
   '<strong>List</strong> of galleries' => 'ギャラリーの<strong>リスト</strong>',
   'Add Gallery' => 'ギャラリーを追加',
   'Add gallery image button' => 'ギャラリー画像ボタンを追加',
@@ -54,5 +55,4 @@ return array (
   'Title' => 'タイトル',
   'Upload' => 'アップロード',
   'added by ' => 'によって追加',
-  'of posted media files' => 'の投稿されたメディアファイル',
-);
+];

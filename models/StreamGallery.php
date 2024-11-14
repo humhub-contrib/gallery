@@ -2,17 +2,17 @@
 
 namespace humhub\modules\gallery\models;
 
-use \humhub\modules\comment\models\Comment;
+use humhub\modules\comment\models\Comment;
 use humhub\modules\content\components\ContentContainerActiveRecord;
 use humhub\modules\content\models\Content;
 use humhub\modules\content\widgets\Stream;
-use \humhub\modules\file\models\File;
+use humhub\modules\file\models\File;
 use humhub\modules\gallery\helpers\Url;
-use \humhub\modules\post\models\Post;
+use humhub\modules\post\models\Post;
 use humhub\modules\stream\actions\ContentContainerStream;
 use humhub\modules\stream\models\StreamQuery;
 use humhub\modules\stream\models\WallStreamQuery;
-use \Yii;
+use Yii;
 use yii\data\Pagination;
 use yii\db\ActiveQuery;
 
@@ -42,10 +42,10 @@ class StreamGallery extends BaseGallery
     {
         $result = static::find()->contentContainer($container)->where(['type' => StreamGallery::class])->one();
 
-        if(!$result && $init) {
+        if (!$result && $init) {
             $result = new StreamGallery($container, Content::VISIBILITY_PUBLIC, [
                 'title' => Yii::t('GalleryModule.base', 'Posted pictures'),
-                'description' => Yii::t('GalleryModule.base', 'This gallery contains all posted pictures.')
+                'description' => Yii::t('GalleryModule.base', 'This gallery contains all posted pictures.'),
             ]);
             $result->save();
         }
@@ -68,7 +68,7 @@ class StreamGallery extends BaseGallery
         // get first image from the complete filelist as fallback
         $file = $this->fileListQuery()->one();
 
-        if(!$file) {
+        if (!$file) {
             return $this->getDefaultPreviewImageUrl();
         }
 
@@ -98,7 +98,7 @@ class StreamGallery extends BaseGallery
             ->andWhere('show_in_stream = 1')
             ->orderBy(['file.updated_at' => SORT_DESC]);
 
-        if(!$container->canAccessPrivateContent()) {
+        if (!$container->canAccessPrivateContent()) {
             $query->andWhere('content.visibility = :visibility', [':visibility' => Content::VISIBILITY_PUBLIC]);
         }
 

@@ -1,9 +1,9 @@
 <?php
 
-use \humhub\modules\comment\widgets\Comments;
+use humhub\modules\comment\widgets\Comments;
 use humhub\modules\content\components\ContentActiveRecord;
 use humhub\modules\content\widgets\ContentObjectLinks;
-use \humhub\modules\gallery\assets\Assets;
+use humhub\modules\gallery\assets\Assets;
 use humhub\modules\gallery\helpers\Url;
 use humhub\modules\gallery\models\CustomGallery;
 use humhub\modules\gallery\models\Media;
@@ -14,7 +14,6 @@ use humhub\widgets\TimeAgo;
 use humhub\libs\Html;
 use humhub\modules\gallery\widgets\GalleryList;
 
-
 /* @var CustomGallery $gallery */
 /* @var Media[] $media */
 /* @var boolean $showMore */
@@ -24,9 +23,9 @@ $bundle = Assets::register($this);
 ?>
 <div id="gallery-container" class="panel panel-default">
 
-    <div class="panel-heading clearfix" style="background-color: <?= $this->theme->variable('background-color-secondary') ?>">
-        <div style="margin-right:40px;" class="pull-left">
-            <?= Yii::t('GalleryModule.base', '<strong>Gallery</strong> ') . Html::encode($gallery->title) ?>
+    <div class="panel-heading clearfix" style="background-color: var(--background-color-secondary)">
+        <div style="margin-right:40px" class="pull-left">
+            <?= Yii::t('GalleryModule.base', '<strong>Gallery</strong> {title}', ['title' => Html::encode($gallery->title)]) ?>
         </div>
 
         <?= GalleryMenu::widget(['gallery' => $gallery,

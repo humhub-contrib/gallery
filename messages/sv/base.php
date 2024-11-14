@@ -6,7 +6,6 @@ return [
     '<strong>Confirm</strong> delete item' => '<strong>Bekräfta</strong> radering av objekt',
     '<strong>Edit</strong> gallery' => '<strong>Redigera</strong> galleri',
     '<strong>Edit</strong> media' => '<strong>Redigera</strong> media',
-    '<strong>Gallery</strong> ' => '<strong>Galleri</strong>',
     '<strong>Gallery</strong> settings' => '<strong>Galleri</strong> inställningar',
     '<strong>List</strong> of galleries' => '<strong>Lista</strong> över gallerier',
     'Add Gallery' => 'Lägg till galeri',
@@ -54,6 +53,7 @@ return [
     'Title' => 'Titel',
     'Upload' => 'Ladda upp',
     'added by ' => 'tillagd av',
-    'of posted media files' => 'av publicerade mediafiler',
     '<strong>Gallery</strong> module configuration' => '',
+    '<strong>Gallery</strong> of posted media files' => '',
+    '<strong>Gallery</strong> {title}' => '',
 ];

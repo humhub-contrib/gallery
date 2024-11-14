@@ -6,7 +6,6 @@ return [
     '<strong>Confirm</strong> delete item' => '<strong>Kadarnaat</strong> dilemel an item',
     '<strong>Edit</strong> gallery' => '<strong>Embann</strong> an dastumad skeudennoù',
     '<strong>Edit</strong> media' => '<strong>Embann</strong> ar media',
-    '<strong>Gallery</strong> ' => '<strong>Dastumad skeudennoù</strong>',
     '<strong>Gallery</strong> settings' => 'Reolamantoù an <strong>dastumad skeudennoù</strong>',
     '<strong>List</strong> of galleries' => '<strong>Listennad</strong> an dastumadoù skeudennoù',
     'Add Gallery' => 'Ouzhpennañ un dastumad skeudennoù',
@@ -35,6 +34,8 @@ return [
     'Posted Media Files' => 'Posted Media Files',
     'Settings' => 'Reolamantoù',
     '<strong>Gallery</strong> module configuration' => '',
+    '<strong>Gallery</strong> of posted media files' => '',
+    '<strong>Gallery</strong> {title}' => '',
     'Add gallery image button' => '',
     'Allows the user to add, modify images and galleries.' => '',
     'Description' => '',
@@ -55,5 +56,4 @@ return [
     'Title' => '',
     'Upload' => '',
     'added by ' => '',
-    'of posted media files' => '',
 ];

@@ -8,7 +8,7 @@
 
 namespace humhub\modules\gallery\widgets;
 
-use \yii\base\Widget;
+use yii\base\Widget;
 
 /**
  * Widget that renders a list of entries in the gallery module.
@@ -19,7 +19,6 @@ use \yii\base\Widget;
  */
 class GalleryList extends Widget
 {
-
     public $entryList;
     public $parentGallery;
     public $entriesOnly = false;
@@ -31,7 +30,7 @@ class GalleryList extends Widget
             'entryList' => $this->entryList,
             'entriesOnly' => $this->entriesOnly,
             'parentGallery' => $this->parentGallery,
-            'showMore' => $this->showMore
+            'showMore' => $this->showMore,
         ]);
     }
 }

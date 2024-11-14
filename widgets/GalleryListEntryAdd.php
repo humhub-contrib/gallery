@@ -8,14 +8,14 @@
 
 namespace humhub\modules\gallery\widgets;
 
-use \humhub\modules\file\handler\FileHandlerCollection;
-use \humhub\modules\file\widgets\FileHandlerButtonDropdown;
-use \humhub\modules\file\widgets\UploadButton;
+use humhub\modules\file\handler\FileHandlerCollection;
+use humhub\modules\file\widgets\FileHandlerButtonDropdown;
+use humhub\modules\file\widgets\UploadButton;
 use humhub\modules\gallery\helpers\Url;
-use \humhub\modules\gallery\models\StreamGallery;
+use humhub\modules\gallery\models\StreamGallery;
 use humhub\modules\gallery\permissions\WriteAccess;
-use \Yii;
-use \yii\base\Widget;
+use Yii;
+use yii\base\Widget;
 
 /**
  * Widget that renders an entry inside a list in the gallery module
@@ -26,14 +26,13 @@ use \yii\base\Widget;
  */
 class GalleryListEntryAdd extends Widget
 {
-
     public $parentGallery;
 
     public function run()
     {
         $contentContainer = Yii::$app->controller->contentContainer;
 
-        if(!$contentContainer->can(WriteAccess::class)) {
+        if (!$contentContainer->can(WriteAccess::class)) {
             return '';
         }
 
@@ -44,24 +43,24 @@ class GalleryListEntryAdd extends Widget
 
         if ($this->parentGallery) {
             return $this->render('galleryListEntryAdd', [
-                        'title' => Yii::t('GalleryModule.base', 'Click or drop files here'),
-                        'addActionUrl' => '#',
-                        'htmlOptions' => [
-                            'data' => [
-                                'action-click' => "file.upload",
-                                'action-target' => '#gallery-media-upload'
-                            ]
-                        ]
+                'title' => Yii::t('GalleryModule.base', 'Click or drop files here'),
+                'addActionUrl' => '#',
+                'htmlOptions' => [
+                    'data' => [
+                        'action-click' => "file.upload",
+                        'action-target' => '#gallery-media-upload',
+                    ],
+                ],
             ]);
         } else {
             return $this->render('galleryListEntryAdd', [
-                        'title' => Yii::t('GalleryModule.base', 'Click here to add new Gallery'),
-                        'addActionUrl' => Url::toCreateCustomGallery($contentContainer),
-                        'htmlOptions' => [
-                            'data' => [
-                                'target' => "#globalModal",
-                            ]
-                        ]
+                'title' => Yii::t('GalleryModule.base', 'Click here to add new Gallery'),
+                'addActionUrl' => Url::toCreateCustomGallery($contentContainer),
+                'htmlOptions' => [
+                    'data' => [
+                        'target' => "#globalModal",
+                    ],
+                ],
             ]);
         }
     }

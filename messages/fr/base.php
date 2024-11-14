@@ -1,13 +1,14 @@
 <?php
-return array (
+return [
   '<strong>Add</strong> new gallery' => '<strong>Ajouter</strong> une nouvelle galerie',
   '<strong>Confirm</strong> delete gallery' => '<strong>Confirmer</strong> la suppression de la galerie',
   '<strong>Confirm</strong> delete item' => '<strong>Confirmer</strong> la suppression de l\'élément',
   '<strong>Edit</strong> gallery' => '<strong>Modifier</strong> la galerie',
   '<strong>Edit</strong> media' => '<strong>Éditer</strong> le media',
-  '<strong>Gallery</strong> ' => '<strong>Galerie</strong>',
   '<strong>Gallery</strong> module configuration' => 'Configuration du module <strong>Galerie</strong>',
+  '<strong>Gallery</strong> of posted media files' => '<strong>Galerie</strong> des fichiers média postés',
   '<strong>Gallery</strong> settings' => 'Paramètres de la <strong>galerie</strong>',
+  '<strong>Gallery</strong> {title}' => '<strong>Galerie</strong> {title}',
   '<strong>List</strong> of galleries' => '<strong>Liste</strong> des galeries',
   'Add Gallery' => 'Ajouter une galerie',
   'Add gallery image button' => 'Ajouter un bouton pour la gallerie d’images.',
@@ -54,5 +55,4 @@ return array (
   'Title' => 'Titre',
   'Upload' => 'Déposer',
   'added by ' => 'ajouté par',
-  'of posted media files' => 'parmi les fichiers media déposés',
-);
+];

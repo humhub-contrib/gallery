@@ -52,16 +52,16 @@ class GalleryEditForm extends Model
     {
         parent::init();
 
-        if(!$this->instance) {
+        if (!$this->instance) {
             $this->visibility = $this->getDefaultVisibility();
             $this->instance = new CustomGallery();
             $this->instance->content->container = $this->contentContainer;
             $this->instance->content->visibility = $this->visibility;
-        } else if(!($this->instance instanceof CustomGallery)) {
+        } elseif (!($this->instance instanceof CustomGallery)) {
             throw new HttpException(404);
-        } else if($this->instance->content->container->id != $this->contentContainer->id) {
+        } elseif ($this->instance->content->container->id != $this->contentContainer->id) {
             throw new HttpException(404);
-        } else if(!$this->instance->content->canEdit()) {
+        } elseif (!$this->instance->content->canEdit()) {
             throw new HttpException(403);
         } else {
             $this->visibility = $this->instance->content->visibility;
@@ -82,7 +82,7 @@ class GalleryEditForm extends Model
      */
     private function getDefaultVisibility()
     {
-        if($this->contentContainer instanceof Space) {
+        if ($this->contentContainer instanceof Space) {
             return $this->contentContainer->getDefaultContentVisibility();
         } else {
             return Content::VISIBILITY_PUBLIC;
@@ -115,11 +115,11 @@ class GalleryEditForm extends Model
      */
     public function save()
     {
-        if(!$this->validate()) {
+        if (!$this->validate()) {
             return false;
         }
 
-        return CustomGallery::getDb()->transaction(function() {
+        return CustomGallery::getDb()->transaction(function () {
             $this->updateVisibility();
             return $this->instance->save();
         });
@@ -131,7 +131,7 @@ class GalleryEditForm extends Model
      */
     protected function updateVisibility()
     {
-        if($this->visibility === null) {
+        if ($this->visibility === null) {
             return;
         }
 
@@ -139,7 +139,7 @@ class GalleryEditForm extends Model
             $this->instance->content->visibility = $this->visibility;
 
             $contentIds = [];
-            foreach($this->instance->mediaList as $media) {
+            foreach ($this->instance->mediaList as $media) {
                 $contentIds[] = $media->content->id;
             }
 

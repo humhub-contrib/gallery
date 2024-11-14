@@ -10,8 +10,8 @@ namespace humhub\modules\gallery\permissions;
 
 use humhub\modules\user\models\User;
 use Yii;
-use \humhub\libs\BasePermission;
-use \humhub\modules\space\models\Space;
+use humhub\libs\BasePermission;
+use humhub\modules\space\models\Space;
 
 /**
  * WriteAccess Permission
@@ -22,7 +22,6 @@ use \humhub\modules\space\models\Space;
  */
 class WriteAccess extends BasePermission
 {
-
     /**
      * @inheritdoc
      */
@@ -31,7 +30,7 @@ class WriteAccess extends BasePermission
         Space::USERGROUP_OWNER,
         Space::USERGROUP_ADMIN,
         Space::USERGROUP_MODERATOR,
-        Space::USERGROUP_MEMBER
+        Space::USERGROUP_MEMBER,
     ];
 
     /**
@@ -42,7 +41,7 @@ class WriteAccess extends BasePermission
         User::USERGROUP_GUEST,
         User::USERGROUP_USER,
         Space::USERGROUP_USER,
-        Space::USERGROUP_GUEST
+        Space::USERGROUP_GUEST,
     ];
 
     public function getTitle()

@@ -16,8 +16,8 @@ use humhub\modules\gallery\libs\FileUtils;
 use humhub\modules\gallery\models\BaseGallery;
 use humhub\modules\gallery\models\Media;
 use humhub\modules\gallery\models\SquarePreviewImage;
-use \yii\base\Widget;
-use \Yii;
+use yii\base\Widget;
+use Yii;
 
 /**
  * Widget that renders an entry inside a list in the gallery module
@@ -28,7 +28,6 @@ use \Yii;
  */
 class GalleryListEntry extends Widget
 {
-
     public $entryObject;
     public $parentGallery;
 
@@ -48,7 +47,7 @@ class GalleryListEntry extends Widget
         }
 
         $metaData['creatorUrl'] = !empty($metaData['creator']) ? $metaData['creator']->createUrl() : '';
-        $metaData['creatorThumbnailUrl'] = !empty($metaData['creator'])  ? $metaData['creator']->getProfileImage()->getUrl() : '';
+        $metaData['creatorThumbnailUrl'] = !empty($metaData['creator']) ? $metaData['creator']->getProfileImage()->getUrl() : '';
         $metaData['uiGalleryId'] = $this->parentGallery ? "GalleryModule-Gallery-" . $this->parentGallery->id : '';
 
         return $this->render('galleryListEntry', $metaData);
@@ -64,14 +63,14 @@ class GalleryListEntry extends Widget
             'wallUrl' => $media->getWallUrl(),
             'deleteUrl' => Url::toDeleteMedia($contentContainer, $media->id),
             'editUrl' => Url::toEditMedia($contentContainer, $media),
-            'downloadUrl' =>$media->getFileUrl(true),
+            'downloadUrl' => $media->getFileUrl(true),
             'fileUrl' => $media->getFileUrl(),
             'thumbnailUrl' => $media->getSquarePreviewImageUrl(),
             'writeAccess' => $media->content->canEdit(),
             'contentObject' => $media,
             'footerOverwrite' => false,
             'alwaysShowHeading' => false,
-            'imagePadding' => ''
+            'imagePadding' => '',
         ];
     }
 
@@ -94,7 +93,7 @@ class GalleryListEntry extends Widget
             'contentObject' => $contentObject,
             'footerOverwrite' => false,
             'alwaysShowHeading' => false,
-            'imagePadding' => ''
+            'imagePadding' => '',
         ];
     }
 }

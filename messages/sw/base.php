@@ -6,9 +6,10 @@ return [
     '<strong>Confirm</strong> delete item' => '',
     '<strong>Edit</strong> gallery' => '',
     '<strong>Edit</strong> media' => '',
-    '<strong>Gallery</strong> ' => '',
     '<strong>Gallery</strong> module configuration' => '',
+    '<strong>Gallery</strong> of posted media files' => '',
     '<strong>Gallery</strong> settings' => '',
+    '<strong>Gallery</strong> {title}' => '',
     '<strong>List</strong> of galleries' => '',
     'Add Gallery' => '',
     'Add gallery image button' => '',
@@ -55,5 +56,4 @@ return [
     'Title' => '',
     'Upload' => '',
     'added by ' => '',
-    'of posted media files' => '',
 ];
