@@ -1,6 +1,10 @@
 Changelog
 =========
 
+1.6.0 (Unreleased)
+-------------------------
+- Fix #137: Update module resources path
+
 1.5.6 (Unreleased)
 -------------------------
 - Fix #135: Fix gallery comment URL from notifications
