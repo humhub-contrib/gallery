@@ -1,12 +1,9 @@
 Changelog
 =========
 
-1.6.0 (Unreleased)
+1.6.0 (November 14, 2024)
 -------------------------
 - Fix #137: Update module resources path
-
-1.5.6 (Unreleased)
--------------------------
 - Fix #135: Fix gallery comment URL from notifications
 - Fix: Add autofocus on edit (for HumHub 1.17 - see https://github.com/humhub/humhub/issues/7136)
 - Enh #140: Replace theme variables with CSS variables
