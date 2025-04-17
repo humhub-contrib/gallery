@@ -92,10 +92,9 @@ class SquarePreviewImage extends PreviewImage
      * Crop an image file to a square thumbnail.
      * The thumbnail will be saved with the suffix "&lt;width&gt;_thumb_square"
      * @param File|null $basefile the file to crop.
-     * @param number $maxDimension limit maximum with/height.
-     * @return string the thumbnail's url or null if an error occured.
+     * @return string the thumbnail's url or null if an error occurred.
      */
-    public static function getSquarePreviewImageUrlFromFile(?File $basefile = null)
+    public static function getSquarePreviewImageUrlFromFile(?File $basefile = null) : string
     {
         $previewImage = new SquarePreviewImage();
         if ($basefile && $previewImage->applyFile($basefile)) {
