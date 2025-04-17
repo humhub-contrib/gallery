@@ -9,6 +9,7 @@
 namespace humhub\modules\gallery\models;
 
 use humhub\modules\file\converter\PreviewImage;
+use humhub\modules\file\models\File;
 use Imagine\Image\Box;
 use Imagine\Image\ManipulatorInterface;
 use Yii;
@@ -90,17 +91,17 @@ class SquarePreviewImage extends PreviewImage
     /**
      * Crop an image file to a square thumbnail.
      * The thumbnail will be saved with the suffix "&lt;width&gt;_thumb_square"
-     * @param File $basefile the file to crop.
+     * @param File|null $basefile the file to crop.
      * @param number $maxDimension limit maximum with/height.
      * @return string the thumbnail's url or null if an error occured.
      */
-    public static function getSquarePreviewImageUrlFromFile($basefile = null)
+    public static function getSquarePreviewImageUrlFromFile(?File $basefile = null)
     {
         $previewImage = new SquarePreviewImage();
-        if ($previewImage->applyFile($basefile)) {
+        if ($basefile && $previewImage->applyFile($basefile)) {
             return $previewImage->getUrl();
         } else {
-            return "";
+            return '';
         }
     }
 
