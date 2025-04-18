@@ -1,8 +1,8 @@
 Changelog
 =========
 
-1.6.1 (Unreleased)
--------------------------
+1.6.1 (April 18, 2024)
+----------------------
 - Fix #146: Fix TypeError in `SquarePreviewImage.php`
 
 1.6.0 (November 14, 2024)
