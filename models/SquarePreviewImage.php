@@ -94,7 +94,7 @@ class SquarePreviewImage extends PreviewImage
      * @param File|null $basefile the file to crop.
      * @return string the thumbnail's url or null if an error occurred.
      */
-    public static function getSquarePreviewImageUrlFromFile(?File $basefile = null) : string
+    public static function getSquarePreviewImageUrlFromFile(?File $basefile = null): string
     {
         $previewImage = new SquarePreviewImage();
         if ($basefile && $previewImage->applyFile($basefile)) {
