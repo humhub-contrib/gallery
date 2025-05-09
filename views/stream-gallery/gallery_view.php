@@ -14,10 +14,10 @@ use humhub\modules\file\models\File;
 use humhub\modules\gallery\assets\Assets;
 use humhub\modules\gallery\helpers\Url;
 use humhub\modules\gallery\models\StreamGallery;
-use humhub\widgets\Button;
-use yii\helpers\Html;
-use humhub\modules\space\models\Space;
 use humhub\modules\gallery\widgets\GalleryList;
+use humhub\modules\space\models\Space;
+use humhub\widgets\bootstrap\Button;
+use yii\helpers\Html;
 
 /* @var $files File[] */
 /* @var $gallery StreamGallery */
@@ -33,11 +33,11 @@ $description = ($container instanceof Space)
 
 <div id="gallery-container" class="panel panel-default">
 
-    <div class="panel-heading" style="background-color: var(--background-color-secondary)"><?= Yii::t('GalleryModule.base', '<strong>Gallery</strong> of posted media files') ?></div>
+    <div class="panel-heading" style="background-color: var(--hh-background-color-secondary)"><?= Yii::t('GalleryModule.base', '<strong>Gallery</strong> of posted media files') ?></div>
 
     <div class="panel-body">
         <div class="row">
-            <div class="col-sm-12 gallery-description">
+            <div class="col-md-12 gallery-description">
                 <i class="fa fa-arrow-circle-right"></i>
                 <?= Html::encode($description) ?>
                 <?= Button::back(Url::toGalleryOverview($container), Yii::t('GalleryModule.base', 'Back to overview'))->right()->sm() ?>

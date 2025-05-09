@@ -14,13 +14,12 @@
 
 use humhub\modules\content\components\ContentContainerActiveRecord;
 use humhub\modules\content\helpers\ContentContainerHelper;
-use \humhub\modules\gallery\assets\Assets;
+use humhub\modules\gallery\assets\Assets;
 use humhub\modules\gallery\helpers\Url;
 use humhub\modules\gallery\models\BaseGallery;
 use humhub\modules\gallery\widgets\GalleryListEntry;
 use humhub\modules\gallery\widgets\GalleryListEntryAdd;
-use humhub\widgets\Button;
-use humhub\widgets\LinkPager;
+use humhub\widgets\bootstrap\Button;
 
 Assets::register($this);
 
@@ -38,7 +37,7 @@ $container = ContentContainerHelper::getCurrent();
         <?= GalleryListEntry::widget(['entryObject' => $entry, 'parentGallery' => $parentGallery]) ?>
     <?php endforeach; ?>
 <?php else: ?>
-    <div id="gallery-list" class="col">
+    <div id="gallery-list" class="col p-0">
         <div id="gallery-media-container" class="row">
             <?= GalleryListEntryAdd::widget(['parentGallery' => $parentGallery]) ?>
             <?php foreach ($entryList as $entry): ?>

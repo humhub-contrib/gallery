@@ -4,6 +4,7 @@ namespace humhub\modules\gallery;
 
 use humhub\modules\content\components\ContentContainerActiveRecord;
 use humhub\modules\content\components\ContentContainerModule;
+use humhub\modules\content\models\Content;
 use humhub\modules\gallery\helpers\Url;
 use humhub\modules\gallery\models\CustomGallery;
 use humhub\modules\gallery\models\forms\ContainerSettings;
@@ -74,6 +75,16 @@ class Module extends ContentContainerModule
         }
 
         parent::disable();
+    }
+
+    public function enableContentContainer(ContentContainerActiveRecord $container)
+    {
+        $streamGallery = new StreamGallery($container, Content::VISIBILITY_PUBLIC, [
+            'title' => Yii::t('GalleryModule.base', 'Posted pictures'),
+            'description' => Yii::t('GalleryModule.base', 'This gallery contains all posted pictures.'),
+        ]);
+
+        $streamGallery->save();
     }
 
     public function disableContentContainer(ContentContainerActiveRecord $container)

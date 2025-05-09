@@ -6,7 +6,7 @@
 /* @var $isAdmin boolean */
 /* @var $images \humhub\modules\gallery\models\Media[] */
 
-use humhub\libs\Html;
+use humhub\helpers\Html;
 
 $extraMenus = ($isAdmin) ? '<li><a href="'.$settingsUrl.'"><i class="fa fa-cogs"></i> '. Yii::t('GalleryModule.base', 'Settings') .'</a></li>' : '';
 $extraMenus .= '<li><a href="'.$galleryUrl.'"><i class="fa fa-arrow-circle-right"></i> '. Yii::t('GalleryModule.base', 'Open Gallery') .'</a></li>';
@@ -46,18 +46,18 @@ $extraMenus .= '<li><a href="'.$galleryUrl.'"><i class="fa fa-arrow-circle-right
     $(document).one('humhub:ready', function() {
         try {
             var gallery = $('#sidebar-gallery-carousel').parent();
-            
+
             if(!gallery.length) {
                 return;
             }
-            
+
             var initSidebarWidget = function() {
                 if(!gallery.is(':visible')) {
                     return false;
                 }
-                
+
                 var links = $('#gallery-snippet-links a').get();
-                
+
                 blueimp.Gallery(links, {
                    index:links[0],
                    container: '#sidebar-gallery-carousel',
@@ -75,18 +75,18 @@ $extraMenus .= '<li><a href="'.$galleryUrl.'"><i class="fa fa-arrow-circle-right
                        }
                    },
                });
-                
+
                 return true;
             };
-            
+
             var timeOutInit = function() {
                 setTimeout(function() {
                    if(!initSidebarWidget()) {
                        timeOutInit()
-                   } 
+                   }
                 }, 2000);
             };
-            
+
             if(!initSidebarWidget()) {
                 timeOutInit();
             }

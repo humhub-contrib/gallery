@@ -2,9 +2,12 @@
 
 namespace humhub\modules\gallery\controllers;
 
+use humhub\modules\gallery\helpers\Url;
 use humhub\modules\gallery\models\CustomGallery;
 use humhub\modules\gallery\models\StreamGallery;
 use humhub\modules\gallery\permissions\WriteAccess;
+use Yii;
+use yii\web\HttpException;
 
 /**
  * Controller responsible for listing all available galleries including stream gallery and custom galleries of a container.
@@ -31,7 +34,7 @@ class ListController extends BaseController
      */
     protected function prepareInitialItems($items)
     {
-        return array_merge([StreamGallery::findForContainer($this->contentContainer, true)], $items);
+        return array_merge([StreamGallery::findForContainer($this->contentContainer)], $items);
     }
 
     /**

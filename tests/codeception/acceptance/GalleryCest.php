@@ -99,7 +99,7 @@ class GalleryCest
      {
          $I->amOnRoute(Url::toRoute(['/user/account/edit-modules', 'moduleId' => 'tasks']));
          $I->wait(1);
-         $I->executeJS('$(\'.media-heading\').each(function() {if($(this).text() === \'Tasks\') {$(this).siblings(\'a:visible\').click()}});');
+         $I->executeJS('$(\'.mt-0\').each(function() {if($(this).text() === \'Tasks\') {$(this).siblings(\'a:visible\').click()}});');
          $I->wait(2);
      }*/
 }

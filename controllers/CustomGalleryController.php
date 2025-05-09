@@ -44,7 +44,7 @@ class CustomGalleryController extends BaseController
      */
     protected function getPaginationQuery()
     {
-        return $this->getGallery()->mediaListQuery();
+        return $this->getGallery()->mediaListQuery()->contentContainer($this->contentContainer)->readable();
     }
 
     /**
@@ -85,11 +85,7 @@ class CustomGalleryController extends BaseController
             throw new BadRequestHttpException();
         }
 
-        $this->gallery = CustomGallery::find()
-            ->contentContainer($this->contentContainer)
-            ->readable()
-            ->andWhere(['gallery_gallery.id' => $gid])
-            ->one();
+        $this->gallery = CustomGallery::find()->contentContainer($this->contentContainer)->where(['gallery_gallery.id' => $gid])->one();
 
         if (!$this->gallery) {
             throw new NotFoundHttpException();

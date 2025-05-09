@@ -2,10 +2,13 @@ module.exports = function (grunt) {
 
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
-        less: {
-            gallery: {
+        sass: {
+            options: {
+                implementation: require('sass')
+            },
+            dev: {
                 files: {
-                    'resources/css/gallery.css': ['resources/css/gallery.less'],
+                    'resources/css/gallery.css': 'resources/css/gallery.scss'
                 }
             }
         },
@@ -22,8 +25,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-cssmin');
-    grunt.loadNpmTasks('grunt-contrib-less');
+    grunt.loadNpmTasks('grunt-sass');
 
-
-    grunt.registerTask('build', ['less', 'cssmin']);
+    grunt.registerTask('build', ['sass', 'cssmin']);
 };
