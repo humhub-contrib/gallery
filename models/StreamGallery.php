@@ -2,16 +2,10 @@
 
 namespace humhub\modules\gallery\models;
 
-use humhub\modules\comment\models\Comment;
 use humhub\modules\content\components\ContentContainerActiveRecord;
 use humhub\modules\content\models\Content;
-use humhub\modules\content\widgets\Stream;
 use humhub\modules\file\models\File;
 use humhub\modules\gallery\helpers\Url;
-use humhub\modules\post\models\Post;
-use humhub\modules\stream\actions\ContentContainerStream;
-use humhub\modules\stream\models\StreamQuery;
-use humhub\modules\stream\models\WallStreamQuery;
 use Yii;
 use yii\data\Pagination;
 use yii\db\ActiveQuery;
@@ -40,7 +34,11 @@ class StreamGallery extends BaseGallery
      */
     public static function findForContainer(ContentContainerActiveRecord $container, $init = false)
     {
-        $result = static::find()->contentContainer($container)->where(['type' => StreamGallery::class])->one();
+        $result = static::find()
+            ->contentContainer($container)
+            ->readable()
+            ->andWhere(['type' => StreamGallery::class])
+            ->one();
 
         if (!$result && $init) {
             $result = new StreamGallery($container, Content::VISIBILITY_PUBLIC, [
@@ -92,14 +90,14 @@ class StreamGallery extends BaseGallery
 
         $query = File::find()
             ->innerJoin('content', $joinCondition, ['containerId' => $this->content->container->contentcontainer_id])
-           // ->where('content.visibility = :visibility', [':visibility' => Content::VISIBILITY_PUBLIC])
+            ->andWhere(['content.state' => Content::STATE_PUBLISHED])
             ->andWhere(['like', 'file.mime_type', 'image/'])
-            ->andWhere('content.object_model != :media', ['media' => Media::class])
-            ->andWhere('show_in_stream = 1')
+            ->andWhere(['!=', 'content.object_model', Media::class])
+            ->andWhere(['show_in_stream' => '1'])
             ->orderBy(['file.updated_at' => SORT_DESC]);
 
         if (!$container->canAccessPrivateContent()) {
-            $query->andWhere('content.visibility = :visibility', [':visibility' => Content::VISIBILITY_PUBLIC]);
+            $query->andWhere(['content.visibility' => Content::VISIBILITY_PUBLIC]);
         }
 
         return $query;

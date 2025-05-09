@@ -1,6 +1,10 @@
 Changelog
 =========
 
+1.6.2 (Unreleased)
+----------------------
+- Fix #151: Fix visibility of deleted images
+
 1.6.1 (April 18, 2024)
 ----------------------
 - Fix #146: Fix TypeError in `SquarePreviewImage.php`

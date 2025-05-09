@@ -26,7 +26,11 @@ class MediaController extends CustomGalleryController
 {
     public function actionEdit($id = null, $fromWall = false)
     {
-        $media = Media::find()->contentContainer($this->contentContainer)->where(['gallery_media.id' => $id])->one();
+        $media = Media::find()
+            ->contentContainer($this->contentContainer)
+            ->readable()
+            ->andWhere(['gallery_media.id' => $id])
+            ->one();
 
         if (!$media) {
             throw new HttpException(404);
