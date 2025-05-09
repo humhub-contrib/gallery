@@ -128,7 +128,7 @@ class ContainerSettings extends Model
 
     public function getGallerySelection()
     {
-        $galleries = CustomGallery::find()->contentContainer($this->contentContainer)->all();
+        $galleries = CustomGallery::find()->contentContainer($this->contentContainer)->readable()->all();
 
         $latest = CustomGallery::findLatest($this->contentContainer);
         $visibility = $latest->content->isPublic() ? Yii::t('base', 'Public') : Yii::t('base', 'Private');
@@ -199,7 +199,7 @@ class ContainerSettings extends Model
 
     public function hasGallery()
     {
-        return CustomGallery::find()->contentContainer($this->contentContainer)->count() > 0;
+        return CustomGallery::find()->contentContainer($this->contentContainer)->readable()->exists();
     }
 
     public function getSnippetGallery()
