@@ -3,7 +3,7 @@ Changelog
 
 1.7.0 (unreleased)
 -------------------------
-- Enh: Migration to Bootstrap 5 for HumHub 1.18
+- Enh #155: Migration to Bootstrap 5 for HumHub 1.18
 
 1.6.1 (April 18, 2024)
 ----------------------
