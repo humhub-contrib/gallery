@@ -13,7 +13,7 @@ humhub.module('gallery', function (module, require, $) {
             $('#gallery-media-container').append(response.html);
 
             if(response.isLast) {
-                evt.$trigger.hide();
+                evt.$trigger.addClass('d-none');
             }
 
             evt.$trigger.data('nextPage', ++page);
@@ -45,9 +45,9 @@ humhub.module('gallery', function (module, require, $) {
         $root.imagesLoaded().progress(function(instance, image) {
             var $img =  $(image.img);
             if(image.isLoaded) {
-                $img.fadeIn('slow');
+                $img.removeClass('d-none');
             } else {
-                $img.attr('src', module.config.fallbackImageUrl).show()
+                $img.attr('src', module.config.fallbackImageUrl).removeClass('d-none')
                     .parent().attr('data-ui-gallery', null)
                     .css('cursor', 'not-allowed')
                     .attr('title', module.text('error.loadImageError'))

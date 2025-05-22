@@ -3,9 +3,9 @@
 use humhub\modules\content\components\ContentContainerActiveRecord;
 use humhub\modules\gallery\helpers\Url;
 use humhub\modules\gallery\models\forms\ContainerSettings;
-use humhub\modules\ui\form\widgets\ContentHiddenCheckbox;
-use humhub\widgets\Button;
-use yii\bootstrap\ActiveForm;
+use humhub\widgets\bootstrap\Button;
+use humhub\widgets\form\ActiveForm;
+use humhub\widgets\form\ContentHiddenCheckbox;
 
 /* @var $settings ContainerSettings */
 /* @var $contentContainer ContentContainerActiveRecord */

@@ -9,12 +9,13 @@
  * @author Sebastian Stumpf
  */
 
-use \humhub\modules\comment\widgets\CommentLink;
+use humhub\modules\comment\widgets\CommentLink;
 use humhub\modules\content\widgets\ContentObjectLinks;
-use \humhub\modules\gallery\assets\Assets;
-use humhub\widgets\Link;
-use humhub\widgets\ModalButton;
-use \yii\helpers\Html;
+use humhub\modules\gallery\assets\Assets;
+use humhub\modules\ui\icon\widgets\Icon;
+use humhub\widgets\bootstrap\Link;
+use humhub\widgets\modal\ModalButton;
+use yii\helpers\Html;
 
 /* @var $fileUrl string */
 /* @var $uiGalleryId string */
@@ -32,25 +33,25 @@ $bundle = Assets::register($this);
 ?>
 
 
-<div class="col-xs-6 col-sm-4 col-md-3 col-lg-2 col-xl-2 gallery-list-entry">
+<div class="col-6 col-md-4 col-lg-3 col-xl-2 col-xl-2 gallery-list-entry">
     <div class="panel panel-default">
         <div class="panel-body">
             <a href="<?= $fileUrl ?>#.jpeg"
                 <?php if ($uiGalleryId): ?>
                     data-type="image"
-                    data-toggle="lightbox"
+                    data-bs-toggle="lightbox"
                     data-parent="#gallery-content"
                     data-description="<?= Html::encode($title) ?>"
                     title="<?= Html::encode($title) ?>"
                     data-ui-gallery="<?= $uiGalleryId ?>"
                 <?php endif; ?>>
-                <img class="gallery-img <?= $imagePadding ? 'padding15perc' : '' ?>" src="<?= $thumbnailUrl ?>"
-                     alt="<?= Html::encode($title) ?>" style="display:none"/>
-                <span class="overlay"><i class="glyphicon glyphicon-fullscreen"></i></span>
+                <img class="gallery-img d-none <?= $imagePadding ? 'padding15perc' : '' ?>" src="<?= $thumbnailUrl ?>"
+                     alt="<?= Html::encode($title) ?>" />
+                <span class="overlay"><?= Icon::get('arrows-alt') ?></span>
             </a>
         </div>
         <div class="panel-footer overlay">
-            <div class="social-activities colorFont5 pull-right">
+            <div class="social-activities float-end">
                 <?php if ($footerOverwrite): ?>
                     <?= $footerOverwrite ?>
                 <?php else: ?>
@@ -62,53 +63,64 @@ $bundle = Assets::register($this);
             </div>
         </div>
         <div class="panel-heading <?= $alwaysShowHeading ? '' : 'overlay' ?>">
-            <div class="footnotesize pull-left truncate tt" data-toggle="tooltip" data-placement="top" title=""
+            <div class="footnotesize float-start truncate tt" data-bs-toggle="tooltip" data-placement="top" title=""
                  data-original-title="<?= $showTooltip ? Html::encode($title) : '' ?>">
                 <?= Html::encode($title); ?>
             </div>
             <?php if ($creatorUrl || $creatorThumbnailUrl): ?>
-                <div class="pull-right" style="margin-right:5px;">
+                <div class="float-end" style="margin-right:5px;">
                     <a href="<?= $creatorUrl ?>">
-                        <img class="img-rounded tt img_margin"
+                        <img class="rounded tt img_margin"
                              src="<?= $creatorThumbnailUrl ?>"
                              width="21" height="21" alt="21x21" data-src="holder.js/21x21"
                              style="width: 21px; height: 21px;"
                              data-original-title="<?= Yii::t('GalleryModule.base', 'added by ') . $creatorName ?>"
-                             data-placement="top" title="" data-toggle="tooltip">
+                             data-placement="top" title="" data-bs-toggle="tooltip">
                     </a>
                 </div>
             <?php endif; ?>
 
             <?php if ($wallUrl || $downloadUrl || ($writeAccess && ($deleteUrl || $editUrl))): ?>
-                <ul class="pull-right nav nav-pills preferences">
-                    <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="fa fa-angle-down"></i></a>
-                        <ul class="dropdown-menu pull-right">
+                <ul class="float-end nav nav-pills">
+                    <li class="nav-item btn-group dropdown">
+                        <button class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#">
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end">
                             <?php if ($wallUrl): ?>
                                 <li>
                                     <?= Link::to(Yii::t('GalleryModule.base', 'Show connected post'), $wallUrl)
-                                        ->icon('link') ?>
+                                        ->icon('link')
+                                        ->cssClass('dropdown-item') ?>
                                 </li>
                             <?php endif; ?>
                             <?php if ($writeAccess && $editUrl): ?>
                                 <li>
-                                    <?= ModalButton::asLink(Yii::t('GalleryModule.base', 'Edit'))->load($editUrl)->icon('edit') ?>
+                                    <?= ModalButton::asLink(Yii::t('GalleryModule.base', 'Edit'))
+                                        ->load($editUrl)
+                                        ->icon('edit')
+                                        ->cssClass('dropdown-item') ?>
                                 </li>
                             <?php endif; ?>
 
                             <?php if ($downloadUrl): ?>
                                 <li>
-                                    <?= Link::to(Yii::t('GalleryModule.base', 'Download'),  $downloadUrl)->pjax(false)->icon('download') ?>
+                                    <?= Link::to(Yii::t('GalleryModule.base', 'Download'),  $downloadUrl)
+                                        ->pjax(false)
+                                        ->icon('download')
+                                        ->cssClass('dropdown-item') ?>
                                 </li>
                             <?php endif; ?>
 
                             <?php if ($writeAccess && $deleteUrl): ?>
                                 <li>
                                     <?= ModalButton::asLink(Yii::t('GalleryModule.base', 'Delete'))
-                                        ->post($deleteUrl)->confirm(
+                                        ->post($deleteUrl)
+                                        ->confirm(
                                             Yii::t('GalleryModule.base', '<strong>Confirm</strong> delete item'),
                                             Yii::t('GalleryModule.base', 'Do you really want to delete this item with all related content?')
-                                        )->icon('trash')?>
+                                        )
+                                        ->icon('trash')
+                                        ->cssClass('dropdown-item') ?>
                                 </li>
                             <?php endif; ?>
                         </ul>

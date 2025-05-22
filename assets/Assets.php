@@ -9,7 +9,7 @@
 namespace humhub\modules\gallery\assets;
 
 use humhub\modules\gallery\models\Media;
-use humhub\modules\ui\view\components\View;
+use humhub\components\View;
 use Yii;
 use yii\web\AssetBundle;
 

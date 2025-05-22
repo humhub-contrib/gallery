@@ -1,33 +1,34 @@
 {
-  "name": "humhub-modules-gallery",
-  "version": "0.6.5",
-  "description": "HumHub calendar module",
-  "main": "index.js",
-  "directories": {
-    "doc": "docs",
-    "test": "tests"
-  },
-  "scripts": {
-    "build": "grunt build"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/humhub-contrib/humhub-modules-gallery.git"
-  },
-  "author": "Julian Harrer",
-  "license": "AGPL-3.0",
-  "bugs": {
-    "url": "https://github.com/humhub-contrib/humhub-modules-gallery/issues"
-  },
-  "homepage": "https://github.com/humhub-contrib/humhub-modules-gallery",
-  "devDependencies": {
-    "grunt": "^1.5.3",
-    "grunt-contrib-concat": "^1.0.1",
-    "grunt-contrib-less": "^2.0.0",
-    "grunt-contrib-uglify": "^4.0.1",
-    "grunt-contrib-cssmin": "^3.0.0"
-  },
-  "engines": {
-    "node": "^16"
-  }
+    "name": "humhub-modules-gallery",
+    "version": "0.6.5",
+    "description": "HumHub calendar module",
+    "main": "index.js",
+    "directories": {
+        "doc": "docs",
+        "test": "tests"
+    },
+    "scripts": {
+        "build": "grunt build"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/humhub-contrib/humhub-modules-gallery.git"
+    },
+    "author": "Julian Harrer",
+    "license": "AGPL-3.0",
+    "bugs": {
+        "url": "https://github.com/humhub-contrib/humhub-modules-gallery/issues"
+    },
+    "homepage": "https://github.com/humhub-contrib/humhub-modules-gallery",
+    "devDependencies": {
+        "grunt": "^1.5.3",
+        "grunt-contrib-concat": "^1.0.1",
+        "grunt-contrib-uglify": "^4.0.1",
+        "grunt-contrib-cssmin": "^3.0.0",
+        "grunt-sass": "^3.1.0",
+        "sass": "^1.83.0"
+    },
+    "engines": {
+        "node": "^16"
+    }
 }

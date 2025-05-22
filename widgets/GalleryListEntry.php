@@ -8,7 +8,7 @@
 
 namespace humhub\modules\gallery\widgets;
 
-use humhub\libs\Html;
+use humhub\helpers\Html;
 use humhub\modules\content\widgets\richtext\RichText;
 use humhub\modules\file\models\File;
 use humhub\modules\gallery\helpers\Url;

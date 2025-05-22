@@ -4,6 +4,9 @@ namespace humhub\modules\gallery\models;
 
 use humhub\modules\content\components\ActiveQueryContent;
 use humhub\modules\content\components\ContentContainerActiveRecord;
+use humhub\modules\content\models\Content;
+use humhub\modules\space\models\Space;
+use Yii;
 use humhub\modules\gallery\helpers\Url;
 
 /**
@@ -84,11 +87,7 @@ class CustomGallery extends BaseGallery
      */
     public function mediaListQuery()
     {
-        return Media::find()
-            ->contentContainer($this->content->container)
-            ->readable()
-            ->andWhere(['gallery_id' => $this->id])
-            ->orderBy('id DESC');
+        return Media::find()->where(['gallery_id' => $this->id])->orderBy('id DESC');
     }
 
     public function getMetaData()
@@ -102,12 +101,12 @@ class CustomGallery extends BaseGallery
 
     public static function findLatest(ContentContainerActiveRecord $contentContainer)
     {
-        return self::find()->contentContainer($contentContainer)->readable()->orderBy('id DESC')->one();
+        return self::find()->contentContainer($contentContainer)->orderBy('id DESC')->one();
     }
 
     public function getMediaList($max = null)
     {
-        return $this->mediaListQuery()->limit($max)->all();
+        return $this->mediaListQuery()->contentContainer($this->content->container)->readable()->limit($max)->all();
     }
 
     public function isEmpty()
