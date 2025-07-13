@@ -23,7 +23,7 @@ use humhub\widgets\modal\ModalButton;
 
 <?php $form = Modal::beginFormDialog([
     'title' => Yii::t('GalleryModule.base', '<strong>Edit</strong> media'),
-    'footer' => ModalButton::cancel() . ' ' . ModalButton::save(null, Url::toEditMedia($contentContainer, $media, $fromWall)),
+    'footer' => ModalButton::cancel() . ' ' . ModalButton::save()->submit(Url::toEditMedia($contentContainer, $media, $fromWall)),
 ]); ?>
 
     <?= $form->field($media, 'description')->textArea(); ?>

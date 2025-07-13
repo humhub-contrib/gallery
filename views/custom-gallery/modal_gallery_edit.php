@@ -35,7 +35,7 @@ $title = $gallery->isNewRecord
 
 <?php $form = Modal::beginFormDialog([
     'title' => $title,
-    'footer' => ModalButton::cancel() . ' ' . ModalButton::save(null, Url::toEditCustomGallery($contentContainer, $gallery->id)),
+    'footer' => ModalButton::cancel() . ' ' . ModalButton::save()->submit(Url::toEditCustomGallery($contentContainer, $gallery->id)),
     'form' => ['id' => 'Gallery', 'class' => 'form-horizontal'],
 ]); ?>
 
