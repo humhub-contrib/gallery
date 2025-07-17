@@ -64,7 +64,7 @@ $bundle = Assets::register($this);
         </div>
         <div class="panel-heading <?= $alwaysShowHeading ? '' : 'overlay' ?>">
             <div class="footnotesize float-start truncate tt" data-bs-toggle="tooltip" data-placement="top" title=""
-                 data-original-title="<?= $showTooltip ? Html::encode($title) : '' ?>">
+                 data-bs-title="<?= $showTooltip ? Html::encode($title) : '' ?>">
                 <?= Html::encode($title); ?>
             </div>
             <?php if ($creatorUrl || $creatorThumbnailUrl): ?>
@@ -74,7 +74,7 @@ $bundle = Assets::register($this);
                              src="<?= $creatorThumbnailUrl ?>"
                              width="21" height="21" alt="21x21" data-src="holder.js/21x21"
                              style="width: 21px; height: 21px;"
-                             data-original-title="<?= Yii::t('GalleryModule.base', 'added by ') . $creatorName ?>"
+                             data-bs-title="<?= Yii::t('GalleryModule.base', 'added by ') . $creatorName ?>"
                              data-placement="top" title="" data-bs-toggle="tooltip">
                     </a>
                 </div>
