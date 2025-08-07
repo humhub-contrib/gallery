@@ -45,7 +45,7 @@ class AcceptanceTester extends \AcceptanceTester
     public function seeGalleryInCotnainerNav()
     {
         $this->expectTo('see gallery entry in the nav');
-        $this->waitForText('Gallery', null, '.layout-nav-container');
+        $this->waitForText('Gallery', 10, '.layout-nav-container');
     }
 
     public function accessGallery()
@@ -58,7 +58,7 @@ class AcceptanceTester extends \AcceptanceTester
     public function createGallery($title = 'Test gallery', $description = 'My test gallery', $public = true)
     {
         $this->click('Click here to add new Gallery');
-        $this->waitForText('Add new gallery', null, '#globalModal');
+        $this->waitForText('Add new gallery', 10, '#globalModal');
         $this->fillField('#customgallery-title', $title);
         $this->fillField('#customgallery-description', $description);
 
@@ -67,7 +67,7 @@ class AcceptanceTester extends \AcceptanceTester
         }
 
         $this->click('Save', '#globalModal');
-        $this->waitForText('Gallery ' . $title, null, '#gallery-container .panel-heading');
+        $this->waitForText('Gallery ' . $title, 10, '#gallery-container .panel-heading');
 
         if ($public) {
             $this->see('Public');
@@ -87,7 +87,7 @@ class AcceptanceTester extends \AcceptanceTester
     public function editMedia()
     {
         $this->clickGalleryItemDropDown('Edit');
-        $this->waitForText('Edit media', null, '#globalModal');
+        $this->waitForText('Edit media', 10, '#globalModal');
         $this->fillField('#media-description', 'My new media!');
         $this->click('Save', '#globalModal');
         $this->seeSuccess('Saved');
@@ -96,7 +96,7 @@ class AcceptanceTester extends \AcceptanceTester
     public function seeMediaFromStream()
     {
         $this->click('Stream', '.layout-nav-container');
-        $this->waitForText('My new media!', null, '.wall-entry');
+        $this->waitForText('My new media!', 10, '.wall-entry');
         $this->click('Open Gallery', '.wall-entry');
         $this->waitForText('Gallery Test gallery');
     }
@@ -105,13 +105,13 @@ class AcceptanceTester extends \AcceptanceTester
     {
         $this->click('Stream', '.layout-nav-container');
         $this->waitForElementVisible('#wallStream .wall-entry');
-        $this->dontSee('My new media!', null, '.wall-entry');
+        $this->dontSee('My new media!', '.wall-entry');
     }
 
     public function deleteGalleryItem()
     {
         $this->clickGalleryItemDropDown('Delete');
-        $this->waitForText('Confirm delete item', null, '#globalModalConfirm');
+        $this->waitForText('Confirm delete item', 10, '#globalModalConfirm');
         $this->click('Confirm', '#globalModalConfirm');
     }
 
