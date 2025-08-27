@@ -1,7 +1,8 @@
-@import "buttonactionlist.less";
-@info: #6fdbe8;
-@font5: #aeaeae;
-@font3: #555;
+@use "buttonactionlist";
+
+$info: #6fdbe8;
+$font5: #aeaeae;
+$font3: #555;
 
 #gallery-container {
 
@@ -20,7 +21,7 @@
             margin-bottom: 0;
 
             &:hover {
-                color: @font5;
+                color: $font5;
                 text-decoration: none;
             }
         }
@@ -29,7 +30,7 @@
     .social-activities-gallery {
         font-size: 11px;
         color: #7a7a7a;
-        line-height:24px;
+        line-height: 24px;
         margin-bottom: 0;
         a {
             font-size: 11px;
@@ -38,21 +39,9 @@
             margin-bottom: 0;
 
             &:hover {
-                color: @font5;
+                color: $font5;
                 text-decoration: none;
             }
-        }
-    }
-
-    .panel-heading .media {
-        .updated {
-            color: #bebebe;
-            font-size:11px;
-            font-weight:bold;
-        }
-        .author a {
-            color: #bebebe;
-            font-size:11px;
         }
     }
 
@@ -96,6 +85,9 @@
 
             .dropdown-toggle {
                 background-color: transparent;
+                padding: 0 4px;
+                height: 20px;
+                margin-top: -2px;
             }
 
             .gallery-list-entry {
@@ -144,7 +136,7 @@
                                     color: #fff !important;
                                     text-align: center;
                                     display: inline-block;
-                                    height:auto;
+                                    height: auto;
                                 }
                             }
                         }
@@ -158,7 +150,7 @@
                         -o-transition: opacity 0.5s ease-in-out;
                     }
 
-                    .panel-footer,.panel-heading {
+                    .panel-footer, .panel-heading {
                         position: absolute;
                         padding: 8px !important;
                         border-radius: 0 !important;
@@ -174,7 +166,7 @@
                                 padding-left: 5px;
                             }
                         }
-                        .pull-left {
+                        .float-start {
                             max-width: 75%;
                         }
                         &.background-none {
@@ -228,7 +220,7 @@
                             }
                         }
 
-                        .panel-footer,.panel-heading {
+                        .panel-footer, .panel-heading {
                             opacity: 0.9;
                             -moz-opacity: 0.9;
                             -webkit-opacity: 0.9;
@@ -242,7 +234,7 @@
     }
 }
 
-body{
+body {
     overflow-y: scroll !important;
 }
 .blueimp-gallery .modal-body {
@@ -254,10 +246,10 @@ body{
     background: #fff;
 }
 
-.red{
-    background-color:red;
-    padding:10px;
-    margin-top:5px;
+.red {
+    background-color: red;
+    padding: 10px;
+    margin-top: 5px;
 }
 
 @media (max-width: 319px) {
@@ -287,7 +279,7 @@ body{
                         //-bottom: 10px;
                         .panel {
                             .panel-heading {
-                                .pull-left {
+                                .float-start {
                                     max-width: 80%;
                                 }
                             }
@@ -317,7 +309,7 @@ body{
                         //padding-bottom: 0px;
                         .panel {
                             .panel-heading {
-                                .pull-left {
+                                .float-start {
                                     max-width: 45%;
                                 }
                             }
@@ -345,7 +337,7 @@ body{
                 .gallery-list-entry{
                     .panel {
                         .panel-heading {
-                            .pull-left {
+                            .float-start {
                                 max-width: 60%;
                             }
                         }
@@ -369,7 +361,7 @@ body{
                     .gallery-list-entry{
                         .panel {
                             .panel-heading {
-                                .pull-left {
+                                .float-start {
                                     max-width: 75%;
                                 }
                             }
@@ -394,7 +386,7 @@ body{
                     .gallery-list-entry{
                         .panel {
                             .panel-heading {
-                                .pull-left {
+                                .float-start {
                                     max-width: 70%;
                                 }
                             }

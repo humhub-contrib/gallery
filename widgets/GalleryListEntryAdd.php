@@ -8,9 +8,6 @@
 
 namespace humhub\modules\gallery\widgets;
 
-use humhub\modules\file\handler\FileHandlerCollection;
-use humhub\modules\file\widgets\FileHandlerButtonDropdown;
-use humhub\modules\file\widgets\UploadButton;
 use humhub\modules\gallery\helpers\Url;
 use humhub\modules\gallery\models\StreamGallery;
 use humhub\modules\gallery\permissions\WriteAccess;
@@ -58,7 +55,7 @@ class GalleryListEntryAdd extends Widget
                 'addActionUrl' => Url::toCreateCustomGallery($contentContainer),
                 'htmlOptions' => [
                     'data' => [
-                        'target' => "#globalModal",
+                        'action-click' => 'ui.modal.load',
                     ],
                 ],
             ]);
