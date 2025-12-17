@@ -51,8 +51,10 @@ $container = Yii::$app->controller->contentContainer;
     </div>
 
     <div class="panel-body">
-        <div class="row">
-            <?= GalleryList::widget(['entryList' => $galleries, 'showMore' => $showMore]) ?>
+        <div class="container gx-0 overflow-x-hidden">
+            <div class="row">
+                <?= GalleryList::widget(['entryList' => $galleries, 'showMore' => $showMore]) ?>
+            </div>
         </div>
     </div>
 </div>
