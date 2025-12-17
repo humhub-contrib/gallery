@@ -3,7 +3,7 @@ Changelog
 
 1.7.1 (Unreleased)
 -----------------------
-- Fix: `.row` HTML elements without `.container` overflow
+- Fix #162: `.row` HTML elements without `.container` overflow
 
 1.7.0 (August 27, 2025)
 -----------------------
