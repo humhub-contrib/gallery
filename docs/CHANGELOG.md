@@ -1,6 +1,10 @@
 Changelog
 =========
 
+1.7.1 (Unreleased)
+-----------------------
+- Fix #162: `.row` HTML elements without `.container` overflow
+
 1.7.0 (August 27, 2025)
 -----------------------
 - Enh #155: Migration to Bootstrap 5 for HumHub 1.18

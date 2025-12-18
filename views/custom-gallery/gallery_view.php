@@ -64,27 +64,29 @@ $bundle = Assets::register($this);
 
 
     <div class="panel-body">
-        <?php if ($gallery->description): ?>
-            <div class="row clearfix" style="padding-bottom:5px;">
-                <div class="col-md-12 gallery-description">
-                    <i class="fa fa-arrow-circle-right"></i>
-                    <?= Html::encode($gallery->description) ?>
+        <div class="container gx-0 overflow-x-hidden">
+            <?php if ($gallery->description): ?>
+                <div class="row clearfix" style="padding-bottom:5px;">
+                    <div class="col-md-12 gallery-description">
+                        <i class="fa fa-arrow-circle-right"></i>
+                        <?= Html::encode($gallery->description) ?>
+                    </div>
                 </div>
+            <?php endif; ?>
+
+            <div id="gallery-upload-progress" style="display:none;"></div>
+
+            <div class="row">
+                <?= GalleryList::widget(['entryList' => $media, 'parentGallery' => $gallery, 'showMore' => $showMore]) ?>
             </div>
-        <?php endif; ?>
 
-        <div id="gallery-upload-progress" style="display:none;"></div>
-
-        <div class="row">
-            <?= GalleryList::widget(['entryList' => $media, 'parentGallery' => $gallery, 'showMore' => $showMore]) ?>
-        </div>
-
-        <div class="row">
-            <div class="col-md-12 social-activities-gallery">
-                <?= ContentObjectLinks::widget(['object' => $gallery]); ?>
-            </div>
-            <div class="col-md-12 comments">
-                <?= Comments::widget(['object' => $gallery]) ?>
+            <div class="row">
+                <div class="col-md-12 social-activities-gallery">
+                    <?= ContentObjectLinks::widget(['object' => $gallery]); ?>
+                </div>
+                <div class="col-md-12 comments">
+                    <?= Comments::widget(['object' => $gallery]) ?>
+                </div>
             </div>
         </div>
     </div>

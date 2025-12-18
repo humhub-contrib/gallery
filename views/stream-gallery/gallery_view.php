@@ -36,20 +36,22 @@ $description = ($container instanceof Space)
     <div class="panel-heading" style="background-color: var(--hh-background-color-secondary)"><?= Yii::t('GalleryModule.base', '<strong>Gallery</strong> of posted media files') ?></div>
 
     <div class="panel-body">
-        <div class="row">
-            <div class="col-md-12 gallery-description">
-                <i class="fa fa-arrow-circle-right"></i>
-                <?= Html::encode($description) ?>
-                <?= Button::back(Url::toGalleryOverview($container), Yii::t('GalleryModule.base', 'Back to overview'))->right()->sm() ?>
+        <div class="container gx-0 overflow-x-hidden">
+            <div class="row">
+                <div class="col-md-12 gallery-description">
+                    <i class="fa fa-arrow-circle-right"></i>
+                    <?= Html::encode($description) ?>
+                    <?= Button::back(Url::toGalleryOverview($container), Yii::t('GalleryModule.base', 'Back to overview'))->right()->sm() ?>
+                </div>
             </div>
-        </div>
 
-        <div class="row">
-            <?= GalleryList::widget([
-                'entryList' => $files,
-                'parentGallery' => $gallery,
-                'showMore' => $showMore,
-            ]) ?>
+            <div class="row">
+                <?= GalleryList::widget([
+                    'entryList' => $files,
+                    'parentGallery' => $gallery,
+                    'showMore' => $showMore,
+                ]) ?>
+            </div>
         </div>
     </div>
 </div>
