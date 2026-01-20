@@ -85,7 +85,7 @@ $bundle = Assets::register($this);
                     <?= ContentObjectLinks::widget(['object' => $gallery]); ?>
                 </div>
                 <div class="col-md-12 comments">
-                    <?= Comments::widget(['object' => $gallery]) ?>
+                    <?= Comments::widget(['content' => $gallery->content]) ?>
                 </div>
             </div>
         </div>
