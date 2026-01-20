@@ -5,7 +5,8 @@
     "keywords": ["gallery", "photo", "organisation"],
     "version": "1.7.1",
     "humhub": {
-        "minVersion": "1.18"
+        "minVersion": "1.18",
+        "maxVersion": "1.18"
     },
     "homepage": "https://github.com/humhub-contrib/gallery",
     "authors": [
