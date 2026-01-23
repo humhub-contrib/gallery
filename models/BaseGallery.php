@@ -113,7 +113,7 @@ class BaseGallery extends ContentActiveRecord
     protected function getDefaultPreviewImageUrl()
     {
         $path = Yii::$app->getModule('gallery')->getAssetsUrl();
-        $path = $path . '/file-picture-o.svg';
+        $path .= '/file-picture-o.svg';
         return $path;
     }
 
@@ -140,8 +140,8 @@ class BaseGallery extends ContentActiveRecord
     public static function findOne($condition)
     {
         if (static::class !== BaseGallery::class) {
-            $condition = $condition ? $condition : [];
-            $condition['type'] = isset($condition['type']) ? $condition['type'] : static::class;
+            $condition = $condition ?: [];
+            $condition['type'] ??= static::class;
             return parent::findOne($condition);
         }
 
@@ -151,8 +151,8 @@ class BaseGallery extends ContentActiveRecord
     public static function findAll($condition)
     {
         if (static::class !== BaseGallery::class) {
-            $condition = $condition ? $condition : [];
-            $condition['type'] = isset($condition['type']) ? $condition['type'] : static::class;
+            $condition = $condition ?: [];
+            $condition['type'] ??= static::class;
             return parent::findAll($condition);
         }
 

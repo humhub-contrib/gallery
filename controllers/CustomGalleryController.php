@@ -107,7 +107,7 @@ class CustomGalleryController extends BaseController
             throw new ForbiddenHttpException();
         }
 
-        $gallery = $gid ? $this->getGallery($gid) : null;
+        $gallery = $gid ? $this->getGallery() : null;
 
         if ($gallery && !$gallery->content->canEdit()) {
             throw new ForbiddenHttpException();
