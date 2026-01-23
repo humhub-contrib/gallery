@@ -40,8 +40,7 @@ class SquarePreviewImage extends PreviewImage
     {
         // Add value for unique file variant
         $this->options['squared-version'] = 1;
-        $this->options['maxWidth'] = Yii::$app->getModule('gallery')->settings->get('galleryPreviewImageMaxDim')
-            ? Yii::$app->getModule('gallery')->settings->get('galleryPreviewImageMaxDim') : SquarePreviewImage::DEFAULT_GALLERY_PREVIEW_IMAGE_MAX_DIM;
+        $this->options['maxWidth'] = Yii::$app->getModule('gallery')->settings->get('galleryPreviewImageMaxDim') ?: SquarePreviewImage::DEFAULT_GALLERY_PREVIEW_IMAGE_MAX_DIM;
 
 
         parent::init();
