@@ -8,7 +8,7 @@
 
 namespace humhub\modules\gallery\assets;
 
-use yii\web\AssetBundle;
+use humhub\components\assets\AssetBundle;
 
 /**
  * The asset bundle for the gallery wall entry.
