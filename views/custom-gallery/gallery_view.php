@@ -51,10 +51,8 @@ $bundle = Assets::register($this);
                     </span>
                 <?php endif; ?>
 
-                <br>
-
                 <?php if ($gallery->content->isPublic()) : ?>
-                    <?= Badge::info(Yii::t('base', 'Public')) ?>
+                    &middot; <span><?= Badge::info(Yii::t('base', 'Public')) ?></span>
                 <?php endif; ?>
             </div>
 
