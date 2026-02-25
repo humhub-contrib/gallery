@@ -9,7 +9,6 @@ use humhub\modules\file\models\File;
 use humhub\modules\gallery\helpers\Url;
 use humhub\modules\gallery\Module;
 use humhub\modules\gallery\permissions\WriteAccess;
-use humhub\modules\search\interfaces\Searchable;
 use humhub\modules\user\models\User;
 use Yii;
 use yii\web\UploadedFile;
@@ -29,7 +28,7 @@ use yii\web\UploadedFile;
  * @since 1.0
  * @author Sebastian Stumpf
  */
-class Media extends ContentActiveRecord implements Searchable
+class Media extends ContentActiveRecord
 {
     /**
      * @var BaseGallery used for instantiation
