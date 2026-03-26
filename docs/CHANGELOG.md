@@ -4,6 +4,7 @@ Changelog
 1.7.1 (Unreleased)
 -----------------------
 - Fix #162: `.row` HTML elements without `.container` overflow
+- Fix #173: Context menu and caret issue for per-image control
 
 1.7.0 (August 27, 2025)
 -----------------------

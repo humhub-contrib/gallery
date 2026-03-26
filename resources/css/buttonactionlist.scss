@@ -9,7 +9,7 @@
 
     .overflow-hidden {
         overflow: hidden;
-        position: relative; 
+        position: relative;
     }
 
     .fileinput-button input {
@@ -18,7 +18,7 @@
         right: 0;
         margin: 0;
         opacity: 0;
-        -ms-filter: 'alpha(opacity=0)';
+        -ms-filter: "alpha(opacity=0)";
         font-size: 200px;
         direction: ltr;
         cursor: pointer;
@@ -56,7 +56,6 @@
             }
         }
     }
-
 
     .dropdown-menu {
         padding: 0;
