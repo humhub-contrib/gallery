@@ -63,10 +63,6 @@ class SquarePreviewImage extends PreviewImage
 
             $this->file->store->setContent($image->get(Format::ID_PNG, ['format' => 'png']), $fileName);
         }
-
-        if (version_compare(Yii::$app->version, '1.5', '<')) {
-            $this->imageInfo = @getimagesize($this->file->store->get($fileName));
-        }
     }
 
 
