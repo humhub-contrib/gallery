@@ -10,8 +10,7 @@ namespace humhub\modules\gallery\models;
 
 use humhub\modules\file\converter\PreviewImage;
 use humhub\modules\file\models\File;
-use Imagine\Image\Box;
-use Imagine\Image\ManipulatorInterface;
+use Imagine\Image\Format;
 use Yii;
 use yii\imagine\Image;
 
@@ -46,43 +45,22 @@ class SquarePreviewImage extends PreviewImage
         parent::init();
     }
 
-
     /**
      * @inheritdoc
      */
     protected function convert($fileName)
     {
-        if (!is_file($this->file->store->get($fileName))) {
-            $image = Image::getImagine()->open($this->file->store->get());
+        if (!$this->file->store->has($fileName)) {
+            $image = Image::getImagine()->load($this->file->store->getContent());
 
-            // Also handle orientation of resized images
-            // https://github.com/yiisoft/yii2-imagine/issues/44
-            if ($this->file->mime_type === 'image/jpeg' && function_exists('exif_read_data')) {
-                $exif = @exif_read_data($this->file->store->get());
-                if (!empty($exif['Orientation'])) {
-                    switch ($exif['Orientation']) {
-                        case 3:
-                            $image->rotate(180);
-                            break;
-                        case 6:
-                            $image->rotate(90);
-                            break;
-                        case 8:
-                            $image->rotate(-90);
-                            break;
-                    }
-                }
-            }
+            $image = Image::autorotate($image);
 
             $newWidth = min([$image->getSize()->getHeight(), $image->getSize()->getWidth(), $this->options['maxWidth']]);
 
             // Create squared version
-            $image->thumbnail(new Box($newWidth, $newWidth), ManipulatorInterface::THUMBNAIL_OUTBOUND)
-                ->save($this->file->store->get($fileName), ['format' => 'png']);
-        }
+            $image = Image::thumbnail($image, $newWidth, $newWidth);
 
-        if (version_compare(Yii::$app->version, '1.5', '<')) {
-            $this->imageInfo = @getimagesize($this->file->store->get($fileName));
+            $this->file->store->setContent($image->get(Format::ID_PNG, ['format' => 'png']), $fileName);
         }
     }
 

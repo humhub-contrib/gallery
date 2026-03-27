@@ -51,10 +51,8 @@ $bundle = Assets::register($this);
                     </span>
                 <?php endif; ?>
 
-                <br>
-
                 <?php if ($gallery->content->isPublic()) : ?>
-                    <?= Badge::info(Yii::t('base', 'Public')) ?>
+                    &middot; <span><?= Badge::info(Yii::t('base', 'Public')) ?></span>
                 <?php endif; ?>
             </div>
 
@@ -85,7 +83,7 @@ $bundle = Assets::register($this);
                     <?= ContentObjectLinks::widget(['object' => $gallery]); ?>
                 </div>
                 <div class="col-md-12 comments">
-                    <?= Comments::widget(['object' => $gallery]) ?>
+                    <?= Comments::widget(['content' => $gallery->content]) ?>
                 </div>
             </div>
         </div>
