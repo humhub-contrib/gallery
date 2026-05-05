@@ -5,6 +5,7 @@ Changelog
 -----------------------
 - Fix #162: `.row` HTML elements without `.container` overflow
 - Fix #173: Context menu and caret issue for per-image control
+- Enh #174: Add Auto Contrast to the Context Menu
 
 1.7.0 (August 27, 2025)
 -----------------------
