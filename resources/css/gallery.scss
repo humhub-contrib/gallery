@@ -181,10 +181,10 @@ $font3: #555;
                         font-size: 12px;
                         top: 0; left: 0; right: 0;
                         a {
-                            color: #fff;
+                            color: var(--hh-primary-contrast);
                             &:hover {
                                 text-decoration: none;
-                                color: #fff;
+                                color: var(--hh-primary-contrast);
                             }
                         }
                     }
