@@ -1,8 +1,8 @@
 Changelog
 =========
 
-1.7.1 (Unreleased)
------------------------
+1.7.1 (May 6, 2026)
+-------------------
 - Fix #162: `.row` HTML elements without `.container` overflow
 - Fix #173: Context menu and caret issue for per-image control
 - Enh #174: Add Auto Contrast to the Context Menu
