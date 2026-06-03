@@ -8,10 +8,10 @@
 
 namespace humhub\modules\gallery\assets;
 
+use humhub\components\assets\AssetBundle;
 use humhub\modules\gallery\models\Media;
 use humhub\components\View;
 use Yii;
-use yii\web\AssetBundle;
 
 /**
  * The asset bundle for the gallery module.
@@ -22,18 +22,7 @@ use yii\web\AssetBundle;
  */
 class Assets extends AssetBundle
 {
-    /**
-     * v1.5 compatibility defer script loading
-     *
-     * Migrate to HumHub AssetBundle once minVersion is >=1.5
-     *
-     * @var bool
-     */
-    public $defer = true;
-
-    public $publishOptions = [
-        'forceCopy' => false,
-    ];
+    public $forceCopy = false;
 
     public $css = [
         'css/gallery.css',

@@ -163,7 +163,7 @@ class Media extends ContentActiveRecord
     {
         try {
             $previewImage = SquarePreviewImage::getSquarePreviewImageUrlFromFile($this->baseFile);
-        } catch (\Exception $e) {
+        } catch (\Exception) {
 
         }
         return empty($previewImage) ? static::getFallbackPreviewImageUrl() : $previewImage;

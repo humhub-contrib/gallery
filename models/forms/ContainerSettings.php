@@ -151,7 +151,7 @@ class ContainerSettings extends Model
             return false;
         }
 
-        $this->snippetSortOrder = $this->snippetSortOrder ? $this->snippetSortOrder : self::SORT_MIN;
+        $this->snippetSortOrder = $this->snippetSortOrder ?: self::SORT_MIN;
 
         $this->getSettings()->set(self::SETTING_GALLERY_ID, $this->snippetGallery);
         $this->getSettings()->set(self::SETTING_HIDE_SNIPPET, $this->hideSnippet);
@@ -172,7 +172,7 @@ class ContainerSettings extends Model
      */
     protected function getSettings()
     {
-        return ($this->settings) ? $this->settings : $this->settings =  Yii::$app->getModule('gallery')->settings->contentContainer($this->contentContainer);
+        return $this->settings ?: $this->settings =  Yii::$app->getModule('gallery')->settings->contentContainer($this->contentContainer);
     }
 
     public function getSnippetId()
