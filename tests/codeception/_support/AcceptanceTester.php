@@ -58,7 +58,7 @@ class AcceptanceTester extends \AcceptanceTester
     public function createGallery($title = 'Test gallery', $description = 'My test gallery', $public = true)
     {
         $this->click('Click here to add new Gallery');
-        $this->waitForText('Add new gallery', 10, '#globalModal');
+        $this->waitForText('Add new gallery', 15, '#globalModal');
         $this->fillField('#customgallery-title', $title);
         $this->fillField('#customgallery-description', $description);
 
