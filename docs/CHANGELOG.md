@@ -1,6 +1,10 @@
 Changelog
 =========
 
+1.8.1 (Unreleased)
+--------------------
+- Fix #175: Update user image
+
 1.8.0 (June 5, 2026)
 --------------------
 - Enh #164: Update for HumHub 1.19
