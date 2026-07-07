@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.8.1 (Unreleased)
+1.8.1 (July 7, 2026)
 --------------------
 - Fix #175: Update user image
 
