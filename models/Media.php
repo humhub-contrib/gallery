@@ -7,6 +7,7 @@ use humhub\modules\content\models\Content;
 use humhub\modules\file\handler\DownloadFileHandler;
 use humhub\modules\file\models\File;
 use humhub\modules\gallery\helpers\Url;
+use humhub\modules\gallery\libs\MediaUploadBatch;
 use humhub\modules\gallery\Module;
 use humhub\modules\gallery\permissions\WriteAccess;
 use humhub\modules\user\models\User;
@@ -49,6 +50,16 @@ class Media extends ContentActiveRecord
      * @inheritdoc
      */
     public $wallEntryClass = "humhub\modules\gallery\widgets\WallEntryMedia";
+
+    /**
+     * @inheritdoc
+     *
+     * Uploading a set of images would otherwise create one notification and one e-mail per
+     * image. The whole upload is announced by a single MediasUploaded notification instead.
+     *
+     * @see MediaUploadBatch
+     */
+    public $silentContentCreation = true;
 
     /**
      * @var ?int used for edit form
@@ -266,6 +277,10 @@ class Media extends ContentActiveRecord
     {
         $this->content->hidden = $this->hidden;
         parent::afterSave($insert, $changedAttributes);
+
+        if ($insert) {
+            MediaUploadBatch::add($this);
+        }
     }
 
     /**

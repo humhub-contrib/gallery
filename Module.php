@@ -17,6 +17,26 @@ use Yii;
 
 class Module extends ContentContainerModule
 {
+    /**
+     * @var int Media files uploaded into the same gallery by the same user are announced by a
+     *      single notification, once no further file was uploaded for this many minutes.
+     *      0 announces every upload request on its own.
+     *
+     * Configurable in `protected/config/common.php`:
+     *
+     * ```php
+     * 'modules' => [
+     *     'gallery' => [
+     *         'uploadNotificationDelay' => 30,
+     *     ],
+     * ],
+     * ```
+     *
+     * @see \humhub\modules\gallery\libs\MediaUploadBatch
+     * @since 1.9
+     */
+    public int $uploadNotificationDelay = 10;
+
     public $galleryMaxImages = 50;
     public $snippetMaxImages = 20;
     public $debug = false;
