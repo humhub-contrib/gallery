@@ -1,6 +1,10 @@
 Changelog
 =========
 
+1.9.0 (Unreleased)
+------------------
+- Enh #178: Send a single notification to announce all media files uploaded within a short period of time, rather than sending one notification per file (humhub/humhub#5334)
+
 1.8.1 (July 7, 2026)
 --------------------
 - Fix #175: Update user image
