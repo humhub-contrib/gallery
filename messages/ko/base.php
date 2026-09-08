@@ -56,4 +56,7 @@ return [
     'added by ' => '에 의해 추가됨',
     '<strong>Gallery</strong> of posted media files' => '',
     '<strong>Gallery</strong> {title}' => '',
+    '{displayName} added {n,plural,=1{a media file} other{# media files}} to {contentTitle}.' => '',
+    '{originator} added {n,plural,=1{a media file} other{# media files}} to {contentTitle}' => '',
+    '{originator} added {n,plural,=1{a media file} other{# media files}} to {contentTitle} in Space {space}' => '',
 ];

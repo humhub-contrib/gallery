@@ -55,4 +55,7 @@ return [
   'Title' => 'Titel',
   'Upload' => 'Upload',
   'added by ' => 'toegevoegd door',
+  '{displayName} added {n,plural,=1{a media file} other{# media files}} to {contentTitle}.' => '{displayName} heeft {n,plural,=1{een mediabestand} other{# mediabestanden}} toegevoegd aan {contentTitle}.',
+  '{originator} added {n,plural,=1{a media file} other{# media files}} to {contentTitle}' => '{originator} heeft {n,plural,=1{een mediabestand} other{# mediabestanden}} toegevoegd aan {contentTitle}',
+  '{originator} added {n,plural,=1{a media file} other{# media files}} to {contentTitle} in Space {space}' => '{originator} heeft {n,plural,=1{een mediabestand} other{# mediabestanden}} toegevoegd aan {contentTitle} in ruimte {space}',
 ];
