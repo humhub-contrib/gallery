@@ -56,4 +56,7 @@ return [
     '<strong>Gallery</strong> {title}' => '',
     'Gallery created at:' => '',
     'Sort Galleries by Created Date' => '',
+    '{displayName} added {n,plural,=1{a media file} other{# media files}} to {contentTitle}.' => '',
+    '{originator} added {n,plural,=1{a media file} other{# media files}} to {contentTitle}' => '',
+    '{originator} added {n,plural,=1{a media file} other{# media files}} to {contentTitle} in Space {space}' => '',
 ];

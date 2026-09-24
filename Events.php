@@ -8,9 +8,15 @@
 
 namespace humhub\modules\gallery;
 
+use humhub\helpers\ControllerHelper;
 use humhub\modules\gallery\helpers\Url;
 use humhub\modules\gallery\models\forms\ContainerSettings;
 use humhub\modules\gallery\widgets\GallerySnippet;
+use humhub\modules\space\widgets\Menu;
+use humhub\modules\space\widgets\Sidebar as SpaceSidebar;
+use humhub\modules\ui\menu\MenuLink;
+use humhub\modules\user\widgets\ProfileMenu;
+use humhub\modules\user\widgets\ProfileSidebar;
 use Yii;
 
 /**
@@ -25,15 +31,16 @@ class Events
     public static function onSpaceMenuInit($event)
     {
         try {
-            if ($event->sender->space !== null && $event->sender->space->moduleManager->isEnabled('gallery')) {
+            /* @var Menu $menu */
+            $menu = $event->sender;
 
-                $event->sender->addItem([
+            if ($menu->space !== null && $menu->space->moduleManager->isEnabled('gallery')) {
+                $menu->addEntry(new MenuLink([
                     'label' => Yii::t('GalleryModule.base', 'Gallery'),
-                    'group' => 'modules',
-                    'url' => Url::toGalleryOverview($event->sender->space),
-                    'icon' => '<i class="fa fa-picture-o"></i>',
-                    'isActive' => (Yii::$app->controller->module && Yii::$app->controller->module->id == 'gallery'),
-                ]);
+                    'url' => Url::toGalleryOverview($menu->space),
+                    'icon' => 'picture-o',
+                    'isActive' => ControllerHelper::isActivePath('gallery'),
+                ]));
             }
         } catch (\Throwable $e) {
             Yii::error($e);
@@ -43,11 +50,20 @@ class Events
     public static function onSpaceSidebarInit($event)
     {
         try {
-            /** @var Module $module */
+            /* @var Module $module */
             $module = Yii::$app->getModule('gallery');
 
-            if ($event->sender->space !== null && $event->sender->space->moduleManager->isEnabled('gallery')) {
-                $event->sender->addWidget(GallerySnippet::class, ['contentContainer' => $event->sender->space], ['sortOrder' => (int) $module->settings->contentContainer($event->sender->space)->get(ContainerSettings::SETTING_SORT_ORDER)]);
+            /* @var SpaceSidebar $sidebar */
+            $sidebar = $event->sender;
+
+            if ($sidebar->space !== null && $sidebar->space->moduleManager->isEnabled('gallery')) {
+                $sidebar->addWidget(
+                    GallerySnippet::class,
+                    ['contentContainer' => $event->sender->space],
+                    ['sortOrder' => (int) $module->settings
+                        ->contentContainer($sidebar->space)
+                        ->get(ContainerSettings::SETTING_SORT_ORDER)],
+                );
             }
         } catch (\Throwable $e) {
             Yii::error($e);
@@ -57,13 +73,16 @@ class Events
     public static function onProfileMenuInit($event)
     {
         try {
-            if ($event->sender->user !== null && $event->sender->user->moduleManager->isEnabled('gallery')) {
-                $event->sender->addItem([
+            /* @var $menu ProfileMenu */
+            $menu = $event->sender;
+
+            if ($menu->user !== null && $menu->user->moduleManager->isEnabled('gallery')) {
+                $menu->addEntry(new MenuLink([
                     'label' => Yii::t('GalleryModule.base', 'Gallery'),
-                    'url' => Url::toGalleryOverview($event->sender->user),
-                    'icon' => '<i class="fa fa-picture-o"></i>',
-                    'isActive' => (Yii::$app->controller->module && Yii::$app->controller->module->id == 'gallery'),
-                ]);
+                    'url' => Url::toGalleryOverview($menu->user),
+                    'icon' => 'picture-o',
+                    'isActive' => ControllerHelper::isActivePath('gallery'),
+                ]));
             }
         } catch (\Throwable $e) {
             Yii::error($e);
@@ -73,11 +92,20 @@ class Events
     public static function onProfileSidebarInit($event)
     {
         try {
-            /** @var Module $module */
+            /* @var Module $module */
             $module = Yii::$app->getModule('gallery');
 
-            if ($event->sender->user !== null && $event->sender->user->moduleManager->isEnabled('gallery')) {
-                $event->sender->addWidget(GallerySnippet::class, ['contentContainer' => $event->sender->user], ['sortOrder' => (int) $module->settings->contentContainer($event->sender->user)->get(ContainerSettings::SETTING_SORT_ORDER)]);
+            /* @var ProfileSidebar $sidebar */
+            $sidebar = $event->sender;
+
+            if ($sidebar->user !== null && $sidebar->user->moduleManager->isEnabled('gallery')) {
+                $sidebar->addWidget(
+                    GallerySnippet::class,
+                    ['contentContainer' => $sidebar->user],
+                    ['sortOrder' => (int) $module->settings
+                        ->contentContainer($sidebar->user)
+                        ->get(ContainerSettings::SETTING_SORT_ORDER)],
+                );
             }
         } catch (\Throwable $e) {
             Yii::error($e);
