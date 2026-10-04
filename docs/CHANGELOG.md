@@ -1,6 +1,10 @@
 Changelog
 =========
 
+1.7.2 (Unreleased)
+------------------
+- Fix: Refined media form handling
+
 1.7.1 (May 6, 2026)
 -------------------
 - Fix #162: `.row` HTML elements without `.container` overflow

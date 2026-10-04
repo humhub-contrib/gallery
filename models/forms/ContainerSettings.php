@@ -100,8 +100,11 @@ class ContainerSettings extends Model
             return;
         }
 
-        $gallery = CustomGallery::findOne(['id' => $this->snippetGallery]);
-        if (!$gallery->content->contentcontainer_id === $this->contentContainer->contentContainerRecord->id) {
+        $gallery = CustomGallery::find()
+            ->contentContainer($this->contentContainer)
+            ->andWhere(['gallery_gallery.id' => $this->snippetGallery])
+            ->one();
+        if (!$gallery) {
             $this->addError($attribute, 'Invalid gallery selection.');
         }
     }
