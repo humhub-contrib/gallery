@@ -52,7 +52,7 @@ class BaseGallery extends ContentActiveRecord
             ['title', 'required'],
             ['title', 'string', 'max' => 255],
             ['description', 'string', 'max' => 1000],
-            [['thumb_file_id', 'type'], 'safe'],
+            [['!thumb_file_id', '!type'], 'safe'],
             [['sort_order'], 'integer'],
             [['sort_order'], 'default', 'value' => 0],
         ];

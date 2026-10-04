@@ -98,7 +98,7 @@ class Media extends ContentActiveRecord
     public function rules()
     {
         return [
-            [['gallery_id', 'sort_order'], 'integer'],
+            [['!gallery_id', 'sort_order'], 'integer'],
             ['title', 'string', 'max' => 255],
             ['description', 'string', 'max' => 1000],
             ['hidden', 'boolean'],
