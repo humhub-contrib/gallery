@@ -87,7 +87,7 @@ class CustomGalleryController extends BaseController
 
         $this->gallery = CustomGallery::find()->contentContainer($this->contentContainer)->where(['gallery_gallery.id' => $gid])->one();
 
-        if (!$this->gallery) {
+        if (!$this->gallery || $this->gallery->content->getStateService()->isDeleted()) {
             throw new NotFoundHttpException();
         }
 
