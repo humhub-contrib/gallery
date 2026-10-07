@@ -4,6 +4,7 @@ Changelog
 1.7.2 (Unreleased)
 ------------------
 - Fix: Refined media form handling
+- Fix #181: Soft-deleted galleries are no longer accessible via direct URL and now return 404
 
 1.7.1 (May 6, 2026)
 -------------------
