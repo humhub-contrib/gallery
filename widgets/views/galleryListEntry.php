@@ -14,7 +14,6 @@ use humhub\modules\content\widgets\ContentObjectLinks;
 use humhub\modules\gallery\assets\Assets;
 use humhub\modules\ui\icon\widgets\Icon;
 use humhub\widgets\bootstrap\Link;
-use humhub\widgets\modal\ModalButton;
 use yii\helpers\Html;
 
 /* @var $fileUrl string */
@@ -95,7 +94,7 @@ $bundle = Assets::register($this);
                             <?php endif; ?>
                             <?php if ($writeAccess && $editUrl): ?>
                                 <li>
-                                    <?= ModalButton::asLink(Yii::t('GalleryModule.base', 'Edit'))
+                                    <?= Link::modal(Yii::t('GalleryModule.base', 'Edit'))
                                         ->load($editUrl)
                                         ->icon('edit')
                                         ->cssClass('dropdown-item') ?>
@@ -104,7 +103,7 @@ $bundle = Assets::register($this);
 
                             <?php if ($downloadUrl): ?>
                                 <li>
-                                    <?= Link::to(Yii::t('GalleryModule.base', 'Download'),  $downloadUrl)
+                                    <?= Link::to(Yii::t('GalleryModule.base', 'Download'), $downloadUrl)
                                         ->pjax(false)
                                         ->icon('download')
                                         ->cssClass('dropdown-item') ?>
@@ -113,11 +112,11 @@ $bundle = Assets::register($this);
 
                             <?php if ($writeAccess && $deleteUrl): ?>
                                 <li>
-                                    <?= ModalButton::asLink(Yii::t('GalleryModule.base', 'Delete'))
+                                    <?= Link::modal(Yii::t('GalleryModule.base', 'Delete'))
                                         ->post($deleteUrl)
                                         ->confirm(
                                             Yii::t('GalleryModule.base', '<strong>Confirm</strong> delete item'),
-                                            Yii::t('GalleryModule.base', 'Do you really want to delete this item with all related content?')
+                                            Yii::t('GalleryModule.base', 'Do you really want to delete this item with all related content?'),
                                         )
                                         ->icon('trash')
                                         ->cssClass('dropdown-item') ?>

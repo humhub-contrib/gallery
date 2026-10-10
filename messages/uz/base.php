@@ -56,4 +56,7 @@ return [
     'This gallery contains all posted pictures.' => '',
     'Upload' => '',
     'added by ' => '',
+    '{displayName} added {n,plural,=1{a media file} other{# media files}} to {contentTitle}.' => '',
+    '{originator} added {n,plural,=1{a media file} other{# media files}} to {contentTitle}' => '',
+    '{originator} added {n,plural,=1{a media file} other{# media files}} to {contentTitle} in Space {space}' => '',
 ];

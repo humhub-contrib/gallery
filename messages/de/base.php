@@ -55,4 +55,7 @@ return [
   'Title' => 'Titel',
   'Upload' => 'Hochladen',
   'added by ' => 'hinzugefügt von',
+  '{displayName} added {n,plural,=1{a media file} other{# media files}} to {contentTitle}.' => '{displayName} hat {n,plural,=1{eine Mediendatei} other{# Mediendateien}} zu {contentTitle} hinzugefügt.',
+  '{originator} added {n,plural,=1{a media file} other{# media files}} to {contentTitle}' => '{originator} hat {n,plural,=1{eine Mediendatei} other{# Mediendateien}} zu {contentTitle} hinzugefügt.',
+  '{originator} added {n,plural,=1{a media file} other{# media files}} to {contentTitle} in Space {space}' => '{originator} hat {n,plural,=1{eine Mediendatei} other{# Mediendateien}} zu {contentTitle} im Space {space} hinzugefügt.',
 ];

@@ -47,7 +47,7 @@ class GalleryListEntry extends Widget
         }
 
         $metaData['creatorUrl'] = !empty($metaData['creator']) ? $metaData['creator']->createUrl() : '';
-        $metaData['creatorThumbnailUrl'] = !empty($metaData['creator']) ? $metaData['creator']->getProfileImage()->getUrl() : '';
+        $metaData['creatorThumbnailUrl'] = !empty($metaData['creator']) ? $metaData['creator']->image->getUrl() : '';
         $metaData['uiGalleryId'] = $this->parentGallery ? "GalleryModule-Gallery-" . $this->parentGallery->id : '';
 
         return $this->render('galleryListEntry', $metaData);
