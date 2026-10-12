@@ -6,7 +6,6 @@ use humhub\modules\gallery\models\BaseGallery;
 use humhub\modules\gallery\widgets\GalleryList;
 use humhub\modules\ui\icon\widgets\Icon;
 use humhub\widgets\bootstrap\Link;
-use humhub\widgets\modal\ModalButton;
 
 /* @var BaseGallery[] $galleries*/
 /* @var boolean $canWrite */
@@ -38,7 +37,7 @@ $container = Yii::$app->controller->contentContainer;
                                 <?php endif; ?>
 
                                 <li>
-                                    <?= ModalButton::asLink(Yii::t('GalleryModule.base', 'Add Gallery'))
+                                    <?= Link::modal(Yii::t('GalleryModule.base', 'Add Gallery'))
                                         ->load(Url::toCreateCustomGallery($container))
                                         ->icon('plus')
                                         ->cssClass('dropdown-item') ?>

@@ -1,10 +1,25 @@
 Changelog
 =========
 
-1.7.2 (Unreleased)
+1.9.1 (Unreleased)
 ------------------
 - Fix: Refined media form handling
 - Fix #181: Soft-deleted galleries are no longer accessible via direct URL and now return 404
+
+1.9.0 (September 8, 2026)
+-------------------------
+- Enh #178: Send a single notification to announce all media files uploaded within a short period of time, rather than sending one notification per file (humhub/humhub#5334)
+
+1.8.1 (July 7, 2026)
+--------------------
+- Fix #175: Update user image
+
+1.8.0 (June 5, 2026)
+--------------------
+- Enh #164: Update for HumHub 1.19
+1.7.2 (Unreleased)
+------------------
+- Fix: Refined media form handling
 
 1.7.1 (May 6, 2026)
 -------------------

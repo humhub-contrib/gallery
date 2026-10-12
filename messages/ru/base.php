@@ -56,4 +56,7 @@ return [
     'In case the gallery is not visible for the current user, the snippet will use the latest accessible gallery instead.' => '',
     'Media' => '',
     'Show connected post' => '',
+    '{displayName} added {n,plural,=1{a media file} other{# media files}} to {contentTitle}.' => '',
+    '{originator} added {n,plural,=1{a media file} other{# media files}} to {contentTitle}' => '',
+    '{originator} added {n,plural,=1{a media file} other{# media files}} to {contentTitle} in Space {space}' => '',
 ];
