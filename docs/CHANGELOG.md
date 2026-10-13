@@ -1,8 +1,8 @@
 Changelog
 =========
 
-1.9.1 (Unreleased)
-------------------
+1.9.1 (October 13, 2026)
+------------------------
 - Fix: Refined media form handling
 - Fix #181: Soft-deleted galleries are no longer accessible via direct URL and now return 404
 
