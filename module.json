@@ -2,8 +2,12 @@
     "id": "gallery",
     "name": "Gallery",
     "description": "Adds galleries to Spaces and profiles.",
-    "keywords": ["gallery", "photo", "organisation"],
-    "version": "1.9.1",
+    "keywords": [
+        "gallery",
+        "photo",
+        "organisation"
+    ],
+    "version": "1.9.2",
     "humhub": {
         "minVersion": "1.19"
     },
@@ -18,7 +22,6 @@
         {
             "name": "Julian Harrer"
         }
-
     ],
     "screenshots": [
         "resources/screen1.PNG",

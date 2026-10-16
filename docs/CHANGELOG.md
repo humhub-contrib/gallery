@@ -1,6 +1,10 @@
 Changelog
 =========
 
+1.9.2 (Unreleased)
+------------------
+- Enh: Automated code refactoring for HumHub 1.19 using Rector
+
 1.9.1 (October 13, 2026)
 ------------------------
 - Fix: Refined media form handling
