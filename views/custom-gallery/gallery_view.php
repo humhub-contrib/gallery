@@ -24,7 +24,7 @@ $bundle = Assets::register($this);
 ?>
 <div id="gallery-container" class="panel panel-default">
 
-    <div class="panel-heading clearfix" style="background-color: var(--hh-background-color-secondary)">
+    <div class="panel-heading clearfix" style="background-color: var(--bs-tertiary-bg)">
         <div class="d-flex justify-content-between">
             <div class="mr-5">
                 <?= Yii::t('GalleryModule.base', '<strong>Gallery</strong> {title}', ['title' => Html::encode($gallery->title)]) ?>

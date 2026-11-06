@@ -1,6 +1,10 @@
 Changelog
 =========
 
+1.10.0 (Unreleased)
+-------------------
+- Enh: Colour tokens of the core 1.20 instead of the deprecated ones (humhub/humhub#8707)
+
 1.9.2 (Unreleased)
 ------------------
 - Enh: Automated code refactoring for HumHub 1.19 using Rector

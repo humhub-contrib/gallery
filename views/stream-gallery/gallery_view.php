@@ -33,7 +33,7 @@ $description = ($container instanceof Space)
 
 <div id="gallery-container" class="panel panel-default">
 
-    <div class="panel-heading" style="background-color: var(--hh-background-color-secondary)"><?= Yii::t('GalleryModule.base', '<strong>Gallery</strong> of posted media files') ?></div>
+    <div class="panel-heading" style="background-color: var(--bs-tertiary-bg)"><?= Yii::t('GalleryModule.base', '<strong>Gallery</strong> of posted media files') ?></div>
 
     <div class="panel-body">
         <div class="container gx-0 overflow-x-hidden">
