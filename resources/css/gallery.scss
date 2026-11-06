@@ -29,12 +29,12 @@ $font3: #555;
 
     .social-activities-gallery {
         font-size: 11px;
-        color: #7a7a7a;
+        color: var(--bs-secondary-color);
         line-height: 24px;
         margin-bottom: 0;
         a {
             font-size: 11px;
-            color: #7a7a7a;
+            color: var(--bs-secondary-color);
             margin-top: 10px;
             margin-bottom: 0;
 
@@ -244,7 +244,7 @@ body {
     padding: 0 0 56.25% 0;
     overflow: hidden;
     cursor: pointer;
-    background: #fff;
+    background: var(--bs-body-bg);
 }
 
 .red {
