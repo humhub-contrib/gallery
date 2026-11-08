@@ -1,5 +1,6 @@
 <?php
 
+use humhub\helpers\Html;
 use humhub\modules\gallery\assets\Assets;
 use humhub\modules\gallery\helpers\Url;
 use humhub\modules\gallery\models\BaseGallery;
@@ -23,7 +24,7 @@ $container = Yii::$app->controller->contentContainer;
             <div class="float-end">
                 <ul class="nav nav-pills">
                     <li class="nav-item btn-group dropdown">
-                        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#">
+                        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" aria-label="<?= Html::encode(Yii::t('GalleryModule.base', 'Gallery settings')) ?>">
                             <?= Icon::get('cog') ?>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end">

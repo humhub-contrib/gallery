@@ -144,11 +144,19 @@ $font3: #555;
                     }
 
                     .overlay {
-                        opacity: 0;
                         transition: opacity 0.5s ease-in-out;
                         -moz-transition: opacity 0.5s ease-in-out;
                         -webkit-transition: opacity 0.5s ease-in-out;
                         -o-transition: opacity 0.5s ease-in-out;
+                    }
+
+                    // Hidden until the entry is hovered or holds the focus (see below). Opacity, not
+                    // visibility: the links stay in the tab order. A touch screen has no hover and always
+                    // shows them.
+                    @media (hover: hover) {
+                        .overlay {
+                            opacity: 0;
+                        }
                     }
 
                     .panel-footer, .panel-heading {
@@ -220,7 +228,13 @@ $font3: #555;
                                 }
                             }
                         }
+                    }
+                }
 
+                // Heading and footer also show while the focus is inside, or while a dropdown is open
+                // (macOS Safari/Firefox do not focus a button on click)
+                &:hover, &:focus-within, &:has(.dropdown-menu.show) {
+                    .panel {
                         .panel-footer, .panel-heading {
                             opacity: 0.9;
                             -moz-opacity: 0.9;

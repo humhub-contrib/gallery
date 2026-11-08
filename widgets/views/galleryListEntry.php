@@ -71,7 +71,7 @@ $bundle = Assets::register($this);
                     <a href="<?= $creatorUrl ?>">
                         <img class="rounded tt img_margin"
                              src="<?= $creatorThumbnailUrl ?>"
-                             width="21" height="21" alt="21x21" data-src="holder.js/21x21"
+                             width="21" height="21" alt="<?= Html::encode($creatorName) ?>" data-src="holder.js/21x21"
                              style="width: 21px; height: 21px;"
                              data-bs-title="<?= Yii::t('GalleryModule.base', 'added by ') . $creatorName ?>"
                              data-placement="top" title="" data-bs-toggle="tooltip">
@@ -82,7 +82,7 @@ $bundle = Assets::register($this);
             <?php if ($wallUrl || $downloadUrl || ($writeAccess && ($deleteUrl || $editUrl))): ?>
                 <ul class="float-end nav nav-pills">
                     <li class="nav-item btn-group dropdown">
-                        <button class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#">
+                        <button type="button" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-label="<?= Html::encode(Yii::t('GalleryModule.base', 'Gallery actions')) ?>">
                         </button>
                         <ul class="dropdown-menu dropdown-menu-end">
                             <?php if ($wallUrl): ?>

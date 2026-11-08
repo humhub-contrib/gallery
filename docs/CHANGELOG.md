@@ -3,6 +3,7 @@ Changelog
 
 1.10.0 (Unreleased)
 -------------------
+- Fix: The gallery tile's menu and creator link appear on keyboard focus, and the menu buttons have names (humhub/humhub#8721)
 - Enh: Dark mode: hard-coded greys and light backgrounds became colour tokens of the core (humhub/humhub#8710)
 - Enh: Colour tokens of the core 1.20 instead of the deprecated ones (humhub/humhub#8707)
 

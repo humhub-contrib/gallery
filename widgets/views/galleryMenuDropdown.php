@@ -9,6 +9,7 @@
  * @author Sebastian Stumpf
  */
 
+use humhub\helpers\Html;
 use humhub\modules\file\widgets\UploadButton;
 use humhub\modules\ui\icon\widgets\Icon;
 
@@ -20,7 +21,7 @@ use humhub\modules\ui\icon\widgets\Icon;
 
 <ul class="nav nav-pills">
     <li class="nav-item btn-group dropdown">
-        <button class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#">
+        <button type="button" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-label="<?= Html::encode(Yii::t('GalleryModule.base', 'Gallery settings')) ?>">
             <?= Icon::get('cog') ?>
         </button>
         <ul class="dropdown-menu dropdown-menu-end">
