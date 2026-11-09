@@ -56,6 +56,8 @@ return [
     'Title' => 'Tytuł',
     'Upload' => 'Wczytaj',
     'added by ' => 'dodano przez',
+    'Gallery actions' => '',
+    'Gallery settings' => '',
     '{displayName} added {n,plural,=1{a media file} other{# media files}} to {contentTitle}.' => '',
     '{originator} added {n,plural,=1{a media file} other{# media files}} to {contentTitle}' => '',
     '{originator} added {n,plural,=1{a media file} other{# media files}} to {contentTitle} in Space {space}' => '',

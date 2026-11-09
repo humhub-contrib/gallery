@@ -52,6 +52,8 @@ return [
     'Choose snippet gallery' => '',
     'Do you really want to delete this item with all related content?' => '',
     'Don\'t show the gallery snippet in this space.' => '',
+    'Gallery actions' => '',
+    'Gallery settings' => '',
     'Gallery write access' => '',
     'In case the gallery is not visible for the current user, the snippet will use the latest accessible gallery instead.' => '',
     'Media' => '',
