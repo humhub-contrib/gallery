@@ -13,6 +13,7 @@ use humhub\modules\gallery\models\CustomGallery;
 use humhub\modules\gallery\models\Media;
 use humhub\modules\gallery\Module;
 use humhub\modules\gallery\notifications\MediasUploaded;
+use humhub\modules\notification\services\NotificationSpaceService;
 use humhub\modules\user\models\User;
 use Yii;
 
@@ -191,11 +192,20 @@ final class MediaUploadBatch
             return;
         }
 
-        MediasUploaded::instance()
-            ->from($user)
-            ->about($gallery)
-            ->mediaCount($mediaCount)
-            ->sendBulk(Yii::$app->notification->getFollowers($content));
+        $followers = (new NotificationSpaceService())->getFollowers($content);
+
+        if ($followers === null) {
+            return;
+        }
+
+        // Not deduplicated: every batch of the same user into the same gallery is announced
+        MediasUploaded::send(
+            $followers,
+            source: $gallery,
+            originator: $user,
+            payload: [MediasUploaded::PAYLOAD_MEDIA_COUNT => $mediaCount],
+            dedupe: false,
+        );
     }
 
     /**

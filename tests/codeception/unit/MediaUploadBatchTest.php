@@ -9,13 +9,14 @@
 namespace humhub\modules\gallery\tests\codeception\unit;
 
 use humhub\modules\content\models\Content;
-use humhub\modules\content\notifications\ContentCreated;
+use humhub\modules\content\notifications\ContentCreatedNotification;
 use humhub\modules\gallery\jobs\SendMediaUploadNotification;
 use humhub\modules\gallery\libs\MediaUploadBatch;
 use humhub\modules\gallery\models\CustomGallery;
 use humhub\modules\gallery\models\Media;
 use humhub\modules\gallery\Module;
 use humhub\modules\gallery\notifications\MediasUploaded;
+use humhub\modules\notification\components\NotificationManager;
 use humhub\modules\notification\models\Notification;
 use humhub\modules\queue\driver\Instant;
 use humhub\modules\queue\driver\MySQL;
@@ -142,7 +143,7 @@ class MediaUploadBatchTest extends HumHubDbTestCase
         $media = $this->upload(3);
 
         foreach ($media as $item) {
-            $this->assertHasNoNotification(ContentCreated::class, $item);
+            $this->assertHasNoNotification(ContentCreatedNotification::class, $item);
         }
 
         $this->assertSame(0, $this->countNotifications(), 'Nothing may be announced before the quiet period expired');
@@ -183,9 +184,9 @@ class MediaUploadBatchTest extends HumHubDbTestCase
         $this->assertSame(1, $this->countNotifications(), '5 uploaded files must result in exactly one notification');
         $this->assertMailSent(1);
 
-        $notification = Notification::find()->where(['class' => MediasUploaded::class])->one();
-        $this->assertSame('{"mediaCount":5}', $notification->payload);
-        $this->assertSame(User::findOne(['username' => self::UPLOADER])->id, $notification->originator_user_id);
+        $record = Notification::find()->where(['class' => MediasUploaded::class])->one();
+        $this->assertSame(5, NotificationManager::load($record)->payload[MediasUploaded::PAYLOAD_MEDIA_COUNT]);
+        $this->assertSame(User::findOne(['username' => self::UPLOADER])->id, (int)$record->originator_id);
 
         $this->assertTrue($this->batch()->isEmpty(), 'The batch must be closed after being announced');
     }
@@ -198,12 +199,16 @@ class MediaUploadBatchTest extends HumHubDbTestCase
         $this->runBatchJob();
 
         // The count only survives in the stored payload, the notification list re-renders from it
-        $notification = Notification::find()->where(['class' => MediasUploaded::class])->one();
-        $rendered = $notification->getBaseModel();
-        $rendered->getViewParams();
+        $notification = NotificationManager::load(Notification::find()->where(['class' => MediasUploaded::class])->one());
 
-        $this->assertSame(4, $rendered->getMediaCount());
-        $this->assertStringContainsString('4 media files', $rendered->html());
+        $this->assertSame(4, $notification->getMediaCount());
+        $this->assertStringContainsString('4 media files', $notification->asWeb());
+        $this->assertStringContainsString('Batch Test Gallery', $notification->asWeb());
+        $this->assertSame(
+            User::findOne(['username' => self::UPLOADER])->displayName . ' added 4 media files to Batch Test Gallery in Space ' . Space::findOne(self::SPACE_ID)->displayName,
+            $notification->asMailSubject(),
+        );
+        $this->assertSame('content', $notification::category()->id);
     }
 
     public function testASingleUploadIsAnnouncedInSingular()
@@ -213,11 +218,9 @@ class MediaUploadBatchTest extends HumHubDbTestCase
         $this->useInstantQueue();
         $this->runBatchJob();
 
-        $notification = Notification::find()->where(['class' => MediasUploaded::class])->one();
-        $rendered = $notification->getBaseModel();
-        $rendered->getViewParams();
+        $notification = NotificationManager::load(Notification::find()->where(['class' => MediasUploaded::class])->one());
 
-        $html = $rendered->html();
+        $html = $notification->asWeb();
         $this->assertStringContainsString('a media file', $html);
         $this->assertStringNotContainsString('1 media files', $html);
     }
