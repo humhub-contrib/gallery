@@ -86,7 +86,7 @@ class GalleryCest
          $I->see('Begin Task');
          $I->click('Begin Task');
          // Check for in progress badge
-         $I->waitForElementVisible('.badge-info .fa-edit', 10,'[data-task-id="1"]');
+         $I->waitForElementVisible('.ti-edit', 10,'[data-task-id="1"]');
 
          $I->click('[data-task-id="1"]');
          $I->waitForText('Finish Task');

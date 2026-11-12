@@ -66,7 +66,7 @@ $bundle = Assets::register($this);
             <?php if ($gallery->description): ?>
                 <div class="row clearfix" style="padding-bottom:5px;">
                     <div class="col-md-12 gallery-description">
-                        <i class="fa fa-arrow-circle-right"></i>
+                        <i class="ti ti-circle-arrow-right-filled"></i>
                         <?= Html::encode($gallery->description) ?>
                     </div>
                 </div>

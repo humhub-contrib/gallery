@@ -9,7 +9,7 @@
 namespace humhub\modules\gallery\controllers;
 
 use humhub\modules\gallery\models\StreamGallery;
-use humhub\modules\stream\actions\Stream;
+use humhub\modules\content\actions\Stream;
 use Yii;
 use yii\web\HttpException;
 use yii\web\NotFoundHttpException;

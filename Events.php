@@ -14,7 +14,7 @@ use humhub\modules\gallery\models\forms\ContainerSettings;
 use humhub\modules\gallery\widgets\GallerySnippet;
 use humhub\modules\space\widgets\Menu;
 use humhub\modules\space\widgets\Sidebar as SpaceSidebar;
-use humhub\modules\ui\menu\MenuLink;
+use humhub\widgets\menu\MenuLink;
 use humhub\modules\user\widgets\ProfileMenu;
 use humhub\modules\user\widgets\ProfileSidebar;
 use Yii;
@@ -38,7 +38,7 @@ class Events
                 $menu->addEntry(new MenuLink([
                     'label' => Yii::t('GalleryModule.base', 'Gallery'),
                     'url' => Url::toGalleryOverview($menu->space),
-                    'icon' => 'picture-o',
+                    'icon' => 'photo',
                     'isActive' => ControllerHelper::isActivePath('gallery'),
                 ]));
             }
@@ -80,7 +80,7 @@ class Events
                 $menu->addEntry(new MenuLink([
                     'label' => Yii::t('GalleryModule.base', 'Gallery'),
                     'url' => Url::toGalleryOverview($menu->user),
-                    'icon' => 'picture-o',
+                    'icon' => 'photo',
                     'isActive' => ControllerHelper::isActivePath('gallery'),
                 ]));
             }

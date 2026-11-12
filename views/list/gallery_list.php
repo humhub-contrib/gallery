@@ -5,7 +5,7 @@ use humhub\modules\gallery\assets\Assets;
 use humhub\modules\gallery\helpers\Url;
 use humhub\modules\gallery\models\BaseGallery;
 use humhub\modules\gallery\widgets\GalleryList;
-use humhub\modules\ui\icon\widgets\Icon;
+use humhub\widgets\Icon;
 use humhub\widgets\bootstrap\Link;
 
 /* @var BaseGallery[] $galleries*/
@@ -25,14 +25,14 @@ $container = Yii::$app->controller->contentContainer;
                 <ul class="nav nav-pills">
                     <li class="nav-item btn-group dropdown">
                         <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" aria-label="<?= Html::encode(Yii::t('GalleryModule.base', 'Gallery settings')) ?>">
-                            <?= Icon::get('cog') ?>
+                            <?= Icon::get('settings') ?>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end">
 
                                 <?php if ($isAdmin): ?>
                                     <li>
                                         <?= Link::to(Yii::t('GalleryModule.base', 'Settings'), Url::toModuleConfig($container))
-                                            ->icon('cogs')
+                                            ->icon('settings')
                                             ->cssClass('dropdown-item') ?>
                                     </li>
                                 <?php endif; ?>

@@ -8,15 +8,15 @@
 
 use humhub\helpers\Html;
 
-$extraMenus = ($isAdmin) ? '<li><a href="'.$settingsUrl.'"><i class="fa fa-cogs"></i> '. Yii::t('GalleryModule.base', 'Settings') .'</a></li>' : '';
-$extraMenus .= '<li><a href="'.$galleryUrl.'"><i class="fa fa-arrow-circle-right"></i> '. Yii::t('GalleryModule.base', 'Open Gallery') .'</a></li>';
+$extraMenus = ($isAdmin) ? '<li><a href="'.$settingsUrl.'"><i class="ti ti-settings"></i> '. Yii::t('GalleryModule.base', 'Settings') .'</a></li>' : '';
+$extraMenus .= '<li><a href="'.$galleryUrl.'"><i class="ti ti-circle-arrow-right-filled"></i> '. Yii::t('GalleryModule.base', 'Open Gallery') .'</a></li>';
 
 
 ?>
 
 <div class="panel panel-default" id="space-gallery-snippet">
     <div class="panel-heading">
-        <i class="fa fa-picture-o"></i> <strong><?= Yii::t('GalleryModule.base', 'Gallery') ?></strong>
+        <i class="ti ti-photo"></i> <strong><?= Yii::t('GalleryModule.base', 'Gallery') ?></strong>
         <?= \humhub\widgets\PanelMenu::widget(['id' => 'space-gallery-snippet', 'extraMenus' => $extraMenus]); ?>
     </div>
     <div class="panel-body">

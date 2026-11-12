@@ -39,7 +39,7 @@ $description = ($container instanceof Space)
         <div class="container gx-0 overflow-x-hidden">
             <div class="row">
                 <div class="col-md-12 gallery-description">
-                    <i class="fa fa-arrow-circle-right"></i>
+                    <i class="ti ti-circle-arrow-right-filled"></i>
                     <?= Html::encode($description) ?>
                     <?= Button::back(Url::toGalleryOverview($container), Yii::t('GalleryModule.base', 'Back to overview'))->right()->sm() ?>
                 </div>

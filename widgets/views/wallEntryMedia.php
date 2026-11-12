@@ -29,7 +29,7 @@ WallEntryAssets::register($this);
     <?php if ($previewImage->applyFile($media->baseFile)): ?>
         <?= $previewImage->renderGalleryLink(['style' => 'padding-right:12px']); ?>
     <?php else: ?>
-        <i class="fa <?= $media->getIcon(); ?> fa-fw" style="font-size:40px"></i>
+        <i class="ti ti-<?= $media->getIcon(); ?>" style="font-size:40px"></i>
     <?php endif; ?>
 </div>
 

@@ -27,7 +27,7 @@ $bundle = Assets::register($this);
         </div>
         <div class="panel-heading background-none">
             <a class="bg-success" <?= Html::renderTagAttributes($htmlOptions) ?> href="<?= $addActionUrl ?>">
-                <span class="float-start"><i class="fa fa-plus"></i> <?= $title ?></span>
+                <span class="float-start"><i class="ti ti-plus"></i> <?= $title ?></span>
             </a>
         </div>
     </div>

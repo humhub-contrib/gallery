@@ -213,7 +213,7 @@ class Media extends ContentActiveRecord
 
     public function getIcon()
     {
-        return 'fa-picture-o';
+        return 'photo';
     }
 
     /**

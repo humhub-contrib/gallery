@@ -12,7 +12,7 @@
 use humhub\modules\comment\widgets\CommentLink;
 use humhub\modules\content\widgets\ContentObjectLinks;
 use humhub\modules\gallery\assets\Assets;
-use humhub\modules\ui\icon\widgets\Icon;
+use humhub\widgets\Icon;
 use humhub\widgets\bootstrap\Link;
 use yii\helpers\Html;
 
@@ -46,7 +46,7 @@ $bundle = Assets::register($this);
                 <?php endif; ?>>
                 <img class="gallery-img d-none <?= $imagePadding ? 'padding15perc' : '' ?>" src="<?= $thumbnailUrl ?>"
                      alt="<?= Html::encode($title) ?>" />
-                <span class="overlay"><?= Icon::get('arrows-alt') ?></span>
+                <span class="overlay"><?= Icon::get('arrows-maximize') ?></span>
             </a>
         </div>
         <div class="panel-footer overlay">
@@ -118,7 +118,7 @@ $bundle = Assets::register($this);
                                             Yii::t('GalleryModule.base', '<strong>Confirm</strong> delete item'),
                                             Yii::t('GalleryModule.base', 'Do you really want to delete this item with all related content?'),
                                         )
-                                        ->icon('trash')
+                                        ->icon('trash-filled')
                                         ->cssClass('dropdown-item') ?>
                                 </li>
                             <?php endif; ?>
